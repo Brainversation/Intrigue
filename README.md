@@ -37,7 +37,7 @@
 
 ##Destroy local copy:
 
-1.  Make sure you are on a different branch then the one you will be deleting: `git status`
+1.  Make sure you are on a different branch than the one you will be deleting: `git status`
 2.  If on that branch: `git checkout <Other Branch>`
 3.  `git branch -d <Branch Name>`
 
