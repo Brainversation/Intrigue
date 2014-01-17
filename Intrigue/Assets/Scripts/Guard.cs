@@ -35,6 +35,8 @@ public class Guard : MonoBehaviour
 				}
 
 			} else {
+				
+				/*
 				GetComponentInChildren<Camera>().enabled = false;
 				GetComponentInChildren<AudioListener>().enabled = false;
 				GetComponentInChildren<MouseLook>().enabled = false; 
@@ -42,6 +44,8 @@ public class Guard : MonoBehaviour
 				GetComponent<MouseLook>().enabled = false;
 				GetComponent<CharacterMotor>().enabled = false;
 				enabled = false;
+				UNCOMMENT THIS ONCE IT IS ATTACHED TO A CHARACTER
+				*/
 			}
 		}
 

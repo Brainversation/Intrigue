@@ -19,6 +19,7 @@ public class Spy : MonoBehaviour
 			}
 		} 
 		else {
+			/*
 			GetComponentInChildren<Camera>().enabled = false; 
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<MouseLook>().enabled = false; 
@@ -26,6 +27,8 @@ public class Spy : MonoBehaviour
 			GetComponent<MouseLook>().enabled = false;
 			GetComponent<CharacterMotor>().enabled = false;
 			enabled = false;
+			UNCOMMENT THIS ONCE IT HAS BEEN ATTACHED TO A CHARACTER
+			*/
 		}
 	}
 
@@ -58,10 +61,11 @@ public class Spy : MonoBehaviour
 		GameObject[] spies = GameObject.FindGameObjectsWithTag("Spy");
 		foreach (GameObject spy in spies){
 			if ( (spy.GetComponent<NetworkView>().viewID) != networkView.viewID ){
-				Camera camRef = GetComponentInChildren<Camera>().transform;
+				Transform camRef = GetComponentInChildren<Camera>().transform;
 				camRef.parent = spy.transform;
 				Intrigue.isSpectating = true;
-				camRef.position = spy.transform.position + Vector3(0.1499996,0.5277554,0);
+				Vector3 camHeightFix = new Vector3(0.1499996f,0.5277554f,0.0f);
+				camRef.position = spy.transform.position + camHeightFix;
 				camRef.rotation = spy.transform.rotation;
 				break;
 				}
