@@ -124,14 +124,14 @@ public class Guard : MonoBehaviour
 					networkView.RPC("guardFailed", RPCMode.Server);
 					if (Network.isServer) --Intrigue.numGuardsLeft;
 
-					GameObject[] = guards;
-					guards = GameObject.FindGameObjectsWithTag("Guard");
+					GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
 					foreach (GameObject guard in guards){
-						if ((guard.GetComponent(NetworkView).viewID) != networkView.viewID){
-							var camRef = GetComponentInChildren(Camera).transform;
+						if ((guard.GetComponent<NetworkView>().viewID) != networkView.viewID){
+							Transform camRef = GetComponentInChildren<Camera>().transform;
 							camRef.parent = guard.transform;
 							Intrigue.isSpectating = true;
-							camRef.position = guard.transform.position + Vector3(0.1499996,0.5277554,0);
+							Vector3 camHeightFix = new Vector3(0.1499996f,0.5277554f,0.0f);
+							camRef.position = guard.transform.position + camHeightFix;
 							camRef.rotation = guard.transform.rotation;
 							break;
 						}
