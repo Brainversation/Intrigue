@@ -115,7 +115,7 @@ public class Guard : MonoBehaviour
 				if(accused != null && accused.CompareTag("Spy")){
 					print("You found a spy!");
 					networkView.RPC("spyCaught", RPCMode.Server);
-					if (Network.isServer){--Intrigue.numSpiesLeft;}
+					// if (Network.isServer){--Intrigue.numSpiesLeft;}
 					NetworkView netView = accused.GetComponent<NetworkView>();
 					Debug.Log("accused viewID " + netView.viewID + " owner " + netView.viewID.owner);
 					Spy spyScript = accused.GetComponent<Spy>();
@@ -126,7 +126,7 @@ public class Guard : MonoBehaviour
 					print("You accused a guest! You have been relieved of duty.");
 
 					networkView.RPC("guardFailed", RPCMode.Server);
-					if (Network.isServer) --Intrigue.numGuardsLeft;
+					// if (Network.isServer) --Intrigue.numGuardsLeft;
 
 					GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
 					foreach (GameObject guard in guards){
