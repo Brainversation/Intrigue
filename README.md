@@ -44,9 +44,8 @@ Constant type - ALL CAPS
 6.  `git pull origin tempdev`
 7.  Start test
 
-##Done with task/branch, ready to merge into dev:
+##Done with task/branch, ready to merge into dev:  
 
-(test if like pull request insted?)  
 1.  `git checkout t_<Branch Name>`
 2.  `git pull --rebase origin dev`
 3.  `git checkout dev`
