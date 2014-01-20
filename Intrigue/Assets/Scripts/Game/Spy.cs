@@ -14,20 +14,14 @@ public class Spy : MonoBehaviour
 
 		if(photonView.isMine){
 			Debug.Log("Spy");
-			Yielder(1);
-			GameObject[] spies = GameObject.FindGameObjectsWithTag("Spy");
-			foreach(GameObject spy in spies){
-				spy.renderer.material.SetColor("_Color", Color.red);
-			}
 		} 
 		else {
 			GetComponentInChildren<Camera>().enabled = false; 
 			GetComponentInChildren<AudioListener>().enabled = false;
+			GetComponentInChildren<MovementController>().enabled = false;
 			GetComponentInChildren<MouseLook>().enabled = false; 
 			GetComponent<MouseLook>().enabled = false;
 			enabled = false;
-
-			
 		}
 	}
 

@@ -25,30 +25,26 @@ public class Guard : MonoBehaviour
 				Debug.Log( "Guard" );
 				
 				//Highlights Teammates
-				Yielder(1);
-				GameObject[] guards = GameObject.FindGameObjectsWithTag( "Guard" );
-				
+				Yielder(1);				
 				//Debug.Log("Number of allies to color: "+guards.Length);
-				foreach( GameObject guard in guards ){
+
 					/* 
 					<---------------------------------->
 					NEED TO FIND WAY TO HIGHLIGHT ALLIES
 					<---------------------------------->
 					*/
-				}
+
 
 			} else {
 				
-				/*
-				GetComponentInChildren<Camera>().enabled = false;
+				Debug.Log("Guard Deactivated");
+				GetComponentInChildren<Camera>().enabled = false; 
 				GetComponentInChildren<AudioListener>().enabled = false;
+				GetComponentInChildren<MovementController>().enabled = false;
 				GetComponentInChildren<MouseLook>().enabled = false; 
-				GetComponentInChildren<FPSInputController>().enabled = false; 
 				GetComponent<MouseLook>().enabled = false;
-				GetComponent<CharacterMotor>().enabled = false;
 				enabled = false;
-				UNCOMMENT THIS ONCE IT IS ATTACHED TO A CHARACTER
-				*/
+			
 			}
 		}
 

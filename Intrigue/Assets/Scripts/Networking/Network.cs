@@ -21,7 +21,7 @@ public class Network : MonoBehaviour {
 
 		this.player = PhotonNetwork.Instantiate(
 						"Test_Player_"+PlayerPrefs.GetString("Team"),
-						new Vector3(0 + 5*(PhotonNetwork.playerList.Length-1), 1, 0),
+						new Vector3(0, 1, 0),
 						Quaternion.identity, 0);
 	}
 	

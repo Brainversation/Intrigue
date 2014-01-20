@@ -48,12 +48,11 @@ public class PregameLobby : MonoBehaviour {
 				 Event.current.character == '\n' &&
 				 GUI.GetNameOfFocusedControl() == "ChatBox") ) 
 				&& textField != ""  ){ 
-				photonView.RPC("recieveMessage", PhotonTargets.All, textField);
+				photonView.RPC("recieveMessage", PhotonTargets.AllBuffered, textField);
 				textField = "";
 				this.scrollPositionChat.y = Mathf.Infinity;
 			}
 			if( GUILayout.Button( "Leave Room" ) ){
-				PhotonNetwork.Destroy(cube);
 				PhotonNetwork.LeaveRoom();
 			}
 			if(GUILayout.Button( "Play as Spy")){
@@ -62,10 +61,10 @@ public class PregameLobby : MonoBehaviour {
 			if(GUILayout.Button( "Play as Guard")){
 				PlayerPrefs.SetString( "Team", "Guard");
 			}
-			if(GUILayout.Button( "PLAY INTRIGUE") && PlayerPrefs.GetString("Team")!="Undecided"){
-				PhotonNetwork.isMessageQueueRunning = false;
-				Application.LoadLevel("Intrigue");
-			}
+			if( PhotonNetwork.isMasterClient )
+				if(GUILayout.Button( "PLAY INTRIGUE") && PlayerPrefs.GetString("Team")!="Undecided"){
+					photonView.RPC("go", PhotonTargets.AllBuffered);
+				}
 		}
 	}
 
@@ -80,5 +79,11 @@ public class PregameLobby : MonoBehaviour {
 	[RPC]
 	public void recieveMessage(string s){
 		this.chatBox += PhotonNetwork.player.ID + ": " + s + "\n";
+	}
+	
+	[RPC]
+	public void go(){
+		PhotonNetwork.isMessageQueueRunning = false;
+		Application.LoadLevel("Intrigue");
 	}
 }

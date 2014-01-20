@@ -11,23 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b51608f6a3a4584d87dc9aecf104cfd, type: 3}
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
-  HostType: 2
-  ServerAddress: 74.91.118.175
+  HostType: 0
+  ServerAddress: 127.0.0.1
   ServerPort: 5055
-  AppID: Master
-  RpcList:
-  - InstantiateRpc
-  - OnAwakeRPC
-  - DestroyRpc
-  - sendMessage
-  - spyCaught
-  - guardFailed
-  - moveCamera
-  - recieveMessage
-  - syncPercent
-  - objectiveComplete
-  - playSound
-  - addSpy
-  - addGuard
-  - gameOver
+  AppID: 
+  RpcList: []
   DisableAutoOpenWizard: 0
