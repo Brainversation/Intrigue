@@ -11,10 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b51608f6a3a4584d87dc9aecf104cfd, type: 3}
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
-  HostType: 1
-  ServerAddress: app-us.exitgamescloud.com
+  HostType: 2
+  ServerAddress: 74.91.118.175
   ServerPort: 5055
-  AppID: 65d6dc2b-4559-4a4e-b305-bb6de0e511c3
+  AppID: Master
   RpcList:
   - InstantiateRpc
   - OnAwakeRPC
