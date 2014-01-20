@@ -54,7 +54,7 @@ Constant type - ALL CAPS
 
 ##Destroy backup copy on remote of your branch:
 
--  `git push origin :t_"Branch Name"`
+-  `git push origin :t_<Branch Name>`
 
 ##Destroy local copy:
 
