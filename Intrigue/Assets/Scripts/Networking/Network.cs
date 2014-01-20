@@ -3,28 +3,34 @@ using System.Collections;
 
 public class Network : MonoBehaviour {
 
-	private string textField = "";
-	private string chatBox = "";
 	private PhotonView photonView = null;
 	private Vector2 scrollPositionChat = new Vector2(0, 0);
 	private GUIStyle styleChat = new GUIStyle();
-
+	private GameObject cube = null;
+	private string chatBox = "";
+	private string textField = "";
 
 	// Look up how to disconnect
 	void Start () {
-		// What Photon settings to use and the version number
-		PhotonNetwork.ConnectUsingSettings("0.1");
-
+		PhotonNetwork.isMessageQueueRunning = true;
 		// Get photonView component
 		photonView = PhotonView.Get(this);
 
 		this.styleChat.fontSize = 12;
 		this.styleChat.normal.textColor = Color.white;
+
+		this.cube = PhotonNetwork.Instantiate(
+						"Cube",
+						new Vector3(0 + 5*(PhotonNetwork.playerList.Length-1), 0, 0),
+						Quaternion.identity, 0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		if( PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby ){
+			PhotonNetwork.isMessageQueueRunning = false;
+			Application.LoadLevel("MainMenu");
+		}
 	}
 
 	void OnGUI(){
@@ -35,44 +41,30 @@ public class Network : MonoBehaviour {
 		GUILayout.Label( "Are You Master Server??" + PhotonNetwork.isMasterClient );
 		
 		//Checks state of connection: Look up PeerState
-		if (PhotonNetwork.connectionStateDetailed == PeerState.Joined){
+		if( PhotonNetwork.connectionStateDetailed == PeerState.Joined ){
 			//Chat Box
-			scrollPositionChat = GUILayout.BeginScrollView(scrollPositionChat, GUILayout.Width ( Screen.width / 2 - 400), GUILayout.MaxHeight(190), GUILayout.ExpandHeight (false));
+			this.scrollPositionChat = GUILayout.BeginScrollView(this.scrollPositionChat, GUILayout.Width ( Screen.width/4 ), GUILayout.MaxHeight(190), GUILayout.ExpandHeight (false));
 			GUI.skin.box.alignment = TextAnchor.UpperLeft;
-			GUILayout.Box(this.chatBox, this.styleChat, GUILayout.ExpandHeight (true));
+			GUILayout.Box(this.chatBox, this.styleChat, GUILayout.ExpandHeight(true));
 			GUILayout.EndScrollView();
 
-			textField = GUILayout.TextField( textField, 25 );
-			if( GUILayout.Button("Send") && textField != "" ){ 
+
+			GUI.SetNextControlName ("ChatBox");
+			textField = GUILayout.TextField( textField, 100 );
+			if( ( GUILayout.Button("Send") ||
+				(Event.current.type == EventType.keyDown && 
+				 Event.current.character == '\n' &&
+				 GUI.GetNameOfFocusedControl() == "ChatBox") ) 
+				&& textField != ""  ){ 
 				photonView.RPC("recieveMessage", PhotonTargets.All, textField);
 				textField = "";
+				this.scrollPositionChat.y = Mathf.Infinity;
 			}
-		} else {
-			if( GUILayout.Button("Create Room") ){
-			PhotonNetwork.CreateRoom("Intrigue");
-			}
-
-			foreach(RoomInfo room in PhotonNetwork.GetRoomList())
-			{
-				if(GUILayout.Button(room.name + " " + room.playerCount + "/" + room.maxPlayers)){
-					PhotonNetwork.JoinRoom(room.name);
-				}
+			if( GUILayout.Button( "Leave Room" ) ){
+				PhotonNetwork.Destroy(cube);
+				PhotonNetwork.LeaveRoom();
 			}
 		}
-	}
-
-	// Called after joining a room
-	void OnJoinedLobby(){
-		Debug.Log("joined lobby");
-	}
-
-	void OnJoinedRoom(){
-		Debug.Log("joined room");
-	}
-
-	void OnPhotonJoinFailed()
-	{
-		Debug.Log("FAIL");
 	}
 
 	void OnPhotonPlayerDisconnected(PhotonPlayer player){
