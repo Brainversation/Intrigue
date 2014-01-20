@@ -1,36 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Network : MonoBehaviour {
+public class PregameLobby : MonoBehaviour {
 
 	private PhotonView photonView = null;
 	private Vector2 scrollPositionChat = new Vector2(0, 0);
 	private GUIStyle styleChat = new GUIStyle();
-	private GameObject player = null;
+	private GameObject cube = null;
 	private string chatBox = "";
 	private string textField = "";
 
-	// Look up how to disconnect
+	// Use this for initialization
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
 		// Get photonView component
 		photonView = PhotonView.Get(this);
-
 		this.styleChat.fontSize = 12;
 		this.styleChat.normal.textColor = Color.white;
-
-		this.player = PhotonNetwork.Instantiate(
-						"Test_Player_"+PlayerPrefs.GetString("Team"),
-						new Vector3(0 + 5*(PhotonNetwork.playerList.Length-1), 1, 0),
-						Quaternion.identity, 0);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if( PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby ){
-			PhotonNetwork.isMessageQueueRunning = false;
-			Application.LoadLevel("MainMenu");
-		}
+	
 	}
 
 	void OnGUI(){
@@ -39,7 +30,7 @@ public class Network : MonoBehaviour {
 		GUILayout.Label( "Player Count:" + PhotonNetwork.playerList.Length );
 		GUILayout.Label( "Your Id: " + PhotonNetwork.player.ID );
 		GUILayout.Label( "Are You Master Server??" + PhotonNetwork.isMasterClient );
-		GUILayout.Label( "Team: "+PlayerPrefs.GetString("Team"));
+		GUILayout.Label( "Team: "+ PlayerPrefs.GetString("Team","Undecided"));
 		
 		//Checks state of connection: Look up PeerState
 		if( PhotonNetwork.connectionStateDetailed == PeerState.Joined ){
@@ -62,8 +53,18 @@ public class Network : MonoBehaviour {
 				this.scrollPositionChat.y = Mathf.Infinity;
 			}
 			if( GUILayout.Button( "Leave Room" ) ){
-				PhotonNetwork.Destroy(player);
+				PhotonNetwork.Destroy(cube);
 				PhotonNetwork.LeaveRoom();
+			}
+			if(GUILayout.Button( "Play as Spy")){
+				PlayerPrefs.SetString("Team","Spy");
+			}
+			if(GUILayout.Button( "Play as Guard")){
+				PlayerPrefs.SetString( "Team", "Guard");
+			}
+			if(GUILayout.Button( "PLAY INTRIGUE") && PlayerPrefs.GetString("Team")!="Undecided"){
+				PhotonNetwork.isMessageQueueRunning = false;
+				Application.LoadLevel("Intrigue");
 			}
 		}
 	}

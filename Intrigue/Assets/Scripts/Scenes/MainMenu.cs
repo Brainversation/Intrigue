@@ -50,7 +50,7 @@ public class MainMenu : MonoBehaviour {
 	void OnJoinedRoom(){
 		Debug.Log("joined room");
 		PhotonNetwork.isMessageQueueRunning = false;
-		Application.LoadLevel("Intrigue");
+		Application.LoadLevel("PregameLobby");
 	}
 
 	void OnPhotonJoinFailed()

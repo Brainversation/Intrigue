@@ -6,6 +6,7 @@ public class Guard : MonoBehaviour
     
 	bool accusing = false;
 	GameObject accused;
+	private PhotonView photonView = null;
 
 
 
@@ -17,7 +18,9 @@ public class Guard : MonoBehaviour
 
 		void Start(){
 			
-			if(networkView.isMine){
+			photonView = PhotonView.Get(this);
+
+			if(photonView.isMine){
 				
 				Debug.Log( "Guard" );
 				
@@ -112,37 +115,9 @@ public class Guard : MonoBehaviour
 			void testAccusation(){
 				
 				//Accused Spy
-				if(accused != null && accused.CompareTag("Spy")){
-					print("You found a spy!");
-					networkView.RPC("spyCaught", RPCMode.Server);
-					// if (Network.isServer){--Intrigue.numSpiesLeft;}
-					NetworkView netView = accused.GetComponent<NetworkView>();
-					Debug.Log("accused viewID " + netView.viewID + " owner " + netView.viewID.owner);
-					Spy spyScript = accused.GetComponent<Spy>();
-					spyScript.callRPC(netView.viewID);
-				}
+		
 				//Accused Guest
-				else {
-					print("You accused a guest! You have been relieved of duty.");
-
-					networkView.RPC("guardFailed", RPCMode.Server);
-					// if (Network.isServer) --Intrigue.numGuardsLeft;
-
-					GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
-					foreach (GameObject guard in guards){
-						if ((guard.GetComponent<NetworkView>().viewID) != networkView.viewID){
-							Transform camRef = GetComponentInChildren<Camera>().transform;
-							camRef.parent = guard.transform;
-							Intrigue.isSpectating = true;
-							Vector3 camHeightFix = new Vector3(0.1499996f,0.5277554f,0.0f);
-							camRef.position = guard.transform.position + camHeightFix;
-							camRef.rotation = guard.transform.rotation;
-							break;
-						}
-					
-					}
-					Network.Destroy(this.gameObject);
-				}
+	
 			}
 
 			void OnNetworkInstantiate (NetworkMessageInfo info) {
