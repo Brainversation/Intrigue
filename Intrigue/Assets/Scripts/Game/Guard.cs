@@ -23,16 +23,6 @@ public class Guard : MonoBehaviour
 			if(photonView.isMine){
 				
 				Debug.Log( "Guard" );
-				
-				//Highlights Teammates
-				Yielder(1);				
-				//Debug.Log("Number of allies to color: "+guards.Length);
-
-					/* 
-					<---------------------------------->
-					NEED TO FIND WAY TO HIGHLIGHT ALLIES
-					<---------------------------------->
-					*/
 
 
 			} else {
@@ -99,7 +89,7 @@ public class Guard : MonoBehaviour
 	
 
 				if ( Input.GetKeyUp (KeyCode.E) && !accusing ){
-						if (Physics.Raycast (transform.position, fwd,out hit, 5)) {
+						if (Physics.Raycast (transform.position, fwd,out hit, 8)) {
 							if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
 									accusing = true;
 									accused = hit.transform.gameObject;
@@ -108,12 +98,27 @@ public class Guard : MonoBehaviour
 				}	
 			}
 
+			void OnGUI(){
+				GUI.skin.label.fontSize = 20;
+				GUI.color = Color.black;
+					if(accusing){
+						GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100),"E to Confirm Accusation \nSpace to Cancel.");
+							if(Input.GetKeyUp(KeyCode.E)){
+								accusing = false;
+								testAccusation();
+							}
+							if(Input.GetKeyUp(KeyCode.Space)){
+								accusing = false;
+							}
+					}
+			}
+
 			void testAccusation(){
-				
-				//Accused Spy
-		
-				//Accused Guest
-	
+				if(accused != null && accused.CompareTag("Spy")){
+					Debug.Log("You found a spy!");
+				}
+				else
+					Debug.Log("You dun goofed");
 			}
 
 			void OnNetworkInstantiate (NetworkMessageInfo info) {

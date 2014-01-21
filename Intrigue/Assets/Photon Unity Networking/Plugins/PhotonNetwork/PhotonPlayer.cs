@@ -34,6 +34,8 @@ public class PhotonPlayer
 
     private string nameField = "";
 
+    private int score = 0;
+
     /// <summary>Nickname of this player.</summary>
     public string name {
         get
@@ -96,6 +98,7 @@ public class PhotonPlayer
         this.isLocal = isLocal;
         this.actorID = actorID;
         this.nameField = name;
+        this.score = 0;
     }
 
     /// <summary>
@@ -199,6 +202,20 @@ public class PhotonPlayer
             PhotonNetwork.networkingPeer.OpSetCustomPropertiesOfActor(this.actorID, customProps, true, 0);
         }
         NetworkingPeer.SendMonoMessage(PhotonNetworkingMessage.OnPhotonPlayerPropertiesChanged, this);
+    }
+    
+    public int Score {
+        get {
+            return this.score;
+        }
+        set {
+            if (!isLocal)
+            {
+                Debug.LogError("Error: Cannot change the score of a remote player!");
+                return;
+            }
+            this.score = value;
+        }
     }
 
     /// <summary>

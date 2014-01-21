@@ -14,6 +14,18 @@ MonoBehaviour:
   HostType: 0
   ServerAddress: 127.0.0.1
   ServerPort: 5055
-  AppID: 
-  RpcList: []
+  AppID: Master
+  RpcList:
+  - InstantiateRpc
+  - OnAwakeRPC
+  - DestroyRpc
+  - sendMessage
+  - spyCaught
+  - guardFailed
+  - moveCamera
+  - recieveMessage
+  - addSpy
+  - addGuard
+  - gameOver
+  - go
   DisableAutoOpenWizard: 0
