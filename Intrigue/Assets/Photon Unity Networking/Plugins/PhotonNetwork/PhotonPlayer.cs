@@ -35,6 +35,7 @@ public class PhotonPlayer
     private string nameField = "";
 
     private int score = 0;
+    private string team = "";
 
     /// <summary>Nickname of this player.</summary>
     public string name {
@@ -99,6 +100,7 @@ public class PhotonPlayer
         this.actorID = actorID;
         this.nameField = name;
         this.score = 0;
+        this.team = "";
     }
 
     /// <summary>
@@ -215,6 +217,20 @@ public class PhotonPlayer
                 return;
             }
             this.score = value;
+        }
+    }
+
+    public string Team {
+        get {
+            return this.team;
+        }
+        set {
+            if (!isLocal)
+            {
+                Debug.LogError("Error: Cannot change the team of a remote player!");
+                return;
+            }
+            this.team = value;
         }
     }
 

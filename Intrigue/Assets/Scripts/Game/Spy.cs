@@ -30,6 +30,7 @@ public class Spy : MonoBehaviour
 	}
 
 	void OnGUI() {
+		GUILayout.Label( "Team: "+ photonView.owner.Team );
 		GUI.skin.label.fontSize = 20;
 		GUI.color = Color.black;
 		GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", photonView.owner.Score) );
@@ -48,19 +49,10 @@ public class Spy : MonoBehaviour
 		}
 	}
 
-	void OnNetworkInstantiate ( NetworkMessageInfo info ) {
-			Debug.Log("New object instantiated by " + info.sender);
-	}
-
-	
-	[RPC]
-	void sendMessage( string text, NetworkMessageInfo info ){
-	    Debug.Log(text + " from " + info.sender);
-	}
-
 
 	void OnDestory(){
-		GameObject[] spies = GameObject.FindGameObjectsWithTag("Spy");
+		Debug.Log("Getting Destroyed");
+		/*GameObject[] spies = GameObject.FindGameObjectsWithTag("Spy");
 		foreach (GameObject spy in spies){
 				Transform camRef = GetComponentInChildren<Camera>().transform;
 				camRef.parent = spy.transform;
@@ -69,7 +61,13 @@ public class Spy : MonoBehaviour
 				camRef.position = spy.transform.position + camHeightFix;
 				camRef.rotation = spy.transform.rotation;
 				break;
-		}
+		}*/
 
+	}
+
+	
+	[RPC]
+	void sendMessage( string text, NetworkMessageInfo info ){
+	    Debug.Log(text + " from " + info.sender);
 	}
 }

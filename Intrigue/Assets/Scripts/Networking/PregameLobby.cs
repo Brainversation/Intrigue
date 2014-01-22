@@ -9,12 +9,13 @@ public class PregameLobby : MonoBehaviour {
 	private GameObject cube = null;
 	private string chatBox = "";
 	private string textField = "";
+	public static string team = "";
 
 	// Use this for initialization
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
 		// Get photonView component
-		photonView = PhotonView.Get(this);
+		this.photonView = PhotonView.Get(this);
 		this.styleChat.fontSize = 12;
 		this.styleChat.normal.textColor = Color.white;
 	}
@@ -30,7 +31,7 @@ public class PregameLobby : MonoBehaviour {
 		GUILayout.Label( "Player Count:" + PhotonNetwork.playerList.Length );
 		GUILayout.Label( "Your Id: " + PhotonNetwork.player.ID );
 		GUILayout.Label( "Are You Master Server??" + PhotonNetwork.isMasterClient );
-		GUILayout.Label( "Team: "+ PlayerPrefs.GetString("Team","Undecided"));
+		GUILayout.Label( "Team: "+ team);
 		
 		//Checks state of connection: Look up PeerState
 		if( PhotonNetwork.connectionStateDetailed == PeerState.Joined ){
@@ -56,10 +57,10 @@ public class PregameLobby : MonoBehaviour {
 				PhotonNetwork.LeaveRoom();
 			}
 			if(GUILayout.Button( "Play as Spy")){
-				PlayerPrefs.SetString("Team","Spy");
+				team = "Spy";
 			}
 			if(GUILayout.Button( "Play as Guard")){
-				PlayerPrefs.SetString( "Team", "Guard");
+				team = "Guard";
 			}
 			if( PhotonNetwork.isMasterClient )
 				if(GUILayout.Button( "PLAY INTRIGUE") && PlayerPrefs.GetString("Team")!="Undecided"){

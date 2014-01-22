@@ -20,7 +20,7 @@ public class Network : MonoBehaviour {
 		this.styleChat.normal.textColor = Color.white;
 
 		this.player = PhotonNetwork.Instantiate(
-						"Test_Player_"+PlayerPrefs.GetString("Team"),
+						"Test_Player_"+ PregameLobby.team,
 						new Vector3(0, 1, 0),
 						Quaternion.identity, 0);
 	}
@@ -39,7 +39,6 @@ public class Network : MonoBehaviour {
 		GUILayout.Label( "Player Count:" + PhotonNetwork.playerList.Length );
 		GUILayout.Label( "Your Id: " + PhotonNetwork.player.ID );
 		GUILayout.Label( "Are You Master Server??" + PhotonNetwork.isMasterClient );
-		GUILayout.Label( "Team: "+PlayerPrefs.GetString("Team"));
 		
 		//Checks state of connection: Look up PeerState
 		if( PhotonNetwork.connectionStateDetailed == PeerState.Joined ){
