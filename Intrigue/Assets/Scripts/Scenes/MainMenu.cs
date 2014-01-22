@@ -8,7 +8,6 @@ public class MainMenu : MonoBehaviour {
 	
 	public static string handle = "";
 
-	// Use this for initialization
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
 		// What Photon settings to use and the version number

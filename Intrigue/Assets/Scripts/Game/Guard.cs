@@ -118,7 +118,7 @@ public class Guard : MonoBehaviour
 			Debug.Log("You found a spy!");
 			photonView.owner.Score += 100;
 			photonView.RPC("spyCaught", PhotonTargets.MasterClient);
-			PhotonNetwork.Destroy(accused);
+			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
 		}
 		else{
 			Debug.Log("You dun goofed");

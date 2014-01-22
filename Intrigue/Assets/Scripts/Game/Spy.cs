@@ -69,4 +69,11 @@ public class Spy : MonoBehaviour
 	void sendMessage( string text, NetworkMessageInfo info ){
 	    Debug.Log(text + " from " + info.sender);
 	}
+
+	[RPC]
+	void destroySpy(){
+		Debug.Log("IS Mine: " + photonView.isMine);
+		if( photonView.isMine)
+			PhotonNetwork.Destroy(photonView);
+	}
 }

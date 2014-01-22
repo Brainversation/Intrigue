@@ -9,6 +9,7 @@ public class PregameLobby : MonoBehaviour {
 	private GameObject cube = null;
 	private string chatBox = "";
 	private string textField = "";
+	private float numOfGuests = 0.0f;
 
 	public static string team = "";
 
@@ -44,7 +45,7 @@ public class PregameLobby : MonoBehaviour {
 			GUILayout.EndScrollView();
 
 
-			GUI.SetNextControlName ("ChatBox");
+			GUI.SetNextControlName("ChatBox");
 			textField = GUILayout.TextField( textField, 100 );
 			if( ( GUILayout.Button("Send") ||
 				(Event.current.type == EventType.keyDown && 
@@ -64,10 +65,14 @@ public class PregameLobby : MonoBehaviour {
 			if(GUILayout.Button( "Play as Guard")){
 				team = "Guard";
 			}
-			if( PhotonNetwork.isMasterClient )
+			if( PhotonNetwork.isMasterClient ){
+				numOfGuests = GUILayout.HorizontalSlider(numOfGuests, 0.0f, 5.0f);
+				GUILayout.Label( "Number of Guests: " + Mathf.RoundToInt(numOfGuests) );
 				if(GUILayout.Button( "PLAY INTRIGUE") && team != ""){
+					PlayerPrefs.SetInt("numOfGuests", Mathf.RoundToInt(numOfGuests));
 					photonView.RPC("go", PhotonTargets.AllBuffered);
 				}
+			}
 		}
 	}
 

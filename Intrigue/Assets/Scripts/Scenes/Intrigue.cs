@@ -31,10 +31,10 @@ public class Intrigue : MonoBehaviour {
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
 		photonView = PhotonView.Get(this);
-
-		// if(PhotonNetwork.isMasterClient){
-		// 	spawnGuests();
-		// }
+		numberOfGuests = PlayerPrefs.GetInt("numOfGuests");
+		if(PhotonNetwork.isMasterClient){
+			spawnGuests();
+		}
 		joinGame();
 	}
 
@@ -43,7 +43,7 @@ public class Intrigue : MonoBehaviour {
 		
 		if( timeLeft <= (timeLimit-10) ){
 			if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/numObjectives)*100)>=50){
-				Debug.Log("Game Over: \nTimeLeft: " + timeLeft + " SpiesLeft: " + numSpiesLeft + " GuardsLeft: " + numGuardsLeft + " ObjectivesCompleted:" + objectivesCompleted);
+				// Debug.Log("Game Over: \nTimeLeft: " + timeLeft + " SpiesLeft: " + numSpiesLeft + " GuardsLeft: " + numGuardsLeft + " ObjectivesCompleted:" + objectivesCompleted);
 				//networkView.RPC("gameOver",PhotonTargets.AllBuffered);
 			}
 		}
@@ -70,16 +70,18 @@ public class Intrigue : MonoBehaviour {
 						"Test_Player_"+ PregameLobby.team,
 						new Vector3(0, 1, 0),
 						Quaternion.identity, 0);
-		Debug.Log("Spy");
 	}
 
 	void spawnGuests(){
 		for( int i = 0; i < numberOfGuests; ++i)
 		{
-			// Vector3 temp = GuestPrefab.transform.position;
-			// temp.x += i;
-			// temp.z += i;
-			// PhotonNetwork.Instantiate("Guest", temp, Quaternion.identity, 0);
+			Vector3 temp = Vector3.zero;
+			temp.x += i;
+			temp.z += i;
+			PhotonNetwork.Instantiate(
+						"Test_Player_Guest",
+						temp,
+						Quaternion.identity, 0);
 		}
 	}
 
