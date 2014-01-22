@@ -6,7 +6,6 @@ public class Network : MonoBehaviour {
 	private PhotonView photonView = null;
 	private Vector2 scrollPositionChat = new Vector2(0, 0);
 	private GUIStyle styleChat = new GUIStyle();
-	private GameObject player = null;
 	private string chatBox = "";
 	private string textField = "";
 
@@ -18,11 +17,6 @@ public class Network : MonoBehaviour {
 
 		this.styleChat.fontSize = 12;
 		this.styleChat.normal.textColor = Color.white;
-
-		this.player = PhotonNetwork.Instantiate(
-						"Test_Player_"+ PregameLobby.team,
-						new Vector3(0, 1, 0),
-						Quaternion.identity, 0);
 	}
 	
 	// Update is called once per frame
@@ -37,8 +31,10 @@ public class Network : MonoBehaviour {
 		// Tells us about the current network connection
 		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
 		GUILayout.Label( "Player Count:" + PhotonNetwork.playerList.Length );
-		GUILayout.Label( "Your Id: " + PhotonNetwork.player.ID );
-		GUILayout.Label( "Are You Master Server??" + PhotonNetwork.isMasterClient );
+		GUILayout.Label( "Handle: " + MainMenu.handle );
+		GUILayout.Label( "Team: "+ PregameLobby.team);
+		GUILayout.Label( "Id: " + PhotonNetwork.player.ID );
+		GUILayout.Label( "Are You Master Client?? " + PhotonNetwork.isMasterClient );
 		
 		//Checks state of connection: Look up PeerState
 		if( PhotonNetwork.connectionStateDetailed == PeerState.Joined ){
@@ -61,7 +57,8 @@ public class Network : MonoBehaviour {
 				this.scrollPositionChat.y = Mathf.Infinity;
 			}
 			if( GUILayout.Button( "Leave Room" ) ){
-				PhotonNetwork.Destroy(player);
+				if(Intrigue.player)
+					PhotonNetwork.Destroy(Intrigue.player);
 				PhotonNetwork.LeaveRoom();
 			}
 		}

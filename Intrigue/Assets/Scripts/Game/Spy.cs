@@ -7,7 +7,6 @@ public class Spy : MonoBehaviour
     RaycastHit objHit = new RaycastHit();
 	Ray objRay = new Ray();
 
-
     //Yield function that waits specified amount of seconds
 	IEnumerator Yielder(int seconds){
 		yield return new WaitForSeconds(seconds);
@@ -17,9 +16,9 @@ public class Spy : MonoBehaviour
 		photonView = PhotonView.Get(this);
 
 		if(photonView.isMine){
-			Debug.Log("Spy");
-		} 
-		else {
+			Debug.Log( "Spy" );
+		} else {
+			Debug.Log("Spy Deactivated");
 			GetComponentInChildren<Camera>().enabled = false; 
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<MovementController>().enabled = false;

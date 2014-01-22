@@ -4,6 +4,9 @@ using System.Collections;
 public class MainMenu : MonoBehaviour {
 
 	private PhotonView photonView = null;
+	private string roomName = "";
+	
+	public static string handle = "";
 
 	// Use this for initialization
 	void Start () {
@@ -23,20 +26,30 @@ public class MainMenu : MonoBehaviour {
 	void OnGUI(){
 		// Tells us about the current network connection
 		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
-		GUILayout.Label( "Player Count:" + PhotonNetwork.playerList.Length );
-		GUILayout.Label( "Your Id: " + PhotonNetwork.player.ID );
-		GUILayout.Label( "Are You Master Server?? " + PhotonNetwork.isMasterClient );
 
 		if( PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby) {
-			if( GUILayout.Button("Create Room") ){
-				PhotonNetwork.CreateRoom("Intrigue", true, true, 10);
+			GUILayout.Label( "Room Name:");
+			roomName = GUILayout.TextField(roomName, 25);
+
+			GUILayout.Label( "Handle:");
+			handle = GUILayout.TextField(handle, 25);
+
+			if( roomName == "" || handle == "" ){
+				GUILayout.Label( "Room Name and Handle must be filled to create room");
+			} else if( GUILayout.Button("Create Room") ){
+				PhotonNetwork.CreateRoom(roomName, true, true, 10);
+				roomName = "";
 			}
 
-			foreach(RoomInfo room in PhotonNetwork.GetRoomList())
-			{
-				GUILayout.Label(room.ToString());
-				if(GUILayout.Button(room.name + " " + room.playerCount + "/" + room.maxPlayers)){
-					PhotonNetwork.JoinRoom(room.name);
+			if( handle == "" ){
+				GUILayout.Label( "Handle must be filled to join room");
+			} else {
+				foreach(RoomInfo room in PhotonNetwork.GetRoomList())
+				{
+					GUILayout.Label(room.ToString());
+					if(GUILayout.Button(room.name + " " + room.playerCount + "/" + room.maxPlayers)){
+						PhotonNetwork.JoinRoom(room.name);
+					}
 				}
 			}
 		}

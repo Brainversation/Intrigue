@@ -9,6 +9,7 @@ public class PregameLobby : MonoBehaviour {
 	private GameObject cube = null;
 	private string chatBox = "";
 	private string textField = "";
+
 	public static string team = "";
 
 	// Use this for initialization
@@ -29,9 +30,10 @@ public class PregameLobby : MonoBehaviour {
 		// Tells us about the current network connection
 		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
 		GUILayout.Label( "Player Count:" + PhotonNetwork.playerList.Length );
-		GUILayout.Label( "Your Id: " + PhotonNetwork.player.ID );
-		GUILayout.Label( "Are You Master Server??" + PhotonNetwork.isMasterClient );
+		GUILayout.Label( "Handle: " + MainMenu.handle );
 		GUILayout.Label( "Team: "+ team);
+		GUILayout.Label( "Id: " + PhotonNetwork.player.ID );
+		GUILayout.Label( "Are You Master Client?? " + PhotonNetwork.isMasterClient );
 		
 		//Checks state of connection: Look up PeerState
 		if( PhotonNetwork.connectionStateDetailed == PeerState.Joined ){
@@ -49,7 +51,7 @@ public class PregameLobby : MonoBehaviour {
 				 Event.current.character == '\n' &&
 				 GUI.GetNameOfFocusedControl() == "ChatBox") ) 
 				&& textField != ""  ){ 
-				photonView.RPC("recieveMessage", PhotonTargets.AllBuffered, textField);
+				photonView.RPC("recieveMessage", PhotonTargets.AllBuffered, (PhotonNetwork.player.ID + ": " + textField) );
 				textField = "";
 				this.scrollPositionChat.y = Mathf.Infinity;
 			}
@@ -63,7 +65,7 @@ public class PregameLobby : MonoBehaviour {
 				team = "Guard";
 			}
 			if( PhotonNetwork.isMasterClient )
-				if(GUILayout.Button( "PLAY INTRIGUE") && PlayerPrefs.GetString("Team")!="Undecided"){
+				if(GUILayout.Button( "PLAY INTRIGUE") && team != ""){
 					photonView.RPC("go", PhotonTargets.AllBuffered);
 				}
 		}
@@ -79,7 +81,7 @@ public class PregameLobby : MonoBehaviour {
 
 	[RPC]
 	public void recieveMessage(string s){
-		this.chatBox += PhotonNetwork.player.ID + ": " + s + "\n";
+		this.chatBox += s + "\n";
 	}
 	
 	[RPC]

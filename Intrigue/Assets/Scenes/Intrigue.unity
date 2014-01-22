@@ -583,8 +583,9 @@ GameObject:
   - 4: {fileID: 938210047}
   - 114: {fileID: 938210046}
   - 114: {fileID: 938210045}
+  - 114: {fileID: 938210048}
   m_Layer: 0
-  m_Name: NetworkScripts
+  m_Name: Scripts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -632,6 +633,18 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &938210048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 938210044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fd488e40c8074fb097d0f3e9fe8cb19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfGuests: 0
 --- !u!1 &1631243910
 GameObject:
   m_ObjectHideFlags: 0
