@@ -28,10 +28,12 @@ public class MovementController : MonoBehaviour {
     void FixedUpdate() {
         float h = Input.GetAxis("Horizontal");              // setup h variable as our horizontal input axis
         float v = Input.GetAxis("Vertical");                // setup v variables as our vertical input axis
-        bool r = Input.GetKey("left shift");
+        bool r = Input.GetKey("left shift");                // setup r variable as sprint input
+        bool i = Input.GetKey("e");                         // setup i variable as interact input
         anim.SetFloat("Speed", v);                          // set our animator's float parameter 'Speed' equal to the vertical input axis              
         anim.SetFloat("Direction", h);                      // set our animator's float parameter 'Direction' equal to the horizontal input axis        
-        anim.SetBool("Run", r);
+        anim.SetBool("Run", r);                             // set our animator's bool parameter 'Run' equal to run bool
+        anim.SetBool("Interact", i);                        // set our animator's bool parameter 'Interact' equal to interact bool
         anim.speed = animSpeed;                             // set the speed of our animator to the public variable 'animSpeed'
     }
     void Update() {
