@@ -3,9 +3,10 @@ using System.Collections;
 
 public class Guard : MonoBehaviour
 {
-    
-	bool accusing = false;
-	GameObject accused;
+    public Texture aTexture;
+
+	private bool accusing = false;
+	private GameObject accused;
 	private PhotonView photonView = null;
 	private GameObject[] guests = null;
 	private GameObject[] spies = null;
@@ -111,6 +112,7 @@ public class Guard : MonoBehaviour
 				}
 		}
 		GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", photonView.owner.Score));
+		GUI.DrawTexture(new Rect(Screen.width/2, Screen.height/2, 60, 60), aTexture, ScaleMode.ScaleToFit, true, 10.0F);
 	}
 
 	void testAccusation(){

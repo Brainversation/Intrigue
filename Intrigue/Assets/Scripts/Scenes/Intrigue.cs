@@ -79,7 +79,7 @@ public class Intrigue : MonoBehaviour {
 			temp.x += i;
 			temp.z += i;
 			PhotonNetwork.Instantiate(
-						"Test_Player_Guest",
+						"Robot_Guest",
 						temp,
 						Quaternion.identity, 0);
 		}

@@ -30,7 +30,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	}
 
 	 void FixedUpdate() {
-	 	if(photonView.isMine){
+	 	if(photonView.isMine && gameObject.tag != "Guest"){
 	        float h = Input.GetAxis("Horizontal");              // setup h variable as our horizontal input axis
 	        float v = Input.GetAxis("Vertical");                // setup v variables as our vertical input axis
 	        bool r = Input.GetKey("left shift");                // setup r variable as sprint input
@@ -45,6 +45,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	        photonView.RPC("sendAnimFloat",PhotonTargets.All,"Direction", h);
 	        photonView.RPC("sendAnimBool",PhotonTargets.All,"Run", r);
 	        photonView.RPC("sendAnimBool",PhotonTargets.All,"Interact", i);
+        } else {
+        	Debug.Log("Guest!!");
         }
     }
 
