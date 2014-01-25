@@ -1,15 +1,20 @@
 using UnityEngine;
 using System.Collections;
 
-public class Objective : MonoBehaviour {
+public class Objective : Photon.MonoBehaviour {
 
 	public float completionTime = 5;
 	public int id;
 	private float timeLeft;
 	private bool finished = false;
+	private Animator anim;
 
 	void Start () {
 		timeLeft = completionTime;
+		anim = GetComponent<Animator>();
+		anim.SetBool("Complete",false);
+		photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", false);
+
 	}
 
 	void Update(){
@@ -26,6 +31,13 @@ public class Objective : MonoBehaviour {
 			finished = true;
 			Debug.Log("Objective Complete");
 			user.GetComponent<PhotonView>().owner.Score += 100;
+			anim.SetBool("Complete",true);
+			photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", true);
 		}
+	}
+
+	[RPC]
+	void sendAnimBool(string name, bool value){
+		anim.SetBool(name,value);
 	}
 }

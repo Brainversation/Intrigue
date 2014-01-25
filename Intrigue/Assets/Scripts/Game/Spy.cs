@@ -4,7 +4,7 @@ using System.Collections;
 public class Spy : MonoBehaviour
 {
     private PhotonView photonView = null;
-    RaycastHit objHit = new RaycastHit();
+    RaycastHit[] objHit;
 	Ray objRay = new Ray();
 
     //Yield function that waits specified amount of seconds
@@ -36,15 +36,23 @@ public class Spy : MonoBehaviour
 	}
 
 	void Update () {
-		
-		 if (Input.GetKey("e")){
-		 		objRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-		        if (Physics.Raycast(objRay, out objHit, 10.0f)){
-		            Debug.Log(objHit.transform.tag);
-		            if(objHit.transform.tag=="Objective"){
-		            	objHit.transform.GetComponent<Objective>().useObjective(gameObject);
-		            }
-		        }
+	
+	 if (Input.GetKey("e")){
+	 		int i =0;
+	 		objRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+	        objHit = Physics.RaycastAll(objRay, 10.0f);
+	        Debug.Log("ObjHit len: " + objHit.Length);
+	           while (i < objHit.Length) {
+		            RaycastHit hit = objHit[i];
+		            Debug.Log("Hit: " + hit);
+		            Debug.Log("HitTag: " + hit.transform.tag);
+
+			   if(hit.transform.tag=="Objective"){
+			   		Debug.Log("Hit Objective");
+	            	hit.transform.GetComponent<Objective>().useObjective(gameObject);
+	            }
+	            i++; 
+			}
 		}
 	}
 

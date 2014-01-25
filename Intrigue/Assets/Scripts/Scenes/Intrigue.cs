@@ -60,7 +60,7 @@ public class Intrigue : MonoBehaviour {
 		photonView.RPC("addGuard",PhotonTargets.MasterClient);
 		player = PhotonNetwork.Instantiate(
 						"Robot_"+ PregameLobby.team,
-						new Vector3(0, 1, 0),
+						new Vector3(0, 1.5f, 0),
 						Quaternion.identity, 0);
 	}
 
@@ -68,7 +68,7 @@ public class Intrigue : MonoBehaviour {
 		photonView.RPC("addSpy",PhotonTargets.MasterClient);
 		player = PhotonNetwork.Instantiate(
 						"Robot_"+ PregameLobby.team,
-						new Vector3(0, 1, 0),
+						new Vector3(0, 1.5f, 0),
 						Quaternion.identity, 0);
 	}
 
