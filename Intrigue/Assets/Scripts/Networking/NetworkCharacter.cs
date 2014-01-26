@@ -45,8 +45,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	        photonView.RPC("sendAnimFloat",PhotonTargets.All,"Direction", h);
 	        photonView.RPC("sendAnimBool",PhotonTargets.All,"Run", r);
 	        photonView.RPC("sendAnimBool",PhotonTargets.All,"Interact", i);
-        } else {
-        	Debug.Log("Guest!!");
         }
     }
 

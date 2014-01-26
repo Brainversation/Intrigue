@@ -787,7 +787,6 @@ GameObject:
   - 114: {fileID: 11400002}
   - 111: {fileID: 11100000}
   - 114: {fileID: 11400000}
-  - 64: {fileID: 6400000}
   m_Layer: 0
   m_Name: Robot_Guard
   m_TagString: Guard
@@ -988,7 +987,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
-  m_LocalRotation: {x: .000756177527, y: .000507914461, z: .0118389884, w: .999929547}
+  m_LocalRotation: {x: .000756177469, y: .000507914403, z: .0118389875, w: .999929488}
   m_LocalPosition: {x: .191672862, y: -7.44721717e-07, z: 1.46918282e-07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1203,7 +1202,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100048}
-  m_LocalRotation: {x: .000756177527, y: .000507914461, z: .0118389884, w: .999929547}
+  m_LocalRotation: {x: .000756177469, y: .000507914403, z: .0118389875, w: .999929488}
   m_LocalPosition: {x: -.191667944, y: -1.24900095e-17, z: 2.20631966e-17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1447,19 +1446,6 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
   m_OcclusionCulling: 1
---- !u!64 &6400000
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100102}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 4316f33f838e9614789476c8a9ed9c5e, type: 3}
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1
@@ -1513,7 +1499,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be1dc1eba228b945ae2c0d36f51f58d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aTexture: {fileID: 2800000, guid: 96ea0214b87c848b193a5f5bb4eb650e, type: 3}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1543,9 +1528,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054a0b483d2ae61479ada5fcce173dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animSpeed: 1.5
-  lookSmoother: 3
-  useCurves: 0
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1559,6 +1541,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   gravity: 20
+  animSpeed: 1.5
+  lookSmoother: 3
+  useCurves: 0
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
