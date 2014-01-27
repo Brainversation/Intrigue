@@ -48,13 +48,14 @@ public class Objective : Photon.MonoBehaviour {
 
 	[RPC]
 	void objectiveComplete(int id){
-		Debug.Log("Objective ID " + id);
+		//Debug.Log("Objective ID " + id);
 		if(id == this.id){
-			Debug.Log("awefaw ");
+			//Debug.Log("awefaw ");
 			finished = true;
-			Debug.Log("every line ");
+			timeLeft = 0;
+			//Debug.Log("every line ");
 			intrigue.objectivesCompleted++;
-			Debug.Log("id = " + id + "Objectives length " + intrigue.objectives.Length);
+			//Debug.Log("id = " + id + "Objectives length " + intrigue.objectives.Length);
 			intrigue.objectives[id] = true;
 		}	
 	}
