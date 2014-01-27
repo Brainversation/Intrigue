@@ -28,11 +28,20 @@ public class Intrigue : MonoBehaviour {
 
 	public static GameObject player = null;
 
+
+
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
 		photonView = PhotonView.Get(this);
 		numberOfGuests = PlayerPrefs.GetInt("numOfGuests");
 		if(PhotonNetwork.isMasterClient){
+
+				spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
+				Debug.Log("numspawns " + spawnObjects.Length);
+				for(int i=0; i < spawnObjects.Length; i++){
+					spawns.Add(spawnObjects[i].transform);
+				}
+				availableSpawns = spawns;
 			spawnGuests();
 		}
 		joinGame();
@@ -60,29 +69,32 @@ public class Intrigue : MonoBehaviour {
 		photonView.RPC("addGuard",PhotonTargets.MasterClient);
 		player = PhotonNetwork.Instantiate(
 						"Robot_"+ PregameLobby.team,
-						new Vector3(0, 1.5f, 0),
-						Quaternion.identity, 0);
+						spawnTrans.position,
+						spawnTrans.rotation, 0);
 	}
 
 	void spawnSpy(){
 		photonView.RPC("addSpy",PhotonTargets.MasterClient);
+		nextSpawnPoint();
 		player = PhotonNetwork.Instantiate(
 						"Robot_"+ PregameLobby.team,
-						new Vector3(0, 1.5f, 0),
-						Quaternion.identity, 0);
+						spawnTrans.position,
+						spawnTrans.rotation, 0);
 	}
 
 	void spawnGuests(){
-		for( int i = 0; i < numberOfGuests; ++i)
-		{
-			Vector3 temp = Vector3.zero;
-			temp.x += i;
-			temp.z += i;
-			PhotonNetwork.Instantiate(
-						"Robot_Guest",
-						temp,
-						Quaternion.identity, 0);
+		for( int x = 0; x < numberOfGuests; ++x)
+		{	
+			nextSpawnPoint();
+			PhotonNetwork.Instantiate("Robot_Guest", spawnTrans.position, spawnTrans.rotation, 0);
 		}
+	}
+
+	void nextSpawnPoint(){
+		spawnIndex = Random.Range(0,availableSpawns.Count-1);
+		//spawnIndex++;
+		spawnTrans = availableSpawns[spawnIndex];
+		availableSpawns.RemoveAt(spawnIndex);
 	}
 
 	[RPC]

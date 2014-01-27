@@ -19,6 +19,10 @@ public class GuestMovement : Photon.MonoBehaviour {
 	}
 
 	void Update(){
+
+		anim.SetFloat("Direction", agent.velocity.x);
+		anim.SetFloat("Speed", agent.velocity.z);
+
 		Debug.Log("Inside Guest Update");
 		if(counter > 0.5f){
 			moveGuest();
@@ -27,8 +31,6 @@ public class GuestMovement : Photon.MonoBehaviour {
 			counter = 0;
 		}
 		else{
-			anim.SetBool("Moving",false);
-			//photonView.RPC("sendAnimBool",PhotonTargets.All, "Moving", false);
 			counter += Time.deltaTime;
 		}
 	}
@@ -47,13 +49,16 @@ public class GuestMovement : Photon.MonoBehaviour {
 									Random.Range(min.z, max.z));
 
 		agent.SetDestination(finalPosition);
-		anim.SetBool("Moving", true);
-		//photonView.RPC("sendAnimBool",PhotonTargets.All, "Moving", true);
 		Debug.Log("At end of moveGuest()");
 	}
 
 	[RPC]
 	void sendAnimBool(string name, bool value){
 		anim.SetBool(name,value);
+	}
+
+	[RPC]
+	void sendAnimFloat(string name, float value){
+		anim.SetFloat(name,value);
 	}
 }
