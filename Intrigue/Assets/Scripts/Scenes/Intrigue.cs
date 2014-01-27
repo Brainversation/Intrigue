@@ -42,13 +42,15 @@ public class Intrigue : MonoBehaviour {
 				}
 				availableSpawns = spawns;
 			spawnGuests();
-			int totalObjectives = GameObject.FindGameObjectsWithTag("Objective").Length;
-			objectives = new bool[totalObjectives];
-			// set all objectives to incomplete at start
-			for(int i = 0; i < objectives.Length; i++){
-				objectives[i] = false;
-			}
 		}
+		
+		int totalObjectives = GameObject.FindGameObjectsWithTag("Objective").Length;
+		objectives = new bool[totalObjectives];
+		// set all objectives to incomplete at start
+		for(int i = 0; i < objectives.Length; i++){
+			objectives[i] = false;
+		}
+
 		joinGame();
 	}
 
