@@ -6,8 +6,8 @@ public class Intrigue : MonoBehaviour {
 
 	public int numberOfGuests;
 
-	public static int objectivesCompleted = 0;
-	public static bool[] objectives;
+	public int objectivesCompleted = 0;
+	public bool[] objectives;
 	private int numObjectives = 5;
 
 	public static int numSpiesLeft;
@@ -42,6 +42,12 @@ public class Intrigue : MonoBehaviour {
 				}
 				availableSpawns = spawns;
 			spawnGuests();
+			int totalObjectives = GameObject.FindGameObjectsWithTag("Objective").Length;
+			objectives = new bool[totalObjectives];
+			// set all objectives to incomplete at start
+			for(int i = 0; i < objectives.Length; i++){
+				objectives[i] = false;
+			}
 		}
 		joinGame();
 	}

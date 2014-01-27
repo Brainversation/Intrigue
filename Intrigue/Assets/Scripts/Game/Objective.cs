@@ -9,8 +9,10 @@ public class Objective : Photon.MonoBehaviour {
 	private float timeLeft;
 	private bool finished = false;
 	private Animator anim;
+	private Intrigue intrigue;
 
 	void Start () {
+		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		timeLeft = completionTime;
 		anim = GetComponent<Animator>();
 		anim.SetBool("Complete",false);
@@ -29,7 +31,7 @@ public class Objective : Photon.MonoBehaviour {
 			Debug.Log("Time Left: " + timeLeft);
 		}
 		else if(!finished) {
-			networkView.RPC("objectiveComplete", PhotonTargets.All, this.id);
+			photonView.RPC("objectiveComplete", PhotonTargets.All, this.id);
 			timeLeft = 0;
 			finished = true;
 			Debug.Log("Objective Complete");
@@ -48,9 +50,12 @@ public class Objective : Photon.MonoBehaviour {
 	void objectiveComplete(int id){
 		Debug.Log("Objective ID " + id);
 		if(id == this.id){
+			Debug.Log("awefaw ");
 			finished = true;
-			++Intrigue.objectivesCompleted;
-			Intrigue.objectives[id] = true;
+			Debug.Log("every line ");
+			intrigue.objectivesCompleted++;
+			Debug.Log("id = " + id + "Objectives length " + intrigue.objectives.Length);
+			intrigue.objectives[id] = true;
 		}	
 	}
 }
