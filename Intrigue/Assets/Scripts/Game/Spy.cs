@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Spy : MonoBehaviour
 {
+    
     private PhotonView photonView = null;
     RaycastHit[] objHit;
 	Ray objRay = new Ray();
@@ -36,20 +37,22 @@ public class Spy : MonoBehaviour
 	}
 
 	void Update () {
-	
-	 if (Input.GetKey("e")){
-	 		int i =0;
+	 	if (Input.GetKey("e")){
+	 		int i = 0;
 	 		objRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 	        objHit = Physics.RaycastAll(objRay, 10.0f);
 	        Debug.Log("ObjHit len: " + objHit.Length);
-	           while (i < objHit.Length) {
+	        while (i < objHit.Length) {
 		            RaycastHit hit = objHit[i];
 		            Debug.Log("Hit: " + hit);
 		            Debug.Log("HitTag: " + hit.transform.tag);
-
-			   if(hit.transform.tag=="Objective"){
-			   		Debug.Log("Hit Objective");
-	            	hit.transform.GetComponent<Objective>().useObjective(gameObject);
+			    if(hit.transform.tag=="Objective"){
+			   		Objective hitObjective = hit.transform.GetComponent<Objective>();
+			   		//if(!hitObjective.inUse){
+			   			Debug.Log("Hit Objective");
+	            	//	hitObjective.inUse = true;
+	            		hitObjective.useObjective(gameObject);
+	            	//}
 	            }
 	            i++; 
 			}
