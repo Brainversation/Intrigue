@@ -1671,7 +1671,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 563849074}
   - 95: {fileID: 563849075}
-  - 64: {fileID: 563849076}
+  - 65: {fileID: 563849076}
   m_Layer: 0
   m_Name: tele
   m_TagString: Untagged
@@ -1716,8 +1716,8 @@ Animator:
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
---- !u!64 &563849076
-MeshCollider:
+--- !u!65 &563849076
+BoxCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -1726,9 +1726,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 0}
+  m_Size: {x: 19.6700001, y: 18.2900009, z: 5.92999983}
+  m_Center: {x: 16.1700001, y: 0, z: .800000012}
 --- !u!1 &612910025
 GameObject:
   m_ObjectHideFlags: 0
@@ -3758,7 +3757,7 @@ GameObject:
   - 33: {fileID: 1509178491}
   - 23: {fileID: 1509178490}
   - 95: {fileID: 1509178489}
-  - 64: {fileID: 1509178493}
+  - 65: {fileID: 1509178493}
   m_Layer: 0
   m_Name: table
   m_TagString: Respawn
@@ -3823,8 +3822,8 @@ Transform:
   m_LocalScale: {x: 4, y: 28, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!64 &1509178493
-MeshCollider:
+--- !u!65 &1509178493
+BoxCollider:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
@@ -3833,9 +3832,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 466328ed44b145b4f8298dede35f27bf, type: 3}
+  m_Size: {x: 2.15420914, y: .295645267, z: 1.95108199}
+  m_Center: {x: .0638635755, y: .00376729132, z: .937050343}
 --- !u!1 &1537601760
 GameObject:
   m_ObjectHideFlags: 0
@@ -4613,6 +4611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   completionTime: 5
   id: 0
+  inUse: 0
 --- !u!114 &1900022430
 MonoBehaviour:
   m_ObjectHideFlags: 0
