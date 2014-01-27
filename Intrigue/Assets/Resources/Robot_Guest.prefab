@@ -764,8 +764,8 @@ GameObject:
   - 114: {fileID: 11400004}
   - 111: {fileID: 11100000}
   - 64: {fileID: 6400000}
-  - 114: {fileID: 11400000}
   - 195: {fileID: 19500000}
+  - 114: {fileID: 11400000}
   m_Layer: 9
   m_Name: Robot_Guest
   m_TagString: Guest
@@ -1378,7 +1378,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -100.902229, y: 313.55719, z: 1205.57166}
+  m_LocalPosition: {x: -13.5923223, y: 6.33557219e-17, z: -18.4083099}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400100}
@@ -1406,7 +1406,7 @@ Animator:
   m_GameObject: {fileID: 100102}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4316f33f838e9614789476c8a9ed9c5e, type: 3}
-  m_Controller: {fileID: 9100000, guid: 40e26dbaec5b2044a820fd8f10b70766, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7e4608a9e3b6d084ea202653be43bdde, type: 2}
   m_CullingMode: 1
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 1
@@ -1433,10 +1433,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 100102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a98a0566daec5643b7ae16893b45038, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a3d9b35a89fb83408ad76f94c822c65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 19500000}
+  room: {fileID: 0}
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
