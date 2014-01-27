@@ -66,12 +66,12 @@ public class Intrigue : MonoBehaviour {
 
 	void spawnGuard(){
 		photonView.RPC("addGuard",PhotonTargets.MasterClient);
-		photonView.RPC("sendSpawnPoint", PhotonTargets.MasterClient);
+		photonView.RPC("sendSpawnPoint", PhotonTargets.MasterClient, photonView.owner);
 	}
 
 	void spawnSpy(){
 		photonView.RPC("addSpy",PhotonTargets.MasterClient);
-		photonView.RPC("sendSpawnPoint", PhotonTargets.MasterClient);
+		photonView.RPC("sendSpawnPoint", PhotonTargets.MasterClient, photonView.owner);
 	}
 
 	void spawnGuests(){
