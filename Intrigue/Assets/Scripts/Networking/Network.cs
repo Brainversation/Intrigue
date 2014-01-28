@@ -8,12 +8,15 @@ public class Network : MonoBehaviour {
 	private GUIStyle styleChat = new GUIStyle();
 	private string chatBox = "";
 	private string textField = "";
+	private Player player;
 
 	// Look up how to disconnect
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
 		// Get photonView component
 		photonView = PhotonView.Get(this);
+
+		player = GameObject.Find("Player").GetComponent<Player>();
 
 		this.styleChat.fontSize = 12;
 		this.styleChat.normal.textColor = Color.white;
@@ -31,8 +34,8 @@ public class Network : MonoBehaviour {
 		// Tells us about the current network connection
 		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
 		GUILayout.Label( "Player Count:" + PhotonNetwork.playerList.Length );
-		GUILayout.Label( "Handle: " + MainMenu.handle );
-		GUILayout.Label( "Team: "+ PregameLobby.team);
+		GUILayout.Label( "Handle: " + player.Handle );
+		GUILayout.Label( "Team: "+ player.Team );
 		GUILayout.Label( "Id: " + PhotonNetwork.player.ID );
 		GUILayout.Label( "Are You Master Client?? " + PhotonNetwork.isMasterClient );
 		
@@ -57,8 +60,8 @@ public class Network : MonoBehaviour {
 				this.scrollPositionChat.y = Mathf.Infinity;
 			}
 			if( GUILayout.Button( "Leave Room" ) ){
-				if(Intrigue.player)
-					PhotonNetwork.Destroy(Intrigue.player);
+				if(Intrigue.playerGO)
+					PhotonNetwork.Destroy(Intrigue.playerGO);
 				PhotonNetwork.LeaveRoom();
 			}
 		}

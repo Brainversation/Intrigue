@@ -199,6 +199,10 @@ Prefab:
       propertyPath: m_StaticEditorFlags
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 731b145f909b9cd4f8a0942b6a0daee1, type: 2}
+      propertyPath: inUse
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 731b145f909b9cd4f8a0942b6a0daee1, type: 2}
   m_RootGameObject: {fileID: 1900022425}
@@ -2501,6 +2505,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfGuests: 0
   objectivesCompleted: 0
+  objectives: 
 --- !u!1 &941420359
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ public class Guard : MonoBehaviour
 	private PhotonView photonView = null;
 	private GameObject[] guests = null;
 	private GameObject[] spies = null;
+	private Player player;
 
 	//Yield function that waits specified amount of seconds
 	IEnumerator Yielder(int seconds){
@@ -21,6 +22,7 @@ public class Guard : MonoBehaviour
 
 		if(photonView.isMine){
 			Debug.Log( "Guard" );
+			player = GameObject.Find("Player").GetComponent<Player>();
 		} else {
 			Debug.Log("Guard Deactivated");
 			GetComponentInChildren<Camera>().enabled = false; 
@@ -100,7 +102,7 @@ public class Guard : MonoBehaviour
 	void OnGUI(){
 		GUI.skin.label.fontSize = 20;
 		GUI.color = Color.black;
-		GUILayout.Label( "Team: "+ photonView.owner.Team );
+		GUILayout.Label( "Team: "+ player.Team );
 		if(accusing){
 			GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100),"E to Confirm Accusation \nSpace to Cancel.");
 				if(Input.GetKeyUp(KeyCode.E)){
@@ -111,14 +113,14 @@ public class Guard : MonoBehaviour
 					accusing = false;
 				}
 		}
-		GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", photonView.owner.Score));
+		GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", player.Score));
 		GUI.DrawTexture(new Rect(Screen.width/2, Screen.height/2, 60, 60), aTexture, ScaleMode.ScaleToFit, true, 10.0F);
 	}
 
 	void testAccusation(){
 		if(accused != null && accused.CompareTag("Spy")){
 			Debug.Log("You found a spy!");
-			photonView.owner.Score += 100;
+			player.Score += 100;
 			photonView.RPC("spyCaught", PhotonTargets.MasterClient);
 			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
 		}

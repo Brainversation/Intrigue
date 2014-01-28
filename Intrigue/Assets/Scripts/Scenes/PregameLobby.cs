@@ -9,15 +9,16 @@ public class PregameLobby : MonoBehaviour {
 	private GameObject cube = null;
 	private string chatBox = "";
 	private string textField = "";
-	private float numOfGuests = 0.0f;
-
-	public static string team = "";
+	private bool isReady = false;
+	private int readyCount = 0;
+	private Player player;
 
 	// Use this for initialization
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
 		// Get photonView component
 		this.photonView = PhotonView.Get(this);
+		player = GameObject.Find("Player").GetComponent<Player>();
 		this.styleChat.fontSize = 12;
 		this.styleChat.normal.textColor = Color.white;
 	}
@@ -31,8 +32,8 @@ public class PregameLobby : MonoBehaviour {
 		// Tells us about the current network connection
 		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
 		GUILayout.Label( "Player Count:" + PhotonNetwork.playerList.Length );
-		GUILayout.Label( "Handle: " + MainMenu.handle );
-		GUILayout.Label( "Team: "+ team);
+		GUILayout.Label( "Handle: " + player.Handle );
+		GUILayout.Label( "Team: "+ player.Team);
 		GUILayout.Label( "Id: " + PhotonNetwork.player.ID );
 		GUILayout.Label( "Are You Master Client?? " + PhotonNetwork.isMasterClient );
 		
@@ -60,17 +61,26 @@ public class PregameLobby : MonoBehaviour {
 				PhotonNetwork.LeaveRoom();
 			}
 			if(GUILayout.Button( "Play as Spy")){
-				team = "Spy";
+				player.Team = "Spy";
 			}
 			if(GUILayout.Button( "Play as Guard")){
-				team = "Guard";
+				player.Team = "Guard";
 			}
 			if( PhotonNetwork.isMasterClient ){
-				numOfGuests = GUILayout.HorizontalSlider(numOfGuests, 0.0f, 5.0f);
-				GUILayout.Label( "Number of Guests: " + Mathf.RoundToInt(numOfGuests) );
-				if(GUILayout.Button( "PLAY INTRIGUE") && team != ""){
-					PlayerPrefs.SetInt("numOfGuests", Mathf.RoundToInt(numOfGuests));
+				player.Guests = Mathf.RoundToInt(GUILayout.HorizontalSlider(player.Guests, 0.0f, 5.0f));
+				GUILayout.Label( "Number of Guests: " + player.Guests );
+				if(GUILayout.Button( "PLAY INTRIGUE") && player.Team != "" && (readyCount == PhotonNetwork.playerList.Length-1) ){
 					photonView.RPC("go", PhotonTargets.AllBuffered);
+				}
+			} else if( player.Team != "" && !isReady ){
+				if( GUILayout.Button( "Ready" ) ){
+					isReady = true;
+					photonView.RPC("ready", PhotonTargets.MasterClient, 1);
+				}
+			} else if( isReady ){
+				if( GUILayout.Button( "Not Ready?" ) ){
+					isReady = false;
+					photonView.RPC("ready", PhotonTargets.MasterClient, -1);
 				}
 			}
 		}
@@ -87,6 +97,11 @@ public class PregameLobby : MonoBehaviour {
 	[RPC]
 	public void recieveMessage(string s){
 		this.chatBox += s + "\n";
+	}
+
+	[RPC]
+	public void ready( int val ){
+		this.readyCount += val;
 	}
 	
 	[RPC]

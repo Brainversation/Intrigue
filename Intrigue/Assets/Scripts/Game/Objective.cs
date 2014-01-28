@@ -10,14 +10,14 @@ public class Objective : Photon.MonoBehaviour {
 	private bool finished = false;
 	private Animator anim;
 	private Intrigue intrigue;
+	private Player player;
 
 	void Start () {
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
+		player = GameObject.Find("Player").GetComponent<Player>();
 		timeLeft = completionTime;
 		anim = GetComponent<Animator>();
 		anim.SetBool("Complete",false);
-		photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", false);
-
 	}
 
 	void Update(){
@@ -35,7 +35,7 @@ public class Objective : Photon.MonoBehaviour {
 			timeLeft = 0;
 			finished = true;
 			Debug.Log("Objective Complete");
-			user.GetComponent<PhotonView>().owner.Score += 100;
+			player.Score += 100;
 			anim.SetBool("Complete",true);
 			photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", true);
 		}

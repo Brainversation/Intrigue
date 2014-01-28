@@ -4,17 +4,17 @@ using System.Collections;
 public class MainMenu : MonoBehaviour {
 
 	private PhotonView photonView = null;
-	private string roomName = "";
-	
-	public static string handle = "";
+	private Player player;
 
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
-		// What Photon settings to use and the version number
-		PhotonNetwork.ConnectUsingSettings("0.1");
+		
+		connect();
 
 		// Get photonView component
 		photonView = PhotonView.Get(this);
+
+		player = GameObject.Find("Player").GetComponent<Player>();
 	}
 	
 	// Update is called once per frame
@@ -28,30 +28,39 @@ public class MainMenu : MonoBehaviour {
 
 		if( PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby) {
 			GUILayout.Label( "Room Name:");
-			roomName = GUILayout.TextField(roomName, 25);
+			player.RoomName = GUILayout.TextField(player.RoomName, 25);
 
 			GUILayout.Label( "Handle:");
-			handle = GUILayout.TextField(handle, 25);
+			player.Handle = GUILayout.TextField(player.Handle, 25);
 
-			if( roomName == "" || handle == "" ){
-				GUILayout.Label( "Room Name and Handle must be filled to create room");
+			if( player.RoomName == "" || player.Handle == "" ){
+				GUILayout.Label( "Room Name and Handle must be filled to create room" );
 			} else if( GUILayout.Button("Create Room") ){
-				PhotonNetwork.CreateRoom(roomName, true, true, 10);
-				roomName = "";
+				PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
+				player.RoomName = "";
 			}
 
-			if( handle == "" ){
+			if( player.Handle == "" ){
 				GUILayout.Label( "Handle must be filled to join room");
 			} else {
 				foreach(RoomInfo room in PhotonNetwork.GetRoomList())
 				{
-					GUILayout.Label(room.ToString());
 					if(GUILayout.Button(room.name + " " + room.playerCount + "/" + room.maxPlayers)){
 						PhotonNetwork.JoinRoom(room.name);
 					}
 				}
 			}
+		} else if( PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated) {
+			GUILayout.Label("No Internet Connection! Connect to internet and press retry");
+			if(GUILayout.Button("Retry")){
+				connect();
+			}
 		}
+	}
+
+	void connect(){
+		// What Photon settings to use and the version number
+		PhotonNetwork.ConnectUsingSettings("0.1");
 	}
 
 	// Called after joining a room
