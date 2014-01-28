@@ -37,7 +37,6 @@ public class MainMenu : MonoBehaviour {
 				GUILayout.Label( "Room Name and Handle must be filled to create room" );
 			} else if( GUILayout.Button("Create Room") ){
 				PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
-				player.RoomName = "";
 			}
 
 			if( player.Handle == "" ){
@@ -76,6 +75,6 @@ public class MainMenu : MonoBehaviour {
 
 	void OnPhotonJoinFailed()
 	{
-		Debug.Log("FAIL");
+		Debug.Log("OnPhotonJoinFailed");
 	}
 }

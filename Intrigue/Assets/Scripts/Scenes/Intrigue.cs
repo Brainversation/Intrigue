@@ -30,7 +30,6 @@ public class Intrigue : MonoBehaviour {
 	private static int roundsLeft = rounds;
 
 	private Player player;
-	private bool isGameOver = false;
 
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
@@ -38,20 +37,19 @@ public class Intrigue : MonoBehaviour {
 		player = GameObject.Find("Player").GetComponent<Player>();
 
 		if(PhotonNetwork.isMasterClient){
-				spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
-				Debug.Log("numspawns " + spawnObjects.Length);
-				for(int i=0; i < spawnObjects.Length; i++){
-					spawns.Add(spawnObjects[i].transform);
-				}
-				availableSpawns = spawns;
+			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
+			Debug.Log("numspawns " + spawnObjects.Length);
+			for(int i=0; i < spawnObjects.Length; i++){
+				spawns.Add(spawnObjects[i].transform);
+			}
+			availableSpawns = spawns;
 			spawnGuests();
+		} else {
+			enabled = false;
 		}
-
-
-		timeLeft = timeLimit;
 		
-		int totalObjectives = GameObject.FindGameObjectsWithTag("Objective").Length;
-		objectives = new bool[totalObjectives];
+		numObjectives = GameObject.FindGameObjectsWithTag("Objective").Length;
+		objectives = new bool[numObjectives];
 		// set all objectives to incomplete at start
 		for(int i = 0; i < objectives.Length; i++){
 			objectives[i] = false;
@@ -62,10 +60,10 @@ public class Intrigue : MonoBehaviour {
 
 	void Update () {
 		timeLeft -= Time.deltaTime;
-		
-		if( timeLeft <= (timeLimit-10) && !isGameOver ){
+		Debug.Log("Game Over: \nTimeLeft: " + timeLeft + " SpiesLeft: " + numSpiesLeft + " GuardsLeft: " + numGuardsLeft + " ObjectivesCompleted:" + objectivesCompleted + " numObjectives:" + numObjectives);
+
+		if( timeLeft <= (timeLimit-10) ){
 			if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/numObjectives)*100)>=50){
-				Debug.Log("Game Over: \nTimeLeft: " + timeLeft + " SpiesLeft: " + numSpiesLeft + " GuardsLeft: " + numGuardsLeft + " ObjectivesCompleted:" + objectivesCompleted);
 				photonView.RPC("gameOver", PhotonTargets.All);
 			}
 		}
@@ -102,16 +100,6 @@ public class Intrigue : MonoBehaviour {
 		availableSpawns.RemoveAt(spawnIndex);
 	}
 
-	IEnumerator reset(int seconds){
-		yield return new WaitForSeconds(seconds);
-		Application.LoadLevel( Application.loadedLevel );
-	}
-
-	[RPC]
-	void addSpy(){
-		++this.numSpies;
-	}
-
 	[RPC]
 	void sendSpawnPoint(PhotonMessageInfo info){
 		spawnIndex = Random.Range(0,availableSpawns.Count-1);
@@ -128,10 +116,18 @@ public class Intrigue : MonoBehaviour {
 						rotation, 0);
 	}
 
+	[RPC]
+	void addSpy(){
+		Debug.Log("Adding spy");
+		++this.numSpies;
+		++Intrigue.numSpiesLeft;
+	}
 
 	[RPC]
 	void addGuard(){
+		Debug.Log("Adding guard");
 		++this.numGuards;
+		++Intrigue.numGuardsLeft;
 	}
 
 	[RPC]
@@ -144,8 +140,10 @@ public class Intrigue : MonoBehaviour {
 			Debug.Log( "Reset" );
 			--roundsLeft;
 			PhotonNetwork.isMessageQueueRunning = false;
-			isGameOver = true;
-			StartCoroutine( reset(3) );
+			enabled = false;
+			this.numSpies = Intrigue.numSpiesLeft = 0;
+			this.numGuards = Intrigue.numGuardsLeft = 0;
+			Application.LoadLevel( Application.loadedLevel );
 		} else {
 			Debug.Log( "Game Over" );
 			PhotonNetwork.LeaveRoom();
