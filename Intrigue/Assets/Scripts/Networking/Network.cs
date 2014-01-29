@@ -55,7 +55,7 @@ public class Network : MonoBehaviour {
 				 Event.current.character == '\n' &&
 				 GUI.GetNameOfFocusedControl() == "ChatBox") ) 
 				&& textField != ""  ){ 
-				photonView.RPC("recieveMessage", PhotonTargets.All, textField);
+				photonView.RPC("recieveMessage", PhotonTargets.All, (this.player.Handle + ": " + textField + "\n") );
 				textField = "";
 				this.scrollPositionChat.y = Mathf.Infinity;
 			}
@@ -67,8 +67,8 @@ public class Network : MonoBehaviour {
 		}
 	}
 
-	void OnPhotonPlayerDisconnected(PhotonPlayer player){
-		Debug.Log("OnPhotonPlayerDisconnected: " + player.ID );
+	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
+		Debug.Log("OnPhotonPlayerDisconnected: " + photonPlayer.ID );
 
 		if (PhotonNetwork.isMasterClient){
 			//Move Info towards to new master Client, but master client switches on its own
@@ -77,6 +77,6 @@ public class Network : MonoBehaviour {
 
 	[RPC]
 	public void recieveMessage(string s){
-		this.chatBox += PhotonNetwork.player.ID + ": " + s + "\n";
+		this.chatBox += s;
 	}
 }

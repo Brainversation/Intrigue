@@ -102,7 +102,6 @@ public class Guard : MonoBehaviour
 	void OnGUI(){
 		GUI.skin.label.fontSize = 20;
 		GUI.color = Color.black;
-		GUILayout.Label( "Team: "+ player.Team );
 		if(accusing){
 			GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100),"E to Confirm Accusation \nSpace to Cancel.");
 				if(Input.GetKeyUp(KeyCode.E)){
@@ -135,11 +134,6 @@ public class Guard : MonoBehaviour
 	void OnDestroy(){
 		Debug.Log("Getting Destroyed");
 		//Switch cam
-	}
-
-	[RPC]
-	void sendMessage(string text, NetworkMessageInfo info){
-	    Debug.Log(text + " from " + info.sender);
 	}
 
 	[RPC]

@@ -53,7 +53,7 @@ public class PregameLobby : MonoBehaviour {
 				 Event.current.character == '\n' &&
 				 GUI.GetNameOfFocusedControl() == "ChatBox") ) 
 				&& textField != ""  ){ 
-				photonView.RPC("recieveMessage", PhotonTargets.AllBuffered, (PhotonNetwork.player.ID + ": " + textField) );
+				photonView.RPC("recieveMessage", PhotonTargets.AllBuffered, (this.player.Handle + ": " + textField + "\n") );
 				textField = "";
 				this.scrollPositionChat.y = Mathf.Infinity;
 			}
@@ -69,7 +69,7 @@ public class PregameLobby : MonoBehaviour {
 			if( PhotonNetwork.isMasterClient ){
 				player.Guests = Mathf.RoundToInt(GUILayout.HorizontalSlider(player.Guests, 0.0f, 5.0f));
 				GUILayout.Label( "Number of Guests: " + player.Guests );
-				if(GUILayout.Button( "PLAY INTRIGUE") && player.Team != "" && (readyCount == PhotonNetwork.playerList.Length-1) ){
+				if( (readyCount == PhotonNetwork.playerList.Length-1) && player.Team != "" && GUILayout.Button( "PLAY INTRIGUE") ){
 					photonView.RPC("go", PhotonTargets.AllBuffered);
 				}
 			} else if( player.Team != "" && !isReady ){
@@ -96,7 +96,7 @@ public class PregameLobby : MonoBehaviour {
 
 	[RPC]
 	public void recieveMessage(string s){
-		this.chatBox += s + "\n";
+		this.chatBox += s;
 	}
 
 	[RPC]

@@ -32,7 +32,6 @@ public class Spy : MonoBehaviour
 	}
 
 	void OnGUI() {
-		GUILayout.Label( "Team: "+ player.Team );
 		GUI.skin.label.fontSize = 20;
 		GUI.color = Color.black;
 		GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", player.Score) );
@@ -75,12 +74,6 @@ public class Spy : MonoBehaviour
 				break;
 		}*/
 
-	}
-
-	
-	[RPC]
-	void sendMessage( string text, NetworkMessageInfo info ){
-	    Debug.Log(text + " from " + info.sender);
 	}
 
 	[RPC]
