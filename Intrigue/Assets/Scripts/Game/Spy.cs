@@ -5,6 +5,7 @@ public class Spy : MonoBehaviour
 {
     
     private PhotonView photonView = null;
+	private bool isSpectating = false;
     private RaycastHit[] objHit;
 	private Ray objRay = new Ray();
 	private Player player;
@@ -63,16 +64,12 @@ public class Spy : MonoBehaviour
 
 	void OnDestory(){
 		Debug.Log("Getting Destroyed");
-		/*GameObject[] spies = GameObject.FindGameObjectsWithTag("Spy");
+		GameObject[] spies = GameObject.FindGameObjectsWithTag("Guard");
 		foreach (GameObject spy in spies){
-				Transform camRef = GetComponentInChildren<Camera>().transform;
-				camRef.parent = spy.transform;
-				Intrigue.isSpectating = true;
-				Vector3 camHeightFix = new Vector3(0.1499996f,0.5277554f,0.0f);
-				camRef.position = spy.transform.position + camHeightFix;
-				camRef.rotation = spy.transform.rotation;
-				break;
-		}*/
+			spy.GetComponentInChildren<Camera>().enabled = true;
+			isSpectating = true;
+			break;
+		}
 	}
 
 	[RPC]

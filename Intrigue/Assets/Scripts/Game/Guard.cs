@@ -4,6 +4,7 @@ using System.Collections;
 public class Guard : MonoBehaviour
 {
 	private bool accusing = false;
+	private bool isSpectating = false;
 	private GameObject accused;
 	private PhotonView photonView = null;
 	private GameObject[] guests = null;
@@ -23,10 +24,10 @@ public class Guard : MonoBehaviour
 			player = GameObject.Find("Player").GetComponent<Player>();
 		} else {
 			Debug.Log("Guard Deactivated");
-			GetComponentInChildren<Camera>().enabled = false; 
+			GetComponentInChildren<Camera>().enabled = false;
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<MovementController>().enabled = false;
-			GetComponentInChildren<MouseLook>().enabled = false; 
+			GetComponentInChildren<MouseLook>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
 			enabled = false;
 
@@ -34,7 +35,6 @@ public class Guard : MonoBehaviour
 	}
 
 	void Update () {
-
 		if ( guests == null ){
 			Yielder(2);
 			guests = GameObject.FindGameObjectsWithTag("Guest");
@@ -88,6 +88,7 @@ public class Guard : MonoBehaviour
 
 
 		if ( Input.GetKeyUp (KeyCode.E) && !accusing ){
+				Debug.Log("hit: " + hit.transform.gameObject.tag );
 				if (Physics.Raycast (transform.position, fwd,out hit, 8)) {
 					if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
 							accusing = true;
@@ -118,7 +119,7 @@ public class Guard : MonoBehaviour
 			Debug.Log("You found a spy!");
 			player.Score += 100;
 			photonView.RPC("spyCaught", PhotonTargets.MasterClient);
-			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
+			photonView.RPC("destroySpy", PhotonTargets.All);
 		}
 		else{
 			Debug.Log("You dun goofed");
@@ -130,7 +131,12 @@ public class Guard : MonoBehaviour
 
 	void OnDestroy(){
 		Debug.Log("Getting Destroyed");
-		//Switch cam
+		GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
+		foreach (GameObject guard in guards){
+			guard.GetComponentInChildren<Camera>().enabled = true; 
+			isSpectating = true;
+			break;
+		}
 	}
 
 	[RPC]
