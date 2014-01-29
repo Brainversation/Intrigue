@@ -9,8 +9,6 @@ public class MovementController : MonoBehaviour {
 
 
     static int idleState = Animator.StringToHash("Base Layer.Idle");    
-    
-
    
     void Update() {
         CharacterController controller = GetComponent<CharacterController>();

@@ -5,38 +5,47 @@ public class GuestMovement : Photon.MonoBehaviour {
 
 	int actID = -1;
 	public NavMeshAgent agent;
-	public GameObject room;
+	private GameObject room;
 	Vector3 finalPosition;
 	bool init = true;
 	float counter = 0;
 	
-	private Animator anim;                          // a reference to the animator on the character
+	private Animator anim;
+	private Vector3 correctPlayerPos;
+	private Quaternion correctPlayerRot;
 
 
 	void Start(){
 		anim = GetComponent<Animator>();
+		anim.speed = 1.5f;
 		room = GameObject.FindWithTag("RoomCollider");
 	}
 
-	void Update(){
+	public void Update(){
+		if(!photonView.isMine){
+			transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
+			transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
+		} else {
 
-		anim.SetFloat("Direction", agent.velocity.x);
-		anim.SetFloat("Speed", agent.velocity.z);
-
-		Debug.Log("Inside Guest Update");
-		if(counter > 0.5f){
-			moveGuest();
-			init = false;
-			Debug.Log("Inside Guest if");
-			counter = 0;
-		}
-		else{
-			counter += Time.deltaTime;
+			Debug.Log("Inside Guest Update");
+			if(counter > 0.5f){
+				moveGuest();
+				init = false;
+				Debug.Log("Inside Guest if");
+				counter = 0;
+			}
+			else{
+				counter += Time.deltaTime;
+			}
 		}
 	}
-	
+
+	public void FixedUpdate(){
+			anim.SetFloat("Speed", agent.velocity.z);
+			anim.SetFloat("Direction", agent.velocity.x);
+	}
+
 	void moveGuest(){
-		
 		Vector3 max;
 		Vector3 min;
 
@@ -52,13 +61,20 @@ public class GuestMovement : Photon.MonoBehaviour {
 		Debug.Log("At end of moveGuest()");
 	}
 
-	[RPC]
-	void sendAnimBool(string name, bool value){
-		anim.SetBool(name,value);
-	}
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+		if (stream.isWriting){
+			// We own this player: send the others our data
+			stream.SendNext(transform.position);
+			stream.SendNext(transform.rotation);
+			stream.SendNext(agent.velocity.x);
+			stream.SendNext(agent.velocity.z);
 
-	[RPC]
-	void sendAnimFloat(string name, float value){
-		anim.SetFloat(name,value);
+		}else{
+			// Network player, receive data
+			this.correctPlayerPos = (Vector3) stream.ReceiveNext();
+			this.correctPlayerRot = (Quaternion) stream.ReceiveNext();
+			anim.SetFloat("Direction", (float) stream.ReceiveNext());
+			anim.SetFloat("Speed", (float) stream.ReceiveNext());
+		}
 	}
 }
