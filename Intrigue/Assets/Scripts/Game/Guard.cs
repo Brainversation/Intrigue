@@ -113,7 +113,6 @@ public class Guard : MonoBehaviour
 				}
 		}
 		GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", player.Score));
-		GUI.DrawTexture(new Rect(Screen.width/2, Screen.height/2, 60, 60), aTexture, ScaleMode.ScaleToFit, true, 10.0F);
 	}
 
 	void testAccusation(){
