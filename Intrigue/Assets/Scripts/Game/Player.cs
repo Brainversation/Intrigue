@@ -3,11 +3,11 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	string handle = "";
-	string roomName = "";
-	string team = "";
-	int numberOfGuests = 0;
-	int score = 0;
+	private string handle = "";
+	private string roomName = "";
+	private string team = "";
+	private int numberOfGuests = 0;
+	private int score = 0;
 
 	void Awake(){
 		DontDestroyOnLoad(transform.gameObject);

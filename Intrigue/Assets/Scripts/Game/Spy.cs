@@ -5,8 +5,8 @@ public class Spy : MonoBehaviour
 {
     
     private PhotonView photonView = null;
-    RaycastHit[] objHit;
-	Ray objRay = new Ray();
+    private RaycastHit[] objHit;
+	private Ray objRay = new Ray();
 	private Player player;
 
     //Yield function that waits specified amount of seconds
@@ -73,7 +73,6 @@ public class Spy : MonoBehaviour
 				camRef.rotation = spy.transform.rotation;
 				break;
 		}*/
-
 	}
 
 	[RPC]

@@ -6,6 +6,7 @@ public class Objective : Photon.MonoBehaviour {
 	public float completionTime = 5;
 	public int id;
 	public bool inUse;
+
 	private float timeLeft;
 	private bool finished = false;
 	private Animator anim;
@@ -26,11 +27,9 @@ public class Objective : Photon.MonoBehaviour {
 
 	public void useObjective(GameObject user){
 		if(timeLeft > 0){
-
 			timeLeft -= Time.deltaTime;
 			Debug.Log("Time Left: " + timeLeft);
-		}
-		else if(!finished) {
+		} else if(!finished) {
 			photonView.RPC("objectiveComplete", PhotonTargets.All, this.id);
 			timeLeft = 0;
 			finished = true;

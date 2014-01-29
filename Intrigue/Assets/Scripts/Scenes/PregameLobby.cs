@@ -6,7 +6,6 @@ public class PregameLobby : MonoBehaviour {
 	private PhotonView photonView = null;
 	private Vector2 scrollPositionChat = new Vector2(0, 0);
 	private GUIStyle styleChat = new GUIStyle();
-	private GameObject cube = null;
 	private string chatBox = "";
 	private string textField = "";
 	private bool isReady = false;

@@ -3,16 +3,12 @@ using System.Collections;
 
 public class MainMenu : MonoBehaviour {
 
-	private PhotonView photonView = null;
 	private Player player;
 
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
 		
 		connect();
-
-		// Get photonView component
-		photonView = PhotonView.Get(this);
 
 		player = GameObject.Find("Player").GetComponent<Player>();
 	}

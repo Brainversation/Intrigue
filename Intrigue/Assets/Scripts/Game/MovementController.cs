@@ -5,10 +5,7 @@ public class MovementController : MonoBehaviour {
 
     public float speed = 6.0F;
     public float gravity = 20.0F;
-    private Vector3 moveDirection = Vector3.zero;
-
-
-    static int idleState = Animator.StringToHash("Base Layer.Idle");    
+    private Vector3 moveDirection = Vector3.zero;   
    
     void Update() {
         CharacterController controller = GetComponent<CharacterController>();

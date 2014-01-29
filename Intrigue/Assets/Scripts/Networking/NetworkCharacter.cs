@@ -7,12 +7,10 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private Quaternion correctPlayerRot;
 
 	private Animator anim;
-	private CapsuleCollider col;
 
 	void Start() {
 		//Get References to Animator and Collider
 		anim = GetComponent<Animator>();
-		col = GetComponent<CapsuleCollider>();
 		anim.speed = 1.5f;
 	}
 

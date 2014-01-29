@@ -3,13 +3,11 @@ using System.Collections;
 
 public class GuestMovement : Photon.MonoBehaviour {
 
-	int actID = -1;
 	public NavMeshAgent agent;
-	private GameObject room;
-	Vector3 finalPosition;
-	bool init = true;
-	float counter = 0;
 	
+	private GameObject room;
+	private Vector3 finalPosition;
+	private float counter = 0;
 	private Animator anim;
 	private Vector3 correctPlayerPos;
 	private Quaternion correctPlayerRot;
@@ -30,7 +28,6 @@ public class GuestMovement : Photon.MonoBehaviour {
 			Debug.Log("Inside Guest Update");
 			if(counter > 0.5f){
 				moveGuest();
-				init = false;
 				Debug.Log("Inside Guest if");
 				counter = 0;
 			}

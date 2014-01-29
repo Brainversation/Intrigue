@@ -3,8 +3,6 @@ using System.Collections;
 
 public class Guard : MonoBehaviour
 {
-    public Texture aTexture;
-
 	private bool accusing = false;
 	private GameObject accused;
 	private PhotonView photonView = null;
@@ -137,7 +135,7 @@ public class Guard : MonoBehaviour
 
 	[RPC]
 	void spyCaught(){
-	    --Intrigue.numSpiesLeft;
+		--Intrigue.numSpiesLeft;
 	}
 
 	[RPC]

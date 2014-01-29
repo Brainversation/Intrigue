@@ -787,6 +787,7 @@ GameObject:
   - 111: {fileID: 11100000}
   - 114: {fileID: 11400000}
   - 143: {fileID: 14300000}
+  - 64: {fileID: 6400000}
   m_Layer: 8
   m_Name: Robot_Guard
   m_TagString: Guard
@@ -1446,6 +1447,19 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
   m_OcclusionCulling: 1
+--- !u!64 &6400000
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100102}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 4300000, guid: 4316f33f838e9614789476c8a9ed9c5e, type: 3}
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1
@@ -1499,7 +1513,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be1dc1eba228b945ae2c0d36f51f58d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aTexture: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1529,9 +1542,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054a0b483d2ae61479ada5fcce173dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animSpeed: 1.5
-  lookSmoother: 3
-  useCurves: 0
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
