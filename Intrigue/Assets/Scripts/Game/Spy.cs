@@ -62,9 +62,9 @@ public class Spy : MonoBehaviour
 	}
 
 
-	void OnDestory(){
+	void spectate(){
 		Debug.Log("Spy Getting Destroyed");
-		GameObject[] spies = GameObject.FindGameObjectsWithTag("Guard");
+		GameObject[] spies = GameObject.FindGameObjectsWithTag("Spy");
 		foreach (GameObject spy in spies){
 			spy.GetComponentInChildren<Camera>().enabled = true;
 			isSpectating = true;
@@ -76,7 +76,7 @@ public class Spy : MonoBehaviour
 	void destroySpy(){
 		if( photonView.isMine){
 			Debug.Log("IS Mine: " + photonView.isMine);
-			OnDestory();
+			spectate();
 			PhotonNetwork.Destroy(gameObject);
 		}
 	}

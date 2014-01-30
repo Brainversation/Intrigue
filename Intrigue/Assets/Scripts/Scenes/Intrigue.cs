@@ -26,7 +26,7 @@ public class Intrigue : MonoBehaviour {
 
 	public static GameObject playerGO = null;
 
-	private static int rounds = 1;
+	private static int rounds = 2;
 	private static int roundsLeft = rounds;
 
 	private Player player;
@@ -60,10 +60,10 @@ public class Intrigue : MonoBehaviour {
 
 	void Update () {
 		timeLeft -= Time.deltaTime;
-		Debug.Log("Game Over: \nTimeLeft: " + timeLeft + " SpiesLeft: " + numSpiesLeft + " GuardsLeft: " + numGuardsLeft + " ObjectivesCompleted:" + objectivesCompleted + " numObjectives:" + numObjectives);
 		if( timeLeft <= (timeLimit-10) ){
 			if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/numObjectives)*100)>=50){
-				photonView.RPC("gameOver", PhotonTargets.All);
+				Debug.Log("Game Over: \nTimeLeft: " + timeLeft + " SpiesLeft: " + numSpiesLeft + " GuardsLeft: " + numGuardsLeft + " ObjectivesCompleted:" + objectivesCompleted + " numObjectives:" + numObjectives);
+				photonView.RPC("callGameOver", PhotonTargets.All);
 			}
 		}
 	}
@@ -129,12 +129,7 @@ public class Intrigue : MonoBehaviour {
 		++Intrigue.numGuardsLeft;
 	}
 
-	[RPC]
 	void gameOver(){
-		//Reset or Go to post game
-		if(Intrigue.playerGO)
-				PhotonNetwork.Destroy(Intrigue.playerGO);
-
 		if(roundsLeft > 0){
 			Debug.Log( "Reset" );
 			--roundsLeft;
@@ -148,5 +143,14 @@ public class Intrigue : MonoBehaviour {
 			PhotonNetwork.LeaveRoom();
 			Application.LoadLevel( "MainMenu" );
 		}
+	}
+
+	[RPC]
+	void callGameOver(){
+		//Reset or Go to post game
+		if(Intrigue.playerGO == null)
+				PhotonNetwork.Destroy(Intrigue.playerGO);
+
+		gameOver();
 	}
 }

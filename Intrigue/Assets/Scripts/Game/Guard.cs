@@ -83,6 +83,7 @@ public class Guard : MonoBehaviour
 				}
 				if(Input.GetKeyUp(KeyCode.Space)){
 					accusing = false;
+					accused = null;
 				}
 		}
 		GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", player.Score));
@@ -98,13 +99,14 @@ public class Guard : MonoBehaviour
 		else{
 			Debug.Log("You dun goofed");
 			photonView.RPC("guardFailed", PhotonTargets.MasterClient);
+			spectate();
 			PhotonNetwork.Destroy(gameObject);
 		}
 		accusing = false;
+		accused = null;
 	}
 
-	void OnDestroy(){
-		Debug.Log("Guard Getting Destroyed");
+	void spectate(){
 		GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
 		foreach (GameObject guard in guards){
 			guard.GetComponentInChildren<Camera>().enabled = true; 
