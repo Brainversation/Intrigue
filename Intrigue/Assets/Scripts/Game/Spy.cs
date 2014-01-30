@@ -76,7 +76,8 @@ public class Spy : MonoBehaviour
 	void destroySpy(){
 		if( photonView.isMine){
 			Debug.Log("IS Mine: " + photonView.isMine);
-			// PhotonNetwork.Destroy(photonView);
+			OnDestory();
+			PhotonNetwork.Destroy(gameObject);
 		}
 	}
 }
