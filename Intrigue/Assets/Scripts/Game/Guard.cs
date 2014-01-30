@@ -106,6 +106,7 @@ public class Guard : MonoBehaviour
 				}
 				if(Input.GetKeyUp(KeyCode.Space)){
 					accusing = false;
+					accused = null;
 				}
 		}
 		GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", player.Score));
@@ -124,6 +125,7 @@ public class Guard : MonoBehaviour
 			PhotonNetwork.Destroy(gameObject);
 		}
 		accusing = false;
+		accused = null;
 	}
 
 	void OnDestroy(){
