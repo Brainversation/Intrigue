@@ -87,7 +87,7 @@ public class Guard : MonoBehaviour
 
 		if ( Input.GetKeyUp (KeyCode.E) && !accusing ){
 				Debug.Log( "e pushed" );
-				if ( Physics.Raycast(transform.position, fwd, out hit, 8) ) {
+				if ( Physics.Raycast(transform.position, fwd, out hit, 10) ) {
 					Debug.Log( "hit: " + hit.transform.gameObject.tag );
 					if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
 							accusing = true;
