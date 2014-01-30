@@ -86,7 +86,8 @@ public class Guard : MonoBehaviour
 		}
 
 		if ( Input.GetKeyUp (KeyCode.E) && !accusing ){
-				if ( Physics.Raycast(transform.position, fwd, out hit, 10) ) {
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				if ( Physics.Raycast(ray, out hit, 10) ) {
 					if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
 							accusing = true;
 							accused = hit.transform.gameObject;

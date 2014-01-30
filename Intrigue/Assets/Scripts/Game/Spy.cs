@@ -38,11 +38,10 @@ public class Spy : MonoBehaviour
 	}
 
 	void Update () {
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		if (Input.GetKey("e")){
-			Vector3 fwd = transform.TransformDirection (Vector3.forward);
 			RaycastHit hit;
-			if( Physics.Raycast(transform.position, fwd, out hit, 10.0f) ){
-				Debug.Log(hit.transform.tag);
+			if( Physics.Raycast(ray, out hit, 10.0f) ){
 				if( hit.transform.tag == "Objective" ){
 					Objective hitObjective = hit.transform.GetComponent<Objective>();
 					Debug.Log("Hit Objective");
