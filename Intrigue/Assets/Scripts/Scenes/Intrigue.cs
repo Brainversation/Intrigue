@@ -6,7 +6,9 @@ public class Intrigue : MonoBehaviour {
 
 	public bool wantGameOver = true;
 
+	[HideInInspector]
 	public int objectivesCompleted = 0;
+	[HideInInspector]
 	public bool[] objectives;
 	private int numObjectives = 5;
 
