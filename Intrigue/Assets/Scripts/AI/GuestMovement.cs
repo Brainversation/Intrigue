@@ -38,8 +38,10 @@ public class GuestMovement : Photon.MonoBehaviour {
 	}
 
 	public void FixedUpdate(){
+		if(photonView.isMine){
 			anim.SetFloat("Speed", agent.velocity.z);
 			anim.SetFloat("Direction", agent.velocity.x);
+		}
 	}
 
 	void moveGuest(){
