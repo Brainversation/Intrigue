@@ -58,6 +58,7 @@ public class PregameLobby : MonoBehaviour {
 			}
 			if( GUILayout.Button( "Leave Room" ) ){
 				PhotonNetwork.LeaveRoom();
+				Application.LoadLevel( "MainMenu" );
 			}
 			if(GUILayout.Button( "Play as Spy")){
 				player.Team = "Spy";
