@@ -3,14 +3,12 @@ using System.Collections;
 
 public class Spy : MonoBehaviour
 {
-    
-    private PhotonView photonView = null;
+
+	private PhotonView photonView = null;
 	private bool isSpectating = false;
-    private RaycastHit[] objHit;
-	private Ray objRay = new Ray();
 	private Player player;
 
-    //Yield function that waits specified amount of seconds
+	//Yield function that waits specified amount of seconds
 	IEnumerator Yielder(int seconds){
 		yield return new WaitForSeconds(seconds);
 	}
@@ -36,28 +34,20 @@ public class Spy : MonoBehaviour
 		GUI.skin.label.fontSize = 20;
 		GUI.color = Color.black;
 		GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", player.Score) );
+		if( isSpectating ) GUI.Label(new Rect((Screen.width/2)-150,Screen.height-50,300,100), "Spectating!" );
 	}
 
 	void Update () {
-	 	if (Input.GetKey("e")){
-	 		int i = 0;
-	 		objRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-	 		objHit = null;
-	        objHit = Physics.RaycastAll(objRay, 10.0f);
-	        Debug.Log("ObjHit len: " + objHit.Length);
-	        while (i < objHit.Length) {
-		            RaycastHit hit = objHit[i];
-		            Debug.Log("Hit: " + hit);
-		            Debug.Log("HitTag: " + hit.transform.tag);
-			    if(hit.transform.tag=="Objective"){
-			   		Objective hitObjective = hit.transform.GetComponent<Objective>();
-			   		//if(!hitObjective.inUse){
-			   			Debug.Log("Hit Objective");
-	            	//	hitObjective.inUse = true;
-	            		hitObjective.useObjective(gameObject);
-	            	//}
-	            }
-	            i++; 
+		if (Input.GetKey("e")){
+			Vector3 fwd = transform.TransformDirection (Vector3.forward);
+			RaycastHit hit;
+			if( Physics.Raycast(transform.position, fwd, out hit, 10.0f) ){
+				Debug.Log(hit.transform.tag);
+				if( hit.transform.tag == "Objective" ){
+					Objective hitObjective = hit.transform.GetComponent<Objective>();
+					Debug.Log("Hit Objective");
+					hitObjective.useObjective(gameObject);
+				}
 			}
 		}
 	}
@@ -76,7 +66,6 @@ public class Spy : MonoBehaviour
 	[RPC]
 	void destroySpy(){
 		if( photonView.isMine){
-			Debug.Log("IS Mine: " + photonView.isMine);
 			spectate();
 			PhotonNetwork.Destroy(gameObject);
 		}
