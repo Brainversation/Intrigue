@@ -2359,6 +2359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd488e40c8074fb097d0f3e9fe8cb19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wantGameOver: 0
   objectivesCompleted: 0
   objectives: 
 --- !u!1 &941420359
@@ -4393,7 +4394,7 @@ GameObject:
   - 114: {fileID: 1900022428}
   - 114: {fileID: 1900022429}
   - 23: {fileID: 1900022432}
-  - 64: {fileID: 1900022430}
+  - 65: {fileID: 1900022430}
   m_Layer: 0
   m_Name: safe
   m_TagString: Objective
@@ -4472,10 +4473,10 @@ MonoBehaviour:
   completionTime: 5
   id: 0
   inUse: 0
---- !u!64 &1900022430
-MeshCollider:
+--- !u!65 &1900022430
+BoxCollider:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 6400000, guid: 731b145f909b9cd4f8a0942b6a0daee1,
+  m_PrefabParentObject: {fileID: 6500000, guid: 731b145f909b9cd4f8a0942b6a0daee1,
     type: 2}
   m_PrefabInternal: {fileID: 262005027}
   m_GameObject: {fileID: 1900022425}
@@ -4483,9 +4484,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_SmoothSphereCollisions: 0
-  m_Convex: 0
-  m_Mesh: {fileID: 4300018, guid: 2ed80abb9fed92c48bb80368fb86d1a9, type: 3}
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1900022432
 Renderer:
   m_ObjectHideFlags: 0
