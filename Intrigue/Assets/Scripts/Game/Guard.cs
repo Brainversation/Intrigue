@@ -122,14 +122,14 @@ public class Guard : MonoBehaviour
 		else{
 			Debug.Log("You dun goofed");
 			photonView.RPC("guardFailed", PhotonTargets.MasterClient);
+			spectate();
 			PhotonNetwork.Destroy(gameObject);
 		}
 		accusing = false;
 		accused = null;
 	}
 
-	void OnDestroy(){
-		Debug.Log("Guard Getting Destroyed");
+	void spectate(){
 		GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
 		foreach (GameObject guard in guards){
 			guard.GetComponentInChildren<Camera>().enabled = true; 

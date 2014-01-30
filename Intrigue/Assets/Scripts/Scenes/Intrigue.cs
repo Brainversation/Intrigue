@@ -26,7 +26,7 @@ public class Intrigue : MonoBehaviour {
 
 	public static GameObject playerGO = null;
 
-	private static int rounds = 1;
+	private static int rounds = 2;
 	private static int roundsLeft = rounds;
 
 	private Player player;
@@ -61,8 +61,8 @@ public class Intrigue : MonoBehaviour {
 	void Update () {
 		timeLeft -= Time.deltaTime;
 		if( timeLeft <= (timeLimit-10) ){
-			Debug.Log("Game Over: \nTimeLeft: " + timeLeft + " SpiesLeft: " + numSpiesLeft + " GuardsLeft: " + numGuardsLeft + " ObjectivesCompleted:" + objectivesCompleted + " numObjectives:" + numObjectives);
 			if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/numObjectives)*100)>=50){
+				Debug.Log("Game Over: \nTimeLeft: " + timeLeft + " SpiesLeft: " + numSpiesLeft + " GuardsLeft: " + numGuardsLeft + " ObjectivesCompleted:" + objectivesCompleted + " numObjectives:" + numObjectives);
 				photonView.RPC("callGameOver", PhotonTargets.All);
 			}
 		}
@@ -148,9 +148,9 @@ public class Intrigue : MonoBehaviour {
 	[RPC]
 	void callGameOver(){
 		//Reset or Go to post game
-		if(Intrigue.playerGO)
+		if(Intrigue.playerGO == null)
 				PhotonNetwork.Destroy(Intrigue.playerGO);
 
-		Invoke("gameOver", 3);
+		gameOver();
 	}
 }
