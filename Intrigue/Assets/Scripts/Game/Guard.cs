@@ -86,9 +86,7 @@ public class Guard : MonoBehaviour
 		}
 
 		if ( Input.GetKeyUp (KeyCode.E) && !accusing ){
-				Debug.Log( "e pushed" );
 				if ( Physics.Raycast(transform.position, fwd, out hit, 10) ) {
-					Debug.Log( "hit: " + hit.transform.gameObject.tag );
 					if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
 							accusing = true;
 							accused = hit.transform.gameObject;
@@ -118,7 +116,7 @@ public class Guard : MonoBehaviour
 			Debug.Log("You found a spy!");
 			player.Score += 100;
 			photonView.RPC("spyCaught", PhotonTargets.MasterClient);
-			photonView.RPC("destroySpy", PhotonTargets.All);
+			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
 		}
 		else{
 			Debug.Log("You dun goofed");
@@ -129,7 +127,7 @@ public class Guard : MonoBehaviour
 	}
 
 	void OnDestroy(){
-		Debug.Log("Getting Destroyed");
+		Debug.Log("Guard Getting Destroyed");
 		GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
 		foreach (GameObject guard in guards){
 			guard.GetComponentInChildren<Camera>().enabled = true; 
