@@ -42,6 +42,7 @@ public class Spy : MonoBehaviour
 	 	if (Input.GetKey("e")){
 	 		int i = 0;
 	 		objRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+	 		objHit = null;
 	        objHit = Physics.RaycastAll(objRay, 10.0f);
 	        Debug.Log("ObjHit len: " + objHit.Length);
 	        while (i < objHit.Length) {

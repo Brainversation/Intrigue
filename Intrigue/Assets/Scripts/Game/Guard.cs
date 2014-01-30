@@ -35,12 +35,9 @@ public class Guard : MonoBehaviour
 	}
 
 	void Update () {
-		if ( guests == null ){
-			Yielder(2);
-			guests = GameObject.FindGameObjectsWithTag("Guest");
-			spies = GameObject.FindGameObjectsWithTag("Spy");
-		}
-			
+		guests = GameObject.FindGameObjectsWithTag("Guest");
+		spies = GameObject.FindGameObjectsWithTag("Spy");
+		
 		if(guests!=null){
 			foreach (GameObject guest in guests){
 				guest.GetComponentInChildren<Renderer>().material.color = Color.white;
