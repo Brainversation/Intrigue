@@ -26,7 +26,7 @@ public class GuestMovement : Photon.MonoBehaviour {
 		} else {
 
 			// Debug.Log("Inside Guest Update");
-			if(counter > 0.5f){
+			if(counter > 5f){
 				moveGuest();
 				// Debug.Log("Inside Guest if");
 				counter = 0;
