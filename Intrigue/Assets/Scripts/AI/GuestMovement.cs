@@ -25,10 +25,10 @@ public class GuestMovement : Photon.MonoBehaviour {
 			transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
 		} else {
 
-			Debug.Log("Inside Guest Update");
+			// Debug.Log("Inside Guest Update");
 			if(counter > 0.5f){
 				moveGuest();
-				Debug.Log("Inside Guest if");
+				// Debug.Log("Inside Guest if");
 				counter = 0;
 			}
 			else{
@@ -55,7 +55,7 @@ public class GuestMovement : Photon.MonoBehaviour {
 									Random.Range(min.z, max.z));
 
 		agent.SetDestination(finalPosition);
-		Debug.Log("At end of moveGuest()");
+		// Debug.Log("At end of moveGuest()");
 	}
 
 	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
