@@ -35,59 +35,31 @@ public class Guard : MonoBehaviour
 	}
 
 	void Update () {
-		// if ( guests == null ){
-		// 	Yielder(2);
-		// 	guests = GameObject.FindGameObjectsWithTag("Guest");
-		// 	spies = GameObject.FindGameObjectsWithTag("Spy");
-		// }
+		guests = GameObject.FindGameObjectsWithTag("Guest");
+		spies = GameObject.FindGameObjectsWithTag("Spy");
 			
-		// if(guests!=null){
-		// 	foreach (GameObject guest in guests){
-		// 		//guestAI = guest.GetComponent("GuestAi"); DEPRECATED
-		// 		//guestAI.outView();
-		// 		//<---------- NEED NEW WAY TO HIGHLIGHT GUESTS -------->
-		// 	}
-		// }
-		// if(spies!=null){
-		// 	foreach (GameObject spy in spies){
-			
-		// 		/*
-		// 		spy.renderer.material.SetColor("_Color", Color.white);
-		// 		spyView = spy.GetComponent("InGuardView");
-		// 		spyView.outView(); 
-		// 		^ DEPRECATED ^
-		// 		<--------- NEED NEW WAY TO HIGHLIGHT SPIES ------> 
-		// 		*/
-		// 	}
-		// }
+		if(guests!=null){
+			foreach (GameObject guest in guests){
+				guest.GetComponentInChildren<Renderer>().material.color = Color.white;
+			}
+		}
+		if(spies!=null){
+			foreach (GameObject spy in spies){
+				spy.GetComponentInChildren<Renderer>().material.color = Color.white;
+			}
+		}
 
 		//Highlights the currently targeted guest
-		RaycastHit hit;
-		Vector3 fwd = transform.TransformDirection (Vector3.forward);
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		
-		if (Physics.Raycast (transform.position, fwd, out hit, 5)) {
-			if(hit.transform.gameObject.CompareTag("Guest")){
-				/*
-				guestAI = hit.transform.gameObject.GetComponent("GuestAi");
-				guestAI.inView();
-				^ DEPRECATED
-				<------- NEED NEW WAY TO HIGHLIGHT GUESTS -------->
-				*/
-			}
-			if(hit.transform.gameObject.CompareTag("Spy")){
-				/*
-				hit.transform.gameObject.renderer.material.SetColor("_Color", Color.red);
-				spyView = hit.transform.gameObject.GetComponent("InGuardView");
-				spyView.inView();
-				^ DEPRECATED
-				<------- NEED NEW WAY TO HIGHLIGHT SPIES -------->
-				*/
+		if (Physics.Raycast (ray, out hit, 15)) {
+			if(hit.transform.gameObject.CompareTag("Guest")||hit.transform.gameObject.CompareTag("Spy")){
+				hit.transform.gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
 			}
 		}
 
 		if ( Input.GetKeyUp (KeyCode.E) && !accusing ){
-				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-				if ( Physics.Raycast(ray, out hit, 10) ) {
+				if ( Physics.Raycast(ray, out hit, 15) ) {
 					if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
 							accusing = true;
 							accused = hit.transform.gameObject;
