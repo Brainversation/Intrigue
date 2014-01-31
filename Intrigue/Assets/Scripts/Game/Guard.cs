@@ -7,8 +7,8 @@ public class Guard : MonoBehaviour
 	private bool isSpectating = false;
 	private GameObject accused;
 	private PhotonView photonView = null;
-	// private GameObject[] guests = null;
-	// private GameObject[] spies = null;
+	private GameObject[] guests = null;
+	private GameObject[] spies = null;
 	private Player player;
 
 	//Yield function that waits specified amount of seconds
@@ -51,6 +51,7 @@ public class Guard : MonoBehaviour
 
 		//Highlights the currently targeted guest
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		RaycastHit hit;
 		
 		if (Physics.Raycast (ray, out hit, 15)) {
 			if(hit.transform.gameObject.CompareTag("Guest")||hit.transform.gameObject.CompareTag("Spy")){
