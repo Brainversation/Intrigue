@@ -15,14 +15,14 @@ public class GuestMovement : Photon.MonoBehaviour {
 
 	void Start(){
 		anim = GetComponent<Animator>();
-		anim.speed = 1.5f;
+		anim.speed = 1.0f;
 		room = GameObject.FindWithTag("RoomCollider");
 	}
 
 	public void Update(){
 		if(!photonView.isMine){
-			transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
-			transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
+			//transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
+			//transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
 		} else {
 
 			// Debug.Log("Inside Guest Update");
@@ -39,7 +39,7 @@ public class GuestMovement : Photon.MonoBehaviour {
 
 	public void FixedUpdate(){
 		if(photonView.isMine){
-			anim.SetFloat("Speed", agent.velocity.z);
+			anim.SetFloat("Speed", agent.speed);
 			anim.SetFloat("Direction", agent.velocity.x);
 		}
 	}
@@ -66,7 +66,7 @@ public class GuestMovement : Photon.MonoBehaviour {
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
 			stream.SendNext(agent.velocity.x);
-			stream.SendNext(agent.velocity.z);
+			stream.SendNext(agent.velocity);
 
 		}else{
 			// Network player, receive data
