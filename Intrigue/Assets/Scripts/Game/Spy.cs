@@ -54,11 +54,12 @@ public class Spy : MonoBehaviour
 
 
 	void spectate(){
-		Debug.Log("Spy Getting Destroyed");
+		Debug.Log("Trying to Spectate");
 		GameObject[] spies = GameObject.FindGameObjectsWithTag("Spy");
 		foreach (GameObject spy in spies){
 			spy.GetComponentInChildren<Camera>().enabled = true;
 			isSpectating = true;
+			Debug.Log("In For loop enabled a Camera");
 			break;
 		}
 	}
