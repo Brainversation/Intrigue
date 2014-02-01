@@ -11,6 +11,8 @@ public class GuestMovement : Photon.MonoBehaviour {
 	private Animator anim;
 	private Vector3 correctPlayerPos;
 	private Quaternion correctPlayerRot;
+	//private bool isStopped = false;
+	private bool init = true;
 
 
 	void Start(){
@@ -21,33 +23,47 @@ public class GuestMovement : Photon.MonoBehaviour {
 
 	public void Update(){
 		if(!photonView.isMine){
-			//transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
-			//transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
+			transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
+			transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
 		} else {
-
-			// Debug.Log("Inside Guest Update");
-			if(counter > 5f){
+			if(init){
 				moveGuest();
-				// Debug.Log("Inside Guest if");
-				counter = 0;
+				anim.SetFloat("Speed", agent.speed);
+				init = false;
 			}
-			else{
-				counter += Time.deltaTime;
+			if(agent.remainingDistance < 5){
+				moveGuest();
+				anim.SetFloat("Speed", agent.speed);
 			}
 		}
+		Debug.DrawLine(transform.position, finalPosition, Color.red, 0.0f, false);
 	}
 
 	public void FixedUpdate(){
-		if(photonView.isMine){
-			anim.SetFloat("Speed", agent.speed);
-			anim.SetFloat("Direction", agent.velocity.x);
-		}
+		/*if(photonView.isMine){
+			if(isStopped){
+				anim.SetFloat("Speed", 0f);
+				anim.SetFloat("Direction", agent.velocity.x);
+			}
+			else{
+				anim.SetFloat("Speed", agent.speed);
+				anim.SetFloat("Direction", agent.velocity.x);
+			}
+		}*/
 	}
 
 	void moveGuest(){
-		Vector3 max;
-		Vector3 min;
+		//Vector3 max;
+		//Vector3 min;
+		int walkRadius = 300;
+		Vector3 randomDirection = Random.insideUnitSphere * walkRadius;
 
+		randomDirection += transform.position;
+		NavMeshHit hit;
+		NavMesh.SamplePosition(randomDirection, out hit, walkRadius, 1);
+
+		finalPosition = hit.position;
+		/*
 		Collider roomCollider = room.GetComponent<BoxCollider>();
 		max = roomCollider.bounds.max;
 		min = roomCollider.bounds.min;
@@ -55,6 +71,7 @@ public class GuestMovement : Photon.MonoBehaviour {
 		finalPosition = new Vector3(Random.Range(min.x, max.x), 
 									room.transform.position.y,
 									Random.Range(min.z, max.z));
+									*/
 
 		agent.SetDestination(finalPosition);
 		// Debug.Log("At end of moveGuest()");
@@ -66,7 +83,7 @@ public class GuestMovement : Photon.MonoBehaviour {
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
 			stream.SendNext(agent.velocity.x);
-			stream.SendNext(agent.velocity);
+			stream.SendNext(agent.speed);
 
 		}else{
 			// Network player, receive data
