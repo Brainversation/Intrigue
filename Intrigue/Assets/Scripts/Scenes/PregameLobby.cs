@@ -67,7 +67,7 @@ public class PregameLobby : MonoBehaviour {
 				player.Team = "Guard";
 			}
 			if( PhotonNetwork.isMasterClient ){
-				player.Guests = Mathf.RoundToInt(GUILayout.HorizontalSlider(player.Guests, 0.0f, 5.0f));
+				player.Guests = Mathf.RoundToInt(GUILayout.HorizontalSlider(player.Guests, 0.0f, 15.0f));
 				GUILayout.Label( "Number of Guests: " + player.Guests );
 				if( (readyCount == PhotonNetwork.playerList.Length-1) && player.Team != "" && GUILayout.Button( "PLAY INTRIGUE") ){
 					photonView.RPC("go", PhotonTargets.AllBuffered);
