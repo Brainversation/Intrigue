@@ -1395,45 +1395,6 @@ Transform:
   m_LocalScale: {x: 4.54520702, y: .937850654, z: .0994788408}
   m_Children: []
   m_Father: {fileID: 1239348598}
---- !u!1 &165487886
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 165487888}
-  - 114: {fileID: 165487887}
-  m_Layer: 0
-  m_Name: Crosshair
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &165487887
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 165487886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e62df10c2e3616349937b166e906abb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crosshairTexture: {fileID: 2800000, guid: 9450c267d673972459ed18fe7c687a33, type: 3}
---- !u!4 &165487888
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 165487886}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.9430971, y: 6.58370924, z: -24.0080338}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &171366525
 GameObject:
   m_ObjectHideFlags: 0
@@ -9838,7 +9799,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd488e40c8074fb097d0f3e9fe8cb19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wantGameOver: 1
+  wantGameOver: 0
   objectivesCompleted: 0
   objectives: 
 --- !u!1 &941420359
