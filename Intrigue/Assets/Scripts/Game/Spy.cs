@@ -41,8 +41,8 @@ public class Spy : MonoBehaviour
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		if (Input.GetKey("e")){
 			RaycastHit hit;
-			Debug.DrawRay(ray.origin,ray.direction*10f,Color.green);
-			if( Physics.Raycast(ray, out hit, 10.0f) ){
+			Debug.DrawRay(ray.origin,ray.direction*15f,Color.green);
+			if( Physics.Raycast(ray, out hit, 15.0f) ){
 				if( hit.transform.tag == "Objective" ){
 					Objective hitObjective = hit.transform.GetComponent<Objective>();
 					Debug.Log("Hit Objective");

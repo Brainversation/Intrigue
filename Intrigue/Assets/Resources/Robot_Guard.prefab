@@ -788,6 +788,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 143: {fileID: 14300000}
   - 65: {fileID: 6500000}
+  - 114: {fileID: 11400012}
   m_Layer: 8
   m_Name: Robot_Guard
   m_TagString: Guard
@@ -1592,6 +1593,20 @@ MonoBehaviour:
   maximumX: 360
   minimumY: -60
   maximumY: 60
+--- !u!114 &11400012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffdf93944d02088429ec61ccf79123dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crosshairNormal: {fileID: 2800000, guid: 77203846a9ded514aba985acbba6a2e9, type: 3}
+  crosshairInteract: {fileID: 2800000, guid: 95252a15a494d9f44917e92f67db5675, type: 3}
+  canInteract: 0
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1
