@@ -7,6 +7,9 @@ public class Spy : MonoBehaviour
 	private PhotonView photonView = null;
 	private bool isSpectating = false;
 	private Player player;
+	public GameObject allytext;
+	public bool textAdded = false;
+	public string localHandle = "No Handle";
 
 	//Yield function that waits specified amount of seconds
 	IEnumerator Yielder(int seconds){
@@ -19,6 +22,14 @@ public class Spy : MonoBehaviour
 		if(photonView.isMine){
 			Debug.Log( "Spy" );
 			player = GameObject.Find("Player").GetComponent<Player>();
+			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
+
+			//Ally Hover Text
+			GameObject[] allies = GameObject.FindGameObjectsWithTag("Spy");
+			foreach (GameObject ally in allies){
+
+			}
+
 		} else {
 			Debug.Log("Spy Deactivated");
 			GetComponentInChildren<Camera>().enabled = false; 
@@ -38,6 +49,7 @@ public class Spy : MonoBehaviour
 	}
 
 	void Update () {
+		//Interact Raycasts
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		if (Input.GetKey("e")){
 			RaycastHit hit;
@@ -47,6 +59,20 @@ public class Spy : MonoBehaviour
 					Objective hitObjective = hit.transform.GetComponent<Objective>();
 					Debug.Log("Hit Objective");
 					hitObjective.useObjective(gameObject);
+				}
+			}
+		}
+
+		//Create Ally Texts
+		GameObject[] allies = GameObject.FindGameObjectsWithTag("Spy");
+		foreach(GameObject ally in allies){
+			if(ally!=gameObject){
+				if(!ally.GetComponent<Spy>().textAdded){
+					Debug.Log("creating ally text");
+					ally.GetComponent<Spy>().textAdded = true;
+					GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
+					textInstance.GetComponent<AllyText>().target = ally.transform;
+					textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
 				}
 			}
 		}
@@ -70,5 +96,10 @@ public class Spy : MonoBehaviour
 			spectate();
 			PhotonNetwork.Destroy(gameObject);
 		}
+	}
+
+	[RPC]
+	void giveHandle(string handle){
+		localHandle = handle;
 	}
 }
