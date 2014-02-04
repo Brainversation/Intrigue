@@ -68,11 +68,17 @@ public class Spy : MonoBehaviour
 		foreach(GameObject ally in allies){
 			if(ally!=gameObject){
 				if(!ally.GetComponent<Spy>().textAdded){
-					Debug.Log("creating ally text");
+					//Debug.Log("creating ally text");
 					ally.GetComponent<Spy>().textAdded = true;
 					GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
 					textInstance.GetComponent<AllyText>().target = ally.transform;
+					textInstance.transform.parent = ally.transform;
 					textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
+				}
+				if((ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Spy>().textAdded){
+					//Debug.Log("Changing Handle from: " + ally.GetComponentInChildren<TextMesh>().text + " to:" + ally.GetComponent<Spy>().localHandle);
+					ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
+					
 				}
 			}
 		}
