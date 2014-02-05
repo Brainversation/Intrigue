@@ -10,7 +10,9 @@ public class Guard : MonoBehaviour
 	private GameObject[] guests = null;
 	private GameObject[] spies = null;
 	private Player player;
-
+	public GameObject allytext;
+	public bool textAdded = false;
+	public string localHandle = "No Handle";
 	//Yield function that waits specified amount of seconds
 	IEnumerator Yielder(int seconds){
 		yield return new WaitForSeconds(seconds);
@@ -22,6 +24,7 @@ public class Guard : MonoBehaviour
 		if(photonView.isMine){
 			Debug.Log( "Guard" );
 			player = GameObject.Find("Player").GetComponent<Player>();
+			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
 		} else {
 			Debug.Log("Guard Deactivated");
 			GetComponentInChildren<Camera>().enabled = false;
@@ -66,6 +69,26 @@ public class Guard : MonoBehaviour
 							accused = hit.transform.gameObject;
 						}
 				}
+		}
+
+		//Create Ally Texts
+		GameObject[] allies = GameObject.FindGameObjectsWithTag("Guard");
+		foreach(GameObject ally in allies){
+			if(ally!=gameObject){
+				if(!ally.GetComponent<Guard>().textAdded){
+					//Debug.Log("creating ally text");
+					ally.GetComponent<Guard>().textAdded = true;
+					GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
+					textInstance.GetComponent<AllyText>().target = ally.transform;
+					textInstance.transform.parent = ally.transform;
+					textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
+				}
+				if((ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Guard>().textAdded){
+					//Debug.Log("Changing Handle from: " + ally.GetComponentInChildren<TextMesh>().text + " to:" + ally.GetComponent<Spy>().localHandle);
+					ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
+					
+				}
+			}
 		}	
 	}
 
@@ -123,5 +146,10 @@ public class Guard : MonoBehaviour
 	[RPC]
 	void guardFailed(){
 	    --Intrigue.numGuardsLeft;
+	}
+
+	[RPC]
+	void giveHandle(string handle){
+		localHandle = handle;
 	}
 }

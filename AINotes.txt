@@ -1,0 +1,31 @@
+AI Notes:
+
+Behavior Trees:
+
+- Make tasks as simple as we can.
+- Build in stages
+- Base abstract class is always Task
+- Need to talk about what list type we will use
+- Decide what the return type should be
+- 
+
+Types of Tasks:
+	Condition:
+		Returns true or false depending on the condition set with in it ( ex. enemy near )
+
+	Action:
+		Does an action ( ex. open door ) and returns true or false if succeeded
+
+	Composite:
+		A Task that hold, controls the order, and decide whether a task is run
+
+		Sequencer ( -> ) & nondeterministic ( ~~> ):
+			- Goes through all children until one fails or all succeed
+
+		Selector( ? ) & nondeterministic ( ~? ):
+			- Goes through all children until one passes
+
+	Decorator:
+		A task with a single child that is used to control the execution of that child.
+
+		
