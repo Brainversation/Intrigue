@@ -10,6 +10,8 @@ public class Guard : MonoBehaviour
 	private GameObject[] guests = null;
 	private GameObject[] spies = null;
 	private Player player;
+	private Intrigue intrigue;
+	private Network network;
 	public GameObject allytext;
 	public bool textAdded = false;
 	public string localHandle = "No Handle";
@@ -19,6 +21,8 @@ public class Guard : MonoBehaviour
 	}
 
 	void Start(){
+		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
+		network = GameObject.FindWithTag("Scripts").GetComponent<Network>();
 		photonView = PhotonView.Get(this);
 
 		if(photonView.isMine){
@@ -93,7 +97,7 @@ public class Guard : MonoBehaviour
 	}
 
 	void OnGUI(){
-		GUI.skin.label.fontSize = 20;
+		//GUI.skin.label.fontSize = 20;
 		GUI.color = Color.black;
 		if(accusing){
 			GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100),"E to Confirm Accusation \nSpace to Cancel.");
@@ -106,7 +110,7 @@ public class Guard : MonoBehaviour
 					accused = null;
 				}
 		}
-		GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", player.Score));
+		//GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", player.Score));
 		if( isSpectating ) GUI.Label(new Rect((Screen.width/2)-150,Screen.height-50,300,100), "Spectating!" );
 	}
 
@@ -114,6 +118,7 @@ public class Guard : MonoBehaviour
 		if(accused != null && accused.CompareTag("Spy")){
 			Debug.Log("You found a spy!");
 			player.Score += 100;
+			photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 			photonView.RPC("spyCaught", PhotonTargets.MasterClient);
 			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
 		}
@@ -151,5 +156,10 @@ public class Guard : MonoBehaviour
 	[RPC]
 	void giveHandle(string handle){
 		localHandle = handle;
+	}
+
+	[RPC]
+	void addScore(int teamID, int scoreToAdd){
+		network.AddScore(teamID, scoreToAdd);
 	}
 }

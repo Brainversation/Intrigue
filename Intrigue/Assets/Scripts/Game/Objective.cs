@@ -10,10 +10,12 @@ public class Objective : Photon.MonoBehaviour {
 	private float timeLeft;
 	private bool finished = false;
 	private Animator anim;
-	private Intrigue intrigue;
+	private Network network;
 	private Player player;
+	private Intrigue intrigue;
 
 	void Start () {
+		network = GameObject.FindWithTag("Scripts").GetComponent<Network>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		player = GameObject.Find("Player").GetComponent<Player>();
 		timeLeft = completionTime;
@@ -35,6 +37,7 @@ public class Objective : Photon.MonoBehaviour {
 			finished = true;
 			Debug.Log("Objective Complete");
 			player.Score += 100;
+			photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 			anim.SetBool("Complete",true);
 			photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", true);
 		}
@@ -57,5 +60,10 @@ public class Objective : Photon.MonoBehaviour {
 			//Debug.Log("id = " + id + "Objectives length " + intrigue.objectives.Length);
 			intrigue.objectives[id] = true;
 		}	
+	}
+
+	[RPC]
+	void addScore(int teamID, int scoreToAdd){
+		network.AddScore(teamID, scoreToAdd);
 	}
 }

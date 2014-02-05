@@ -12,6 +12,7 @@ public class Intrigue : MonoBehaviour {
 	public bool[] objectives;
 	private int numObjectives = 5;
 
+
 	public static int numSpiesLeft;
 	public static int numGuardsLeft;
 	private int numSpies = 0;
@@ -20,9 +21,7 @@ public class Intrigue : MonoBehaviour {
 	private static float timeLimit = 600;
 	private float timeLeft = timeLimit;
 
-	private PhotonView photonView = null;
-
-	private GameObject[] spawnObjects;
+	private PhotonView photonView = null;	private GameObject[] spawnObjects;
 	private List<Transform> spawns = new List<Transform>();
 	private List<Transform> availableSpawns = new List<Transform>();
 	private int spawnIndex;
@@ -34,11 +33,12 @@ public class Intrigue : MonoBehaviour {
 	private static int roundsLeft = rounds;
 
 	private Player player;
-
+	private Network network;
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
+		network = GameObject.FindWithTag("Scripts").GetComponent<Network>();
 
 		if(PhotonNetwork.isMasterClient){
 			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
@@ -119,6 +119,12 @@ public class Intrigue : MonoBehaviour {
 						"Robot_"+ player.Team,
 						position,
 						rotation, 0);
+		if (roundsLeft == rounds){
+			if(player.Team == "Spy")
+				player.TeamID = 1;
+			else
+				player.TeamID = 2;
+		}
 	}
 
 	[RPC]
@@ -143,9 +149,14 @@ public class Intrigue : MonoBehaviour {
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
+			PlayerPrefs.SetInt("Team1Score", network.TeamOneScore);
+			PlayerPrefs.SetInt("Team2Score", network.TeamTwoScore);
 			Application.LoadLevel( Application.loadedLevel );
 		} else {
 			Debug.Log( "Game Over" );
+			PlayerPrefs.SetInt("Team1Score", 0);
+			PlayerPrefs.SetInt("Team2Score", 0);
+
 			PhotonNetwork.LeaveRoom();
 			Application.LoadLevel( "MainMenu" );
 		}

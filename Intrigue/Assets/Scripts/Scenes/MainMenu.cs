@@ -21,7 +21,6 @@ public class MainMenu : MonoBehaviour {
 	void OnGUI(){
 		// Tells us about the current network connection
 		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
-
 		if( PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby) {
 			GUILayout.Label( "Room Name:");
 			player.RoomName = GUILayout.TextField(player.RoomName, 25);

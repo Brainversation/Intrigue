@@ -24,12 +24,6 @@ public class Spy : MonoBehaviour
 			player = GameObject.Find("Player").GetComponent<Player>();
 			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
 
-			//Ally Hover Text
-			GameObject[] allies = GameObject.FindGameObjectsWithTag("Spy");
-			foreach (GameObject ally in allies){
-
-			}
-
 		} else {
 			Debug.Log("Spy Deactivated");
 			GetComponentInChildren<Camera>().enabled = false; 
@@ -44,7 +38,7 @@ public class Spy : MonoBehaviour
 	void OnGUI() {
 		GUI.skin.label.fontSize = 20;
 		GUI.color = Color.black;
-		GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", player.Score) );
+		//GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", player.Score) );
 		if( isSpectating ) GUI.Label(new Rect((Screen.width/2)-150,Screen.height-50,300,100), "Spectating!" );
 	}
 

@@ -6,11 +6,21 @@ public class Player : MonoBehaviour {
 	private string handle = "";
 	private string roomName = "";
 	private string team = "";
+	private int teamID;
 	private int numberOfGuests = 0;
 	private int score = 0;
 
 	void Awake(){
 		DontDestroyOnLoad(transform.gameObject);
+	}
+
+	public int TeamID {
+		get{
+			return this.teamID;
+		}
+		set{
+			this.teamID = value;
+		}
 	}
 
 	public string Handle {
