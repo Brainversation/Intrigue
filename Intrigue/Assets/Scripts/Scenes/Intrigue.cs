@@ -111,6 +111,7 @@ public class Intrigue : MonoBehaviour {
 		if(roundsLeft > 0){
 			Debug.Log( "Reset" );
 			--roundsLeft;
+			photonView.RPC("syncRounds", PhotonTargets.OthersBuffered, roundsLeft);
 			PhotonNetwork.isMessageQueueRunning = false;
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
@@ -128,6 +129,19 @@ public class Intrigue : MonoBehaviour {
 			return this.timeLeft;
 		}
 	}
+
+	public int GetRoundsLeft{
+		get{
+			return roundsLeft;
+		}
+	}
+
+	public int GetRounds{
+		get{
+			return rounds;
+		}
+	}
+
 
 	[RPC]
 	void sendSpawnPoint(PhotonMessageInfo info){
@@ -177,5 +191,10 @@ public class Intrigue : MonoBehaviour {
 	[RPC]
 	void syncTime(float time){
 		this.timeLeft = time;
+	}
+
+	[RPC]
+	void syncRounds(int rounds){
+		roundsLeft = rounds;
 	}
 }
