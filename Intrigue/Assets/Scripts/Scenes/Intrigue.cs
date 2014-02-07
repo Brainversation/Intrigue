@@ -65,6 +65,7 @@ public class Intrigue : MonoBehaviour {
 
 	void Update () {
 		timeLeft -= Time.deltaTime;
+		photonView.RPC("syncTime", PhotonTargets.OthersBuffered, timeLeft);
 		if( timeLeft <= (timeLimit-10) ){
 			if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/numObjectives)*100)>=50){
 				if(wantGameOver){
@@ -106,6 +107,28 @@ public class Intrigue : MonoBehaviour {
 		availableSpawns.RemoveAt(spawnIndex);
 	}
 
+	void gameOver(){
+		if(roundsLeft > 0){
+			Debug.Log( "Reset" );
+			--roundsLeft;
+			PhotonNetwork.isMessageQueueRunning = false;
+			enabled = false;
+			this.numSpies = Intrigue.numSpiesLeft = 0;
+			this.numGuards = Intrigue.numGuardsLeft = 0;
+			Application.LoadLevel( Application.loadedLevel );
+		} else {
+			Debug.Log( "Game Over" );
+			PhotonNetwork.LeaveRoom();
+			Application.LoadLevel( "MainMenu" );
+		}
+	}
+
+	public float GetTimeLeft{
+		get{
+			return this.timeLeft;
+		}
+	}
+
 	[RPC]
 	void sendSpawnPoint(PhotonMessageInfo info){
 		spawnIndex = Random.Range(0,availableSpawns.Count-1);
@@ -142,22 +165,6 @@ public class Intrigue : MonoBehaviour {
 		++Intrigue.numGuardsLeft;
 	}
 
-	void gameOver(){
-		if(roundsLeft > 0){
-			Debug.Log( "Reset" );
-			--roundsLeft;
-			PhotonNetwork.isMessageQueueRunning = false;
-			enabled = false;
-			this.numSpies = Intrigue.numSpiesLeft = 0;
-			this.numGuards = Intrigue.numGuardsLeft = 0;
-			Application.LoadLevel( Application.loadedLevel );
-		} else {
-			Debug.Log( "Game Over" );
-			PhotonNetwork.LeaveRoom();
-			Application.LoadLevel( "MainMenu" );
-		}
-	}
-
 	[RPC]
 	void callGameOver(){
 		//Reset or Go to post game
@@ -165,5 +172,10 @@ public class Intrigue : MonoBehaviour {
 				PhotonNetwork.Destroy(Intrigue.playerGO);
 
 		gameOver();
+	}
+
+	[RPC]
+	void syncTime(float time){
+		this.timeLeft = time;
 	}
 }
