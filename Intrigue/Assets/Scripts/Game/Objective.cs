@@ -35,8 +35,7 @@ public class Objective : Photon.MonoBehaviour {
 			photonView.RPC("objectiveComplete", PhotonTargets.All, this.id);
 			timeLeft = 0;
 			finished = true;
-			Debug.Log("Objective Complete");
-			player.Score += 100;
+			Intrigue.playerGO.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
 			photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 			anim.SetBool("Complete",true);
 			photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", true);
@@ -50,20 +49,21 @@ public class Objective : Photon.MonoBehaviour {
 
 	[RPC]
 	void objectiveComplete(int id){
-		//Debug.Log("Objective ID " + id);
 		if(id == this.id){
-			//Debug.Log("awefaw ");
 			finished = true;
 			timeLeft = 0;
-			//Debug.Log("every line ");
 			intrigue.objectivesCompleted++;
-			//Debug.Log("id = " + id + "Objectives length " + intrigue.objectives.Length);
 			intrigue.objectives[id] = true;
 		}	
 	}
 
 	[RPC]
 	void addScore(int teamID, int scoreToAdd){
-		network.AddScore(teamID, scoreToAdd);
+		if(teamID == this.player.TeamID){
+			player.TeamScore += scoreToAdd;
+		}
+		else{
+			player.EnemyScore += scoreToAdd;
+		}
 	}
 }

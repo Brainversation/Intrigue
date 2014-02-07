@@ -4,12 +4,18 @@ using System.Collections;
 public class Spy : MonoBehaviour
 {
 
-	private PhotonView photonView = null;
 	private bool isSpectating = false;
 	private Player player;
+	public PhotonView photonView = null;
 	public GameObject allytext;
 	public bool textAdded = false;
 	public string localHandle = "No Handle";
+
+	public int remoteScore = 0;
+
+	private GameObject[] guards = null;
+	private GameObject[] spies = null;
+	private Rect windowRect = new Rect(20, 20, 120, 50);
 
 	//Yield function that waits specified amount of seconds
 	IEnumerator Yielder(int seconds){
@@ -18,10 +24,10 @@ public class Spy : MonoBehaviour
 
 	void Start(){
 		photonView = PhotonView.Get(this);
+		player = GameObject.Find("Player").GetComponent<Player>();
 
 		if(photonView.isMine){
 			Debug.Log( "Spy" );
-			player = GameObject.Find("Player").GetComponent<Player>();
 			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
 
 		} else {
@@ -38,8 +44,24 @@ public class Spy : MonoBehaviour
 	void OnGUI() {
 		GUI.skin.label.fontSize = 20;
 		GUI.color = Color.black;
-		//GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", player.Score) );
 		if( isSpectating ) GUI.Label(new Rect((Screen.width/2)-150,Screen.height-50,300,100), "Spectating!" );
+
+		if( Input.GetKey(KeyCode.Tab) ){
+			guards = GameObject.FindGameObjectsWithTag("Guard");
+			spies = GameObject.FindGameObjectsWithTag("spies");
+			windowRect = GUILayout.Window(0, windowRect, DoMyWindow, "Teams");
+		}
+	}
+
+	void DoMyWindow(int windowID) {
+
+		foreach(GameObject g in guards){
+			GUILayout.Label(g.GetComponent<Guard>().localHandle + " " + g.GetComponent<Guard>().remoteScore);
+		}
+		foreach(GameObject s in spies){
+			GUILayout.Label(s.GetComponent<Guard>().localHandle + " " + s.GetComponent<Guard>().remoteScore);
+		}
+
 	}
 
 	void Update () {
@@ -82,6 +104,9 @@ public class Spy : MonoBehaviour
 	void spectate(){
 		Debug.Log("Trying to Spectate");
 		GameObject[] spies = GameObject.FindGameObjectsWithTag("Spy");
+		if(spies.Length == 0){
+			spies = GameObject.FindGameObjectsWithTag("Guard");
+		}
 		foreach (GameObject spy in spies){
 			spy.GetComponentInChildren<Camera>().enabled = true;
 			isSpectating = true;
@@ -101,5 +126,15 @@ public class Spy : MonoBehaviour
 	[RPC]
 	void giveHandle(string handle){
 		localHandle = handle;
+	}
+
+	[RPC]
+	void addPlayerScore(int scoreToAdd){
+		if(photonView.isMine){
+			player.Score += scoreToAdd;
+		}
+		else{
+			remoteScore += scoreToAdd;
+		}
 	}
 }

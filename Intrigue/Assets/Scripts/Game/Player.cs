@@ -6,9 +6,11 @@ public class Player : MonoBehaviour {
 	private string handle = "";
 	private string roomName = "";
 	private string team = "";
-	private int teamID;
+	private int teamID = 0;
 	private int numberOfGuests = 0;
 	private int score = 0;
+	private int teamScore = 0;
+	private int enemyScore = 0;
 
 	void Awake(){
 		DontDestroyOnLoad(transform.gameObject);
@@ -20,6 +22,24 @@ public class Player : MonoBehaviour {
 		}
 		set{
 			this.teamID = value;
+		}
+	}
+
+	public int TeamScore {
+		get{
+			return this.teamScore;
+		}
+		set{
+			this.teamScore = value;
+		}
+	}
+
+	public int EnemyScore {
+		get{
+			return this.enemyScore;
+		}
+		set{
+			this.enemyScore = value;
 		}
 	}
 

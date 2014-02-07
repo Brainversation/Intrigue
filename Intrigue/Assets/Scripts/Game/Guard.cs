@@ -12,10 +12,17 @@ public class Guard : MonoBehaviour
 	private Player player;
 	private Intrigue intrigue;
 	private Network network;
+
+	public int remoteScore = 0;
 	public GameObject allytext;
 	public bool textAdded = false;
 	public string localHandle = "No Handle";
 	//Yield function that waits specified amount of seconds
+
+
+	private GameObject[] guards = null;
+	private Rect windowRect = new Rect(20, 20, 120, 50);
+
 	IEnumerator Yielder(int seconds){
 		yield return new WaitForSeconds(seconds);
 	}
@@ -23,11 +30,11 @@ public class Guard : MonoBehaviour
 	void Start(){
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		network = GameObject.FindWithTag("Scripts").GetComponent<Network>();
+		player = GameObject.Find("Player").GetComponent<Player>();
 		photonView = PhotonView.Get(this);
 
 		if(photonView.isMine){
 			Debug.Log( "Guard" );
-			player = GameObject.Find("Player").GetComponent<Player>();
 			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
 		} else {
 			Debug.Log("Guard Deactivated");
@@ -110,14 +117,30 @@ public class Guard : MonoBehaviour
 					accused = null;
 				}
 		}
-		//GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100), string.Format("{0}", player.Score));
 		if( isSpectating ) GUI.Label(new Rect((Screen.width/2)-150,Screen.height-50,300,100), "Spectating!" );
+		
+		if( Input.GetKey(KeyCode.Tab) ){
+			guards = GameObject.FindGameObjectsWithTag("Guard");
+			spies = GameObject.FindGameObjectsWithTag("Spy");
+			windowRect = GUILayout.Window(0, windowRect, DoMyWindow, "Teams");
+		}
+	}
+
+	void DoMyWindow(int windowID) {
+
+		foreach(GameObject g in guards){
+			GUILayout.Label(g.GetComponent<Guard>().localHandle + " " + g.GetComponent<Guard>().remoteScore);
+		}
+		foreach(GameObject s in spies){
+			GUILayout.Label(s.GetComponent<Guard>().localHandle + " " + s.GetComponent<Guard>().remoteScore);
+		}
+
 	}
 
 	void testAccusation(){
 		if(accused != null && accused.CompareTag("Spy")){
 			Debug.Log("You found a spy!");
-			player.Score += 100;
+			photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
 			photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 			photonView.RPC("spyCaught", PhotonTargets.MasterClient);
 			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
@@ -135,6 +158,9 @@ public class Guard : MonoBehaviour
 	void spectate(){
 		Debug.Log("Trying to Spectate");
 		GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
+		if(guards.Length == 0){
+			guards = GameObject.FindGameObjectsWithTag("Spy");
+		}
 		foreach (GameObject guard in guards){
 			guard.GetComponentInChildren<Camera>().enabled = true; 
 			isSpectating = true;
@@ -160,6 +186,21 @@ public class Guard : MonoBehaviour
 
 	[RPC]
 	void addScore(int teamID, int scoreToAdd){
-		network.AddScore(teamID, scoreToAdd);
+		if(teamID == this.player.TeamID){
+			player.TeamScore += scoreToAdd;
+		}
+		else{
+			player.EnemyScore += scoreToAdd;
+		}
+	}
+
+	[RPC]
+	void addPlayerScore(int scoreToAdd){
+		if(photonView.isMine){
+			player.Score += scoreToAdd;
+		}
+		else{
+			remoteScore += scoreToAdd;
+		}
 	}
 }

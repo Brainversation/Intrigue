@@ -34,6 +34,7 @@ public class Intrigue : MonoBehaviour {
 
 	private Player player;
 	private Network network;
+
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
 		photonView = PhotonView.Get(this);
@@ -149,14 +150,9 @@ public class Intrigue : MonoBehaviour {
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
-			PlayerPrefs.SetInt("Team1Score", network.TeamOneScore);
-			PlayerPrefs.SetInt("Team2Score", network.TeamTwoScore);
 			Application.LoadLevel( Application.loadedLevel );
 		} else {
 			Debug.Log( "Game Over" );
-			PlayerPrefs.SetInt("Team1Score", 0);
-			PlayerPrefs.SetInt("Team2Score", 0);
-
 			PhotonNetwork.LeaveRoom();
 			Application.LoadLevel( "MainMenu" );
 		}

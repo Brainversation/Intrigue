@@ -12,9 +12,6 @@ public class Network : MonoBehaviour {
 	private Player player;
 	private Intrigue intrigue;
 
-	private int teamOneScore;
-	private int teamTwoScore;
-
 	// Look up how to disconnect
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
@@ -24,8 +21,6 @@ public class Network : MonoBehaviour {
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 
-		teamOneScore = PlayerPrefs.GetInt("Team1Score");
-		teamTwoScore = PlayerPrefs.GetInt("Team2Score");
 		this.styleChat.fontSize = 12;
 		this.styleChat.normal.textColor = Color.white;
 
@@ -54,34 +49,31 @@ public class Network : MonoBehaviour {
 		
 		//Checks state of connection: Look up PeerState
 		if( PhotonNetwork.connectionStateDetailed == PeerState.Joined ){
-			//Chat Box
-			this.scrollPositionChat = GUILayout.BeginScrollView(this.scrollPositionChat, GUILayout.Width ( Screen.width/4 ), GUILayout.MaxHeight(190), GUILayout.ExpandHeight (false));
-			GUI.skin.box.alignment = TextAnchor.UpperLeft;
-			GUILayout.Box(this.chatBox, this.styleChat, GUILayout.ExpandHeight(true));
-			GUILayout.EndScrollView();
+			// //Chat Box
+			// this.scrollPositionChat = GUILayout.BeginScrollView(this.scrollPositionChat, GUILayout.Width ( Screen.width/4 ), GUILayout.MaxHeight(190), GUILayout.ExpandHeight (false));
+			// GUI.skin.box.alignment = TextAnchor.UpperLeft;
+			// GUILayout.Box(this.chatBox, this.styleChat, GUILayout.ExpandHeight(true));
+			// GUILayout.EndScrollView();
 
 
-			GUI.SetNextControlName ("ChatBox");
-			textField = GUILayout.TextField( textField, 100 );
-			if( ( GUILayout.Button("Send") ||
-				(Event.current.type == EventType.keyDown && 
-				 Event.current.character == '\n' &&
-				 GUI.GetNameOfFocusedControl() == "ChatBox") ) 
-				&& textField != ""  ){ 
-				photonView.RPC("recieveMessage", PhotonTargets.All, (this.player.Handle + ": " + textField + "\n") );
-				textField = "";
-				this.scrollPositionChat.y = Mathf.Infinity;
-			}
+			// GUI.SetNextControlName ("ChatBox");
+			// textField = GUILayout.TextField( textField, 100 );
+			// if( ( GUILayout.Button("Send") ||
+			// 	(Event.current.type == EventType.keyDown && 
+			// 	 Event.current.character == '\n' &&
+			// 	 GUI.GetNameOfFocusedControl() == "ChatBox") ) 
+			// 	&& textField != ""  ){ 
+			// 	photonView.RPC("recieveMessage", PhotonTargets.All, (this.player.Handle + ": " + textField + "\n") );
+			// 	textField = "";
+			// 	this.scrollPositionChat.y = Mathf.Infinity;
+			// }
 			if( GUILayout.Button( "Leave Room" ) ){
 				if(Intrigue.playerGO)
 					PhotonNetwork.Destroy(Intrigue.playerGO);
 				PhotonNetwork.LeaveRoom();
 			}
 		}
-		if(player.TeamID == 1)
-			GUI.Label(new Rect((Screen.width/2)-300,20,600,100),"Allies: " + this.teamOneScore + " - Enemies: " + this.teamTwoScore, styleScore);
-		else
-			GUI.Label(new Rect((Screen.width/2)-300,20,600,100),"Allies: " + this.teamTwoScore + " - Enemies: " + this.teamOneScore, styleScore);
+		GUI.Label(new Rect((Screen.width/2)-300,20,600,100),"Allies: " + player.TeamScore + " - Enemies: " + player.EnemyScore, styleScore);
 
 		GUI.Label(new Rect((Screen.width/2)-175,60,350,100),"Your Score: " + player.Score, styleScore);
 	}
@@ -97,25 +89,6 @@ public class Network : MonoBehaviour {
 
 		if (PhotonNetwork.isMasterClient){
 			//Move Info towards to new master Client, but master client switches on its own
-		}
-	}
-
-	public void AddScore(int teamID, int scoreToAdd){
-		if(teamID==1)
-			this.teamOneScore += scoreToAdd;
-		else
-			this.teamTwoScore += scoreToAdd;
-	}
-
-	public int TeamOneScore{
-		get{
-			return this.teamOneScore;
-		}
-	}
-
-	public int TeamTwoScore{
-		get{
-			return this.teamTwoScore;
 		}
 	}
 
