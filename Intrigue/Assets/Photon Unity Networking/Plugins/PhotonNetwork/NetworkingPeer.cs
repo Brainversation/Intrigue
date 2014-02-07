@@ -1548,7 +1548,7 @@ internal class NetworkingPeer : LoadbalancingPeer, IPhotonPeerListener
 
                 if (goToDestroyLocally == null || originatingPlayer == null)
                 {
-                    Debug.LogError("Can't execute received Destroy request for view ID=" + instantiationId + " as GO can't be foudn. From player/actorNr: " + actorNr + " goToDestroyLocally=" + goToDestroyLocally + "  originating Player=" + originatingPlayer);
+                    Debug.LogError("Can't execute received Destroy request for view ID=" + instantiationId + " as GO can't be found. From player/actorNr: " + actorNr + " goToDestroyLocally=" + goToDestroyLocally + "  originating Player=" + originatingPlayer);
                 }
                 else
                 {

@@ -15,7 +15,7 @@ public class Spy : MonoBehaviour
 
 	private GameObject[] guards = null;
 	private GameObject[] spies = null;
-	private Rect windowRect = new Rect(20, 20, 120, 50);
+	private Rect windowRect = new Rect(Screen.width/4, Screen.height/4, Screen.width/2, Screen.height/2);
 
 	//Yield function that waits specified amount of seconds
 	IEnumerator Yielder(int seconds){
@@ -25,10 +25,12 @@ public class Spy : MonoBehaviour
 	void Start(){
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
-
 		if(photonView.isMine){
 			Debug.Log( "Spy" );
+			localHandle = player.Handle;
+			remoteScore = player.Score;
 			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
+			photonView.RPC("giveScore", PhotonTargets.OthersBuffered, player.Score);
 
 		} else {
 			Debug.Log("Spy Deactivated");
@@ -36,6 +38,7 @@ public class Spy : MonoBehaviour
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<MovementController>().enabled = false;
 			GetComponentInChildren<MouseLook>().enabled = false; 
+			GetComponentInChildren<SpyCrosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
 			enabled = false;
 		}
@@ -43,23 +46,31 @@ public class Spy : MonoBehaviour
 
 	void OnGUI() {
 		GUI.skin.label.fontSize = 20;
-		GUI.color = Color.black;
+		GUI.color = Color.white;
 		if( isSpectating ) GUI.Label(new Rect((Screen.width/2)-150,Screen.height-50,300,100), "Spectating!" );
+
 
 		if( Input.GetKey(KeyCode.Tab) ){
 			guards = GameObject.FindGameObjectsWithTag("Guard");
-			spies = GameObject.FindGameObjectsWithTag("spies");
-			windowRect = GUILayout.Window(0, windowRect, DoMyWindow, "Teams");
+			spies = GameObject.FindGameObjectsWithTag("Spy");
+			windowRect = GUILayout.Window(0, windowRect, DoMyWindow, "Scoreboard");
 		}
 	}
 
 	void DoMyWindow(int windowID) {
+		GUILayout.Label("Guards: " + player.EnemyScore);
 
 		foreach(GameObject g in guards){
 			GUILayout.Label(g.GetComponent<Guard>().localHandle + " " + g.GetComponent<Guard>().remoteScore);
 		}
+
+		GUILayout.Label("Spies: " + player.TeamScore);
+
 		foreach(GameObject s in spies){
-			GUILayout.Label(s.GetComponent<Guard>().localHandle + " " + s.GetComponent<Guard>().remoteScore);
+			if(s!= gameObject)
+				GUILayout.Label(s.GetComponent<Spy>().localHandle + " " + s.GetComponent<Spy>().remoteScore);
+			else
+				GUILayout.Label( player.Handle + " " + player.Score);
 		}
 
 	}
@@ -129,12 +140,16 @@ public class Spy : MonoBehaviour
 	}
 
 	[RPC]
+	void giveScore(int score){
+		remoteScore = score;
+	}
+
+	[RPC]
 	void addPlayerScore(int scoreToAdd){
-		if(photonView.isMine){
+		if(photonView.isMine)
 			player.Score += scoreToAdd;
-		}
-		else{
+		else
 			remoteScore += scoreToAdd;
-		}
+		//photonView.RPC("giveScore", PhotonTargets.OthersBuffered, player.Score);
 	}
 }
