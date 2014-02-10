@@ -181,10 +181,6 @@ public class Intrigue : MonoBehaviour {
 
 	[RPC]
 	void callGameOver(){
-		//Reset or Go to post game
-		if(Intrigue.playerGO == null)
-				PhotonNetwork.Destroy(Intrigue.playerGO);
-
 		gameOver();
 	}
 
