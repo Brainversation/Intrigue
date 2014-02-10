@@ -14,6 +14,7 @@ public class PregameLobby : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Screen.lockCursor = false;
 		PhotonNetwork.isMessageQueueRunning = true;
 		// Get photonView component
 		this.photonView = PhotonView.Get(this);

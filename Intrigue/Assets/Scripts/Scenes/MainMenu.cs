@@ -6,6 +6,7 @@ public class MainMenu : MonoBehaviour {
 	private Player player;
 
 	void Start () {
+		Screen.lockCursor = false;
 		PhotonNetwork.isMessageQueueRunning = true;
 		
 		connect();
