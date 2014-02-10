@@ -23,6 +23,7 @@ namespace BehaviorTree{
 		public Selector( List<Task> children ) : base(children){}
 
 		public override Status run(){
+			Debug.Log("Selecting Task");
 			foreach( Task t in children ){
 				if( t.run() == Status.True ){
 					return Status.True;
@@ -51,10 +52,10 @@ namespace BehaviorTree{
 	}
 
 	class Sequence : Task {
-
 		public Sequence( List<Task> children ) : base(children){}
 		
 		public override Status run(){
+			Debug.Log("Going through Sequence");
 			foreach( Task t in children ){
 				if( t.run() != Status.True ){
 					return Status.False;
@@ -132,6 +133,35 @@ namespace BehaviorTree{
 				default:
 					return Status.Error;
 			}
+		}
+	}
+
+	// <--------------- Actions -------------------->
+
+	class Jump : Task {
+		public Jump(){}
+
+		public override Status run(){
+			Debug.Log("I am trying to Jumping");
+			return Status.False;
+		}
+	}
+
+	class Run : Task {
+		public Run(){}
+
+		public override Status run(){
+			Debug.Log("I am running then ");
+			return Status.True;
+		}
+	}
+
+	class Leap : Task {
+		public Leap(){}
+
+		public override Status run(){
+			Debug.Log("Leaping");
+			return Status.True;
 		}
 	}
 
