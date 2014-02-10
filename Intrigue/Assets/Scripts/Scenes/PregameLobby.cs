@@ -94,6 +94,13 @@ public class PregameLobby : MonoBehaviour {
 		}
 	}
 
+	IEnumerator loadGame() {
+		AsyncOperation async = Application.LoadLevelAsync("Intrigue");
+		yield return async;
+		PhotonNetwork.isMessageQueueRunning = false;
+		Debug.Log("Loading complete");
+	}
+
 	[RPC]
 	public void recieveMessage(string s){
 		this.chatBox += s;
@@ -106,7 +113,6 @@ public class PregameLobby : MonoBehaviour {
 	
 	[RPC]
 	public void go(){
-		PhotonNetwork.isMessageQueueRunning = false;
-		Application.LoadLevel("Intrigue");
+		StartCoroutine( loadGame() );
 	}
 }
