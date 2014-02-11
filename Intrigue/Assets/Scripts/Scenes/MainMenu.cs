@@ -5,18 +5,10 @@ using System.IO;
 public class MainMenu : MonoBehaviour {
 
 	private Player player;
-	private string filePath;
-	private StreamWriter file;
+	private int menuItemClicked;
 
 	void Start () {
-		Screen.lockCursor = false;
-		if (Application.isEditor)
-			filePath = Application.persistentDataPath + "/PlayerEditor.txt";
-		else
-			filePath = Application.persistentDataPath + "/Player.txt";
-		
-		connect();
-
+		PhotonNetwork.isMessageQueueRunning = true;
 		player = GameObject.Find("Player").GetComponent<Player>();
 		
 		if(File.Exists(filePath) ){
@@ -36,47 +28,68 @@ public class MainMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
-
-	void OnGUI(){
-		// Tells us about the current network connection
-		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
-		if( PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby) {
-			GUILayout.Label( "Room Name:");
-			player.RoomName = GUILayout.TextField(player.RoomName, 25);
-
-			GUILayout.Label( "Handle:");
-			player.Handle = GUILayout.TextField(player.Handle, 25);
-
-			if( player.RoomName == "" || player.Handle == "" ){
-				GUILayout.Label( "Room Name and Handle must be filled to create room" );
-			} else if( GUILayout.Button("Create Room") ){
-				file.WriteLine(player.Handle);
-				file.WriteLine(player.RoomName);
-				file.Close();
-				PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
-			}
-
-			if( player.Handle == "" ){
-				GUILayout.Label( "Handle must be filled to join room");
-			} else {
-				foreach(RoomInfo room in PhotonNetwork.GetRoomList())
-				{
-					if(GUILayout.Button(room.name + " " + room.playerCount + "/" + room.maxPlayers)){
-						file.WriteLine(player.Handle);
-						file.Close();
-						PhotonNetwork.JoinRoom(room.name);
-					}
-				}
-			}
-		} else if( PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated) {
-			GUILayout.Label("No Internet Connection! Connect to internet and press retry");
-			if(GUILayout.Button("Retry")){
-				connect();
-			}
+		// Checked to see if connected to master server
+		if (PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby) {
+			Debug.Log("Server Found");
 		}
 	}
+
+	void onFindServerClicked(){
+		menuItemClicked = 0;
+		connect ();
+	}
+
+	void onCreateServerClicked(){
+		menuItemClicked = 1;
+		//PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
+	}
+
+	void onOptionsClicked(){
+		menuItemClicked = 2;
+	}
+
+	void onCreditsClicked(){
+		menuItemClicked = 3;
+	}
+
+	void onExitGameClicked(){
+		menuItemClicked = 4;
+		Application.Quit();
+	}
+
+//	void OnGUI(){
+//		// Tells us about the current network connection
+//		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
+//		if( PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby) {
+//			GUILayout.Label( "Room Name:");
+//			player.RoomName = GUILayout.TextField(player.RoomName, 25);
+//
+//			GUILayout.Label( "Handle:");
+//			player.Handle = GUILayout.TextField(player.Handle, 25);
+//
+//			if( player.RoomName == "" || player.Handle == "" ){
+//				GUILayout.Label( "Room Name and Handle must be filled to create room" );
+//			} else if( GUILayout.Button("Create Room") ){
+//				PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
+//			}
+//
+//			if( player.Handle == "" ){
+//				GUILayout.Label( "Handle must be filled to join room");
+//			} else {
+//				foreach(RoomInfo room in PhotonNetwork.GetRoomList())
+//				{
+//					if(GUILayout.Button(room.name + " " + room.playerCount + "/" + room.maxPlayers)){
+//						PhotonNetwork.JoinRoom(room.name);
+//					}
+//				}
+//			}
+//		} else if( PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated) {
+//			GUILayout.Label("No Internet Connection! Connect to internet and press retry");
+//			if(GUILayout.Button("Retry")){
+//				connect();
+//			}
+//		}
+//	}
 
 	void connect(){
 		// What Photon settings to use and the version number
@@ -94,8 +107,7 @@ public class MainMenu : MonoBehaviour {
 		PhotonNetwork.LoadLevel("Pregame");
 	}
 
-	void OnPhotonJoinFailed()
-	{
+	void OnPhotonJoinFailed(){
 		Debug.Log("OnPhotonJoinFailed");
 	}
 
