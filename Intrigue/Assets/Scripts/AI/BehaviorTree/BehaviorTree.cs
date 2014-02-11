@@ -142,7 +142,7 @@ namespace BehaviorTree{
 		public Jump(){}
 
 		public override Status run(){
-			Debug.Log("I am trying to Jumping");
+			Debug.Log("I am trying to Jump");
 			return Status.False;
 		}
 	}
@@ -151,7 +151,7 @@ namespace BehaviorTree{
 		public Run(){}
 
 		public override Status run(){
-			Debug.Log("I am running then ");
+			Debug.Log("I am running");
 			return Status.True;
 		}
 	}
@@ -160,7 +160,7 @@ namespace BehaviorTree{
 		public Leap(){}
 
 		public override Status run(){
-			Debug.Log("Leaping");
+			Debug.Log("I am Leaping");
 			return Status.True;
 		}
 	}

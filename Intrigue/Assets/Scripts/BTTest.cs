@@ -6,19 +6,20 @@ using BehaviorTree;
 
 public class BTTest : MonoBehaviour {
 
-	Task root;
+	Task treeRoot1;
+	Task treeRoot2;
 
 	// Use this for initialization
 	void Start () {
-		
-		List<Task> children = new List<Task>();
-		children.Add( new Jump() );
 		List<Task> sequenceChildren = new List<Task>();
 		sequenceChildren.Add(new Run());
 		sequenceChildren.Add(new Leap());
-		children.Add(new Sequence(sequenceChildren));
-		root = new Selector(children);
-		//Debug.Log( root.run() );
+		treeRoot1 = new Sequence(sequenceChildren);
+
+		List<Task> children1 = new List<Task>();
+		children1.Add( new Jump() );
+		children1.Add( new Run() );
+		treeRoot2 = new Selector(children1);
         
         List<Rule> rules = new List<Rule>();
 
@@ -32,8 +33,8 @@ public class BTTest : MonoBehaviour {
         conditions0.Add(thirst);
         conditions0.Add(party);
 
-        Rule rule0 = new Rule(conditions0, root.run);
-        rule0.weight = 2;
+        Rule rule0 = new Rule(conditions0, treeRoot1.run);
+        rule0.weight = 5;
         rules.Add(rule0);
 
         List<Condition> conditions1 = new List<Condition>();
@@ -41,15 +42,17 @@ public class BTTest : MonoBehaviour {
         conditions1.Add(thirst);
         conditions1.Add(party);
 
-        Rule rule1 = new Rule(conditions1, root.run);
-        rule1.weight = 3;
+        Rule rule1 = new Rule(conditions1, treeRoot2.run);
+        rule1.weight = 6;
         rules.Add(rule1);
 
         //Sort the list in terms of weight
         rules.Sort();
 
         for (int i = 0; i < rules.Count; i++){
+        	Debug.Log("Testing rules");
             if (rules[i].isFired()){
+	        	Debug.Log("Rule fired");
                 rules[i].consequence();
                 break;
             }
