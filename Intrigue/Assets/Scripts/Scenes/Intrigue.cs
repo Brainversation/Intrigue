@@ -34,6 +34,8 @@ public class Intrigue : MonoBehaviour {
 
 	private Player player;
 	private Network network;
+	public GameObject jailSpawn;
+
 
 	void Start () {
 		PhotonNetwork.isMessageQueueRunning = true;
@@ -73,6 +75,9 @@ public class Intrigue : MonoBehaviour {
 					photonView.RPC("callGameOver", PhotonTargets.All);
 				}
 			}
+		}
+		if(Input.GetKey("space")){
+			playerGO.transform.position = jailSpawn.transform.position;
 		}
 	}
 
@@ -116,7 +121,7 @@ public class Intrigue : MonoBehaviour {
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
-			Application.LoadLevel( Application.loadedLevel );
+			Application.LoadLevelAsync( Application.loadedLevel );
 		} else {
 			Debug.Log( "Game Over" );
 			PhotonNetwork.LeaveRoom();

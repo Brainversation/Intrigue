@@ -170,15 +170,18 @@ public class Guard : MonoBehaviour
 
 	void spectate(){
 		Debug.Log("Trying to Spectate");
+		GetComponentInChildren<Camera>().enabled = false; 
 		GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
 		if(guards.Length == 0){
 			guards = GameObject.FindGameObjectsWithTag("Spy");
 		}
 		foreach (GameObject guard in guards){
-			guard.GetComponentInChildren<Camera>().enabled = true; 
-			isSpectating = true;
-			Debug.Log("In For loop enabled a Camera");
-			break;
+			if(guard.gameObject != gameObject){
+				guard.GetComponentInChildren<Camera>().enabled = true; 
+				isSpectating = true;
+				Debug.Log("In For loop enabled a Camera");
+				break;
+			}
 		}
 	}
 
