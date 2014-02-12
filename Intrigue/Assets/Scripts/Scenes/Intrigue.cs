@@ -76,9 +76,9 @@ public class Intrigue : MonoBehaviour {
 				}
 			}
 		}
-		if(Input.GetKey("space")){
-			playerGO.transform.position = jailSpawn.transform.position;
-		}
+		// if(Input.GetKey("space")){
+		// 	playerGO.transform.position = jailSpawn.transform.position;
+		// }
 	}
 
 	void joinGame(){
