@@ -10,6 +10,7 @@ public class PregameChat : MonoBehaviour
 {
 	public UITextList textList;
 	private PhotonView photonView = null;
+	private Player player;
 
 	UIInput mInput;
 
@@ -17,7 +18,7 @@ public class PregameChat : MonoBehaviour
 	{
 		this.photonView = PhotonView.Get(this);
 		PhotonNetwork.isMessageQueueRunning = true;
-		Debug.Log("pv"+ this.photonView);
+		player = GameObject.Find("Player").GetComponent<Player>();
 		mInput = GetComponent<UIInput>();
 		mInput.label.maxLineCount = 1;
 	}
@@ -35,8 +36,8 @@ public class PregameChat : MonoBehaviour
 
 			if (!string.IsNullOrEmpty(text))
 			{
-				textList.Add(text);
-				photonView.RPC("recieveMessage", PhotonTargets.OthersBuffered, text);
+				textList.Add("[FF0000]"+player.Handle+": " + "[000000]"+text);
+				photonView.RPC("recieveMessage", PhotonTargets.OthersBuffered, "[0000FF]"+player.Handle+": " + "[000000]"+text);
 				mInput.value = "";
 			}
 		}
