@@ -124,8 +124,8 @@ public class Intrigue : MonoBehaviour {
 			Application.LoadLevelAsync( Application.loadedLevel );
 		} else {
 			Debug.Log( "Game Over" );
-			PhotonNetwork.LeaveRoom();
-			Application.LoadLevel( "MainMenu" );
+			PhotonNetwork.isMessageQueueRunning = false;
+			Application.LoadLevel("PostGame");
 		}
 	}
 
