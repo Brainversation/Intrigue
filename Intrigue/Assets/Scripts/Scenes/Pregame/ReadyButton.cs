@@ -68,16 +68,14 @@ public class ReadyButton : MonoBehaviour {
 				isReady = false;
 				photonView.RPC("ready", PhotonTargets.MasterClient, -1);
 			}
-			if(!isReady){
-				if(player.Team!="")
+			else if(!isReady){
+				if(player.Team!=""){
 					isReady = true;
-			}
-			if(isReady){
 					photonView.RPC("ready", PhotonTargets.MasterClient, 1);
 				}
+			}
 
 		}
-
 	}
 
 	IEnumerator loadGame() {
