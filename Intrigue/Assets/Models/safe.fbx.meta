@@ -1,0 +1,237 @@
+fileFormatVersion: 2
+guid: 2ed80abb9fed92c48bb80368fb86d1a9
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: Armature
+    100002: Camera
+    100004: Circle_002
+    100006: Circle_003
+    100008: Circle_005
+    100010: Cube
+    100012: door
+    100014: door_0
+    100016: inside
+    100018: Lamp
+    100020: latch
+    100022: latch_0
+    100024: lock
+    100026: lock_0
+    100028: marks
+    100030: //RootNode
+    100032: triangle
+    400000: Armature
+    400002: Camera
+    400004: Circle_002
+    400006: Circle_003
+    400008: Circle_005
+    400010: Cube
+    400012: door
+    400014: door_0
+    400016: inside
+    400018: Lamp
+    400020: latch
+    400022: latch_0
+    400024: lock
+    400026: lock_0
+    400028: marks
+    400030: //RootNode
+    400032: triangle
+    2300000: Circle_002
+    2300002: Circle_003
+    2300004: Circle_005
+    2300006: Cube
+    2300008: inside
+    3300000: Circle_002
+    3300002: Circle_003
+    3300004: Circle_005
+    3300006: Cube
+    3300008: inside
+    4300000: inside
+    4300002: triangle
+    4300004: marks
+    4300012: latch
+    4300014: lock
+    4300016: door
+    4300018: Cube
+    7400000: Default Take
+    7400002: Action
+    9500000: //RootNode
+    13700000: door
+    13700002: latch
+    13700004: lock
+    13700006: marks
+    13700008: triangle
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 2
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/door_0
+        weight: 1
+      - path: Armature/door_0/latch_0
+        weight: 1
+      - path: Armature/door_0/lock_0
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Circle_002
+        weight: 1
+      - path: Circle_003
+        weight: 1
+      - path: Circle_005
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: door
+        weight: 1
+      - path: inside
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: latch
+        weight: 1
+      - path: lock
+        weight: 1
+      - path: marks
+        weight: 1
+      - path: triangle
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Action
+      takeName: Action
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/door_0
+        weight: 1
+      - path: Armature/door_0/latch_0
+        weight: 1
+      - path: Armature/door_0/lock_0
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Circle_002
+        weight: 1
+      - path: Circle_003
+        weight: 1
+      - path: Circle_005
+        weight: 1
+      - path: Cube
+        weight: 1
+      - path: door
+        weight: 1
+      - path: inside
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: latch
+        weight: 1
+      - path: lock
+        weight: 1
+      - path: marks
+        weight: 1
+      - path: triangle
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 

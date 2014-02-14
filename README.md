@@ -44,8 +44,8 @@ Constant type - ALL CAPS
 6.  `git pull origin tempdev`
 7.  Start test
 
-##Done with task/branch, ready to merge into dev:
- 
+##Done with task/branch, ready to merge into dev:  
+
 1.  `git checkout t_<Branch Name>`
 2.  `git pull --rebase origin dev`
 3.  `git checkout dev`
@@ -54,11 +54,11 @@ Constant type - ALL CAPS
 
 ##Destroy backup copy on remote of your branch:
 
--  `git push origin :t_"Branch Name"`
+-  `git push origin :t_<Branch Name>`
 
 ##Destroy local copy:
 
-1.  Make sure you are on a different branch than the one you will be deleting: `git status`
+1.  Make sure you are on a different branch then the one you will be deleting: `git status`
 2.  If on that branch: `git checkout <Other Branch>`
 3.  `git branch -d t_<Branch Name>`
 
