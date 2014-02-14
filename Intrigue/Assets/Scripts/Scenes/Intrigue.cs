@@ -76,9 +76,6 @@ public class Intrigue : MonoBehaviour {
 				}
 			}
 		}
-		// if(Input.GetKey("space")){
-		// 	playerGO.transform.position = jailSpawn.transform.position;
-		// }
 	}
 
 	void joinGame(){
@@ -102,7 +99,7 @@ public class Intrigue : MonoBehaviour {
 		for( int x = 0; x < player.Guests; ++x)
 		{	
 			nextSpawnPoint();
-			PhotonNetwork.Instantiate("Robot_Guest", spawnTrans.position, spawnTrans.rotation, 0);
+			PhotonNetwork.InstantiateSceneObject("Robot_Guest", spawnTrans.position, spawnTrans.rotation, 0, null);
 		}
 	}
 

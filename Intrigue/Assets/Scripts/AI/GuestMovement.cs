@@ -22,7 +22,7 @@ public class GuestMovement : Photon.MonoBehaviour {
 	}
 
 	public void Update(){
-		if(!photonView.isMine){
+		if(!PhotonNetwork.isMasterClient){
 			transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
 			transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
 		} else {
@@ -37,19 +37,6 @@ public class GuestMovement : Photon.MonoBehaviour {
 			}
 		}
 		Debug.DrawLine(transform.position, finalPosition, Color.red, 0.0f, false);
-	}
-
-	public void FixedUpdate(){
-		/*if(photonView.isMine){
-			if(isStopped){
-				anim.SetFloat("Speed", 0f);
-				anim.SetFloat("Direction", agent.velocity.x);
-			}
-			else{
-				anim.SetFloat("Speed", agent.speed);
-				anim.SetFloat("Direction", agent.velocity.x);
-			}
-		}*/
 	}
 
 	void moveGuest(){
