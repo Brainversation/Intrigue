@@ -20,7 +20,7 @@ public class SpyCrosshair : MonoBehaviour {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hit;
 			if( Physics.Raycast(ray, out hit, 15.0f) ){
-				if( hit.transform.tag == "Objective" ){
+				if( hit.transform.tag == "Objective" && hit.transform.gameObject.GetComponent<Objective>().active ){
 					canInteract = true;
 				}
 				else {
