@@ -10,7 +10,7 @@ public class Intrigue : MonoBehaviour {
 	public int objectivesCompleted = 0;
 	[HideInInspector]
 	public bool[] objectives;
-	private int numObjectives = 5;
+	private int numObjectives = 3;
 
 
 	public static int numSpiesLeft;
@@ -24,6 +24,8 @@ public class Intrigue : MonoBehaviour {
 	private PhotonView photonView = null;	private GameObject[] spawnObjects;
 	private List<Transform> spawns = new List<Transform>();
 	private List<Transform> availableSpawns = new List<Transform>();
+	private GameObject[] objArray;
+
 	private int spawnIndex;
 	private Transform spawnTrans;
 
@@ -51,6 +53,36 @@ public class Intrigue : MonoBehaviour {
 			}
 			availableSpawns = spawns;
 			spawnGuests();
+
+			objArray = GameObject.FindGameObjectsWithTag("Objective");
+			int totalObjActive = Mathf.RoundToInt(GameObject.FindGameObjectsWithTag("Objective").Length*.67f);
+			int totalCurActive = 0;
+			bool activationComplete = false;
+			Objective objscriptref;
+
+			while (!activationComplete){
+	
+				foreach(GameObject obj in objArray){
+
+					objscriptref = obj.GetComponent<Objective>();
+
+						if(totalCurActive<totalObjActive){
+							
+							if((Random.Range(0f,1f)>0.50f) && !objscriptref.active ){
+								objscriptref.active = true;
+								totalCurActive++;
+							}
+						
+						}
+						else{
+							activationComplete = true;
+							break;
+						}
+				
+				}
+
+			}
+			
 		} else {
 			enabled = false;
 		}

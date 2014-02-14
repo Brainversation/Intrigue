@@ -6,7 +6,8 @@ public class Objective : Photon.MonoBehaviour {
 	public float completionTime = 5;
 	public int id;
 	public bool inUse;
-
+	public bool active = false;
+	public bool textAdded = false;
 	private float timeLeft;
 	private bool finished = false;
 	private Animator anim;
@@ -38,6 +39,7 @@ public class Objective : Photon.MonoBehaviour {
 			Intrigue.playerGO.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
 			photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 			anim.SetBool("Complete",true);
+			active = false;
 			photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", true);
 		}
 	}
@@ -51,6 +53,7 @@ public class Objective : Photon.MonoBehaviour {
 	void objectiveComplete(int id){
 		if(id == this.id){
 			finished = true;
+			active = false;
 			timeLeft = 0;
 			intrigue.objectivesCompleted++;
 			intrigue.objectives[id] = true;

@@ -90,8 +90,9 @@ public class Spy : MonoBehaviour
 			}
 		}
 
-		//Create Ally Texts
+		//Create Ally and Objective Texts
 		GameObject[] allies = GameObject.FindGameObjectsWithTag("Spy");
+		GameObject[] objecs = GameObject.FindGameObjectsWithTag("Objective");
 		foreach(GameObject ally in allies){
 			if(ally!=gameObject){
 				if(!ally.GetComponent<Spy>().textAdded){
@@ -109,6 +110,24 @@ public class Spy : MonoBehaviour
 				}
 			}
 		}
+
+		foreach(GameObject objer in objecs){
+				if(!objer.GetComponent<Objective>().textAdded && objer.GetComponent<Objective>().active){
+					objer.GetComponent<Objective>().textAdded = true;
+					GameObject textInstance = Instantiate(allytext, objer.transform.position, objer.transform.rotation) as GameObject;
+					Vector3 temp = new Vector3(0,1,0);
+					textInstance.GetComponent<AllyText>().offset = temp;
+					textInstance.transform.localScale += new Vector3(0.5f,0.5f,0.5f);
+					textInstance.GetComponent<AllyText>().target = objer.transform;
+					textInstance.transform.parent = objer.transform;
+					textInstance.GetComponent<TextMesh>().text = "[ACTIVE]";
+				}
+				else if (!objer.GetComponent<Objective>().active && objer.GetComponent<Objective>().textAdded){
+					objer.GetComponentInChildren<TextMesh>().text = "";
+				}
+		}
+
+
 	}
 
 

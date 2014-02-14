@@ -2165,8 +2165,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   completionTime: 5
-  id: 0
+  id: 1
   inUse: 0
+  active: 0
+  textAdded: 0
 --- !u!114 &229072618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9761,6 +9763,10 @@ Prefab:
       propertyPath: m_Size.z
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 731b145f909b9cd4f8a0942b6a0daee1, type: 2}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 731b145f909b9cd4f8a0942b6a0daee1, type: 2}
   m_RootGameObject: {fileID: 229072613}
@@ -12125,6 +12131,10 @@ Prefab:
     - target: {fileID: 6500000, guid: 731b145f909b9cd4f8a0942b6a0daee1, type: 2}
       propertyPath: m_Size.z
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400002, guid: 731b145f909b9cd4f8a0942b6a0daee1, type: 2}
+      propertyPath: id
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 731b145f909b9cd4f8a0942b6a0daee1, type: 2}
@@ -16852,6 +16862,8 @@ MonoBehaviour:
   completionTime: 5
   id: 0
   inUse: 0
+  active: 0
+  textAdded: 0
 --- !u!114 &1580191690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20276,8 +20288,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   completionTime: 5
-  id: 0
+  id: 2
   inUse: 0
+  active: 0
+  textAdded: 0
 --- !u!65 &1900022430
 BoxCollider:
   m_ObjectHideFlags: 0
