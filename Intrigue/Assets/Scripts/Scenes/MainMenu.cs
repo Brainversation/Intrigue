@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour {
 	private int menuItemClicked;
 
 	void Start () {
+		Screen.lockCursor = false;
 		PhotonNetwork.isMessageQueueRunning = true;
 		player = GameObject.Find("Player").GetComponent<Player>();
 		
@@ -29,19 +30,17 @@ public class MainMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Checked to see if connected to master server
-		if (PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby) {
-			Debug.Log("Server Found");
-		}
+//		if (PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby) {
+//			Debug.Log("Server Found");
+//		}
 	}
 
 	void onFindServerClicked(){
 		menuItemClicked = 0;
-		connect ();
 	}
 
 	void onCreateServerClicked(){
 		menuItemClicked = 1;
-		//PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
 	}
 
 	void onOptionsClicked(){
@@ -55,6 +54,18 @@ public class MainMenu : MonoBehaviour {
 	void onExitGameClicked(){
 		menuItemClicked = 4;
 		Application.Quit();
+	}
+
+	void createTheServer(){
+		UIInput serverName = GameObject.Find ("serverName").GetComponent<UIInput> ();
+		player.RoomName = serverName.text;
+		PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
+	}
+
+	void getUserHandle(){
+		UIInput playerName = GameObject.Find ("playerName").GetComponent<UIInput> ();
+		player.Handle = playerName.text;
+		Debug.Log (player.Handle);
 	}
 
 //	void OnGUI(){
@@ -96,15 +107,15 @@ public class MainMenu : MonoBehaviour {
 		PhotonNetwork.ConnectUsingSettings("0.1");
 	}
 
-	// Called after joining a room
+	// Called after joining a lobby(Connecting To Server)
 	void OnJoinedLobby(){
-		Debug.Log("joined lobby");
-		PhotonNetwork.networkingPeer.NewSceneLoaded();
+		//Debug.Log("joined lobby");
 	}
 
 	void OnJoinedRoom(){
-		Debug.Log("joined room");
-		PhotonNetwork.LoadLevel("Pregame");
+		//Debug.Log("joined room");
+		PhotonNetwork.isMessageQueueRunning = false;
+		Application.LoadLevel("PregameLobby");
 	}
 
 	void OnPhotonJoinFailed(){
