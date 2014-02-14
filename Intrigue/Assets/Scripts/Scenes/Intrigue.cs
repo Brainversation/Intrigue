@@ -69,7 +69,7 @@ public class Intrigue : MonoBehaviour {
 						if(totalCurActive<totalObjActive){
 							
 							if((Random.Range(0f,1f)>0.50f) && !objscriptref.active ){
-								objscriptref.active = true;
+								objscriptref.activate();
 								totalCurActive++;
 							}
 						

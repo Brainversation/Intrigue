@@ -46,6 +46,9 @@ public class Objective : Photon.MonoBehaviour {
 		}
 	}
 
+	public void activate(){
+		photonView.RPC("isActive", PhotonTargets.AllBuffered);
+	}
 	[RPC]
 	void sendAnimBool(string name, bool value){
 		anim.SetBool(name,value);
@@ -62,6 +65,10 @@ public class Objective : Photon.MonoBehaviour {
 		}	
 	}
 
+	[RPC]
+	void isActive(){
+		active = true;
+	}
 	[RPC]
 	void addScore(int teamID, int scoreToAdd){
 		if(teamID == this.player.TeamID){
