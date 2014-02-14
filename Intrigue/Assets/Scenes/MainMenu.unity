@@ -141,7 +141,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.28571439
+  aspectRatio: 3.20000005
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -194,7 +194,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 230, y: 70, z: 0}
+  m_Size: {x: 224, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &145094446
 MonoBehaviour:
@@ -445,7 +445,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.88571429
+  aspectRatio: 3.77142859
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -498,7 +498,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 272, y: 70, z: 0}
+  m_Size: {x: 264, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &222907429
 MonoBehaviour:
@@ -679,7 +679,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.51428556
+  aspectRatio: 4.4000001
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -752,7 +752,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 316, y: 70, z: 0}
+  m_Size: {x: 308, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &266208684
 MonoBehaviour:
@@ -1160,6 +1160,7 @@ GameObject:
   - 4: {fileID: 754371815}
   - 114: {fileID: 754371817}
   - 114: {fileID: 754371816}
+  - 114: {fileID: 754371818}
   m_Layer: 8
   m_Name: window_FindServer
   m_TagString: Untagged
@@ -1267,6 +1268,23 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
+--- !u!114 &754371818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 754371814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ca9c6e5cbd4544ab22016a27d817a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  columns: 0
+  direction: 0
+  sorted: 0
+  hideInactive: 1
+  keepWithinPanel: 0
+  padding: {x: 0, y: 0}
 --- !u!1 &843453950
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,7 +2751,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.82857132
+  aspectRatio: 2.79999995
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -2786,7 +2804,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 198, y: 70, z: 0}
+  m_Size: {x: 196, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1817840239
 MonoBehaviour:
@@ -2919,7 +2937,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.42857122
+  aspectRatio: 5.28571415
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -2984,7 +3002,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 380, y: 70, z: 0}
+  m_Size: {x: 370, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1999185755
 MonoBehaviour:
