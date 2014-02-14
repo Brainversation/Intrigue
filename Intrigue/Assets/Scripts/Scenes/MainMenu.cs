@@ -1,17 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class MainMenu : MonoBehaviour {
 
 	private Player player;
+	private string filePath;
+	private StreamWriter file;
 
 	void Start () {
 		Screen.lockCursor = false;
 		PhotonNetwork.isMessageQueueRunning = true;
+		filePath = Application.persistentDataPath + "/Player.txt";
 		
 		connect();
 
 		player = GameObject.Find("Player").GetComponent<Player>();
+		
+		if(File.Exists(filePath) ){
+			string line = File.ReadAllText(filePath);
+			int i = 0;
+			foreach(string l in line.Split('\n')){
+				if(i == 0){
+					player.Handle = l;
+				} else if(i == 1){
+					player.RoomName = l;
+				}
+				++i;
+			}
+		}
+		file = File.CreateText(filePath);
 	}
 	
 	// Update is called once per frame
@@ -32,6 +50,9 @@ public class MainMenu : MonoBehaviour {
 			if( player.RoomName == "" || player.Handle == "" ){
 				GUILayout.Label( "Room Name and Handle must be filled to create room" );
 			} else if( GUILayout.Button("Create Room") ){
+				file.WriteLine(player.Handle);
+				file.WriteLine(player.RoomName);
+				file.Close();
 				PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
 			}
 
@@ -41,6 +62,8 @@ public class MainMenu : MonoBehaviour {
 				foreach(RoomInfo room in PhotonNetwork.GetRoomList())
 				{
 					if(GUILayout.Button(room.name + " " + room.playerCount + "/" + room.maxPlayers)){
+						file.WriteLine(player.Handle);
+						file.Close();
 						PhotonNetwork.JoinRoom(room.name);
 					}
 				}
@@ -72,5 +95,12 @@ public class MainMenu : MonoBehaviour {
 	void OnPhotonJoinFailed()
 	{
 		Debug.Log("OnPhotonJoinFailed");
+	}
+
+	void OnApplicationQuit() {
+		Debug.Log("CLOSE");
+		file.WriteLine(player.Handle);
+		file.WriteLine(player.RoomName);
+		file.Close();
 	}
 }
