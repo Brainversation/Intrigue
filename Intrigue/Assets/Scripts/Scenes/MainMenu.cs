@@ -22,21 +22,23 @@ public class MainMenu : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Checked to see if connected to master server
-//		if (PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby) {
-//			Debug.Log("Server Found");
+//		if (PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby && menuItemClicked == 0) {
+//			//Debug.Log("Server Found");
+//
 //		}
+	}
+	
+	void onFindServerClicked(){
+		menuItemClicked = 0;
 		foreach (RoomInfo room in PhotonNetwork.GetRoomList()) {
 			GameObject serverInfo = NGUITools.AddChild (gameObject, btnJoinServer_prefab);
 			UILabel serverName = GameObject.Find ("label_ServerName").GetComponent<UILabel> ();
 			UILabel serverPlayers = GameObject.Find ("label_ServerPlayers").GetComponent<UILabel> ();
 			Vector3 temp = new Vector3(0f,(numOfServers)*0.1f,0);
 			serverInfo.transform.position-=temp;
-//			player.RoomName 
+			serverName.text = room.name;
+			serverPlayers.text = room.playerCount+"/"+room.maxPlayers;
 		}
-	}
-
-	void onFindServerClicked(){
-		menuItemClicked = 0;
 	}
 
 	void onCreateServerClicked(){
@@ -75,11 +77,9 @@ public class MainMenu : MonoBehaviour {
 
 	// Called after joining a lobby(Connecting To Server)
 	void OnJoinedLobby(){
-		//Debug.Log("joined lobby");
 	}
 
 	void OnJoinedRoom(){
-		//Debug.Log("joined room");
 		PhotonNetwork.isMessageQueueRunning = false;
 		Application.LoadLevel("PregameLobby");
 	}
