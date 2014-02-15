@@ -6,25 +6,17 @@ public class MainMenu : MonoBehaviour {
 
 	private Player player;
 	private int menuItemClicked;
+	private int numOfServers;
+	private UITable serverListTable;
+	public GameObject btnJoinServer_prefab;
 
 	void Start () {
 		Screen.lockCursor = false;
 		PhotonNetwork.isMessageQueueRunning = true;
 		player = GameObject.Find("Player").GetComponent<Player>();
-		
-		if(File.Exists(filePath) ){
-			string line = File.ReadAllText(filePath);
-			int i = 0;
-			foreach(string l in line.Split('\n')){
-				if(i == 0){
-					player.Handle = l;
-				} else if(i == 1){
-					player.RoomName = l;
-				}
-				++i;
-			}
-		}
-		file = File.CreateText(filePath);
+		menuItemClicked = -1;
+		numOfServers = 0;
+		connect();
 	}
 	
 	// Update is called once per frame
@@ -33,6 +25,14 @@ public class MainMenu : MonoBehaviour {
 //		if (PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby) {
 //			Debug.Log("Server Found");
 //		}
+		foreach (RoomInfo room in PhotonNetwork.GetRoomList()) {
+			GameObject serverInfo = NGUITools.AddChild (gameObject, btnJoinServer_prefab);
+			UILabel serverName = GameObject.Find ("label_ServerName").GetComponent<UILabel> ();
+			UILabel serverPlayers = GameObject.Find ("label_ServerPlayers").GetComponent<UILabel> ();
+			Vector3 temp = new Vector3(0f,(numOfServers)*0.1f,0);
+			serverInfo.transform.position-=temp;
+//			player.RoomName 
+		}
 	}
 
 	void onFindServerClicked(){
@@ -67,40 +67,6 @@ public class MainMenu : MonoBehaviour {
 		player.Handle = playerName.text;
 		Debug.Log (player.Handle);
 	}
-
-//	void OnGUI(){
-//		// Tells us about the current network connection
-//		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
-//		if( PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby) {
-//			GUILayout.Label( "Room Name:");
-//			player.RoomName = GUILayout.TextField(player.RoomName, 25);
-//
-//			GUILayout.Label( "Handle:");
-//			player.Handle = GUILayout.TextField(player.Handle, 25);
-//
-//			if( player.RoomName == "" || player.Handle == "" ){
-//				GUILayout.Label( "Room Name and Handle must be filled to create room" );
-//			} else if( GUILayout.Button("Create Room") ){
-//				PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
-//			}
-//
-//			if( player.Handle == "" ){
-//				GUILayout.Label( "Handle must be filled to join room");
-//			} else {
-//				foreach(RoomInfo room in PhotonNetwork.GetRoomList())
-//				{
-//					if(GUILayout.Button(room.name + " " + room.playerCount + "/" + room.maxPlayers)){
-//						PhotonNetwork.JoinRoom(room.name);
-//					}
-//				}
-//			}
-//		} else if( PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated) {
-//			GUILayout.Label("No Internet Connection! Connect to internet and press retry");
-//			if(GUILayout.Button("Retry")){
-//				connect();
-//			}
-//		}
-//	}
 
 	void connect(){
 		// What Photon settings to use and the version number
