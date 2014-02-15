@@ -14,7 +14,7 @@ public class Pregame : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Screen.lockCursor = false;
-		PhotonNetwork.isMessageQueueRunning = true;
+		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		// Get photonView component
 		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -57,7 +57,7 @@ public class Pregame : MonoBehaviour {
 			}
 			if( GUILayout.Button( "Leave Room" ) ){
 				PhotonNetwork.LeaveRoom();
-				Application.LoadLevel( "MainMenu" );
+				PhotonNetwork.LoadLevel( "MainMenu" );
 			}
 			if(GUILayout.Button( "Play as Spy")){
 				player.Team = "Spy";
@@ -93,13 +93,6 @@ public class Pregame : MonoBehaviour {
 		}
 	}
 
-	IEnumerator loadGame() {
-		AsyncOperation async = Application.LoadLevelAsync("Intrigue");
-		yield return async;
-		PhotonNetwork.isMessageQueueRunning = false;
-		Debug.Log("Loading complete");
-	}
-
 	[RPC]
 	public void recieveMessage(string s){
 		this.chatBox += s;
@@ -112,6 +105,6 @@ public class Pregame : MonoBehaviour {
 	
 	[RPC]
 	public void go(){
-		StartCoroutine( loadGame() );
+		PhotonNetwork.LoadLevel("Intrigue");
 	}
 }

@@ -40,7 +40,7 @@ public class Intrigue : MonoBehaviour {
 
 
 	void Start () {
-		PhotonNetwork.isMessageQueueRunning = true;
+		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		network = GameObject.FindWithTag("Scripts").GetComponent<Network>();
@@ -150,11 +150,11 @@ public class Intrigue : MonoBehaviour {
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
-			Application.LoadLevelAsync( Application.loadedLevel );
+			PhotonNetwork.LoadLevel( Application.loadedLevel );
 		} else {
 			Debug.Log( "Game Over" );
 			PhotonNetwork.isMessageQueueRunning = false;
-			Application.LoadLevel("PostGame");
+			PhotonNetwork.LoadLevel("PostGame");
 		}
 	}
 

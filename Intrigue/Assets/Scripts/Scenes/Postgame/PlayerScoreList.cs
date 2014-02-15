@@ -19,7 +19,7 @@ public class PlayerScoreList : MonoBehaviour {
 	// Use this for initialization
 	void Start(){
 		this.photonView = PhotonView.Get(this);
-		PhotonNetwork.isMessageQueueRunning = true;
+		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		player = GameObject.Find("Player").GetComponent<Player>();
 		if(player.TeamID==1){
 			photonView.RPC("addTeam1", PhotonTargets.AllBuffered, player.Handle, player.Score);

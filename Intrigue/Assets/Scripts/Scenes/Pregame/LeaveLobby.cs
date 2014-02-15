@@ -5,6 +5,6 @@ public class LeaveLobby : MonoBehaviour {
 
 	void OnClick(){
 		PhotonNetwork.LeaveRoom();
-		Application.LoadLevel( "MainMenu" );
+		PhotonNetwork.LoadLevel( "MainMenu" );
 	}
 }

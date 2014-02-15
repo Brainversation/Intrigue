@@ -10,7 +10,6 @@ public class MainMenu : MonoBehaviour {
 
 	void Start () {
 		Screen.lockCursor = false;
-		PhotonNetwork.isMessageQueueRunning = true;
 		filePath = Application.persistentDataPath + "/Player.txt";
 		
 		connect();
@@ -84,12 +83,12 @@ public class MainMenu : MonoBehaviour {
 	// Called after joining a room
 	void OnJoinedLobby(){
 		Debug.Log("joined lobby");
+		PhotonNetwork.networkingPeer.NewSceneLoaded();
 	}
 
 	void OnJoinedRoom(){
 		Debug.Log("joined room");
-		PhotonNetwork.isMessageQueueRunning = false;
-		Application.LoadLevel("Pregame");
+		PhotonNetwork.LoadLevel("Pregame");
 	}
 
 	void OnPhotonJoinFailed()

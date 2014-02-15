@@ -16,7 +16,7 @@ public class PlayerList : MonoBehaviour {
 	// Use this for initialization
 	void Start(){
 		this.photonView = PhotonView.Get(this);
-		PhotonNetwork.isMessageQueueRunning = true;
+		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		player = GameObject.Find("Player").GetComponent<Player>();
 	}
 	

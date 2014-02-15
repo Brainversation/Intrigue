@@ -14,7 +14,7 @@ public class ReadyButton : MonoBehaviour {
 	void Start () {
 
 	this.photonView = PhotonView.Get(this);
-	PhotonNetwork.isMessageQueueRunning = true;
+	PhotonNetwork.networkingPeer.NewSceneLoaded();
 	player = GameObject.Find("Player").GetComponent<Player>();
 	label = gameObject.GetComponentInChildren<UILabel>();
 	sprite = gameObject.GetComponent<UISprite>();
@@ -78,13 +78,6 @@ public class ReadyButton : MonoBehaviour {
 		}
 	}
 
-	IEnumerator loadGame() {
-		AsyncOperation async = Application.LoadLevelAsync("Intrigue");
-		yield return async;
-		PhotonNetwork.isMessageQueueRunning = false;
-		Debug.Log("Loading complete");
-	}
-
 	[RPC]
 	public void ready(int val){
 		this.readyCount +=val;
@@ -92,6 +85,6 @@ public class ReadyButton : MonoBehaviour {
 	
 	[RPC]
 	public void go(){
-		StartCoroutine( loadGame() );
+		PhotonNetwork.LoadLevel("Intrigue");
 	}
 }

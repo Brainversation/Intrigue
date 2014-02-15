@@ -14,7 +14,7 @@ public class Network : MonoBehaviour {
 
 	// Look up how to disconnect
 	void Start () {
-		PhotonNetwork.isMessageQueueRunning = true;
+		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		// Get photonView component
 		photonView = PhotonView.Get(this);
 
@@ -33,7 +33,7 @@ public class Network : MonoBehaviour {
 	void Update () {
 		if( PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby ){
 			PhotonNetwork.isMessageQueueRunning = false;
-			Application.LoadLevel("MainMenu");
+			PhotonNetwork.LoadLevel("MainMenu");
 		}
 	}
 
