@@ -15,17 +15,17 @@ namespace BehaviorTree{
 			this.children = children;
 		}
 
-		abstract public Status run();
+		abstract public Status run(GameObject gameObject);
 	}
 
 	class Selector : Task {
 
 		public Selector( List<Task> children ) : base(children){}
 
-		public override Status run(){
+		public override Status run(GameObject gameObject){
 			Debug.Log("Selecting Task");
 			foreach( Task t in children ){
-				if( t.run() == Status.True ){
+				if( t.run(gameObject) == Status.True ){
 					return Status.True;
 				}
 			}
@@ -38,11 +38,11 @@ namespace BehaviorTree{
 
 		public NonDeterministicSelector( List<Task> children ) : base(children){}
 
-		public override Status run(){
+		public override Status run(GameObject gameObject){
 			List<Task> shuffled = children;
 			shuffled.Shuffle();
 			foreach( Task t in shuffled ){
-				if( t.run() == Status.True ){
+				if( t.run(gameObject) == Status.True ){
 					return Status.True;
 				}
 			}
@@ -54,10 +54,10 @@ namespace BehaviorTree{
 	class Sequence : Task {
 		public Sequence( List<Task> children ) : base(children){}
 		
-		public override Status run(){
+		public override Status run(GameObject gameObject){
 			Debug.Log("Going through Sequence");
 			foreach( Task t in children ){
-				if( t.run() != Status.True ){
+				if( t.run(gameObject) != Status.True ){
 					return Status.False;
 				}
 			}
@@ -70,11 +70,11 @@ namespace BehaviorTree{
 
 		public NonDeterministicSequence( List<Task> children ) : base(children){}
 
-		public override Status run(){
+		public override Status run(GameObject gameObject){
 			List<Task> shuffled = children;
 			shuffled.Shuffle();
 			foreach( Task t in shuffled ){
-				if( t.run() != Status.True ){
+				if( t.run(gameObject) != Status.True ){
 					return Status.False;
 				}
 			}
@@ -100,13 +100,13 @@ namespace BehaviorTree{
 			this.runLimit = runLimit;
 		}
 
-		public override Status run(){
+		public override Status run(GameObject gameObject){
 			if( runSoFar >= runLimit ){
 				return Status.False;
 			}
 
 			++runSoFar;
-			return children[0].run();
+			return children[0].run(gameObject);
 		}
 	}
 
@@ -114,9 +114,9 @@ namespace BehaviorTree{
 
 		public UntilFail( Task child ) : base(child){}
 
-		public override Status run(){
+		public override Status run(GameObject gameObject){
 			while(true){
-				if( child.run() == Status.False ) return Status.True;
+				if( child.run(gameObject) == Status.False ) return Status.True;
 			}
 		}
 	}
@@ -124,8 +124,8 @@ namespace BehaviorTree{
 	class Inverter : Decorator {
 		public Inverter( Task child ) : base( child ){}
 
-		public override Status run(){
-			switch( child.run() ){
+		public override Status run(GameObject gameObject){
+			switch( child.run(gameObject) ){
 				case Status.True:
 					return Status.False;
 				case Status.False:
@@ -141,7 +141,7 @@ namespace BehaviorTree{
 	class Jump : Task {
 		public Jump(){}
 
-		public override Status run(){
+		public override Status run(GameObject gameObject){
 			Debug.Log("I am trying to Jump");
 			return Status.False;
 		}
@@ -150,8 +150,9 @@ namespace BehaviorTree{
 	class Run : Task {
 		public Run(){}
 
-		public override Status run(){
+		public override Status run(GameObject gameObject){
 			Debug.Log("I am running");
+
 			return Status.True;
 		}
 	}
@@ -159,8 +160,9 @@ namespace BehaviorTree{
 	class Leap : Task {
 		public Leap(){}
 
-		public override Status run(){
+		public override Status run(GameObject gameObject){
 			Debug.Log("I am Leaping");
+		
 			return Status.True;
 		}
 	}
