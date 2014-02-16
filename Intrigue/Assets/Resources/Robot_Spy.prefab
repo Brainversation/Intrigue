@@ -13,6 +13,7 @@ GameObject:
   - 124: {fileID: 12400000}
   - 81: {fileID: 8100000}
   - 114: {fileID: 11400010}
+  - 114: {fileID: 11400014}
   m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -781,17 +782,32 @@ GameObject:
   - 4: {fileID: 400102}
   - 95: {fileID: 9500000}
   - 114: {fileID: 11400008}
-  - 143: {fileID: 14300000}
   - 114: {fileID: 11400006}
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400002}
-  - 114: {fileID: 11400000}
   - 111: {fileID: 11100000}
-  - 136: {fileID: 13600000}
-  - 114: {fileID: 11400012}
+  - 143: {fileID: 14300000}
+  - 65: {fileID: 6500000}
+  - 114: {fileID: 11400000}
+  - 114: {fileID: 11400016}
   m_Layer: 8
   m_Name: Robot_Spy
   m_TagString: Spy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400104}
+  m_Layer: 0
+  m_Name: CamPosEnd
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1412,13 +1428,25 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.9035006, y: 8.65447044, z: 27.3792572}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400000}
   - {fileID: 400100}
   - {fileID: 400098}
+  - {fileID: 400104}
   m_Father: {fileID: 0}
+--- !u!4 &400104
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100104}
+  m_LocalRotation: {x: -9.46087653e-09, y: .976296008, z: -.21643962, w: -4.26752536e-08}
+  m_LocalPosition: {x: 0, y: 15, z: 15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400102}
 --- !u!20 &2000000
 Camera:
   m_ObjectHideFlags: 1
@@ -1448,6 +1476,18 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
   m_OcclusionCulling: 1
+--- !u!65 &6500000
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100102}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5, y: 9, z: 1.5}
+  m_Center: {x: 0, y: 4.5, z: 0}
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1
@@ -1501,7 +1541,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c386f1255e44b34183388dc8f3d054c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  photonView: {fileID: 11400008}
   allytext: {fileID: 100000, guid: 26b1b09240bba7c4380f37e478491862, type: 2}
+  textAdded: 0
+  isOut: 0
+  localHandle: No Handle
+  remoteScore: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1531,6 +1576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054a0b483d2ae61479ada5fcce173dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOut: 0
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1582,7 +1628,23 @@ MonoBehaviour:
   maximumX: 360
   minimumY: -60
   maximumY: 60
---- !u!114 &11400012
+--- !u!114 &11400014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce3ecfa3aa28ad4ea5250f9a6cfad54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMarker: {fileID: 400000}
+  endMarker: {fileID: 400104}
+  speed: 1
+  rotSpeed: .5
+  smooth: 5
+--- !u!114 &11400016
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1603,19 +1665,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
---- !u!136 &13600000
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100102}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 5
-  m_Height: 9
-  m_Direction: 1
-  m_Center: {x: 0, y: 4.5, z: 0}
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

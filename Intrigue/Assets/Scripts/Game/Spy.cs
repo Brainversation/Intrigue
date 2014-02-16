@@ -9,6 +9,7 @@ public class Spy : MonoBehaviour
 	public PhotonView photonView = null;
 	public GameObject allytext;
 	public bool textAdded = false;
+	public bool isOut = false;
 	public string localHandle = "No Handle";
 
 	public int remoteScore = 0;
@@ -130,6 +131,9 @@ public class Spy : MonoBehaviour
 
 	}
 
+	public void outStarted(){
+		Invoke("spectate", 5);
+	}
 
 	void spectate(){
 		Debug.Log("Trying to Spectate");
@@ -146,6 +150,8 @@ public class Spy : MonoBehaviour
 				break;
 			}
 		}
+
+		PhotonNetwork.Destroy(gameObject);
 	}
 
 	[RPC]

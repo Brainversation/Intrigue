@@ -39,34 +39,11 @@ public class Network : MonoBehaviour {
 
 	void OnGUI(){
 		// Tells us about the current network connection
-		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
-		GUILayout.Label( "Player Count:" + PhotonNetwork.playerList.Length );
-		GUILayout.Label( "Handle: " + player.Handle );
-		GUILayout.Label( "Team: "+ player.Team );
-		GUILayout.Label( "TeamID: " + player.TeamID );
-		GUILayout.Label( "Id: " + PhotonNetwork.player.ID );
+		
 		GUILayout.Label( "Are You Master Client?? " + PhotonNetwork.isMasterClient );
 		
 		//Checks state of connection: Look up PeerState
 		if( PhotonNetwork.connectionStateDetailed == PeerState.Joined ){
-			// //Chat Box
-			// this.scrollPositionChat = GUILayout.BeginScrollView(this.scrollPositionChat, GUILayout.Width ( Screen.width/4 ), GUILayout.MaxHeight(190), GUILayout.ExpandHeight (false));
-			// GUI.skin.box.alignment = TextAnchor.UpperLeft;
-			// GUILayout.Box(this.chatBox, this.styleChat, GUILayout.ExpandHeight(true));
-			// GUILayout.EndScrollView();
-
-
-			// GUI.SetNextControlName ("ChatBox");
-			// textField = GUILayout.TextField( textField, 100 );
-			// if( ( GUILayout.Button("Send") ||
-			// 	(Event.current.type == EventType.keyDown && 
-			// 	 Event.current.character == '\n' &&
-			// 	 GUI.GetNameOfFocusedControl() == "ChatBox") ) 
-			// 	&& textField != ""  ){ 
-			// 	photonView.RPC("recieveMessage", PhotonTargets.All, (this.player.Handle + ": " + textField + "\n") );
-			// 	textField = "";
-			// 	this.scrollPositionChat.y = Mathf.Infinity;
-			// }
 			if( GUILayout.Button( "Leave Room" ) ){
 				if(Intrigue.playerGO)
 					PhotonNetwork.Destroy(Intrigue.playerGO);

@@ -13,6 +13,7 @@ GameObject:
   - 124: {fileID: 12400000}
   - 81: {fileID: 8100000}
   - 114: {fileID: 11400010}
+  - 114: {fileID: 11400014}
   m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -796,6 +797,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &100104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400104}
+  m_Layer: 0
+  m_Name: CamPosEnd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &400000
 Transform:
   m_ObjectHideFlags: 1
@@ -1412,13 +1428,25 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.85859108, y: -6.29825617e-18, z: 1.13459301}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400000}
   - {fileID: 400100}
   - {fileID: 400098}
+  - {fileID: 400104}
   m_Father: {fileID: 0}
+--- !u!4 &400104
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100104}
+  m_LocalRotation: {x: -9.46087653e-09, y: .976296008, z: -.21643962, w: -4.26752536e-08}
+  m_LocalPosition: {x: 0, y: 15, z: 15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400102}
 --- !u!20 &2000000
 Camera:
   m_ObjectHideFlags: 1
@@ -1513,8 +1541,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be1dc1eba228b945ae2c0d36f51f58d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  remoteScore: 0
   allytext: {fileID: 100000, guid: 26b1b09240bba7c4380f37e478491862, type: 2}
   textAdded: 0
+  isOut: 0
   localHandle: No Handle
 --- !u!114 &11400002
 MonoBehaviour:
@@ -1545,6 +1575,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054a0b483d2ae61479ada5fcce173dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isOut: 0
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1610,6 +1641,22 @@ MonoBehaviour:
   crosshairNormal: {fileID: 2800000, guid: 77203846a9ded514aba985acbba6a2e9, type: 3}
   crosshairInteract: {fileID: 2800000, guid: 95252a15a494d9f44917e92f67db5675, type: 3}
   canInteract: 0
+--- !u!114 &11400014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce3ecfa3aa28ad4ea5250f9a6cfad54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMarker: {fileID: 400000}
+  endMarker: {fileID: 400104}
+  speed: 1
+  rotSpeed: .5
+  smooth: 5
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

@@ -16,6 +16,7 @@ public class Guard : MonoBehaviour
 	public int remoteScore = 0;
 	public GameObject allytext;
 	public bool textAdded = false;
+	public bool isOut = false;
 	public string localHandle = "No Handle";
 	//Yield function that waits specified amount of seconds
 
@@ -88,10 +89,10 @@ public class Guard : MonoBehaviour
 
 		//Create Ally Texts
 		GameObject[] allies = GameObject.FindGameObjectsWithTag("Guard");
+		Debug.Log("allies: " + allies.Length);
 		foreach(GameObject ally in allies){
 			if(ally!=gameObject){
 				if(!ally.GetComponent<Guard>().textAdded){
-					//Debug.Log("creating ally text");
 					ally.GetComponent<Guard>().textAdded = true;
 					GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
 					textInstance.GetComponent<AllyText>().target = ally.transform;
@@ -156,16 +157,22 @@ public class Guard : MonoBehaviour
 			photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
 			photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 			photonView.RPC("spyCaught", PhotonTargets.MasterClient);
-			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
+			accused.GetComponent<Spy>().isOut = true;
+			accused.GetComponent<NetworkCharacter>().isOut = true;
+			//accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
 		}
 		else{
 			Debug.Log("You dun goofed");
 			photonView.RPC("guardFailed", PhotonTargets.MasterClient);
-			spectate();
-			PhotonNetwork.Destroy(gameObject);
+			isOut = true;
+			gameObject.GetComponent<NetworkCharacter>().isOut = true;
 		}
 		accusing = false;
 		accused = null;
+	}
+		
+	public void outStarted(){
+		Invoke("spectate", 5);
 	}
 
 	void spectate(){
@@ -183,6 +190,7 @@ public class Guard : MonoBehaviour
 				break;
 			}
 		}
+		PhotonNetwork.Destroy(gameObject);
 	}
 
 	[RPC]

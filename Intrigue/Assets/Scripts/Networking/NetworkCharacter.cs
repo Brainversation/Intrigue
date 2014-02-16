@@ -5,13 +5,18 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	private Vector3 correctPlayerPos;
 	private Quaternion correctPlayerRot;
-
 	private Animator anim;
+	private GUIStyle style = new GUIStyle();
+
+	public bool isOut;
 
 	void Start() {
 		//Get References to Animator and Collider
 		anim = GetComponent<Animator>();
 		anim.speed = 1.5f;
+		this.style.fontSize = 40;
+		this.style.normal.textColor = Color.red;
+
 	}
 
 	public void Update(){
@@ -22,11 +27,18 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	}
 
 	public void FixedUpdate(){
-		if(photonView.isMine){
+		if(photonView.isMine && !isOut){
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
 			anim.SetFloat("Direction", Input.GetAxis("Horizontal"));
 			anim.SetBool("Run", Input.GetKey("left shift"));
 			anim.SetBool("Interact", Input.GetKey("e"));
+		}
+		else if(photonView.isMine && isOut){
+			anim.SetFloat("Speed", 0f);
+			anim.SetFloat("Direction", 0f);
+			anim.SetBool("Run", false);
+			anim.SetBool("Interact", false);
+			anim.SetBool("Out", true);
 		}
 	}
 
@@ -49,5 +61,10 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetBool("Run", (bool) stream.ReceiveNext());
 			anim.SetBool("Interact", (bool) stream.ReceiveNext());
 		}
+	}
+
+	void OnGUI(){
+		if(isOut)
+			GUI.Label(new Rect((Screen.width/2)-100,(Screen.height/2)-50,200,100),"YOU ARE OUT", style);
 	}
 }
