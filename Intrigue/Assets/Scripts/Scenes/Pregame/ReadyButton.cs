@@ -10,6 +10,9 @@ public class ReadyButton : MonoBehaviour {
 	private UILabel label;
 	private UISprite sprite;
 
+	public GameObject readyCheck;
+	private UIToggle readyCheckToggle;
+
 	// Use this for initialization
 	void Start () {
 
@@ -18,6 +21,7 @@ public class ReadyButton : MonoBehaviour {
 	player = GameObject.Find("Player").GetComponent<Player>();
 	label = gameObject.GetComponentInChildren<UILabel>();
 	sprite = gameObject.GetComponent<UISprite>();
+	readyCheckToggle = readyCheck.GetComponentInChildren<UIToggle>();
 
 	}
 	
@@ -28,31 +32,30 @@ public class ReadyButton : MonoBehaviour {
 			if(readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
 				label.text = "START GAME";
 				sprite.color = Color.green;
+				readyCheckToggle.value = true;
 			}
 			else
 			{	
 				if(player.Team==""){
 					label.text = "MUST CHOOSE TEAM";
 					sprite.color = Color.red;
+					readyCheckToggle.value = false;
+
 				}
 				else{
 					label.text = "WAITING FOR READY";
 					sprite.color = Color.red;
+					readyCheckToggle.value = false;
 				}
 			}
 		}
 		else{
-			if(isReady && player.Team!=""){
+			if(player.Team!=""){
 				label.text = "READY";
-				sprite.color = Color.green;
 			}
 			else{
 				if(player.Team==""){
 					label.text = "MUST CHOOSE TEAM";
-					sprite.color = Color.red;
-				}
-				else{
-					label.text = "NOT READY";
 					sprite.color = Color.red;
 				}
 			}
@@ -66,11 +69,13 @@ public class ReadyButton : MonoBehaviour {
 		else{
 			if(isReady){
 				isReady = false;
+				readyCheckToggle.value = false;
 				photonView.RPC("ready", PhotonTargets.MasterClient, -1);
 			}
 			else if(!isReady){
 				if(player.Team!=""){
 					isReady = true;
+					readyCheckToggle.value = true;
 					photonView.RPC("ready", PhotonTargets.MasterClient, 1);
 				}
 			}

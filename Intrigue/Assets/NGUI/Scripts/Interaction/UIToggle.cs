@@ -170,7 +170,7 @@ public class UIToggle : UIWidgetContainer
 	/// Check or uncheck on click.
 	/// </summary>
 
-	void OnClick () { if (enabled) value = !value; }
+	//void OnClick () { if (enabled) value = !value; }
 
 	/// <summary>
 	/// Fade out or fade in the active sprite and notify the OnChange event listener.
