@@ -10,7 +10,10 @@ public class MainMenu : MonoBehaviour {
 
 	void Start () {
 		Screen.lockCursor = false;
-		filePath = Application.persistentDataPath + "/Player.txt";
+		if (Application.isEditor)
+			filePath = Application.persistentDataPath + "/PlayerEditor.txt";
+		else
+			filePath = Application.persistentDataPath + "/Player.txt";
 		
 		connect();
 
@@ -97,7 +100,6 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnApplicationQuit() {
-		Debug.Log("CLOSE");
 		file.WriteLine(player.Handle);
 		file.WriteLine(player.RoomName);
 		file.Close();
