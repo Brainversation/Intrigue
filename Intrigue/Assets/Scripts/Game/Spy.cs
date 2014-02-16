@@ -157,8 +157,8 @@ public class Spy : MonoBehaviour
 	[RPC]
 	void destroySpy(){
 		if( photonView.isMine){
-			spectate();
-			PhotonNetwork.Destroy(gameObject);
+			isOut = true;
+			gameObject.GetComponent<NetworkCharacter>().isOut = true;
 		}
 	}
 

@@ -157,9 +157,7 @@ public class Guard : MonoBehaviour
 			photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
 			photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 			photonView.RPC("spyCaught", PhotonTargets.MasterClient);
-			accused.GetComponent<Spy>().isOut = true;
-			accused.GetComponent<NetworkCharacter>().isOut = true;
-			//accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
+			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
 		}
 		else{
 			Debug.Log("You dun goofed");
