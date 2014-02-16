@@ -15,6 +15,9 @@ using System;
 [AddComponentMenu("NGUI/UI/NGUI Label")]
 public class UILabel : UIWidget
 {
+	[HideInInspector]
+	public string user = "";
+
 	public enum Effect
 	{
 		None,

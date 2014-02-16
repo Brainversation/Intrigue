@@ -55,7 +55,25 @@ public class PlayerScoreList : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update(){
+			photonView.RPC("editPing", PhotonTargets.AllBuffered, player.Handle, player.TeamID, player.Score, PhotonNetwork.networkingPeer.RoundTripTime);
+	}
 
+	[RPC]
+	void editPing(string handle, int TeamID, int score, int ping){
+		if(TeamID==1){
+					foreach(Transform child in transform){
+						if(child.gameObject.GetComponent<UILabel>().user == handle){
+							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + " : " + score + "     ("+ ping + ") ms";
+						}
+					}
+				}
+		else{
+			foreach(Transform child in guardTable.transform){
+				if(child.gameObject.GetComponent<UILabel>().user == handle){
+					child.gameObject.GetComponent<UILabel>().text = "[FF0000]" + handle + " : " + score + "     ("+ ping + ") ms";
+				}
+			}
+		}
 	}
 
 	[RPC]
@@ -65,6 +83,7 @@ public class PlayerScoreList : MonoBehaviour {
 		Vector3 temp = new Vector3(0f,(team1.Count-1)*0.1f,0);
 		playerInfo.transform.position-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
+		label.user = handle;
 		label.text = handle + " : " + score;
 	}
 
@@ -75,6 +94,8 @@ public class PlayerScoreList : MonoBehaviour {
 		Vector3 temp = new Vector3(0f,(team2.Count-1)*0.1f,0);
 		playerInfo.transform.position-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
+		label.user = handle;
 		label.text = handle + " : " + score;
 	}
+
 }

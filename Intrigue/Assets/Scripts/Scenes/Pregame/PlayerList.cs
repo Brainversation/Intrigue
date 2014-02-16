@@ -32,6 +32,9 @@ public class PlayerList : MonoBehaviour {
 			photonView.RPC("removeName", PhotonTargets.AllBuffered, player.Handle, "Spy");
 			player.TeamID = 2;
 		}
+
+		if(player.Team =="Spy" || player.Team =="Guard")
+			photonView.RPC("editPing", PhotonTargets.AllBuffered, player.Handle, player.Team, PhotonNetwork.networkingPeer.RoundTripTime);
 	}
 
 	[RPC]
@@ -42,7 +45,26 @@ public class PlayerList : MonoBehaviour {
 		Vector3 temp = new Vector3(0f,(spies.Count-1)*0.1f,0);
 		playerInfo.transform.position-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
-		label.text = handle;
+		label.user = handle;
+		label.text = "[0000FF]"+handle;
+	}
+
+	[RPC]
+	void editPing(string handle, string team, int ping){
+		if(team=="Spy"){
+					foreach(Transform child in transform){
+						if(child.gameObject.GetComponent<UILabel>().user == handle){
+							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "     ("+ ping + ") ms";
+						}
+					}
+				}
+		else{
+			foreach(Transform child in guardTable.transform){
+				if(child.gameObject.GetComponent<UILabel>().user == handle){
+					child.gameObject.GetComponent<UILabel>().text = "[FF0000]" + handle + "     ("+ ping + ") ms";
+				}
+			}
+		}
 	}
 
 	[RPC]
@@ -53,21 +75,22 @@ public class PlayerList : MonoBehaviour {
 		Vector3 temp = new Vector3(0f,(guards.Count-1)*0.1f,0);
 		playerInfo.transform.position-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
-		label.text = handle;
+		label.user = handle;
+		label.text = "[FF0000]"+handle;
 	}
 
 	[RPC]
 	void removeName(string handle, string team){
 		if(team=="Spy"){
 			foreach(Transform child in transform){
-				if(child.gameObject.GetComponent<UILabel>().text == handle){
+				if(child.gameObject.GetComponent<UILabel>().user == handle){
 					NGUITools.Destroy(child.gameObject);
 				}
 			}
 		}
 		else{
 			foreach(Transform child in guardTable.transform){
-				if(child.gameObject.GetComponent<UILabel>().text == handle){
+				if(child.gameObject.GetComponent<UILabel>().user == handle){
 					NGUITools.Destroy(child.gameObject);
 				}
 			}
