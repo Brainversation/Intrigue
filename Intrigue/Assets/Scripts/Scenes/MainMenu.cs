@@ -96,10 +96,4 @@ public class MainMenu : MonoBehaviour {
 	void OnPhotonJoinFailed(){
 		Debug.Log("OnPhotonJoinFailed");
 	}
-
-	void OnApplicationQuit() {
-		file.WriteLine(player.Handle);
-		file.WriteLine(player.RoomName);
-		file.Close();
-	}
 }
