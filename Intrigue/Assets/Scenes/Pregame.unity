@@ -371,7 +371,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
-  mColor: {r: 0, g: 0, b: 0, a: 1}
+  mColor: {r: .647058845, g: .647058845, b: .647058845, a: 1}
   mPivot: 4
   mWidth: 150
   mHeight: 40
@@ -2007,15 +2007,15 @@ MonoBehaviour:
     target: {fileID: 314424099}
     relative: 1
     absolute: 0
-  mColor: {r: .350746274, g: .350746274, b: .350746274, a: .541176498}
+  mColor: {r: 0, g: 0, b: 0, a: .541176498}
   mPivot: 4
-  mWidth: 960
+  mWidth: 2695
   mHeight: 720
   mDepth: -2
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.33333337
+  aspectRatio: 3.74305558
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
   mSpriteName: Stripes 2
   mType: 2
@@ -2065,15 +2065,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: fee46b827274e694aa251e2d36700135, type: 2}
       propertyPath: mColor.r
-      value: 0
+      value: .466666669
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: fee46b827274e694aa251e2d36700135, type: 2}
       propertyPath: mColor.g
-      value: 0
+      value: .466666669
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: fee46b827274e694aa251e2d36700135, type: 2}
       propertyPath: mColor.b
-      value: 0
+      value: .466666669
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: fee46b827274e694aa251e2d36700135, type: 2}
       propertyPath: hover.r
@@ -2563,13 +2563,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 4
-  mWidth: 960
+  mWidth: 2695
   mHeight: 720
   mDepth: -3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.33333337
+  aspectRatio: 3.74305558
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
   mSpriteName: Glow - Inner
   mType: 1
@@ -4256,7 +4256,7 @@ MonoBehaviour:
     target: {fileID: 0}
     relative: 1
     absolute: 0
-  mColor: {r: 0, g: 0, b: 0, a: 1}
+  mColor: {r: .466666669, g: .466666669, b: .466666669, a: 1}
   mPivot: 4
   mWidth: 150
   mHeight: 40
@@ -4314,15 +4314,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: fee46b827274e694aa251e2d36700135, type: 2}
       propertyPath: mColor.r
-      value: 0
+      value: .647058845
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: fee46b827274e694aa251e2d36700135, type: 2}
       propertyPath: mColor.g
-      value: 0
+      value: .647058845
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: fee46b827274e694aa251e2d36700135, type: 2}
       propertyPath: mColor.b
-      value: 0
+      value: .647058845
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: fee46b827274e694aa251e2d36700135, type: 2}
       propertyPath: hover.r
@@ -5655,8 +5655,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 19, y: 19, z: 0}
-  m_Center: {x: -9.5, y: 9.5, z: 0}
+  m_Size: {x: 20, y: 20, z: 0}
+  m_Center: {x: -10, y: 10, z: 0}
 --- !u!114 &1775314786
 MonoBehaviour:
   m_ObjectHideFlags: 0
