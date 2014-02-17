@@ -18,6 +18,7 @@ public class PlayerScoreList : MonoBehaviour {
 
 	// Use this for initialization
 	void Start(){
+		Screen.lockCursor = false;
 		this.photonView = PhotonView.Get(this);
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		player = GameObject.Find("Player").GetComponent<Player>();
