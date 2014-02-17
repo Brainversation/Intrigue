@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
 	private int score = 0;
 	private int teamScore = 0;
 	private int enemyScore = 0;
+	private bool ready = false;
 
 	void Awake(){
 		DontDestroyOnLoad(transform.gameObject);
@@ -79,6 +80,14 @@ public class Player : MonoBehaviour {
 		}
 	}
 
+	public bool Ready{
+		get{
+			return this.ready;
+		}
+		set{
+			this.ready = value;
+		}
+	}
 	public int Score {
 		get{
 			return this.score;

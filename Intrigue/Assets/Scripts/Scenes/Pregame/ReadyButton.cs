@@ -32,6 +32,7 @@ public class ReadyButton : MonoBehaviour {
 			if(readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
 				label.text = "START GAME";
 				sprite.color = Color.green;
+				player.Ready = true;
 				readyCheckToggle.value = true;
 			}
 			else
@@ -39,12 +40,14 @@ public class ReadyButton : MonoBehaviour {
 				if(player.Team==""){
 					label.text = "MUST CHOOSE TEAM";
 					sprite.color = Color.red;
+					player.Ready = false;
 					readyCheckToggle.value = false;
 
 				}
 				else{
 					label.text = "WAITING FOR READY";
 					sprite.color = Color.red;
+					player.Ready = true;
 					readyCheckToggle.value = false;
 				}
 			}
@@ -70,12 +73,14 @@ public class ReadyButton : MonoBehaviour {
 			if(isReady){
 				isReady = false;
 				readyCheckToggle.value = false;
+				player.Ready = false;
 				photonView.RPC("ready", PhotonTargets.MasterClient, -1);
 			}
 			else if(!isReady){
 				if(player.Team!=""){
 					isReady = true;
 					readyCheckToggle.value = true;
+					player.Ready = true;
 					photonView.RPC("ready", PhotonTargets.MasterClient, 1);
 				}
 			}
@@ -87,7 +92,7 @@ public class ReadyButton : MonoBehaviour {
 	public void ready(int val){
 		this.readyCount +=val;
 	}
-	
+
 	[RPC]
 	public void go(){
 		PhotonNetwork.LoadLevel("Intrigue");

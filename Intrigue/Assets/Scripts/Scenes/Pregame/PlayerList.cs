@@ -34,7 +34,7 @@ public class PlayerList : MonoBehaviour {
 		}
 
 		if(player.Team =="Spy" || player.Team =="Guard")
-			photonView.RPC("editPing", PhotonTargets.AllBuffered, player.Handle, player.Team, PhotonNetwork.networkingPeer.RoundTripTime);
+			photonView.RPC("editPing", PhotonTargets.AllBuffered, player.Handle, player.Team, player.Ready, PhotonNetwork.networkingPeer.RoundTripTime);
 	}
 
 	[RPC]
@@ -50,18 +50,24 @@ public class PlayerList : MonoBehaviour {
 	}
 
 	[RPC]
-	void editPing(string handle, string team, int ping){
+	void editPing(string handle, string team, bool ready, int ping){
 		if(team=="Spy"){
 					foreach(Transform child in transform){
 						if(child.gameObject.GetComponent<UILabel>().user == handle){
-							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "     ("+ ping + ") ms";
+							if(ready)
+								child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [00FF00][READY][000000]   ("+ ping + ") ms";
+							else
+								child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [FF0000][READY][000000]   ("+ ping + ") ms";
 						}
 					}
 				}
 		else{
 			foreach(Transform child in guardTable.transform){
 				if(child.gameObject.GetComponent<UILabel>().user == handle){
-					child.gameObject.GetComponent<UILabel>().text = "[FF0000]" + handle + "     ("+ ping + ") ms";
+						if(ready)
+							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [00FF00][READY][000000]   ("+ ping + ") ms";
+						else
+							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [FF0000][READY][000000]   ("+ ping + ") ms";				
 				}
 			}
 		}
