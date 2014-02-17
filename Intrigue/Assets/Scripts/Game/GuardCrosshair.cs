@@ -8,6 +8,7 @@ public class GuardCrosshair : MonoBehaviour {
 	public bool canInteract = false;
 	private Rect position;
 	private static bool OriginalOn = true;
+	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
 	
 	void Start () {
 	
@@ -16,7 +17,7 @@ public class GuardCrosshair : MonoBehaviour {
 	
 	}
 	void Update(){
-			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+			Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 			RaycastHit hit;
 			if( Physics.Raycast(ray, out hit, 15.0f) ){
 				if( hit.transform.tag == "Spy" || hit.transform.tag == "Guest"){

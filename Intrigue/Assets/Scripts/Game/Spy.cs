@@ -17,6 +17,7 @@ public class Spy : MonoBehaviour
 	private GameObject[] guards = null;
 	private GameObject[] spies = null;
 	private Rect windowRect = new Rect(Screen.width/4, Screen.height/4, Screen.width/2, Screen.height/2);
+	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
 
 	//Yield function that waits specified amount of seconds
 	IEnumerator Yielder(int seconds){
@@ -78,7 +79,7 @@ public class Spy : MonoBehaviour
 
 	void Update () {
 		//Interact Raycasts
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 		if (Input.GetKey("e")){
 			RaycastHit hit;
 			Debug.DrawRay(ray.origin,ray.direction*15f,Color.green);

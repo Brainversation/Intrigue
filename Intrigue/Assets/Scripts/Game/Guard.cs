@@ -12,6 +12,7 @@ public class Guard : MonoBehaviour
 	private Player player;
 	private Intrigue intrigue;
 	private Network network;
+	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
 
 	public int remoteScore = 0;
 	public GameObject allytext;
@@ -69,9 +70,8 @@ public class Guard : MonoBehaviour
 		}
 
 		//Highlights the currently targeted guest
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
-		
+		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 		if (Physics.Raycast (ray, out hit, 15)) {
 			if(hit.transform.gameObject.CompareTag("Guest")||hit.transform.gameObject.CompareTag("Spy")){
 				hit.transform.gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
