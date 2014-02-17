@@ -60,17 +60,25 @@ public class PlayerScoreList : MonoBehaviour {
 
 	[RPC]
 	void editPing(string handle, int TeamID, int score, int ping){
+		string pingColor = "[000000]";
+		if (ping<50)
+			pingColor = "[00FF00]";
+		else if(ping<100)
+			pingColor = "[FF9D00]";
+		else
+			pingColor = "[FF0000]";
+
 		if(TeamID==1){
 					foreach(Transform child in transform){
 						if(child.gameObject.GetComponent<UILabel>().user == handle){
-							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + " : " + score + "     ("+ ping + ") ms";
+							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + " : [000000]" + score + "     [000000]("+ pingColor+ping+"[-]" + ") ms";
 						}
 					}
 				}
 		else{
 			foreach(Transform child in guardTable.transform){
 				if(child.gameObject.GetComponent<UILabel>().user == handle){
-					child.gameObject.GetComponent<UILabel>().text = "[FF0000]" + handle + " : " + score + "     ("+ ping + ") ms";
+					child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + " : [000000]" + score + "     [000000]("+ pingColor+ping+"[-]"  + ") ms";
 				}
 			}
 		}

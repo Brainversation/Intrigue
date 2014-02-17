@@ -51,13 +51,23 @@ public class PlayerList : MonoBehaviour {
 
 	[RPC]
 	void editPing(string handle, string team, bool ready, int ping){
+		string pingColor = "[000000]";
+		if (ping<50)
+			pingColor = "[00FF00]";
+		else if(ping<100)
+			pingColor = "[FF9D00]";
+		else
+			pingColor = "[FF0000]";
+
+
 		if(team=="Spy"){
 					foreach(Transform child in transform){
 						if(child.gameObject.GetComponent<UILabel>().user == handle){
+
 							if(ready)
-								child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [00FF00][READY][000000]   ("+ ping + ") ms";
+								child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [00FF00][READY][000000]   ("+ pingColor+ping+"[-]" + ") ms";
 							else
-								child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [FF0000][READY][000000]   ("+ ping + ") ms";
+								child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [FF0000][READY][000000]   ("+ pingColor+ping+"[-]" + ") ms";
 						}
 					}
 				}
@@ -65,9 +75,9 @@ public class PlayerList : MonoBehaviour {
 			foreach(Transform child in guardTable.transform){
 				if(child.gameObject.GetComponent<UILabel>().user == handle){
 						if(ready)
-							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [00FF00][READY][000000]   ("+ ping + ") ms";
+							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [00FF00][READY][000000]   ("+ pingColor+ping+"[-]" + ") ms";
 						else
-							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [FF0000][READY][000000]   ("+ ping + ") ms";				
+							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [FF0000][READY][000000]   ("+ pingColor+ping+"[-]" + ") ms";				
 				}
 			}
 		}
