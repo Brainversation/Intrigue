@@ -1,23 +1,16 @@
-#UML Notation  
-Class name - bold, capital camel case  
-Variables - [-, +, #, ~] "Name" : "Data type" (camel case)  
-Method/Function - [-, +, #, ~] "Name"( arg1:"Data type",..., argN:"Data type" ) : "Return type" (camel case)  
-Static type - Underlined, camel case  
-Constant type - ALL CAPS  
-
 #Git Standards
 
 ##When starting a new task/branch:
 
-1.  Make a branch from dev: `git checkout -b t_<Branch Name> dev`
+1.  Make a branch from dev: `git checkout -b <Branch Name> dev`
 2.  Do work on branch
 3.  Make a commit: `git commit -a`
 
 ##To backup your branch:
 
-1.  Save on remote: `git push -u origin t_<Branch Name>`
+1.  Save on remote: `git push -u origin <Branch Name>`
 2.  To check if it saved your branch to the remote repo: `git branch -a`
-3.  It will say: `remotes/origin/t_<Branch Name>`
+3.  It will say: `remotes/origin/<Branch Name>`
 
 ##For testing:
 
@@ -27,40 +20,26 @@ Constant type - ALL CAPS
 2.  If merging conflict(s) occur(s), See [To merge conflicts](#merge)
 3.  Start testing
 
-###Your branch with others:
-
-####One person resets tempdev:
-
--  git push origin +dev:tempdev
--  Others wait until this is done
-
-####Everyone participating in the test, merges their branch into tempdev:
-
-1.  `git checkout tempdev`
-2.  `git pull`
-3.  `git merge t_<Branch Name>`
-4.  `git push origin tempdev`
-5.  Wait until everyone in the test has pushed
-6.  `git pull origin tempdev`
-7.  Start test
-
 ##Done with task/branch, ready to merge into dev:  
 
-1.  `git checkout t_<Branch Name>`
+1.  `git checkout <Branch Name>`
 2.  `git pull --rebase origin dev`
-3.  `git checkout dev`
-4.  `git merge t_<Branch Name>`
-5.  `git push origin dev`
+3.  If merging conflict(s) occur(s), See [To merge conflicts](#merge)
+4.  Start testing on your branch, when done testing and everything works continue
+5.  `git checkout dev`
+6.  `git merge <Branch Name>`
+7.  Start testing on dev branch, when done testing and everything works continue
+8.  `git push origin dev`
 
 ##Destroy backup copy on remote of your branch:
 
--  `git push origin :t_<Branch Name>`
+-  `git push origin :<Branch Name>`
 
 ##Destroy local copy:
 
 1.  Make sure you are on a different branch then the one you will be deleting: `git status`
 2.  If on that branch: `git checkout <Other Branch>`
-3.  `git branch -d t_<Branch Name>`
+3.  `git branch -d <Branch Name>`
 
 Your branch will still exist in history forever, so don't fret your little nickers, child.  
 
@@ -78,5 +57,3 @@ Your branch will still exist in history forever, so don't fret your little nicke
 3.  `git add <File Name>`
 4.  If More files to merge repeat from step 2
 5.  `git rebase --continue`
-
-Git tags are for annotating releases and stuff
