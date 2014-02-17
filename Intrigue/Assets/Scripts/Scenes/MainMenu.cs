@@ -76,7 +76,6 @@ public class MainMenu : MonoBehaviour {
 	void getUserHandle(){
 		UIInput playerName = GameObject.Find ("playerName").GetComponent<UIInput> ();
 		player.Handle = playerName.text;
-		Debug.Log (player.Handle);
 	}
 
 	void connect(){
