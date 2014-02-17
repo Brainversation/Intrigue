@@ -152,13 +152,8 @@ namespace RBS{
             Debug.Log("Set Dest");
             gameObject.GetComponent<BaseAI>().bored = 40;
             gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
-            // Vector3 temp = barLocation;
-            // NavMeshHit hit;
-            // do{
-            //     temp[0] += UnityEngine.Random.Range(0, 20);
-            //     temp[2] += UnityEngine.Random.Range(0, 20);
-            // } while(NavMesh.SamplePosition(temp, out hit, 10, 1));
             gameObject.GetComponent<BaseAI>().destination = barLocation;
+            Debug.DrawLine(gameObject.transform.position, barLocation, Color.red, 1000f, false);
             return Status.True;
         }
     }

@@ -45,6 +45,12 @@ public class BaseAI : Photon.MonoBehaviour {
 			// Do updating stuff
 		// }
 
+		if(agent.hasPath && agent.remainingDistance < .5f){
+			Debug.Log("HERE");
+			anim.SetFloat("Speed", 0f);
+			behaving = Status.False;
+		}
+
 		if( behaving == Status.False ){
 			//Sort the list in terms of weight
 			rules.Sort();
@@ -60,7 +66,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			}
 		} else if( behaving == Status.True ){
 			behaving = Status.Waiting;
-			Invoke("backToRule", 1);
+			if(!agent.hasPath) Invoke("backToRule", 1);
 		}
 	}
 
