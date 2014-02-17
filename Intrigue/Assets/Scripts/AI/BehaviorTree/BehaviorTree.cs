@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BehaviorTree{
 
-	abstract class Task {
+	public abstract class Task {
 		protected List<Task> children;
 
 		public Task(){
@@ -143,7 +143,8 @@ namespace BehaviorTree{
 
 		public override Status run(GameObject gameObject){
 			Debug.Log("I am trying to Jump");
-			return Status.False;
+			gameObject.GetComponent<Animator>().SetBool("Jump", true);
+			return Status.True;
 		}
 	}
 
@@ -152,17 +153,18 @@ namespace BehaviorTree{
 
 		public override Status run(GameObject gameObject){
 			Debug.Log("I am running");
-
+			gameObject.GetComponent<Animator>().SetBool("Run", true);
 			return Status.True;
 		}
 	}
 
-	class Leap : Task {
-		public Leap(){}
+	class GoToRoom : Task{
+		public GoToRoom(){}
 
 		public override Status run(GameObject gameObject){
-			Debug.Log("I am Leaping");
-		
+			Debug.Log("Going to room");
+			Vector3 pos = gameObject.GetComponent<BaseAI>().destination;
+			gameObject.GetComponent<NavMeshAgent>().SetDestination(pos);
 			return Status.True;
 		}
 	}
@@ -170,6 +172,7 @@ namespace BehaviorTree{
 	public enum Status{
 		False,
 		True,
+		Waiting,
 		Error
 	}
 
