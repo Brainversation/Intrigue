@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour {
 	private int numOfServers;
 	private UITable serverListTable;
 	public GameObject btnJoinServer_prefab;
-
+	public GameObject serverTable;
 	void Start () {
 		Screen.lockCursor = false;
 		PhotonNetwork.isMessageQueueRunning = true;
@@ -27,18 +27,27 @@ public class MainMenu : MonoBehaviour {
 //
 //		}
 	}
-	
+
 	void onFindServerClicked(){
 		menuItemClicked = 0;
+		int serverNum = 0;
 		foreach (RoomInfo room in PhotonNetwork.GetRoomList()) {
-			GameObject serverInfo = NGUITools.AddChild (gameObject, btnJoinServer_prefab);
-			UILabel serverName = GameObject.Find ("label_ServerName").GetComponent<UILabel> ();
-			UILabel serverPlayers = GameObject.Find ("label_ServerPlayers").GetComponent<UILabel> ();
-			Vector3 temp = new Vector3(0f,(numOfServers)*0.1f,0);
-			serverInfo.transform.position-=temp;
-			serverName.text = room.name;
-			serverPlayers.text = room.playerCount+"/"+room.maxPlayers;
+			GameObject serverInfo = NGUITools.AddChild (serverTable, btnJoinServer_prefab);
+			UILabel[] serverButText = serverInfo.GetComponentsInChildren<UILabel>();
+			Vector3 temp = new Vector3(0.52f,-0.1f+(serverNum)*0.12f,0);
+			serverInfo.transform.position+=temp;
+			serverButText[0].text = room.name;
+			serverButText[1].text = room.playerCount+"/"+room.maxPlayers;
+			serverNum++;
 		}
+	}
+
+	void refreshServerList(){
+		foreach(Transform child in serverTable.transform){
+				NGUITools.Destroy(child.gameObject);
+			}
+		onFindServerClicked();
+		Debug.Log("Refreshed Servers");
 	}
 
 	void onCreateServerClicked(){
