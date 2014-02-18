@@ -13,7 +13,10 @@ public class Spy : MonoBehaviour
 	public string localHandle = "No Handle";
 
 	public int remoteScore = 0;
-	private UILabel timeLabel;
+	private GameObject timeLabel;
+	private GameObject outLabel;
+	private UILabel[] guiLabels;
+
 	private GameObject[] guards = null;
 	private GameObject[] spies = null;
 	private Intrigue intrigue;
@@ -81,12 +84,29 @@ public class Spy : MonoBehaviour
 	}
 
 	void Update () {
-		timeLabel = GetComponentInChildren<UILabel>();
+		guiLabels = GetComponentsInChildren<UILabel>();
+
+		foreach(UILabel lab in guiLabels){
+			if(lab.gameObject.CompareTag("TimeLabel")){
+				timeLabel = lab.gameObject;
+				Debug.Log("SetTimeLabel");
+			}
+			else if(lab.gameObject.CompareTag("OutLabel")){
+				outLabel = lab.gameObject;
+				Debug.Log("SetOutLabel");
+			}
+		}
+		if(isOut){
+			NGUITools.SetActive(outLabel, true);
+		}
+		else{
+			NGUITools.SetActive(outLabel, false);
+		}
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
 		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
 		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
 		if(timeLabel!=null)
-			timeLabel.text = minutesLeft +":" + seconds + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
+			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + seconds + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
 
 		//Interact Raycasts
 		Ray ray = Camera.main.ScreenPointToRay( screenPoint );

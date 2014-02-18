@@ -13,7 +13,10 @@ public class Guard : MonoBehaviour
 	private Intrigue intrigue;
 	private Network network;
 	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
-	private UILabel timeLabel;
+	private GameObject timeLabel;
+	private GameObject outLabel;
+	private UIPanel[] guiPanels;
+	private UILabel[] guiLabels;
 	public int remoteScore = 0;
 	public GameObject allytext;
 	public bool textAdded = false;
@@ -36,13 +39,11 @@ public class Guard : MonoBehaviour
 		photonView = PhotonView.Get(this);
 
 		if(photonView.isMine){
-			Debug.Log( "Guard" );
 			localHandle = player.Handle;
 			remoteScore = player.Score;
 			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
 			photonView.RPC("giveScore", PhotonTargets.OthersBuffered, player.Score);
 		} else {
-			Debug.Log("Guard Deactivated");
 			GetComponentInChildren<Camera>().enabled = false;
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<MovementController>().enabled = false;
@@ -57,17 +58,51 @@ public class Guard : MonoBehaviour
 	void Update () {
 		guests = GameObject.FindGameObjectsWithTag("Guest");
 		spies = GameObject.FindGameObjectsWithTag("Spy");
+		guiPanels = GetComponentsInChildren<UIPanel>();
+		guiLabels = GetComponentsInChildren<UILabel>();
 
-		timeLabel = GetComponentInChildren<UILabel>();
+		foreach(UILabel lab in guiLabels){
+			if(lab.gameObject.CompareTag("TimeLabel")){
+				timeLabel = lab.gameObject;
+				Debug.Log("SetTimeLabel");
+			}
+			else if(lab.gameObject.CompareTag("OutLabel")){
+				outLabel = lab.gameObject;
+				Debug.Log("SetOutLabel");
+			}
+		}
+
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
 		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
 		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
 		if(timeLabel!=null)
-			timeLabel.text = minutesLeft +":" + seconds + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
+			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + seconds + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
+		if(isOut){
+			accusing = false;
+			accused = null;
+			NGUITools.SetActive(outLabel, true);
+		}
+		else{
+			NGUITools.SetActive(outLabel, false);
+		}
 
+		if(accusing && accused!=null){
+			guiPanels[1].alpha = 1;
+			if(Input.GetKeyUp(KeyCode.E)){
+				accusing = false;
+				testAccusation();
+			}
+		}
+		else{
+			guiPanels[1].alpha= 0;
+		}
+
+		if(Input.GetKeyUp(KeyCode.Space)){
+					accusing = false;
+					accused = null;
+				}
 
 		if(accused!=null && Vector3.Distance(accused.transform.position, gameObject.transform.position)>60){
-			Debug.Log("Out of accuse range");
 			accused = null;
 			accusing = false;
 		}
@@ -107,7 +142,6 @@ public class Guard : MonoBehaviour
 
 		//Create Ally Texts
 		GameObject[] allies = GameObject.FindGameObjectsWithTag("Guard");
-		Debug.Log("allies: " + allies.Length);
 		foreach(GameObject ally in allies){
 			if(ally!=gameObject){
 				if(!ally.GetComponent<Guard>().textAdded){
@@ -118,7 +152,6 @@ public class Guard : MonoBehaviour
 					textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
 				}
 				if((ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Guard>().textAdded){
-					//Debug.Log("Changing Handle from: " + ally.GetComponentInChildren<TextMesh>().text + " to:" + ally.GetComponent<Spy>().localHandle);
 					ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
 					
 				}
@@ -126,7 +159,7 @@ public class Guard : MonoBehaviour
 		}	
 	}
 
-	void OnGUI(){
+	/*void OnGUI(){
 		//GUI.skin.label.fontSize = 20;
 		GUI.color = Color.white;
 		if(accusing && accused!=null){
@@ -147,7 +180,7 @@ public class Guard : MonoBehaviour
 			spies = GameObject.FindGameObjectsWithTag("Spy");
 			windowRect = GUILayout.Window(0, windowRect, DoMyWindow, "Scoreboard");
 		}
-	}
+	}*/
 
 	void DoMyWindow(int windowID) {
 
@@ -171,14 +204,12 @@ public class Guard : MonoBehaviour
 
 	void testAccusation(){
 		if(accused != null && accused.CompareTag("Spy")){
-			Debug.Log("You found a spy!");
 			photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
 			photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 			photonView.RPC("spyCaught", PhotonTargets.MasterClient);
 			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
 		}
 		else{
-			Debug.Log("You dun goofed");
 			photonView.RPC("guardFailed", PhotonTargets.MasterClient);
 			isOut = true;
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
@@ -192,7 +223,6 @@ public class Guard : MonoBehaviour
 	}
 
 	void spectate(){
-		Debug.Log("Trying to Spectate");
 		GetComponentInChildren<Camera>().enabled = false; 
 		GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
 		if(guards.Length == 0){
@@ -202,7 +232,6 @@ public class Guard : MonoBehaviour
 			if(guard.gameObject != gameObject){
 				guard.GetComponentInChildren<Camera>().enabled = true; 
 				isSpectating = true;
-				Debug.Log("In For loop enabled a Camera");
 				break;
 			}
 		}

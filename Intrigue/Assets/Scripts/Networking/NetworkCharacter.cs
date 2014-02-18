@@ -63,9 +63,4 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetBool("Interact", (bool) stream.ReceiveNext());
 		}
 	}
-
-	void OnGUI(){
-		if(isOut)
-			GUI.Label(new Rect((Screen.width/2)-100,(Screen.height/2)-50,200,100),"YOU ARE OUT", style);
-	}
 }

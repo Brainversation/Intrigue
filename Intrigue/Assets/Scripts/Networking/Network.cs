@@ -5,8 +5,6 @@ public class Network : MonoBehaviour {
 
 	private PhotonView photonView = null;
 	private Vector2 scrollPositionChat = new Vector2(0, 0);
-	private GUIStyle styleChat = new GUIStyle();
-	private GUIStyle styleScore = new GUIStyle();
 	private string chatBox = "";
 	private string textField = "";
 	private Player player;
@@ -21,12 +19,6 @@ public class Network : MonoBehaviour {
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 
-		this.styleChat.fontSize = 12;
-		this.styleChat.normal.textColor = Color.white;
-
-		this.styleScore.fontSize = 40;
-		this.styleScore.normal.textColor = Color.red;
-
 	}
 	
 	// Update is called once per frame
@@ -39,10 +31,6 @@ public class Network : MonoBehaviour {
 	}
 
 	void OnGUI(){
-		// Tells us about the current network connection
-		
-		GUILayout.Label( "Are You Master Client?? " + PhotonNetwork.isMasterClient );
-		
 		//Checks state of connection: Look up PeerState
 		if( PhotonNetwork.connectionStateDetailed == PeerState.Joined ){
 			if( GUILayout.Button( "Leave Room" ) ){
