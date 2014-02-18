@@ -57,15 +57,23 @@ public class Guard : MonoBehaviour
 	void Update () {
 		guests = GameObject.FindGameObjectsWithTag("Guest");
 		spies = GameObject.FindGameObjectsWithTag("Spy");
-			
+
+		if(accused!=null && Vector3.Distance(accused.transform.position, gameObject.transform.position)>60){
+			Debug.Log("Out of accuse range");
+			accused = null;
+			accusing = false;
+		}
+
 		if(guests!=null){
 			foreach (GameObject guest in guests){
-				guest.GetComponentInChildren<Renderer>().material.color = Color.white;
+				if(guest!=accused)
+					guest.GetComponentInChildren<Renderer>().material.color = Color.white;
 			}
 		}
 		if(spies!=null){
 			foreach (GameObject spy in spies){
-				spy.GetComponentInChildren<Renderer>().material.color = Color.white;
+				if(spy!=accused)
+					spy.GetComponentInChildren<Renderer>().material.color = Color.white;
 			}
 		}
 
@@ -73,17 +81,19 @@ public class Guard : MonoBehaviour
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 		if (Physics.Raycast (ray, out hit, 15)) {
-			if(hit.transform.gameObject.CompareTag("Guest")||hit.transform.gameObject.CompareTag("Spy")){
-				hit.transform.gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
-			}
+			if(accused==null)
+				if(hit.transform.gameObject.CompareTag("Guest")||hit.transform.gameObject.CompareTag("Spy")){
+					hit.transform.gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
+				}
 		}
 
 		if ( Input.GetKeyUp (KeyCode.E) && !accusing ){
 				if ( Physics.Raycast(ray, out hit, 15) ) {
-					if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
-							accusing = true;
-							accused = hit.transform.gameObject;
-						}
+					if(accused==null)
+						if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
+								accusing = true;
+								accused = hit.transform.gameObject;
+							}
 				}
 		}
 
@@ -111,7 +121,7 @@ public class Guard : MonoBehaviour
 	void OnGUI(){
 		//GUI.skin.label.fontSize = 20;
 		GUI.color = Color.white;
-		if(accusing){
+		if(accusing && accused!=null){
 			GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100),"E to Confirm Accusation \nSpace to Cancel.");
 				if(Input.GetKeyUp(KeyCode.E)){
 					accusing = false;
