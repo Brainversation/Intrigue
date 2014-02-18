@@ -11,12 +11,15 @@ public class Spy : MonoBehaviour
 	public bool textAdded = false;
 	public bool isOut = false;
 	public string localHandle = "No Handle";
-
+	public float percentComplete = 0;
+	public bool doingObjective = false;
 	public int remoteScore = 0;
 	private GameObject timeLabel;
 	private GameObject outLabel;
 	private UILabel[] guiLabels;
-
+	private UIPanel[] uiPanels;
+	private UIPanel objPanel;
+	private UISlider objSlider;
 	private GameObject[] guards = null;
 	private GameObject[] spies = null;
 	private Intrigue intrigue;
@@ -84,27 +87,39 @@ public class Spy : MonoBehaviour
 	}
 
 	void Update () {
+		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
+		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
+		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
 		guiLabels = GetComponentsInChildren<UILabel>();
+		uiPanels = GetComponentsInChildren<UIPanel>(true);
+		if(uiPanels[0].gameObject.CompareTag("ObjPanel"))
+			objPanel = uiPanels[0];
+		else
+			objPanel = uiPanels[1];
+
+		NGUITools.SetActive(objPanel.gameObject, doingObjective);
+		if(doingObjective){
+			objSlider = objPanel.GetComponentInChildren<UISlider>();
+			Debug.Log("PC:"+percentComplete);
+			objSlider.value = percentComplete;
+		}
 
 		foreach(UILabel lab in guiLabels){
 			if(lab.gameObject.CompareTag("TimeLabel")){
 				timeLabel = lab.gameObject;
-				Debug.Log("SetTimeLabel");
 			}
 			else if(lab.gameObject.CompareTag("OutLabel")){
 				outLabel = lab.gameObject;
-				Debug.Log("SetOutLabel");
 			}
 		}
+
 		if(isOut){
 			NGUITools.SetActive(outLabel, true);
 		}
 		else{
 			NGUITools.SetActive(outLabel, false);
 		}
-		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
-		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
-		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
+
 		if(timeLabel!=null)
 			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + seconds + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
 
@@ -116,11 +131,16 @@ public class Spy : MonoBehaviour
 			if( Physics.Raycast(ray, out hit, 15.0f) ){
 				if( hit.transform.tag == "Objective" ){
 					Objective hitObjective = hit.transform.GetComponent<Objective>();
-					Debug.Log("Hit Objective");
 					hitObjective.useObjective(gameObject);
 				}
+				else
+					doingObjective = false;
 			}
+			else
+					doingObjective = false;
 		}
+		else
+			doingObjective = false;
 
 		//Create Ally and Objective Texts
 		GameObject[] allies = GameObject.FindGameObjectsWithTag("Spy");

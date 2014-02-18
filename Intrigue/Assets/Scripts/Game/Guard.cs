@@ -64,11 +64,9 @@ public class Guard : MonoBehaviour
 		foreach(UILabel lab in guiLabels){
 			if(lab.gameObject.CompareTag("TimeLabel")){
 				timeLabel = lab.gameObject;
-				Debug.Log("SetTimeLabel");
 			}
 			else if(lab.gameObject.CompareTag("OutLabel")){
 				outLabel = lab.gameObject;
-				Debug.Log("SetOutLabel");
 			}
 		}
 

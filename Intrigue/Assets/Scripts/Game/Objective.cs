@@ -32,11 +32,14 @@ public class Objective : Photon.MonoBehaviour {
 		if(active){
 			if(timeLeft > 0){
 				timeLeft -= Time.deltaTime;
+				Intrigue.playerGO.GetComponent<Spy>().doingObjective = true;
+				Intrigue.playerGO.GetComponent<Spy>().percentComplete = -((timeLeft-completionTime)/completionTime);
 				Debug.Log("Time Left: " + timeLeft);
 			} else if(!finished) {
 				photonView.RPC("objectiveComplete", PhotonTargets.All, this.id);
 				timeLeft = 0;
 				finished = true;
+				Intrigue.playerGO.GetComponent<Spy>().doingObjective = false;
 				Intrigue.playerGO.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
 				photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 				anim.SetBool("Complete",true);
@@ -44,6 +47,8 @@ public class Objective : Photon.MonoBehaviour {
 				photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", true);
 			}
 		}
+
+
 	}
 
 	public void activate(){
