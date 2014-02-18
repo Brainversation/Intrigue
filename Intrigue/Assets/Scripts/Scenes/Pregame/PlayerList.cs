@@ -34,7 +34,7 @@ public class PlayerList : MonoBehaviour {
 		}
 
 		if(player.Team =="Spy" || player.Team =="Guard")
-			photonView.RPC("editPing", PhotonTargets.AllBuffered, player.Handle, player.Team, player.Ready, PhotonNetwork.networkingPeer.RoundTripTime);
+			photonView.RPC("editPing", PhotonTargets.AllBuffered, player.Handle, player.Team, player.Ready, PhotonNetwork.GetPing());
 	}
 
 	[RPC]
@@ -58,12 +58,9 @@ public class PlayerList : MonoBehaviour {
 			pingColor = "[FF9D00]";
 		else
 			pingColor = "[FF0000]";
-
-
 		if(team=="Spy"){
 					foreach(Transform child in transform){
 						if(child.gameObject.GetComponent<UILabel>().user == handle){
-
 							if(ready)
 								child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [00FF00][READY][000000]   ("+ pingColor+ping+"[-]" + ") ms";
 							else

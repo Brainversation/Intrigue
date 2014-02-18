@@ -26,7 +26,6 @@ public class GuestSlider : MonoBehaviour {
 	void Update () {
 		if(PhotonNetwork.isMasterClient){
 			player.Guests = Mathf.RoundToInt(slider.value*20);
-			Debug.Log("GuestCount: " + player.Guests);
 			label.text = "Guest Count: " + player.Guests;
 			photonView.RPC("guestCount", PhotonTargets.Others, player.Guests);
 		}
