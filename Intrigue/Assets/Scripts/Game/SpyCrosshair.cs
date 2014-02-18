@@ -17,7 +17,6 @@ public class SpyCrosshair : MonoBehaviour {
 	
 	}
 	void Update(){
-		Debug.Log("there is a spy using this");
 			Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 			RaycastHit hit;
 			if( Physics.Raycast(ray, out hit, 15.0f) ){

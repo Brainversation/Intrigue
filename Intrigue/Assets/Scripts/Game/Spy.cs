@@ -13,9 +13,10 @@ public class Spy : MonoBehaviour
 	public string localHandle = "No Handle";
 
 	public int remoteScore = 0;
-
+	private UILabel timeLabel;
 	private GameObject[] guards = null;
 	private GameObject[] spies = null;
+	private Intrigue intrigue;
 	private Rect windowRect = new Rect(Screen.width/4, Screen.height/4, Screen.width/2, Screen.height/2);
 	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
 
@@ -27,6 +28,8 @@ public class Spy : MonoBehaviour
 	void Start(){
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
+		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
+
 		if(photonView.isMine){
 			Debug.Log( "Spy" );
 			localHandle = player.Handle;
@@ -78,6 +81,13 @@ public class Spy : MonoBehaviour
 	}
 
 	void Update () {
+		timeLabel = GetComponentInChildren<UILabel>();
+		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
+		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
+		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
+		if(timeLabel!=null)
+			timeLabel.text = minutesLeft +":" + seconds + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
+
 		//Interact Raycasts
 		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 		if (Input.GetKey("e")){

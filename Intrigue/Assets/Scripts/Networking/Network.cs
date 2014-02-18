@@ -35,6 +35,7 @@ public class Network : MonoBehaviour {
 			PhotonNetwork.isMessageQueueRunning = false;
 			PhotonNetwork.LoadLevel("MainMenu");
 		}
+
 	}
 
 	void OnGUI(){
@@ -50,13 +51,6 @@ public class Network : MonoBehaviour {
 				PhotonNetwork.LeaveRoom();
 			}
 		}
-		//GUI.Label(new Rect((Screen.width/2)-200,20,400,100),"Allies: " + player.TeamScore + " - Enemies: " + player.EnemyScore, styleScore);
-		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
-		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
-		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
-		GUI.Label(new Rect((Screen.width/2)-200,20,400,100),"Time Remaining: " + minutesLeft +":" + seconds , styleScore);
-		GUI.Label(new Rect((Screen.width/2)-100,60,200,100),"Round: " + curRound +"/" + (intrigue.GetRounds+1) , styleScore);
-		//GUI.Label(new Rect((Screen.width/2)-100,60,200,100),"Your Score: " + player.Score, styleScore);
 	}
 
 	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){

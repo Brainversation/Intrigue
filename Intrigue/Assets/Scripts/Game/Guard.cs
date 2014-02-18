@@ -13,7 +13,7 @@ public class Guard : MonoBehaviour
 	private Intrigue intrigue;
 	private Network network;
 	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
-
+	private UILabel timeLabel;
 	public int remoteScore = 0;
 	public GameObject allytext;
 	public bool textAdded = false;
@@ -57,6 +57,14 @@ public class Guard : MonoBehaviour
 	void Update () {
 		guests = GameObject.FindGameObjectsWithTag("Guest");
 		spies = GameObject.FindGameObjectsWithTag("Spy");
+
+		timeLabel = GetComponentInChildren<UILabel>();
+		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
+		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
+		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
+		if(timeLabel!=null)
+			timeLabel.text = minutesLeft +":" + seconds + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
+
 
 		if(accused!=null && Vector3.Distance(accused.transform.position, gameObject.transform.position)>60){
 			Debug.Log("Out of accuse range");
