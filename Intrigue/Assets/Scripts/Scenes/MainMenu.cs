@@ -88,8 +88,7 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnJoinedRoom(){
-		PhotonNetwork.isMessageQueueRunning = false;
-		Application.LoadLevel("Pregame");
+		PhotonNetwork.LoadLevel("Pregame");
 	}
 
 	void OnPhotonJoinFailed(){
