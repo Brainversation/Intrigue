@@ -48,6 +48,10 @@ namespace RBS{
             return true;
         }
 
+        public void addCondition(Condition con){
+            conditions.Add(con);
+        }
+
         public int CompareTo(object other){
             Rule otherRule = other as Rule;
 
@@ -143,17 +147,14 @@ namespace RBS{
         public WantToGoToBar(GameObject gameObject) {
             this.conditions.Add(new Thirst(gameObject));
             this.conditions.Add(new Bored(gameObject));
-            this.conditions = conditions;
             this.consequence = setDestRoom;
             this.barLocation = GameObject.Find("Bar").transform.position;
         }
 
         private Status setDestRoom(GameObject gameObject){
-            Debug.Log("Set Dest");
             gameObject.GetComponent<BaseAI>().bored = 40;
-            gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
             gameObject.GetComponent<BaseAI>().destination = barLocation;
-            Debug.DrawLine(gameObject.transform.position, barLocation, Color.red, 1000f, false);
+            Debug.DrawLine(gameObject.transform.position, barLocation, Color.red, 100f, false);
             return Status.True;
         }
     }
@@ -166,8 +167,8 @@ namespace RBS{
         }
 
         private Status go(GameObject gameObject){
-            Debug.Log("go to Dest");
             Vector3 dest = gameObject.GetComponent<BaseAI>().destination;
+            gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
             gameObject.GetComponent<NavMeshAgent>().SetDestination(dest);
             return Status.True;
         }

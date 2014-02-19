@@ -45,9 +45,9 @@ public class BaseAI : Photon.MonoBehaviour {
 			// Do updating stuff
 		// }
 
-		if(agent.hasPath && agent.remainingDistance < .5f){
-			Debug.Log("HERE");
+		if(agent.hasPath && agent.remainingDistance < 1f){
 			anim.SetFloat("Speed", 0f);
+			agent.ResetPath();
 			behaving = Status.False;
 		}
 
@@ -66,28 +66,15 @@ public class BaseAI : Photon.MonoBehaviour {
 			}
 		} else if( behaving == Status.True ){
 			behaving = Status.Waiting;
-			if(!agent.hasPath) Invoke("backToRule", 1);
+			if(!agent.hasPath) Invoke("backToRule", 3);
 		}
 	}
 
 	void initAI(){
 		behaveRoots = new List<Task>();
-		List<Task> sequenceChildren = new List<Task>();
-		sequenceChildren.Add(new Run());
-		sequenceChildren.Add(new Jump());
-		behaveRoots.Add( new Sequence(sequenceChildren) );
-
-		List<Task> children1 = new List<Task>();
-		children1.Add( new Run() );
-		behaveRoots.Add( new Selector(children1) );
+		behaveRoots.Add( new JumpGap() );
 
 		rules = new List<Rule>();
-
-		Bar bar = new Bar();
-		Library lib = new Library();
-		Thirst thirst = new Thirst(gameObject);
-		Bored boredCon = new Bored(gameObject);
-		Party party = new Party();
 
 		Rule rule0 = new WantToGoToBar(gameObject);
 		rule0.weight = 7;
@@ -96,9 +83,16 @@ public class BaseAI : Photon.MonoBehaviour {
 		Rule rule1 = new GoToDestination(gameObject);
 		rule1.weight = 6;
 		rules.Add(rule1);
+
+		Rule rule2 = new Rule();
+		rule2.addCondition(new Party());
+		rule2.consequence = behaveRoots[0].run;
+		rule2.weight = 5;
+		rules.Add(rule2);
 	}
 
 	void backToRule(){
+		Debug.Log("Back to rule");
 		behaving = Status.False;
 	}
 }

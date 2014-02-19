@@ -15,11 +15,16 @@ namespace BehaviorTree{
 			this.children = children;
 		}
 
+		public void addChild( Task task ){
+			children.Add(task);
+		}
+
 		abstract public Status run(GameObject gameObject);
 	}
 
 	class Selector : Task {
 
+		public Selector(){}
 		public Selector( List<Task> children ) : base(children){}
 
 		public override Status run(GameObject gameObject){
@@ -52,6 +57,7 @@ namespace BehaviorTree{
 	}
 
 	class Sequence : Task {
+		public Sequence(){}
 		public Sequence( List<Task> children ) : base(children){}
 		
 		public override Status run(GameObject gameObject){
@@ -142,7 +148,7 @@ namespace BehaviorTree{
 		public Jump(){}
 
 		public override Status run(GameObject gameObject){
-			Debug.Log("I am trying to Jump");
+			Debug.Log("I am Jumping");
 			gameObject.GetComponent<Animator>().SetBool("Jump", true);
 			return Status.True;
 		}
@@ -158,14 +164,26 @@ namespace BehaviorTree{
 		}
 	}
 
-	class GoToRoom : Task{
-		public GoToRoom(){}
+	// <---------------------- Behave Trees ------------------------>
 
-		public override Status run(GameObject gameObject){
-			Debug.Log("Going to room");
-			Vector3 pos = gameObject.GetComponent<BaseAI>().destination;
-			gameObject.GetComponent<NavMeshAgent>().SetDestination(pos);
-			return Status.True;
+	// class TestTree : Task {
+	// 	public TestTree(){
+
+	// 	}
+	// }
+
+	// <Sequence> JumpGap
+	// 	<Selector>
+	// 		<Run>
+	// 		</Run>
+	// 	</Selector>
+	// 	<Jump>
+	// 	</Jump>
+	// </Sequence>
+	class JumpGap : Sequence{
+		public JumpGap(){
+			this.children.Add( new Run() );
+			this.children.Add( new Jump() );
 		}
 	}
 
