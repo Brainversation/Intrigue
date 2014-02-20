@@ -9,6 +9,7 @@ public class Guard : MonoBehaviour
 	private PhotonView photonView = null;
 	private GameObject[] guests = null;
 	private GameObject[] spies = null;
+	private GameObject[] guards = null;
 	private Player player;
 	private Intrigue intrigue;
 	private Network network;
@@ -18,14 +19,15 @@ public class Guard : MonoBehaviour
 	private UIPanel[] guiPanels;
 	private UILabel[] guiLabels;
 	public int remoteScore = 0;
+	public int localPing = 0;
 	public GameObject allytext;
 	public bool textAdded = false;
 	public bool isOut = false;
-	public string localHandle = "No Handle";
+	public bool isAssigned = false;
+	public string localHandle = "";
 	//Yield function that waits specified amount of seconds
 
 
-	private GameObject[] guards = null;
 	private Rect windowRect = new Rect(Screen.width/4, Screen.height/4, Screen.width/2, Screen.height/2);
 
 	IEnumerator Yielder(int seconds){
@@ -64,6 +66,7 @@ public class Guard : MonoBehaviour
 		spies = GameObject.FindGameObjectsWithTag("Spy");
 		guiPanels = GetComponentsInChildren<UIPanel>();
 		guiLabels = GetComponentsInChildren<UILabel>();
+		photonView.RPC("givePing", PhotonTargets.All, PhotonNetwork.GetPing());
 
 		foreach(UILabel lab in guiLabels){
 			if(lab.gameObject.CompareTag("TimeLabel")){
@@ -268,6 +271,11 @@ public class Guard : MonoBehaviour
 	[RPC]
 	void giveScore(int score){
 		remoteScore = score;
+	}
+
+	[RPC]
+	void givePing(int ping){
+		localPing = ping;
 	}
 
 	[RPC]

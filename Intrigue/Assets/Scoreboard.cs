@@ -49,9 +49,13 @@ public class Scoreboard : MonoBehaviour {
 			scoreboard.GetComponent<UIPanel>().alpha = 0;
 
 
-		if(player.TeamID==1){
+		if(player.Team=="Spy"){
 			spyTeam.GetComponent<UILabel>().text = "Spies : " + player.TeamScore;
-			guardTeam.GetComponent<UILabel>().text = "Guards: " + player.EnemyScore;
+			guardTeam.GetComponent<UILabel>().text = "Guards : " + player.EnemyScore;
+		}
+		else{
+			spyTeam.GetComponent<UILabel>().text = "Spies : " + player.EnemyScore;
+			guardTeam.GetComponent<UILabel>().text = "Guards : " + player.TeamScore;
 		}
 
 		spies = GameObject.FindGameObjectsWithTag("Spy");
@@ -70,11 +74,35 @@ public class Scoreboard : MonoBehaviour {
 									pingColor = "[FF9D00]";
 								else
 									pingColor = "[FF0000]";		
-						child.gameObject.GetComponent<UILabel>().text = "[000000]" + spI.localHandle + " - Score: " + spI.remoteScore + " ("+ pingColor+ping+"[-]" + ") ms";	
+						child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + spI.localHandle + "[-] - Score: " + spI.remoteScore + "- ping ("+ pingColor+ping+"[-]" + ") ms";	
 					}
 					else if(child.gameObject.GetComponent<UILabel>().user =="" && !spI.isAssigned){
 						child.gameObject.GetComponent<UILabel>().user = spI.localHandle;
 						spI.isAssigned = true;
+					}
+				}
+			}
+		}
+
+		foreach(GameObject gu in guards){
+			Guard guI = gu.GetComponent<Guard>();
+			if(guI.localHandle!=""){
+				Debug.Log("Checking guard: " + guI.localHandle);
+				foreach(Transform child in guardTable.transform){
+					if(child.gameObject.GetComponent<UILabel>().user == guI.localHandle){
+							int ping = guI.localPing;
+							string pingColor = "[000000]";
+								if (ping<50)
+									pingColor = "[00FF00]";
+								else if(ping<100)
+									pingColor = "[FF9D00]";
+								else
+									pingColor = "[FF0000]";		
+						child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + guI.localHandle + "[-] - Score: " + guI.remoteScore + "- ping ("+ pingColor+ping+"[-]" + ") ms";	
+					}
+					else if(child.gameObject.GetComponent<UILabel>().user =="" && !guI.isAssigned){
+						child.gameObject.GetComponent<UILabel>().user = guI.localHandle;
+						guI.isAssigned = true;
 					}
 				}
 			}
