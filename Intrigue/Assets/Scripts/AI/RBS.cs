@@ -162,7 +162,6 @@ namespace RBS{
     class GoToDestination : Rule{
         public GoToDestination(GameObject gameObject) {
             this.conditions.Add(new DestChange(gameObject));
-            this.conditions = conditions;
             this.consequence = go;
         }
 
