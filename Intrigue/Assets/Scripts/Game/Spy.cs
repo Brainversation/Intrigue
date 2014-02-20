@@ -10,10 +10,12 @@ public class Spy : MonoBehaviour
 	public GameObject allytext;
 	public bool textAdded = false;
 	public bool isOut = false;
-	public string localHandle = "No Handle";
+	public string localHandle = "";
+	public int localPing = 0;
 	public float percentComplete = 0;
 	public bool doingObjective = false;
 	public int remoteScore = 0;
+	public bool isAssigned = false;
 	private GameObject timeLabel;
 	private GameObject outLabel;
 	private UILabel[] guiLabels;
@@ -58,7 +60,7 @@ public class Spy : MonoBehaviour
 		}
 	}
 
-	void OnGUI() {
+	/*void OnGUI() {
 		GUI.skin.label.fontSize = 20;
 		GUI.color = Color.white;
 		if( isSpectating ) GUI.Label(new Rect((Screen.width/2)-150,Screen.height-50,300,100), "Spectating!" );
@@ -87,18 +89,21 @@ public class Spy : MonoBehaviour
 				GUILayout.Label( player.Handle + " " + player.Score);
 		}
 
-	}
+	}*/
 
 	void Update () {
+		photonView.RPC("givePing", PhotonTargets.All, PhotonNetwork.GetPing());
+
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
 		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
 		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
 		guiLabels = GetComponentsInChildren<UILabel>();
 		uiPanels = GetComponentsInChildren<UIPanel>(true);
-		if(uiPanels[0].gameObject.CompareTag("ObjPanel"))
-			objPanel = uiPanels[0];
-		else
-			objPanel = uiPanels[1];
+		foreach(UIPanel uiP in uiPanels){
+			if(uiP.gameObject.CompareTag("ObjectivePanel")){
+				objPanel = uiP;
+			}
+		}
 
 		NGUITools.SetActive(objPanel.gameObject, doingObjective);
 		if(doingObjective){
@@ -224,6 +229,11 @@ public class Spy : MonoBehaviour
 	[RPC]
 	void giveScore(int score){
 		remoteScore = score;
+	}
+
+	[RPC]
+	void givePing(int ping){
+		localPing = ping;
 	}
 
 	[RPC]

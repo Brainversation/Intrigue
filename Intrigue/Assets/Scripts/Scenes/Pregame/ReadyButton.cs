@@ -27,7 +27,6 @@ public class ReadyButton : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log("Total Players: " + (PhotonNetwork.playerList.Length-1) + " Ready: " + readyCount);
 		if(PhotonNetwork.isMasterClient){
 			if(readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
 				label.text = "START GAME";
