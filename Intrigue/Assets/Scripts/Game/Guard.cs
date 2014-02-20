@@ -50,6 +50,10 @@ public class Guard : MonoBehaviour
 			GetComponentInChildren<MouseLook>().enabled = false;
 			GetComponentInChildren<GuardCrosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
+			guiPanels = GetComponentsInChildren<UIPanel>(true);
+			foreach(UIPanel uiP in guiPanels){
+				NGUITools.SetActive(uiP.gameObject, false);
+			}
 			enabled = false;
 
 		}

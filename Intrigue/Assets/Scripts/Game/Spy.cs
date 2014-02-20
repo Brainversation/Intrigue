@@ -37,20 +37,23 @@ public class Spy : MonoBehaviour
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 
 		if(photonView.isMine){
-			Debug.Log( "Spy" );
 			localHandle = player.Handle;
 			remoteScore = player.Score;
 			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
 			photonView.RPC("giveScore", PhotonTargets.OthersBuffered, player.Score);
 
 		} else {
-			Debug.Log("Spy Deactivated");
 			GetComponentInChildren<Camera>().enabled = false; 
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<MovementController>().enabled = false;
 			GetComponentInChildren<MouseLook>().enabled = false; 
 			GetComponentInChildren<SpyCrosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
+			uiPanels = GetComponentsInChildren<UIPanel>(true);
+			foreach(UIPanel uiP in uiPanels){
+				NGUITools.SetActive(uiP.gameObject, false);
+			}
+
 			enabled = false;
 		}
 	}
