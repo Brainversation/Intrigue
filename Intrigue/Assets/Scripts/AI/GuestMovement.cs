@@ -18,7 +18,6 @@ public class GuestMovement : Photon.MonoBehaviour {
 	void Start(){
 		anim = GetComponent<Animator>();
 		anim.speed = 1.0f;
-		room = GameObject.FindWithTag("RoomCollider");
 	}
 
 	public void Update(){

@@ -131,7 +131,9 @@ public class Intrigue : MonoBehaviour {
 		for( int x = 0; x < player.Guests; ++x)
 		{	
 			nextSpawnPoint();
-			PhotonNetwork.InstantiateSceneObject("Robot_Guest", spawnTrans.position, spawnTrans.rotation, 0, null);
+			int type = Mathf.RoundToInt(Random.Range(1,4));
+			Debug.Log("Guest type: " + type);
+			PhotonNetwork.InstantiateSceneObject("Robot_Guest"+type.ToString(), spawnTrans.position, spawnTrans.rotation, 0, null);
 		}
 	}
 
@@ -187,10 +189,12 @@ public class Intrigue : MonoBehaviour {
 
 	[RPC]
 	void getSpawnPoint(Vector3 position, Quaternion rotation){
+		int type = Mathf.RoundToInt(Random.Range(1,4));
 		Intrigue.playerGO = PhotonNetwork.Instantiate(
-						"Robot_"+ player.Team,
+						"Robot_"+ player.Team+type.ToString(),
 						position,
 						rotation, 0);
+
 		if (roundsLeft == rounds){
 			if(player.Team == "Spy")
 				player.TeamID = 1;

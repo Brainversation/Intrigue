@@ -114,8 +114,9 @@ public class Guard : MonoBehaviour
 
 		if(guests!=null){
 			foreach (GameObject guest in guests){
-				if(guest!=accused)
+				if(guest!=accused){
 					guest.GetComponentInChildren<Renderer>().material.color = Color.white;
+				}
 			}
 		}
 		if(spies!=null){
