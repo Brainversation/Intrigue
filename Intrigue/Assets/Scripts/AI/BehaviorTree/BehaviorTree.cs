@@ -28,7 +28,7 @@ namespace BehaviorTree{
 		public Selector( List<Task> children ) : base(children){}
 
 		public override Status run(GameObject gameObject){
-			Debug.Log("Selecting Task");
+			// Debug.Log("Selecting Task");
 			foreach( Task t in children ){
 				if( t.run(gameObject) == Status.True ){
 					return Status.True;
@@ -61,7 +61,7 @@ namespace BehaviorTree{
 		public Sequence( List<Task> children ) : base(children){}
 		
 		public override Status run(GameObject gameObject){
-			Debug.Log("Going through Sequence");
+			// Debug.Log("Going through Sequence");
 			foreach( Task t in children ){
 				if( t.run(gameObject) != Status.True ){
 					return Status.False;
@@ -148,7 +148,7 @@ namespace BehaviorTree{
 		public Jump(){}
 
 		public override Status run(GameObject gameObject){
-			Debug.Log("I am Jumping");
+			// Debug.Log("I am Jumping");
 			gameObject.GetComponent<Animator>().SetBool("Jump", true);
 			return Status.True;
 		}
@@ -158,7 +158,7 @@ namespace BehaviorTree{
 		public Run(){}
 
 		public override Status run(GameObject gameObject){
-			Debug.Log("I am running");
+			// Debug.Log("I am running");
 			gameObject.GetComponent<Animator>().SetBool("Run", true);
 			return Status.True;
 		}

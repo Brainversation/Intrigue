@@ -11,6 +11,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	private Animator anim;
 	private Vector3 correctPlayerPos;
 	private Quaternion correctPlayerRot;
+	private Rule currentRule;
 
 	protected List<Task> behaveRoots;
 	protected List<Rule> rules;
@@ -46,6 +47,7 @@ public class BaseAI : Photon.MonoBehaviour {
 		// }
 
 		if(agent.hasPath && agent.remainingDistance < 1f){
+		Debug.Log("Running bool" + anim.GetBool("Run"));
 			anim.SetFloat("Speed", 0f);
 			agent.ResetPath();
 			behaving = Status.False;
@@ -56,9 +58,10 @@ public class BaseAI : Photon.MonoBehaviour {
 			rules.Sort();
 
 			for (int i = 0; i < rules.Count; i++){
-				Debug.Log("Testing rules");
+				// Debug.Log("Testing rules");
 				if (rules[i].isFired()){
-					Debug.Log("Rule fired");
+					// Debug.Log("Rule fired");
+					currentRule = rules[i];
 					rules[i].weight -= 5;
 					behaving = rules[i].consequence(gameObject);
 					break;
@@ -84,15 +87,20 @@ public class BaseAI : Photon.MonoBehaviour {
 		rule1.weight = 6;
 		rules.Add(rule1);
 
-		Rule rule2 = new Rule();
-		rule2.addCondition(new Party());
+		Rule rule2 = new DoRunJ(gameObject);
 		rule2.consequence = behaveRoots[0].run;
 		rule2.weight = 5;
 		rules.Add(rule2);
+
+		Rule rule3 = new DoIdle(gameObject);
+		rule3.weight = 4;
+		rules.Add(rule3);
 	}
 
 	void backToRule(){
-		Debug.Log("Back to rule");
+		// Debug.Log("Back to rule");
+		if(currentRule.antiConsequence != null)
+			currentRule.antiConsequence();
 		behaving = Status.False;
 	}
 }
