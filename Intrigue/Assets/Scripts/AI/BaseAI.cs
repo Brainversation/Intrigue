@@ -46,8 +46,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			// Do updating stuff
 		// }
 
-		if(agent.hasPath && agent.remainingDistance < 1f){
-		Debug.Log("Running bool" + anim.GetBool("Run"));
+		if(agent.hasPath && agent.remainingDistance < 2f){
 			anim.SetFloat("Speed", 0f);
 			agent.ResetPath();
 			behaving = Status.False;
@@ -58,9 +57,9 @@ public class BaseAI : Photon.MonoBehaviour {
 			rules.Sort();
 
 			for (int i = 0; i < rules.Count; i++){
-				// Debug.Log("Testing rules");
+				Debug.Log("Testing rules");
 				if (rules[i].isFired()){
-					// Debug.Log("Rule fired");
+					Debug.Log("Rule fired");
 					currentRule = rules[i];
 					rules[i].weight -= 5;
 					behaving = rules[i].consequence(gameObject);
@@ -69,7 +68,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			}
 		} else if( behaving == Status.True ){
 			behaving = Status.Waiting;
-			if(!agent.hasPath) Invoke("backToRule", 3);
+			if(!agent.hasPath) Invoke("backToRule", 2.5f);
 		}
 	}
 
@@ -98,7 +97,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	void backToRule(){
-		// Debug.Log("Back to rule");
+		Debug.Log("Back to rule");
 		if(currentRule.antiConsequence != null)
 			currentRule.antiConsequence();
 		behaving = Status.False;

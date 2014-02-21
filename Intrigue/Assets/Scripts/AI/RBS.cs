@@ -185,7 +185,6 @@ namespace RBS{
 		}
 
 		private Status stay(GameObject gameObject){
-			Debug.Log("Hello");
 			gameObject.GetComponent<Animator>().CrossFade("Idle", 0f);
 			return Status.Waiting;
 		}
