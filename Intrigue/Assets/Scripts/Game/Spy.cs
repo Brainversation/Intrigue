@@ -60,40 +60,9 @@ public class Spy : MonoBehaviour
 		}
 	}
 
-	/*void OnGUI() {
-		GUI.skin.label.fontSize = 20;
-		GUI.color = Color.white;
-		if( isSpectating ) GUI.Label(new Rect((Screen.width/2)-150,Screen.height-50,300,100), "Spectating!" );
-
-
-		if( Input.GetKey(KeyCode.Tab) ){
-			guards = GameObject.FindGameObjectsWithTag("Guard");
-			spies = GameObject.FindGameObjectsWithTag("Spy");
-			windowRect = GUILayout.Window(0, windowRect, DoMyWindow, "Scoreboard");
-		}
-	}
-
-	void DoMyWindow(int windowID) {
-		GUILayout.Label("Guards: " + player.EnemyScore);
-
-		foreach(GameObject g in guards){
-			GUILayout.Label(g.GetComponent<Guard>().localHandle + " " + g.GetComponent<Guard>().remoteScore);
-		}
-
-		GUILayout.Label("Spies: " + player.TeamScore);
-
-		foreach(GameObject s in spies){
-			if(s!= gameObject)
-				GUILayout.Label(s.GetComponent<Spy>().localHandle + " " + s.GetComponent<Spy>().remoteScore);
-			else
-				GUILayout.Label( player.Handle + " " + player.Score);
-		}
-
-	}*/
-
 	void Update () {
 		photonView.RPC("givePing", PhotonTargets.All, PhotonNetwork.GetPing());
-
+		photonView.RPC("giveScore", PhotonTargets.All, player.Score);
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
 		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
 		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
@@ -108,7 +77,6 @@ public class Spy : MonoBehaviour
 		NGUITools.SetActive(objPanel.gameObject, doingObjective);
 		if(doingObjective){
 			objSlider = objPanel.GetComponentInChildren<UISlider>();
-			Debug.Log("PC:"+percentComplete);
 			objSlider.value = percentComplete;
 		}
 
@@ -242,6 +210,6 @@ public class Spy : MonoBehaviour
 			player.Score += scoreToAdd;
 		else
 			remoteScore += scoreToAdd;
-		//photonView.RPC("giveScore", PhotonTargets.OthersBuffered, player.Score);
+		
 	}
 }

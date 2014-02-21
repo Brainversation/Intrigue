@@ -7,7 +7,7 @@ public class Intrigue : MonoBehaviour {
 	public bool wantGameOver = true;
 
 	[HideInInspector]
-	public int objectivesCompleted = 0;
+	public float objectivesCompleted = 0;
 	[HideInInspector]
 	public bool[] objectives;
 	private int numObjectives = 3;
@@ -33,7 +33,7 @@ public class Intrigue : MonoBehaviour {
 
 	private static int rounds = 2;
 	private static int roundsLeft = rounds;
-
+	private float totalObjActive;
 	private Player player;
 	private Network network;
 	public GameObject jailSpawn;
@@ -55,7 +55,7 @@ public class Intrigue : MonoBehaviour {
 			spawnGuests();
 
 			objArray = GameObject.FindGameObjectsWithTag("Objective");
-			int totalObjActive = Mathf.RoundToInt(GameObject.FindGameObjectsWithTag("Objective").Length*.67f);
+			totalObjActive = Mathf.RoundToInt(GameObject.FindGameObjectsWithTag("Objective").Length*.67f);
 			int totalCurActive = 0;
 			bool activationComplete = false;
 			Objective objscriptref;
@@ -101,7 +101,7 @@ public class Intrigue : MonoBehaviour {
 		timeLeft -= Time.deltaTime;
 		photonView.RPC("syncTime", PhotonTargets.OthersBuffered, timeLeft);
 		if( timeLeft <= (timeLimit-10) ){
-			if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/numObjectives)*100)>=50){
+			if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/totalObjActive)*100)>50){
 				if(wantGameOver){
 					Debug.Log("Game Over: \nTimeLeft: " + timeLeft + " SpiesLeft: " + numSpiesLeft + " GuardsLeft: " + numGuardsLeft + " ObjectivesCompleted:" + objectivesCompleted + " numObjectives:" + numObjectives);
 					photonView.RPC("callGameOver", PhotonTargets.All);

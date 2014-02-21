@@ -74,7 +74,7 @@ public class Scoreboard : MonoBehaviour {
 									pingColor = "[FF9D00]";
 								else
 									pingColor = "[FF0000]";		
-						child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + spI.localHandle + "[-] - Score: " + spI.remoteScore + "- ping ("+ pingColor+ping+"[-]" + ") ms";	
+						child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + spI.localHandle + "[-] - " + spI.remoteScore + "pts - ping("+ pingColor+ping+"[-]" + ")";	
 					}
 					else if(child.gameObject.GetComponent<UILabel>().user =="" && !spI.isAssigned){
 						child.gameObject.GetComponent<UILabel>().user = spI.localHandle;
@@ -87,7 +87,6 @@ public class Scoreboard : MonoBehaviour {
 		foreach(GameObject gu in guards){
 			Guard guI = gu.GetComponent<Guard>();
 			if(guI.localHandle!=""){
-				Debug.Log("Checking guard: " + guI.localHandle);
 				foreach(Transform child in guardTable.transform){
 					if(child.gameObject.GetComponent<UILabel>().user == guI.localHandle){
 							int ping = guI.localPing;

@@ -67,7 +67,7 @@ public class Guard : MonoBehaviour
 		guiPanels = GetComponentsInChildren<UIPanel>();
 		guiLabels = GetComponentsInChildren<UILabel>();
 		photonView.RPC("givePing", PhotonTargets.All, PhotonNetwork.GetPing());
-
+		photonView.RPC("giveScore", PhotonTargets.All, player.Score);
 		foreach(UILabel lab in guiLabels){
 			if(lab.gameObject.CompareTag("TimeLabel")){
 				timeLabel = lab.gameObject;
@@ -284,6 +284,5 @@ public class Guard : MonoBehaviour
 			player.Score += scoreToAdd;
 		else
 			remoteScore += scoreToAdd;
-		//photonView.RPC("giveScore", PhotonTargets.OthersBuffered, player.Score);
 	}
 }
