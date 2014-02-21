@@ -9,15 +9,12 @@ namespace RBS{
 	public delegate Status AntiConsequenceFunction();
 
 	public abstract class Condition {
-		protected GameState game;
 		protected GameObject gameObject;
 
 		public Condition(){
-			game = GameState.Game;
 		}
 
 		public Condition(GameObject gameObject) {
-			game = GameState.Game;
 			this.gameObject = gameObject;
 		}
 
@@ -67,33 +64,6 @@ namespace RBS{
 	}
 
 	// <---------------- Conditions ------------------>
-
-	class Bar : Condition {
-		public override bool test(){
-			if (game.room == "Bar") {
-				return true;
-			}
-			return false;
-		}
-	}
-
-	class Library : Condition{
-		public override bool test(){
-			if (game.room == "Library"){
-				return true;
-			}
-			return false;
-		}
-	}
-
-	class Party : Condition{
-		public override bool test(){
-			if (game.personality == "Party"){
-				return true;
-			}
-			return false;
-		}
-	}
 
 	class Thirst : Condition{
 		public Thirst(GameObject gameObject):base(gameObject){}
@@ -205,23 +175,5 @@ namespace RBS{
 		}
 	}
 
-	public class GameState {
-		public string room = "Bar";
-		public string personality = "Party";
-		public bool thirst = true;
-		public bool bored = true;
-		
-		private GameState(){}
-
-		private static GameState gameState = null;
-			public static GameState Game {
-			get{
-				if (gameState == null){
-				gameState = new GameState();
-				}
-				return gameState;
-			}
-		}
-	}
 
 }
