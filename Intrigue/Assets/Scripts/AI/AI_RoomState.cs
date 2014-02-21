@@ -3,24 +3,26 @@ using System.Collections;
 
 public class AI_RoomState : MonoBehaviour{
 
-	int population;
+	public struct RoomState{
+		public string name;
+		public int population;
+	}
+
+	RoomState currState;
 
 	public void Start(){
-		population = 0;
+		currState = new RoomState();
+		currState.name = gameObject.name;
+		currState.population = 0;
 	}
 
-	void OnTriggerEnter(Collider guestCollider){
-		//Debug.Log("IHAVEBEENENTERED!!!");
-		if(guestCollider.tag == "Guest"){
-			guestCollider.gameObject.GetComponent<TempBaseAI>().room = gameObject;
-			population++;
-		}
+	void OnCollisionEnter(Collision guestCollider){
+		guestCollider.gameObject.GetComponent<TempBaseAI>().room = gameObject;
+		currState.population++;
 	}
 
 
-	void OnTriggerExit(Collider guestCollider){
-		if(guestCollider.tag == "Guest"){
-			population--;
-		}
+	void OnCollisionExit(Collision guestCollider){
+		currState.population--;
 	}
 }
