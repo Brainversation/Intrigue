@@ -65,8 +65,8 @@ namespace RBS{
 
 	// <---------------- Conditions ------------------>
 
-	class Thirst : Condition{
-		public Thirst(GameObject gameObject):base(gameObject){}
+	class isThirsty : Condition{
+		public isThirsty(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().thirst > 50){
@@ -76,11 +76,66 @@ namespace RBS{
 		}
 	}
 
-	class Bored : Condition{
-		public Bored(GameObject gameObject):base(gameObject){}
+	class isBored : Condition{
+		public isBored(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().bored > 50){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	class isHungry : Condition{
+		public isHungry(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if (gameObject.GetComponent<BaseAI>().hunger > 50){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	class isLonely : Condition{
+		public isLonely(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if (gameObject.GetComponent<BaseAI>().lonely > 50){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	class isTired : Condition{
+		public isTired(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if (gameObject.GetComponent<BaseAI>().tired > 50){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	class isAnxious : Condition{
+		public isAnxious(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if (gameObject.GetComponent<BaseAI>().anxiety > 50){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	class isBursting : Condition{
+		public isBursting(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if (gameObject.GetComponent<BaseAI>().bladder > 50){
 				return true;
 			}
 			return false;
@@ -109,19 +164,13 @@ namespace RBS{
 		}
 	}
 
-	class RunJ : Condition{
-		public override bool test(){
-			return true;
-		}
-	}
-
 	// <------------------------- Rules -------------------->
 
 	class WantToGoToBar : Rule{
 		Vector3 barLocation;
 		public WantToGoToBar(GameObject gameObject) {
-			this.conditions.Add(new Thirst(gameObject));
-			this.conditions.Add(new Bored(gameObject));
+			this.conditions.Add(new isThirsty(gameObject));
+			this.conditions.Add(new isBored(gameObject));
 			this.consequence = setDestRoom;
 			this.barLocation = GameObject.Find("Bar").transform.position;
 		}
@@ -155,25 +204,9 @@ namespace RBS{
 		}
 
 		private Status stay(GameObject gameObject){
-			gameObject.GetComponent<Animator>().CrossFade("Idle", 0f);
+			gameObject.GetComponent<Animator>().CrossFade("Idle", 1f);
 			return Status.Waiting;
 		}
 	}
-
-	class DoRunJ : Rule{
-		private GameObject go;
-		public DoRunJ(GameObject gameObject){
-			go = gameObject;
-			this.conditions.Add(new RunJ());
-			this.consequence = (new JumpGap()).run;
-			this.antiConsequence = stopRun;
-		}
-
-		private Status stopRun(){
-			go.GetComponent<Animator>().SetBool("Run", false);
-			return Status.True;
-		}
-	}
-
 
 }

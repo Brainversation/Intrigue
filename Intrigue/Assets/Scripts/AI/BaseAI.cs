@@ -20,6 +20,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	// AI info
 	[HideInInspector] public Vector3 destination;
+	[HideInInspector] public GameObject room;
 
 	// Wants, needs, and feelings 0-100 scale
 	[HideInInspector] public int thirst;
@@ -74,7 +75,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void initAI(){
 		behaveRoots = new List<Task>();
-		behaveRoots.Add( new JumpGap() );
+		behaveRoots.Add( new MakeDrink() );
 
 		rules = new List<Rule>();
 
@@ -85,11 +86,6 @@ public class BaseAI : Photon.MonoBehaviour {
 		Rule rule1 = new GoToDestination(gameObject);
 		rule1.weight = 6;
 		rules.Add(rule1);
-
-		Rule rule2 = new DoRunJ(gameObject);
-		rule2.consequence = behaveRoots[0].run;
-		rule2.weight = 5;
-		rules.Add(rule2);
 
 		Rule rule3 = new DoIdle(gameObject);
 		rule3.weight = 4;

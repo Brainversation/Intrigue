@@ -144,46 +144,20 @@ namespace BehaviorTree{
 
 	// <--------------- Actions -------------------->
 
-	class Jump : Task {
-		public Jump(){}
+	class Interact : Task {
+		public Interact(){}
 
 		public override Status run(GameObject gameObject){
 			// Debug.Log("I am Jumping");
-			gameObject.GetComponent<Animator>().SetBool("Jump", true);
-			return Status.True;
-		}
-	}
-
-	class Run : Task {
-		public Run(){}
-
-		public override Status run(GameObject gameObject){
-			// Debug.Log("I am running");
-			gameObject.GetComponent<Animator>().SetBool("Run", true);
+			gameObject.GetComponent<Animator>().SetBool("Interact", true);
 			return Status.True;
 		}
 	}
 
 	// <---------------------- Behave Trees ------------------------>
-
-	// class TestTree : Task {
-	// 	public TestTree(){
-
-	// 	}
-	// }
-
-	// <Sequence> JumpGap
-	// 	<Selector>
-	// 		<Run>
-	// 		</Run>
-	// 	</Selector>
-	// 	<Jump>
-	// 	</Jump>
-	// </Sequence>
-	class JumpGap : Sequence{
-		public JumpGap(){
-			this.children.Add( new Run() );
-			this.children.Add( new Jump() );
+	class MakeDrink : Sequence{
+		public MakeDrink(){
+			this.children.Add( new Interact() );
 		}
 	}
 

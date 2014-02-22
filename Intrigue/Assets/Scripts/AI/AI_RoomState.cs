@@ -2,27 +2,28 @@ using UnityEngine;
 using System.Collections;
 
 public class AI_RoomState : MonoBehaviour{
-
-	public struct RoomState{
-		public string name;
-		public int population;
-	}
-
-	RoomState currState;
+	[HideInInspector] public string roomName;
+	[HideInInspector] public int population;
+	public Transform drinkLocation;
+	public Transform converseLocation;
 
 	public void Start(){
-		currState = new RoomState();
-		currState.name = gameObject.name;
-		currState.population = 0;
+		roomName = gameObject.name;
+		population = 0;
 	}
 
-	void OnCollisionEnter(Collision guestCollider){
-		guestCollider.gameObject.GetComponent<TempBaseAI>().room = gameObject;
-		currState.population++;
+	void OnTriggerEnter(Collider other){
+		if(other.tag == "Guest")
+			other.gameObject.GetComponent<BaseAI>().room = gameObject;
+
+		if(other.tag == "Guest" || other.tag == "Player")
+			population++;
+		Debug.Log(population);
 	}
 
 
-	void OnCollisionExit(Collision guestCollider){
-		currState.population--;
+	void OnTriggerExit(Collider other){
+		if(other.tag == "Guest" || other.tag == "Player")
+			population--;
 	}
 }
