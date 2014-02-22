@@ -36,6 +36,7 @@ public class Guard : MonoBehaviour
 	}
 
 	void Start(){
+		InvokeRepeating("syncPingAndScore", 1, 2F);
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		network = GameObject.FindWithTag("Scripts").GetComponent<Network>();
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -62,13 +63,15 @@ public class Guard : MonoBehaviour
 		}
 	}
 
+	void syncPingAndScore(){
+		photonView.RPC("givePing", PhotonTargets.All, PhotonNetwork.GetPing());
+		photonView.RPC("giveScore", PhotonTargets.All, player.Score);
+	}
+
 	void Update () {
 		guests = GameObject.FindGameObjectsWithTag("Guest");
 		spies = GameObject.FindGameObjectsWithTag("Spy");
 		guiPanels = GetComponentsInChildren<UIPanel>();
-		guiLabels = GetComponentsInChildren<UILabel>();
-		photonView.RPC("givePing", PhotonTargets.All, PhotonNetwork.GetPing());
-		photonView.RPC("giveScore", PhotonTargets.All, player.Score);
 		foreach(UILabel lab in guiLabels){
 			if(lab.gameObject.CompareTag("TimeLabel")){
 				timeLabel = lab.gameObject;
