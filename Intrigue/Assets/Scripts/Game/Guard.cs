@@ -72,6 +72,7 @@ public class Guard : MonoBehaviour
 		guests = GameObject.FindGameObjectsWithTag("Guest");
 		spies = GameObject.FindGameObjectsWithTag("Spy");
 		guiPanels = GetComponentsInChildren<UIPanel>();
+		guiLabels = GetComponentsInChildren<UILabel>();
 		foreach(UILabel lab in guiLabels){
 			if(lab.gameObject.CompareTag("TimeLabel")){
 				timeLabel = lab.gameObject;
