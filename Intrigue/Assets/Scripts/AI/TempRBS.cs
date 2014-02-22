@@ -205,7 +205,7 @@ namespace TempRBS{
             Vector3 newRoomLoc;
             string newRoom;
             int roomSelect;
-            roomSelect = UnityEngine.Random.Range(1,10);
+            roomSelect = UnityEngine.Random.Range(1,12);
             newRoom = "Room" + roomSelect.ToString();
             //Debug.Log("Chosen Room: " + newRoom);
             newRoomLoc = UnityEngine.GameObject.Find(newRoom.ToString()).transform.position;
