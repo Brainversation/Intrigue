@@ -10,7 +10,7 @@ public class AI_RoomState : MonoBehaviour{
 	}
 
 	void OnTriggerEnter(Collider guestCollider){
-		Debug.Log("IHAVEBEENENTERED!!!");
+		//Debug.Log("IHAVEBEENENTERED!!!");
 		guestCollider.gameObject.GetComponent<TempBaseAI>().room = gameObject;
 		population++;
 	}

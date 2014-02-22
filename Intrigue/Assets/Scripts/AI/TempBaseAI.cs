@@ -81,7 +81,7 @@ public class TempBaseAI : Photon.MonoBehaviour {
 
 		timeInRoom+= Time.deltaTime;
 		//Debug.Log(destination);
-		Debug.Log(room.name);
+		//Debug.Log(room.name);
 	}
 
 	void initAI(){
