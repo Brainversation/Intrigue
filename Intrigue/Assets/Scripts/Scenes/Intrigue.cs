@@ -38,6 +38,12 @@ public class Intrigue : MonoBehaviour {
 	private Network network;
 	public GameObject jailSpawn;
 
+	void Awake(){
+		GameObject menuMusic = GameObject.Find("MenuMusic");
+		if(menuMusic){
+			Destroy(menuMusic);
+		}
+	}
 
 	void Start () {
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
