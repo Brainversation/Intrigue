@@ -37,7 +37,7 @@ public class Spy : MonoBehaviour
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
-
+		InvokeRepeating("syncPingAndScore", 1, 2F);
 		if(photonView.isMine){
 			localHandle = player.Handle;
 			remoteScore = player.Score;
@@ -60,9 +60,12 @@ public class Spy : MonoBehaviour
 		}
 	}
 
-	void Update () {
+	void syncPingAndScore(){
 		photonView.RPC("givePing", PhotonTargets.All, PhotonNetwork.GetPing());
 		photonView.RPC("giveScore", PhotonTargets.All, player.Score);
+	}
+
+	void Update () {
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
 		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
 		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;

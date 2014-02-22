@@ -56,7 +56,7 @@ public class PlayerScoreList : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update(){
-			photonView.RPC("editPing", PhotonTargets.AllBuffered, player.Handle, player.TeamID, player.Score, PhotonNetwork.networkingPeer.RoundTripTime);
+			photonView.RPC("editPing", PhotonTargets.All, player.Handle, player.TeamID, player.Score, PhotonNetwork.networkingPeer.RoundTripTime);
 	}
 
 	[RPC]

@@ -2001,6 +2001,6 @@ public static class PhotonNetwork
     {
         PhotonNetwork.isMessageQueueRunning = false;
         networkingPeer.loadingLevelAndPausedNetwork = true;
-        Application.LoadLevel(levelTitle);
+        Application.LoadLevelAsync(levelTitle);
     }
 }
