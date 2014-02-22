@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour {
 	private UITable serverListTable;
 	public GameObject btnJoinServer_prefab;
 	public GameObject serverTable;
+
 	void Start () {
 		Screen.lockCursor = false;
 		PhotonNetwork.isMessageQueueRunning = true;
