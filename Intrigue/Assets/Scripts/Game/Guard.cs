@@ -18,6 +18,7 @@ public class Guard : MonoBehaviour
 	private GameObject outLabel;
 	private UIPanel[] guiPanels;
 	private UILabel[] guiLabels;
+	private Renderer[] renders;
 	public int remoteScore = 0;
 	public int localPing = 0;
 	public GameObject allytext;
@@ -115,14 +116,22 @@ public class Guard : MonoBehaviour
 		if(guests!=null){
 			foreach (GameObject guest in guests){
 				if(guest!=accused){
-					guest.GetComponentInChildren<Renderer>().material.color = Color.white;
+					renders = guest.GetComponentsInChildren<Renderer>();
+					foreach(Renderer rend in renders){
+						if(rend.gameObject.CompareTag("highLight"))
+							rend.material.color = Color.white;
+					}
 				}
 			}
 		}
 		if(spies!=null){
 			foreach (GameObject spy in spies){
 				if(spy!=accused)
-					spy.GetComponentInChildren<Renderer>().material.color = Color.white;
+					renders = spy.GetComponentsInChildren<Renderer>();
+					foreach(Renderer rend in renders){
+						if(rend.gameObject.CompareTag("highLight"))
+							rend.material.color = Color.white;
+					}
 			}
 		}
 
@@ -132,7 +141,11 @@ public class Guard : MonoBehaviour
 		if (Physics.Raycast (ray, out hit, 15)) {
 			if(accused==null)
 				if(hit.transform.gameObject.CompareTag("Guest")||hit.transform.gameObject.CompareTag("Spy")){
-					hit.transform.gameObject.GetComponentInChildren<Renderer>().material.color = Color.red;
+						renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
+						foreach(Renderer rend in renders){
+							if(rend.gameObject.CompareTag("highLight"))
+							rend.material.color = Color.red;
+						}
 				}
 		}
 
@@ -163,49 +176,6 @@ public class Guard : MonoBehaviour
 				}
 			}
 		}	
-	}
-
-	/*void OnGUI(){
-		//GUI.skin.label.fontSize = 20;
-		GUI.color = Color.white;
-		if(accusing && accused!=null){
-			GUI.Label(new Rect((Screen.width/2)-150,Screen.height-100,300,100),"E to Confirm Accusation \nSpace to Cancel.");
-				if(Input.GetKeyUp(KeyCode.E)){
-					accusing = false;
-					testAccusation();
-				}
-				if(Input.GetKeyUp(KeyCode.Space)){
-					accusing = false;
-					accused = null;
-				}
-		}
-		if( isSpectating ) GUI.Label(new Rect((Screen.width/2)-150,Screen.height-50,300,100), "Spectating!" );
-		
-		if( Input.GetKey(KeyCode.Tab) ){
-			guards = GameObject.FindGameObjectsWithTag("Guard");
-			spies = GameObject.FindGameObjectsWithTag("Spy");
-			windowRect = GUILayout.Window(0, windowRect, DoMyWindow, "Scoreboard");
-		}
-	}*/
-
-	void DoMyWindow(int windowID) {
-
-		GUILayout.Label("Guards: " + player.TeamScore);
-
-		foreach(GameObject g in guards){
-			if(g!= gameObject)
-				GUILayout.Label(g.GetComponent<Guard>().localHandle + " " + g.GetComponent<Guard>().remoteScore);
-			else
-				GUILayout.Label(player.Handle + " " + player.Score);
-
-		}
-
-		GUILayout.Label("Spies: " + player.EnemyScore);
-
-		foreach(GameObject s in spies){
-			GUILayout.Label(s.GetComponent<Spy>().localHandle + " " + s.GetComponent<Spy>().remoteScore);
-		}
-
 	}
 
 	void testAccusation(){

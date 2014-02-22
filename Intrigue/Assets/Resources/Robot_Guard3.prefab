@@ -823,7 +823,6 @@ GameObject:
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
   - 143: {fileID: 14300000}
-  - 114: {fileID: 11400010}
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400006}
   m_Layer: 8
@@ -2342,7 +2341,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100102}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -189.686066, y: 58.4608765, z: -60.771595}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400184}
@@ -3300,20 +3299,6 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   instantiationId: -1
---- !u!114 &11400010
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea88a42c06b7ee445a96c091c80917d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crosshairNormal: {fileID: 2800000, guid: 77203846a9ded514aba985acbba6a2e9, type: 3}
-  crosshairInteract: {fileID: 2800000, guid: 95252a15a494d9f44917e92f67db5675, type: 3}
-  canInteract: 0
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
