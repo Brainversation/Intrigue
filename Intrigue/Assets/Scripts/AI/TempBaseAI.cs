@@ -106,6 +106,10 @@ public class TempBaseAI : Photon.MonoBehaviour {
 		rule2.weight = 8;
 		rules.Add(rule2);
 
+		Rule rule3 = new WantToWanderRoom(gameObject);
+		rule3.weight = 7;
+		rules.Add(rule3);
+
 		/*
 		Rule rule2 = new Rule();
 		rule2.addCondition(new Party());

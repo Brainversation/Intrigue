@@ -153,6 +153,17 @@ namespace TempRBS{
         }
     }
 
+    class NotBored : Condition{
+        public NotBored(GameObject gameObject):base(gameObject){}
+
+        public override bool test(){
+            if (!(gameObject.GetComponent<TempBaseAI>().bored > 50)){
+                return true;
+            }
+            return false;
+        }
+    }
+
     class AtDest: Condition{
         public AtDest(GameObject gameObject):base(gameObject){
         }
@@ -185,7 +196,7 @@ namespace TempRBS{
 
     class WantToRandRoom : Rule{
         public WantToRandRoom(GameObject gameObject){
-            this.conditions.Add(new AtDest(gameObject));
+            this.conditions.Add(new Bored(gameObject));
             this.conditions = conditions;
             this.consequence = setDestRoom;
         }
@@ -199,8 +210,30 @@ namespace TempRBS{
             //Debug.Log("Chosen Room: " + newRoom);
             newRoomLoc = UnityEngine.GameObject.Find(newRoom.ToString()).transform.position;
             //Debug.Log("newRoomLoc: " + newRoomLoc);
-            gameObject.GetComponent<TempBaseAI>().room = UnityEngine.GameObject.Find(newRoom);
+            //gameObject.GetComponent<TempBaseAI>().room = UnityEngine.GameObject.Find(newRoom);
             gameObject.GetComponent<TempBaseAI>().destination = newRoomLoc;
+            gameObject.GetComponent<TempBaseAI>().bored = 0;
+            return Status.True;
+        }
+    }
+
+    class WantToWanderRoom : Rule{
+        public WantToWanderRoom(GameObject gameObject){
+            this.conditions.Add(new AtDest(gameObject));
+            this.conditions.Add(new NotBored(gameObject));
+            this.conditions = conditions;
+            this.consequence = setDestInRoom;
+        }
+
+        private Status setDestInRoom(GameObject gameObject){
+            Vector3 newDest;
+            newDest = new Vector3(UnityEngine.Random.Range(gameObject.GetComponent<TempBaseAI>().room.GetComponent<BoxCollider>().bounds.min.x,
+                                                            gameObject.GetComponent<TempBaseAI>().room.GetComponent<BoxCollider>().bounds.max.x),
+                                                            gameObject.transform.position.y,
+                                                            UnityEngine.Random.Range(gameObject.GetComponent<TempBaseAI>().room.GetComponent<BoxCollider>().bounds.min.z,
+                                                            gameObject.GetComponent<TempBaseAI>().room.GetComponent<BoxCollider>().bounds.max.z));
+            gameObject.GetComponent<TempBaseAI>().bored += 10;
+            gameObject.GetComponent<TempBaseAI>().destination = newDest;
             return Status.True;
         }
     }
