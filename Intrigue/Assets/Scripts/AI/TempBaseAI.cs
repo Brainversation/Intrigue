@@ -22,7 +22,7 @@ public class TempBaseAI : Photon.MonoBehaviour {
 
 	// Wants, needs, and feelings 0-100 scale
 	[HideInInspector] public int thirst;
-	[HideInInspector] public int bored;
+	[HideInInspector] public int bored = 0;
 	[HideInInspector] public int hunger;
 	[HideInInspector] public int lonely;
 	[HideInInspector] public int tired;
