@@ -42,7 +42,7 @@ public class Spy : MonoBehaviour
 			localHandle = player.Handle;
 			remoteScore = player.Score;
 			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
-			photonView.RPC("giveScore", PhotonTargets.OthersBuffered, player.Score);
+			photonView.RPC("giveScore", PhotonTargets.Others, player.Score);
 
 		} else {
 			GetComponentInChildren<Camera>().enabled = false; 
@@ -61,6 +61,8 @@ public class Spy : MonoBehaviour
 	}
 
 	void syncPingAndScore(){
+		remoteScore = player.Score;
+		localPing = PhotonNetwork.GetPing();
 		photonView.RPC("givePing", PhotonTargets.All, PhotonNetwork.GetPing());
 		photonView.RPC("giveScore", PhotonTargets.All, player.Score);
 	}
