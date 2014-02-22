@@ -158,6 +158,17 @@ namespace RBS{
 		}
 	}
 
+	class AtDrink : Condition{
+
+		public AtDrink(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if(gameObject.GetComponent<BaseAI>().atDrink)
+				return true;
+			return false;
+		}
+	}
+
 	class StayStill : Condition{
 		public override bool test(){
 			return true;
@@ -166,46 +177,87 @@ namespace RBS{
 
 	// <------------------------- Rules -------------------->
 
-	class WantToGoToBar : Rule{
-		Vector3 barLocation;
-		public WantToGoToBar(GameObject gameObject) {
-			this.conditions.Add(new isThirsty(gameObject));
-			this.conditions.Add(new isBored(gameObject));
+	class WantToGetDrink : Rule{
+		public WantToGetDrink(GameObject gameObject) {
+			this.addCondition(new isThirsty(gameObject));
+			this.addCondition(new isBored(gameObject));
 			this.consequence = setDestRoom;
-			this.barLocation = GameObject.Find("Bar").transform.position;
 		}
 
 		private Status setDestRoom(GameObject gameObject){
-			gameObject.GetComponent<BaseAI>().bored = 40;
-			gameObject.GetComponent<BaseAI>().destination = barLocation;
-			Debug.DrawLine(gameObject.transform.position, barLocation, Color.red, 100f, false);
+			Debug.Log("Wants a drink");
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+			script.bored -= 10;
+			if(script.room.drinkLocation != null)
+				script.destination = script.room.drinkLocation.position;
+			else
+				Debug.Log("couldn't find drink location");
+			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 115f, false);
+			return Status.True;
+		}
+	}
+
+	class ReadyToDrink : Rule{
+		GameObject go;
+		public ReadyToDrink(GameObject gameObject){
+			go = gameObject;
+			this.addCondition( new AtDrink(gameObject) );
+			this.consequence = (new MakeDrink() ).run;
+			this.antiConsequence = stop;
+		}
+
+		private Status stop(){
+			Debug.Log("ready to drink");
+			go.GetComponent<Animator>().SetBool("Drink", false);
+			return Status.True;
+		}
+	}
+
+	class WantToConverse : Rule{
+		GameObject go;
+		public WantToConverse(GameObject gameObject){
+			go = gameObject;
+			this.addCondition( new isLonely(gameObject) );
+			this.consequence = setDestConverse;
+		}
+
+		private Status setDestConverse(GameObject gameObject){
+			Debug.Log("Wants to converse");
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+			script.lonely -= 10;
+			if(script.room.converseLocation != null)
+				script.destination = script.room.converseLocation.position;
+			else
+				Debug.Log("couldn't find drink location");
+			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
 			return Status.True;
 		}
 	}
 
 	class GoToDestination : Rule{
 		public GoToDestination(GameObject gameObject) {
-			this.conditions.Add(new DestChange(gameObject));
+			this.addCondition(new DestChange(gameObject));
 			this.consequence = go;
 		}
 
 		private Status go(GameObject gameObject){
+			Debug.Log("Going to...");
 			Vector3 dest = gameObject.GetComponent<BaseAI>().destination;
 			gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
 			gameObject.GetComponent<NavMeshAgent>().SetDestination(dest);
-			return Status.True;
+			return Status.Waiting;
 		}
 	}
 
 	class DoIdle : Rule{
 		public DoIdle(GameObject gameObject){
-			this.conditions.Add(new StayStill());
+			this.addCondition(new StayStill());
 			this.consequence = stay;
 		}
 
 		private Status stay(GameObject gameObject){
 			gameObject.GetComponent<Animator>().CrossFade("Idle", 1f);
-			return Status.Waiting;
+			return Status.True;
 		}
 	}
 

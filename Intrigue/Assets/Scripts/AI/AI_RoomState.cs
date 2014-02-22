@@ -2,28 +2,38 @@ using UnityEngine;
 using System.Collections;
 
 public class AI_RoomState : MonoBehaviour{
-	[HideInInspector] public string roomName;
-	[HideInInspector] public int population;
-	public Transform drinkLocation;
-	public Transform converseLocation;
+
+	public Transform dl;
+	public Transform cl;
+	
+	public AIRoomInfo roomInfo = new AIRoomInfo();
 
 	public void Start(){
-		roomName = gameObject.name;
-		population = 0;
+		roomInfo.drinkLocation = dl;
+		roomInfo.converseLocation = cl;
+		roomInfo.roomName = gameObject.name;
+		roomInfo.population = 0;
 	}
 
 	void OnTriggerEnter(Collider other){
 		if(other.tag == "Guest")
-			other.gameObject.GetComponent<BaseAI>().room = gameObject;
+			other.gameObject.GetComponent<BaseAI>().room = roomInfo;
 
 		if(other.tag == "Guest" || other.tag == "Player")
-			population++;
-		Debug.Log(population);
+			roomInfo.population++;
+		Debug.Log(roomInfo.population);
 	}
 
 
 	void OnTriggerExit(Collider other){
 		if(other.tag == "Guest" || other.tag == "Player")
-			population--;
+			roomInfo.population--;
 	}
+}
+
+public struct AIRoomInfo {
+	public string roomName;
+	public int population;
+	public Transform drinkLocation;
+	public Transform converseLocation;
 }

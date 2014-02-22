@@ -619,6 +619,10 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: .707106829
       objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 5559b48ac6a5b9c4e9cc274cb67d510a, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400000, guid: 5559b48ac6a5b9c4e9cc274cb67d510a, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5559b48ac6a5b9c4e9cc274cb67d510a, type: 2}
@@ -747,7 +751,7 @@ GameObject:
   - 64: {fileID: 283595161}
   m_Layer: 0
   m_Name: Coffee_Table
-  m_TagString: Objective
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1353,7 +1357,6 @@ GameObject:
   - 4: {fileID: 585835565}
   - 65: {fileID: 585835564}
   - 114: {fileID: 585835566}
-  - 54: {fileID: 585835567}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -1395,25 +1398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomName: 
-  population: 0
-  drinkLocation: {fileID: 1652443169}
-  converseLocation: {fileID: 1448485067}
---- !u!54 &585835567
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 585835563}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  dl: {fileID: 1652443169}
+  cl: {fileID: 1448485067}
 --- !u!1001 &600496294
 Prefab:
   m_ObjectHideFlags: 0
@@ -3026,32 +3012,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 76960478}
---- !u!1 &1320992291
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1320992292}
-  m_Layer: 0
-  m_Name: Bar
-  m_TagString: Bar
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1320992292
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1320992291}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.69011879, y: 0, z: 32.9300156}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &1328126833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3116,7 +3076,7 @@ GameObject:
   - 65: {fileID: 1448485066}
   m_Layer: 0
   m_Name: ConversationHotSpot
-  m_TagString: Untagged
+  m_TagString: Conversation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3128,7 +3088,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1448485065}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 30, y: 30, z: 30}
@@ -3140,7 +3100,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1448485065}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.89964914, y: 12.5858173, z: 57.2578926}
+  m_LocalPosition: {x: 1.89964914, y: 4.56282616, z: 57.2578926}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3259,6 +3219,7 @@ GameObject:
   - 195: {fileID: 1473600416}
   - 114: {fileID: 1473600415}
   - 136: {fileID: 1473600414}
+  - 54: {fileID: 1473600420}
   m_Layer: 9
   m_Name: Robot_Guest
   m_TagString: Guest
@@ -3273,7 +3234,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1473600412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -36.8491745, y: 0, z: 0}
+  m_LocalPosition: {x: 33.0044479, y: 0, z: 47.6100311}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 253818062}
@@ -3307,7 +3268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agent: {fileID: 1473600416}
   destination: {x: 0, y: 0, z: 0}
-  room: {fileID: 0}
+  atDrink: 0
   thirst: 0
   bored: 0
   hunger: 0
@@ -3387,6 +3348,21 @@ Animator:
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 1
   m_HasTransformHierarchy: 1
+--- !u!54 &1473600420
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1473600412}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1481199353
 GameObject:
   m_ObjectHideFlags: 0
@@ -3739,9 +3715,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 1652443169}
   - 65: {fileID: 1652443168}
+  - 114: {fileID: 1652443171}
   m_Layer: 0
   m_Name: DrinkHotSpot
-  m_TagString: Untagged
+  m_TagString: Drink
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3753,10 +3730,10 @@ BoxCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1652443167}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 10, z: 10}
+  m_Size: {x: 10, y: 1.03999996, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1652443169
 Transform:
@@ -3765,10 +3742,21 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1652443167}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -35.7084618, y: 4.78304768, z: -.487793922}
+  m_LocalPosition: {x: -37.0526352, y: 1.85053539, z: -.487793922}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1652443171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1652443167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d423028ca8849d45a4b2955d66b8d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1665501984
 GameObject:
   m_ObjectHideFlags: 0

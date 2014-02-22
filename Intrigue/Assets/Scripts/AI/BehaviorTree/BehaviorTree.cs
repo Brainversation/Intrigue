@@ -144,20 +144,32 @@ namespace BehaviorTree{
 
 	// <--------------- Actions -------------------->
 
-	class Interact : Task {
-		public Interact(){}
-
+	class CreateDrink : Task{
 		public override Status run(GameObject gameObject){
-			// Debug.Log("I am Jumping");
-			gameObject.GetComponent<Animator>().SetBool("Interact", true);
+			gameObject.GetComponent<BaseAI>().addDrink();
 			return Status.True;
 		}
 	}
 
+	class HoldDrink : Task {
+		public override Status run(GameObject gameObject){
+			gameObject.GetComponent<Animator>().SetBool("Drink", true);
+			return Status.True;
+		}
+	} 
+
 	// <---------------------- Behave Trees ------------------------>
 	class MakeDrink : Sequence{
 		public MakeDrink(){
-			this.children.Add( new Interact() );
+			this.addChild( new HoldDrink() );
+			this.addChild( new CreateDrink() );
+		}
+
+		public override Status run(GameObject gameObject){
+			gameObject.GetComponent<BaseAI>().thirst -= 10;
+			gameObject.GetComponent<BaseAI>().bladder += 5;
+			gameObject.GetComponent<BaseAI>().atDrink = false;
+			return base.run(gameObject);
 		}
 	}
 
