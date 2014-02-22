@@ -8126,8 +8126,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 470024068}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 56.5720139, y: -6.13428688, z: 21.2286301}
-  m_LocalScale: {x: 54.0921593, y: 9.60674095, z: 22.5254669}
+  m_LocalPosition: {x: 70.1519165, y: -6.13428688, z: 20.8610744}
+  m_LocalScale: {x: 26.533287, y: 9.60674095, z: 22.5254669}
   m_Children: []
   m_Father: {fileID: 566648902}
 --- !u!23 &470024070
@@ -34472,7 +34472,6 @@ GameObject:
   - 114: {fileID: 2026003546}
   - 65: {fileID: 2026003545}
   - 114: {fileID: 2026003544}
-  - 54: {fileID: 2026003543}
   m_Layer: 9
   m_Name: Robot_Guest3
   m_TagString: Guest
@@ -34492,22 +34491,6 @@ Transform:
   m_Children:
   - {fileID: 1530836651}
   m_Father: {fileID: 0}
---- !u!54 &2026003543
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 5400000, guid: 9931bdb5d9002374482a8e2cfae8877e,
-    type: 2}
-  m_PrefabInternal: {fileID: 1679929826}
-  m_GameObject: {fileID: 2026003541}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &2026003544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34539,7 +34522,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 1679929826}
   m_GameObject: {fileID: 2026003541}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3, y: 9, z: 3}
