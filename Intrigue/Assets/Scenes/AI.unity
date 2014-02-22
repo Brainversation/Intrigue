@@ -3216,7 +3216,6 @@ GameObject:
   - 4: {fileID: 1473600413}
   - 95: {fileID: 1473600419}
   - 114: {fileID: 1473600418}
-  - 111: {fileID: 1473600417}
   - 195: {fileID: 1473600416}
   - 114: {fileID: 1473600415}
   - 136: {fileID: 1473600414}
@@ -3298,21 +3297,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!111 &1473600417
-Animation:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11100000, guid: 9931bdb5d9002374482a8e2cfae8877e,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1473600412}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &1473600418
 MonoBehaviour:
   m_ObjectHideFlags: 0
