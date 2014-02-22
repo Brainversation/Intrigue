@@ -234,6 +234,27 @@ namespace RBS{
 		}
 	}
 
+	class NeedToUseRestroom : Rule{
+		GameObject go;
+		public NeedToUseRestroom(GameObject gameObject){
+			go = gameObject;
+			this.addCondition( new isBursting(gameObject) );
+			this.consequence = setDestRestroom;
+		}
+
+		private Status setDestRestroom(GameObject gameObject){
+			Debug.Log("needs to use restroom");
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+			script.bladder -= 25;
+			if(script.room.restroomLocation != null)
+				script.destination = script.room.restroomLocation.position;
+			else
+				Debug.Log("Couldn't find restroom location");
+			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
+			return Status.True;
+		}
+	}
+
 	class GoToDestination : Rule{
 		public GoToDestination(GameObject gameObject) {
 			this.addCondition(new DestChange(gameObject));

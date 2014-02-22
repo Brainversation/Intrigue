@@ -5,12 +5,14 @@ public class AI_RoomState : MonoBehaviour{
 
 	public Transform dl;
 	public Transform cl;
+	public Transform rrl;
 	
 	public AIRoomInfo roomInfo = new AIRoomInfo();
 
 	public void Start(){
 		roomInfo.drinkLocation = dl;
 		roomInfo.converseLocation = cl;
+		roomInfo.restroomLocation = rrl;
 		roomInfo.roomName = gameObject.name;
 		roomInfo.population = 0;
 	}
@@ -36,4 +38,5 @@ public struct AIRoomInfo {
 	public int population;
 	public Transform drinkLocation;
 	public Transform converseLocation;
+	public Transform restroomLocation;
 }

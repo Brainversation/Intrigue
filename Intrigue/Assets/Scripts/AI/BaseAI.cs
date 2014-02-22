@@ -38,6 +38,7 @@ public class BaseAI : Photon.MonoBehaviour {
 		bored = 51;
 		thirst = 51;
 		lonely = 51;
+		bladder = 40;
 	}
 
 	public void Update(){
@@ -116,9 +117,9 @@ public class BaseAI : Photon.MonoBehaviour {
 		rule4.weight = 4;
 		rules.Add(rule4);
 
-		// Rule rule3 = new DoIdle(gameObject);
-		// rule3.weight = 3;
-		// rules.Add(rule3);
+		Rule rule5 = new NeedToUseRestroom(gameObject);
+		rule5.weight = 10;
+		rules.Add(rule5);
 	}
 
 	void backToRule(){
