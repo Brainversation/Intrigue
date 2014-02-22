@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Scoreboard : MonoBehaviour {
 	
 	public GameObject scoreboard;
-	private PhotonView photonView = null;
+	//private PhotonView photonView = null;
 	private Player player;
 	public GameObject playerPrefab;
 	public GameObject guardTable;
@@ -20,7 +20,7 @@ public class Scoreboard : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		scoreboard.GetComponent<UIPanel>().alpha = 0;
-		this.photonView = PhotonView.Get(this);
+		//this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 
 		for(int i=0; i<5; i++){

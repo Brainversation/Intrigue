@@ -15,7 +15,8 @@ public class Network : MonoBehaviour {
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		// Get photonView component
 		photonView = PhotonView.Get(this);
-
+		PhotonNetwork.sendRate = 60;
+		PhotonNetwork.sendRateOnSerialize = 4;
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 
