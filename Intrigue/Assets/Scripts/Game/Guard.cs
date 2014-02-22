@@ -176,7 +176,7 @@ public class Guard : MonoBehaviour
 					textInstance.transform.parent = ally.transform;
 					textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
 				}
-				if((ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Guard>().textAdded){
+				if((ally.GetComponentInChildren<TextMesh>().text == "") && ally.GetComponent<Guard>().textAdded){
 					ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
 					
 				}
