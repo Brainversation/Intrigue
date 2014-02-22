@@ -195,7 +195,7 @@ public class Intrigue : MonoBehaviour {
 
 	[RPC]
 	void getSpawnPoint(Vector3 position, Quaternion rotation){
-		int type = Mathf.RoundToInt(Random.Range(1,4));
+		int type = Mathf.RoundToInt(Random.Range(1,3));
 		Intrigue.playerGO = PhotonNetwork.Instantiate(
 						"Robot_"+ player.Team+type.ToString(),
 						position,
