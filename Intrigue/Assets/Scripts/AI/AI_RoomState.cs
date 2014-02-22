@@ -11,7 +11,7 @@ public class AI_RoomState : MonoBehaviour{
 
 	void OnTriggerEnter(Collider guestCollider){
 		//Debug.Log("IHAVEBEENENTERED!!!");
-		if(guestCollider.tag == 'Guest'){
+		if(guestCollider.tag == "Guest"){
 			guestCollider.gameObject.GetComponent<TempBaseAI>().room = gameObject;
 			population++;
 		}
@@ -19,7 +19,7 @@ public class AI_RoomState : MonoBehaviour{
 
 
 	void OnTriggerExit(Collider guestCollider){
-		if(guestCollider.tag == 'Guest'){
+		if(guestCollider.tag == "Guest"){
 			population--;
 		}
 	}
