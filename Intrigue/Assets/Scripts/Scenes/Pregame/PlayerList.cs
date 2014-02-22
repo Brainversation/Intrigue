@@ -34,7 +34,7 @@ public class PlayerList : MonoBehaviour {
 		}
 
 		if(player.Team =="Spy" || player.Team =="Guard")
-			photonView.RPC("editPing", PhotonTargets.AllBuffered, player.Handle, player.Team, player.Ready, PhotonNetwork.GetPing());
+			photonView.RPC("editPing", PhotonTargets.All, player.Handle, player.Team, player.Ready, PhotonNetwork.GetPing());
 	}
 
 	[RPC]
