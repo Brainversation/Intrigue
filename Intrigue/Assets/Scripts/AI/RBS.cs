@@ -188,12 +188,15 @@ namespace RBS{
 			Debug.Log("Wants a drink");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bored -= 10;
-			if(script.room.drinkLocation != null)
+			if(script.room.drinkLocation != null){
 				script.destination = script.room.drinkLocation.position;
+				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
+				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
+			}
 			else
 				Debug.Log("couldn't find drink location");
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 115f, false);
-			return Status.True;
+			return Status.Waiting;
 		}
 	}
 
@@ -209,7 +212,7 @@ namespace RBS{
 		private Status stop(){
 			Debug.Log("ready to drink");
 			go.GetComponent<Animator>().SetBool("Drink", false);
-			return Status.True;
+			return Status.Waiting;
 		}
 	}
 
@@ -225,12 +228,15 @@ namespace RBS{
 			Debug.Log("Wants to converse");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.lonely -= 10;
-			if(script.room.converseLocation != null)
+			if(script.room.converseLocation != null){
 				script.destination = script.room.converseLocation.position;
+				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
+				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
+			}
 			else
 				Debug.Log("couldn't find drink location");
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
-			return Status.True;
+			return Status.Waiting;
 		}
 	}
 
@@ -246,26 +252,14 @@ namespace RBS{
 			Debug.Log("needs to use restroom");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bladder -= 25;
-			if(script.room.restroomLocation != null)
+			if(script.room.restroomLocation != null){
 				script.destination = script.room.restroomLocation.position;
+				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
+				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
+			}
 			else
 				Debug.Log("Couldn't find restroom location");
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
-			return Status.True;
-		}
-	}
-
-	class GoToDestination : Rule{
-		public GoToDestination(GameObject gameObject) {
-			this.addCondition(new DestChange(gameObject));
-			this.consequence = go;
-		}
-
-		private Status go(GameObject gameObject){
-			Debug.Log("Going to...");
-			Vector3 dest = gameObject.GetComponent<BaseAI>().destination;
-			gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
-			gameObject.GetComponent<NavMeshAgent>().SetDestination(dest);
 			return Status.Waiting;
 		}
 	}

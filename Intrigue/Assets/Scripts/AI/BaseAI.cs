@@ -105,10 +105,6 @@ public class BaseAI : Photon.MonoBehaviour {
 		rule0.weight = 7;
 		rules.Add(rule0);
 
-		Rule rule1 = new GoToDestination(gameObject);
-		rule1.weight = 6;
-		rules.Add(rule1);
-
 		Rule rule2 = new ReadyToDrink(gameObject);
 		rule2.weight = 5;
 		rules.Add(rule2);
