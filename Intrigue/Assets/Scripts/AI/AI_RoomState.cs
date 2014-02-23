@@ -3,24 +3,40 @@ using System.Collections;
 
 public class AI_RoomState : MonoBehaviour{
 
-	int population;
+	public Transform dl;
+	public Transform cl;
+	public Transform rrl;
+	
+	public AIRoomInfo roomInfo = new AIRoomInfo();
 
 	public void Start(){
-		population = 0;
+		roomInfo.drinkLocation = dl;
+		roomInfo.converseLocation = cl;
+		roomInfo.restroomLocation = rrl;
+		roomInfo.roomName = gameObject.name;
+		roomInfo.population = 0;
 	}
 
-	void OnTriggerEnter(Collider guestCollider){
-		//Debug.Log("IHAVEBEENENTERED!!!");
-		if(guestCollider.tag == "Guest"){
-			guestCollider.gameObject.GetComponent<TempBaseAI>().room = gameObject;
-			population++;
-		}
+	void OnTriggerEnter(Collider other){
+		if(other.tag == "Guest")
+			other.gameObject.GetComponent<BaseAI>().room = roomInfo;
+
+		if(other.tag == "Guest" || other.tag == "Player")
+			roomInfo.population++;
+		Debug.Log(roomInfo.population);
 	}
 
 
-	void OnTriggerExit(Collider guestCollider){
-		if(guestCollider.tag == "Guest"){
-			population--;
-		}
+	void OnTriggerExit(Collider other){
+		if(other.tag == "Guest" || other.tag == "Player")
+			roomInfo.population--;
 	}
+}
+
+public struct AIRoomInfo {
+	public string roomName;
+	public int population;
+	public Transform drinkLocation;
+	public Transform converseLocation;
+	public Transform restroomLocation;
 }
