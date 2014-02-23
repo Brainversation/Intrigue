@@ -5,19 +5,21 @@ using System.IO;
 public class MainMenu : MonoBehaviour {
 
 	private Player player;
-	private int menuItemClicked;
+	private bool internetOn = false;
 	private int numOfServers;
 	private UITable serverListTable;
 	public GameObject btnJoinServer_prefab;
 	public GameObject serverTable;
 	private string filePath;
 	private StreamWriter file;
+	public GameObject reconnectWindow;
+	public GameObject retryConnect;
+	public GameObject attemptingConnection;
 
 	void Start () {
 		Screen.lockCursor = false;
-		PhotonNetwork.isMessageQueueRunning = true;
+		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		player = GameObject.Find("Player").GetComponent<Player>();
-		menuItemClicked = -1;
 		numOfServers = 0;
 		connect();
 
@@ -44,15 +46,48 @@ public class MainMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// Checked to see if connected to master server
-//		if (PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby && menuItemClicked == 0) {
-//			//Debug.Log("Server Found");
-//
-//		}
+		Debug.Log("Connection status: " + PhotonNetwork.connectionStateDetailed.ToString());
+		if(PhotonNetwork.connectionStateDetailed == PeerState.Connecting){
+			connectingAttempt();
+		}
+		else if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated || PhotonNetwork.connectionStateDetailed == PeerState.Disconnected) {
+			Debug.Log("Not Connected to Internet");
+			internetOn = false;
+			noInternet();
+		}
+		else{
+			internetOn = true;
+			yesInternet();
+		}
+	}
+
+	void connectingAttempt(){
+		foreach(Transform t in transform.GetComponentsInChildren<Transform>()){
+			if(t.gameObject!=gameObject)
+				NGUITools.SetActive(t.gameObject,false);
+		}
+		NGUITools.SetActive(reconnectWindow, true);
+		reconnectWindow.GetComponentInChildren<TweenAlpha>().Play();
+		NGUITools.SetActive(retryConnect, false);
+	}
+
+	void noInternet(){
+		foreach(Transform t in transform.GetComponentsInChildren<Transform>()){
+			if(t.gameObject!=gameObject)
+				NGUITools.SetActive(t.gameObject,false);
+		}
+		NGUITools.SetActive(reconnectWindow,true);
+		NGUITools.SetActive(attemptingConnection, false);
+	}
+
+	void yesInternet(){
+		foreach(Transform t in transform.GetComponentsInChildren<Transform>()){
+			NGUITools.SetActive(t.gameObject,true);
+		}
+		NGUITools.SetActive(reconnectWindow,false);
 	}
 
 	void onFindServerClicked(){
-		menuItemClicked = 0;
 		int serverNum = 0;
 		foreach (RoomInfo room in PhotonNetwork.GetRoomList()) {
 			GameObject serverInfo = NGUITools.AddChild (serverTable, btnJoinServer_prefab);
@@ -74,19 +109,15 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void onCreateServerClicked(){
-		menuItemClicked = 1;
 	}
 
 	void onOptionsClicked(){
-		menuItemClicked = 2;
 	}
 
 	void onCreditsClicked(){
-		menuItemClicked = 3;
 	}
 
 	void onExitGameClicked(){
-		menuItemClicked = 4;
 		Application.Quit();
 	}
 
@@ -103,11 +134,13 @@ public class MainMenu : MonoBehaviour {
 
 	void connect(){
 		// What Photon settings to use and the version number
+		connectingAttempt();
 		PhotonNetwork.ConnectUsingSettings("0.1");
 	}
 
 	// Called after joining a lobby(Connecting To Server)
 	void OnJoinedLobby(){
+
 	}
 
 	void OnJoinedRoom(){
