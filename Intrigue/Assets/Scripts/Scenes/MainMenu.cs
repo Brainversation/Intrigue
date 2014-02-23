@@ -12,9 +12,14 @@ public class MainMenu : MonoBehaviour {
 	public GameObject serverTable;
 	private string filePath;
 	private StreamWriter file;
+	private bool handleSet = false;
+	private bool serverSet = false;
 	public GameObject reconnectWindow;
 	public GameObject retryConnect;
 	public GameObject attemptingConnection;
+	public GameObject mask;
+	public GameObject handleWindow;
+	public GameObject serverNameLabel;
 
 	void Start () {
 		Screen.lockCursor = false;
@@ -28,30 +33,42 @@ public class MainMenu : MonoBehaviour {
 			filePath = Application.persistentDataPath + "/PlayerEditor.txt";
 		else
 			filePath = Application.persistentDataPath + "/Player.txt";
-
+		//Debug.Log(filePath);
 		if(File.Exists(filePath) ){
 			string line = File.ReadAllText(filePath);
 			int i = 0;
 			foreach(string l in line.Split('\n')){
 				if(i == 0){
 					player.Handle = l;
+					if(player.Handle!="" && player.Handle!=null)
+						handleSet = true;
 				} else if(i == 1){
 					player.RoomName = l;
+					if(player.RoomName!="" && player.RoomName!=null)
+						serverSet = true;
 				}
 				++i;
 			}
 		}
 		file = File.CreateText(filePath);
+
+		if(handleSet){
+			Debug.Log("Handle Set");
+			mask.GetComponent<TweenAlpha>().PlayForward();
+			NGUITools.SetActive(handleWindow,false);
+			handleWindow.GetComponent<TweenAlpha>().PlayReverse();
+		}
+		if(serverSet){
+			serverNameLabel.GetComponent<UILabel>().text = player.RoomName;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log("Connection status: " + PhotonNetwork.connectionStateDetailed.ToString());
 		if(PhotonNetwork.connectionStateDetailed == PeerState.Connecting){
 			connectingAttempt();
 		}
 		else if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated || PhotonNetwork.connectionStateDetailed == PeerState.Disconnected) {
-			Debug.Log("Not Connected to Internet");
 			internetOn = false;
 			noInternet();
 		}
@@ -122,7 +139,7 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void createTheServer(){
-		UIInput serverName = GameObject.Find ("serverName").GetComponent<UIInput> ();
+		UIInput serverName = GameObject.Find("serverName").GetComponent<UIInput>();
 		player.RoomName = serverName.text;
 		PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
 	}
@@ -144,6 +161,9 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnJoinedRoom(){
+		file.WriteLine(player.Handle);
+		file.WriteLine(player.RoomName);
+		file.Close();
 		PhotonNetwork.LoadLevel("Pregame");
 	}
 
@@ -152,8 +172,8 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnApplicationQuit() {
-		// file.WriteLine(player.Handle);
-		// file.WriteLine(player.RoomName);
-		// file.Close();
+		file.WriteLine(player.Handle);
+		file.WriteLine(player.RoomName);
+		file.Close();
 	}
 }
