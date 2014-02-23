@@ -10,6 +10,8 @@ public class MainMenu : MonoBehaviour {
 	private UITable serverListTable;
 	public GameObject btnJoinServer_prefab;
 	public GameObject serverTable;
+	private string filePath;
+	private StreamWriter file;
 
 	void Start () {
 		Screen.lockCursor = false;
@@ -18,6 +20,26 @@ public class MainMenu : MonoBehaviour {
 		menuItemClicked = -1;
 		numOfServers = 0;
 		connect();
+
+		//File Stuff
+		if (Application.isEditor)
+			filePath = Application.persistentDataPath + "/PlayerEditor.txt";
+		else
+			filePath = Application.persistentDataPath + "/Player.txt";
+
+		if(File.Exists(filePath) ){
+			string line = File.ReadAllText(filePath);
+			int i = 0;
+			foreach(string l in line.Split('\n')){
+				if(i == 0){
+					player.Handle = l;
+				} else if(i == 1){
+					player.RoomName = l;
+				}
+				++i;
+			}
+		}
+		file = File.CreateText(filePath);
 	}
 	
 	// Update is called once per frame
@@ -94,5 +116,11 @@ public class MainMenu : MonoBehaviour {
 
 	void OnPhotonJoinFailed(){
 		Debug.Log("OnPhotonJoinFailed");
+	}
+
+	void OnApplicationQuit() {
+		// file.WriteLine(player.Handle);
+		// file.WriteLine(player.RoomName);
+		// file.Close();
 	}
 }
