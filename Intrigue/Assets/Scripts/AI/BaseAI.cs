@@ -15,14 +15,14 @@ public class BaseAI : Photon.MonoBehaviour {
 	private float updateWants = 5f;
 
 	protected List<Rule> rules;
-	protected Status behaving = Status.False;
 
 	// AI info
 	[HideInInspector] public Vector3 destination;
 	[HideInInspector] public AIRoomInfo room;
 	[HideInInspector] public Task tree = null;
-	[HideInInspector] public bool atDrink = false;
+	[HideInInspector] public bool atDest = false;
 	[HideInInspector] public bool isYourTurn = false;
+	[HideInInspector] public Status behaving = Status.False;
 
 	// Wants, needs, and feelings 0-100 scale
 	[HideInInspector] public float thirst = 0f;
@@ -51,7 +51,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			// Do updating stuff
 		// }
 
-		if( tree != null && !IsInvoking("backToRule") && tree.run(gameObject) == Status.True){
+		if( atDest && tree != null && !IsInvoking("backToRule") && tree.run(gameObject) == Status.True){
 			Debug.Log("Done w tree");
 			Invoke("backToRule", 5f);
 		}
@@ -59,6 +59,7 @@ public class BaseAI : Photon.MonoBehaviour {
 		if(agent.hasPath && agent.remainingDistance < 5f){
 			anim.SetFloat("Speed", 0f);
 			agent.ResetPath();
+			atDest = true;
 			if(tree == null) behaving = Status.False;
 		}
 

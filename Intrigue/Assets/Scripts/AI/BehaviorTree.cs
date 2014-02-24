@@ -28,7 +28,6 @@ namespace BehaviorTree{
 		public Selector( List<Task> children ) : base(children){}
 
 		public override Status run(GameObject gameObject){
-			// Debug.Log("Selecting Task");
 			foreach( Task t in children ){
 				if( t.run(gameObject) == Status.True ){
 					return Status.True;
@@ -62,7 +61,6 @@ namespace BehaviorTree{
 		public Sequence( List<Task> children ) : base(children){}
 		
 		public override Status run(GameObject gameObject){
-			// Debug.Log("Going through Sequence");
 			foreach( Task t in children ){
 				if( t.run(gameObject) != Status.True ){
 					return Status.False;
@@ -144,16 +142,6 @@ namespace BehaviorTree{
 		}
 	}
 
-	class AtDestination : Task {
-		public override Status run(GameObject gameObject){
-			Debug.Log("r we there yet?");
-			if (!gameObject.GetComponent<NavMeshAgent>().hasPath){
-                return Status.True;
-            }
-            return Status.False;
-		}
-	}
-
 	class HoldDrink : Task {
 		public override Status run(GameObject gameObject){
 			gameObject.GetComponent<Animator>().SetBool("Drink", true);
@@ -163,23 +151,20 @@ namespace BehaviorTree{
 
 	class Idle1 : Task { 
 		public override Status run(GameObject gameObject){
-			Debug.Log("idle1");
-			gameObject.GetComponent<Animator>().SetBool("Idle1", true);
+			// gameObject.GetComponent<Animator>().SetBool("Idle1", true);
 			return Status.True;
 		}
 	}
 
 	class Idle2 : Task { 
 		public override Status run(GameObject gameObject){
-			Debug.Log("idle2");
-			gameObject.GetComponent<Animator>().SetBool("Idle2", true);
+			// gameObject.GetComponent<Animator>().SetBool("Idle2", true);
 			return Status.True;
 		}
 	}
 
 	class GoToDestination : Task {
 		public override Status run(GameObject gameObject){
-			Debug.Log("Going to dest");
 			Vector3 dest = gameObject.GetComponent<BaseAI>().destination;
 			gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
 			gameObject.GetComponent<NavMeshAgent>().SetDestination(dest);
@@ -202,7 +187,6 @@ namespace BehaviorTree{
 
 	class IsTurn : Task{
 		public override Status run(GameObject gameObject){
-			Debug.Log("Is it my turn");
 			if(gameObject.GetComponent<BaseAI>().isYourTurn){
 				return Status.True;
 			}
@@ -215,7 +199,6 @@ namespace BehaviorTree{
 	class MakeDrink : Sequence{
 		public MakeDrink(){
 			this.addChild( new GoToDestination() );
-			this.addChild( new AtDestination() );
 			this.addChild( new HoldDrink() );
 			this.addChild( new CreateDrink() );
 			this.addChild( new WalkAway() );
@@ -242,7 +225,6 @@ namespace BehaviorTree{
 
 	class DrinkingTree : Sequence {
 		public DrinkingTree(){
-			addChild(new AtDestination());
 			addChild(new Sequence());
 			children[children.Count-1].addChild(new Inverter( new WaitInLine() ));
 			children[children.Count-1].addChild(new MakeDrink());

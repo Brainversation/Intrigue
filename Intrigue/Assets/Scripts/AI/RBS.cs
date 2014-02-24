@@ -142,33 +142,6 @@ namespace RBS{
 		}
 	}
 
-	class DestChange : Condition{
-		private Vector3 currDest;
-
-		public DestChange(GameObject gameObject):base(gameObject){
-			currDest = gameObject.transform.position;
-		}
-
-		public override bool test(){
-			if (currDest != gameObject.GetComponent<BaseAI>().destination){
-				currDest = gameObject.GetComponent<BaseAI>().destination;
-				return true;
-			}
-			return false;
-		}
-	}
-
-	class AtDrink : Condition{
-
-		public AtDrink(GameObject gameObject):base(gameObject){}
-
-		public override bool test(){
-			if(gameObject.GetComponent<BaseAI>().atDrink)
-				return true;
-			return false;
-		}
-	}
-
 	class StayStill : Condition{
 		public override bool test(){
 			return true;
@@ -190,6 +163,7 @@ namespace RBS{
 			script.bored -= 10;
 			if(script.room.drinkLocation != null){
 				script.destination = script.room.drinkLocation.position;
+				script.atDest = false;
 				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
 				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
 				script.tree = new DrinkingTree();
@@ -231,6 +205,7 @@ namespace RBS{
 			script.lonely -= 10;
 			if(script.room.converseLocation != null){
 				script.destination = script.room.converseLocation.position;
+				script.atDest = false;
 				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
 				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
 			}
@@ -255,6 +230,7 @@ namespace RBS{
 			script.bladder -= 25;
 			if(script.room.restroomLocation != null){
 				script.destination = script.room.restroomLocation.position;
+				script.atDest = false;
 				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
 				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
 			}
