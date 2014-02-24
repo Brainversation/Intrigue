@@ -6,8 +6,9 @@ public class Objective : Photon.MonoBehaviour {
 	public float completionTime = 5;
 	public int id;
 	public bool inUse;
-	public bool active = false;
+	public bool isActive = false;
 	public bool textAdded = false;
+	public string objectiveType;
 	private float timeLeft;
 	private bool finished = false;
 	private Animator anim;
@@ -29,11 +30,12 @@ public class Objective : Photon.MonoBehaviour {
 	}
 
 	public void useObjective(GameObject user){
-		if(active){
+		if(isActive){
 			if(timeLeft > 0){
 				timeLeft -= Time.deltaTime;
 				Intrigue.playerGO.GetComponent<Spy>().doingObjective = true;
 				Intrigue.playerGO.GetComponent<Spy>().percentComplete = -((timeLeft-completionTime)/completionTime);
+				Debug.Log("Doing: " + objectiveType);
 			} else if(!finished) {
 				photonView.RPC("objectiveComplete", PhotonTargets.All, this.id);
 				timeLeft = 0;
@@ -42,7 +44,7 @@ public class Objective : Photon.MonoBehaviour {
 				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
 				photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 				anim.SetBool("Complete",true);
-				active = false;
+				isActive = false;
 				photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", true);
 			}
 		}
@@ -51,7 +53,7 @@ public class Objective : Photon.MonoBehaviour {
 	}
 
 	public void activate(){
-		photonView.RPC("isActive", PhotonTargets.AllBuffered);
+		photonView.RPC("setActive", PhotonTargets.AllBuffered);
 	}
 
 	[RPC]
@@ -63,7 +65,7 @@ public class Objective : Photon.MonoBehaviour {
 	void objectiveComplete(int id){
 		if(id == this.id){
 			finished = true;
-			active = false;
+			isActive = false;
 			timeLeft = 0;
 			intrigue.objectivesCompleted++;
 			intrigue.objectives[id] = true;
@@ -71,8 +73,8 @@ public class Objective : Photon.MonoBehaviour {
 	}
 
 	[RPC]
-	void isActive(){
-		active = true;
+	void setActive(){
+		isActive = true;
 	}
 	[RPC]
 	void addScore(int teamID, int scoreToAdd){

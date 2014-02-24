@@ -7,16 +7,18 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private Quaternion correctPlayerRot;
 	private Animator anim;
 	private GUIStyle style = new GUIStyle();
-
+	private Spy spyRef;
 	public bool isOut;
+	public GameObject hair;
 
 	void Start() {
 		//Get References to Animator and Collider
 		anim = GetComponent<Animator>();
 		anim.speed = 1.5f;
-		this.style.fontSize = 40;
-		this.style.normal.textColor = Color.red;
-
+		spyRef = gameObject.GetComponent<Spy>();
+		if(hair!=null){
+			hair.GetComponent<Renderer>().enabled = false;
+		}
 	}
 
 	public void Update(){
@@ -31,8 +33,20 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
 			anim.SetFloat("Direction", Input.GetAxis("Horizontal"));
 			anim.SetBool("Run", Input.GetKey("left shift"));
-			anim.SetBool("Interact", Input.GetKey("e"));
+			//anim.SetBool("Interact", Input.GetKey("e"));
 			anim.SetBool("Out", false);
+			if(spyRef.doingObjective){
+				if(spyRef.objectiveType=="Safe"){
+					anim.SetBool("InteractSafe",true);
+				}
+				else if(spyRef.objectiveType=="Computer"){
+					anim.SetBool("InteractComp",true);
+				}
+			}
+			else{
+				anim.SetBool("InteractSafe",false);
+				anim.SetBool("InteractComp",false);
+			}
 		}
 		else if(photonView.isMine && isOut){
 			anim.SetFloat("Speed", 0f);
