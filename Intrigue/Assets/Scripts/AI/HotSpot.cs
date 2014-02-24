@@ -6,10 +6,16 @@ public class HotSpot : MonoBehaviour {
 
 	[HideInInspector] public int population = 0;
 	[HideInInspector] public List<GameObject> queue = new List<GameObject>();
+	public Transform actionDestination;
 
-	void FixedUpdate(){
-		if(!queue[0].GetComponent<BaseAI>().isYourTurn)
-			queue[0].GetComponent<BaseAI>().isYourTurn = true;
+	void Update(){
+		if(queue.Count >= 1){
+			if(!queue[0].GetComponent<BaseAI>().isYourTurn){
+				queue[0].GetComponent<BaseAI>().isYourTurn = true;
+				queue[0].GetComponent<BaseAI>().destination = actionDestination.position;
+				queue[0].GetComponent<NavMeshAgent>().SetDestination(actionDestination.position);
+			}
+		}
 	}
 
 	void OnTriggerEnter(Collider other){

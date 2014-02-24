@@ -142,17 +142,6 @@ namespace RBS{
 		}
 	}
 
-	class isTurn : Condition{
-		public isTurn(GameObject gameObject):base(gameObject){}
-
-		public override bool test(){
-			if(gameObject.GetComponent<BaseAI>().isYourTurn){
-				return true;
-			}
-			return false;
-		}
-	}
-
 	class DestChange : Condition{
 		private Vector3 currDest;
 
@@ -203,6 +192,7 @@ namespace RBS{
 				script.destination = script.room.drinkLocation.position;
 				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
 				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
+				script.tree = new DrinkingTree();
 			}
 			else
 				Debug.Log("couldn't find drink location");
@@ -210,7 +200,7 @@ namespace RBS{
 			return Status.Waiting;
 		}
 	}
-
+/*
 	class ReadyToDrink : Rule{
 		GameObject go;
 		public ReadyToDrink(GameObject gameObject){
@@ -225,7 +215,7 @@ namespace RBS{
 			go.GetComponent<Animator>().SetBool("Drink", false);
 			return Status.Waiting;
 		}
-	}
+	}*/
 
 	class WantToConverse : Rule{
 		GameObject go;

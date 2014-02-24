@@ -15,6 +15,7 @@ public class AI_RoomState : MonoBehaviour{
 		roomInfo.restroomLocation = rrl;
 		roomInfo.roomName = gameObject.name;
 		roomInfo.population = 0;
+		roomInfo.me = gameObject;
 	}
 
 	void OnTriggerEnter(Collider other){
@@ -39,4 +40,5 @@ public struct AIRoomInfo {
 	public Transform drinkLocation;
 	public Transform converseLocation;
 	public Transform restroomLocation;
+	public GameObject me;
 }

@@ -20,6 +20,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	// AI info
 	[HideInInspector] public Vector3 destination;
 	[HideInInspector] public AIRoomInfo room;
+	[HideInInspector] public Task tree = null;
 	[HideInInspector] public bool atDrink = false;
 	[HideInInspector] public bool isYourTurn = false;
 
@@ -50,10 +51,15 @@ public class BaseAI : Photon.MonoBehaviour {
 			// Do updating stuff
 		// }
 
+		if( tree != null && !IsInvoking("backToRule") && tree.run(gameObject) == Status.True){
+			Debug.Log("Done w tree");
+			Invoke("backToRule", 5f);
+		}
+
 		if(agent.hasPath && agent.remainingDistance < 5f){
 			anim.SetFloat("Speed", 0f);
 			agent.ResetPath();
-			behaving = Status.False;
+			if(tree == null) behaving = Status.False;
 		}
 
 		if( behaving == Status.False ){
@@ -106,10 +112,10 @@ public class BaseAI : Photon.MonoBehaviour {
 		rule0.weight = 7;
 		rules.Add(rule0);
 
-		Rule rule2 = new ReadyToDrink(gameObject);
+/*		Rule rule2 = new ReadyToDrink(gameObject);
 		rule2.weight = 5;
 		rules.Add(rule2);
-
+*/
 		Rule rule4 = new WantToConverse(gameObject);
 		rule4.weight = 4;
 		rules.Add(rule4);
@@ -124,9 +130,12 @@ public class BaseAI : Photon.MonoBehaviour {
 		if(currentRule.antiConsequence != null)
 			currentRule.antiConsequence();
 		behaving = Status.False;
+		tree = null;
 	}
 
 	public void addDrink(){
 		Debug.Log("adding Drink");
+		this.thirst -= 10;
+		this.bladder += 5;
 	}
 }

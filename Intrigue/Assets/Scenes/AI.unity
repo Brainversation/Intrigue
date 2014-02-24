@@ -3269,6 +3269,7 @@ MonoBehaviour:
   agent: {fileID: 1473600416}
   destination: {x: 0, y: 0, z: 0}
   atDrink: 0
+  isYourTurn: 0
   thirst: 0
   bored: 0
   hunger: 0
@@ -3781,6 +3782,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d423028ca8849d45a4b2955d66b8d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  population: 0
+  queue: []
+  actionDestination: {fileID: 343523800}
 --- !u!1 &1665501984
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace BehaviorTree{
 
 	public abstract class Task {
-		protected List<Task> children;
+		public List<Task> children;
 
 		public Task(){
 			children = new List<Task>();
@@ -40,6 +40,7 @@ namespace BehaviorTree{
 	}
 
 	class NonDeterministicSelector : Task{
+		public NonDeterministicSelector(){}
 
 		public NonDeterministicSelector( List<Task> children ) : base(children){}
 
@@ -90,7 +91,9 @@ namespace BehaviorTree{
 	}
 
 	abstract class Decorator : Task {
-		protected Task child;
+		public Task child;
+
+		public Decorator(){}
 
 		public Decorator( Task child ){
 			this.child = child;
@@ -116,18 +119,8 @@ namespace BehaviorTree{
 		}
 	}
 
-	class UntilFail : Decorator {
-
-		public UntilFail( Task child ) : base(child){}
-
-		public override Status run(GameObject gameObject){
-			while(true){
-				if( child.run(gameObject) == Status.False ) return Status.True;
-			}
-		}
-	}
-
 	class Inverter : Decorator {
+		public Inverter(){}
 		public Inverter( Task child ) : base( child ){}
 
 		public override Status run(GameObject gameObject){
@@ -151,6 +144,16 @@ namespace BehaviorTree{
 		}
 	}
 
+	class AtDestination : Task {
+		public override Status run(GameObject gameObject){
+			Debug.Log("r we there yet?");
+			if (!gameObject.GetComponent<NavMeshAgent>().hasPath){
+                return Status.True;
+            }
+            return Status.False;
+		}
+	}
+
 	class HoldDrink : Task {
 		public override Status run(GameObject gameObject){
 			gameObject.GetComponent<Animator>().SetBool("Drink", true);
@@ -158,37 +161,93 @@ namespace BehaviorTree{
 		}
 	} 
 
-	class LineIdle1 : Task { 
+	class Idle1 : Task { 
 		public override Status run(GameObject gameObject){
+			Debug.Log("idle1");
 			gameObject.GetComponent<Animator>().SetBool("Idle1", true);
 			return Status.True;
 		}
 	}
 
-
-	class LineIdle2 : Task { 
+	class Idle2 : Task { 
 		public override Status run(GameObject gameObject){
+			Debug.Log("idle2");
 			gameObject.GetComponent<Animator>().SetBool("Idle2", true);
 			return Status.True;
 		}
 	}
 
-	
+	class GoToDestination : Task {
+		public override Status run(GameObject gameObject){
+			Debug.Log("Going to dest");
+			Vector3 dest = gameObject.GetComponent<BaseAI>().destination;
+			gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
+			gameObject.GetComponent<NavMeshAgent>().SetDestination(dest);
+			return Status.True;
+		}
+	}
+
+	class WalkAway : Task {
+		public override Status run(GameObject gameObject){
+			Vector3 newDest;
+			newDest = new Vector3(UnityEngine.Random.Range( gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.min.x,
+															gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.max.x),
+															gameObject.transform.position.y,
+															UnityEngine.Random.Range(gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.min.z,
+															gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.max.z));
+			gameObject.GetComponent<BaseAI>().destination = newDest;
+			return Status.True;
+		}
+	}
+
+	class IsTurn : Task{
+		public override Status run(GameObject gameObject){
+			Debug.Log("Is it my turn");
+			if(gameObject.GetComponent<BaseAI>().isYourTurn){
+				return Status.True;
+			}
+			return Status.False;
+		}
+	}
+
+
 	// <---------------------- Behave Trees ------------------------>
 	class MakeDrink : Sequence{
 		public MakeDrink(){
+			this.addChild( new GoToDestination() );
+			this.addChild( new AtDestination() );
 			this.addChild( new HoldDrink() );
 			this.addChild( new CreateDrink() );
+			this.addChild( new WalkAway() );
 		}
 
 		public override Status run(GameObject gameObject){
-			gameObject.GetComponent<BaseAI>().thirst -= 10;
-			gameObject.GetComponent<BaseAI>().bladder += 5;
-			gameObject.GetComponent<BaseAI>().atDrink = false;
 			return base.run(gameObject);
 		}
 	}
 
+	class WaitInLine : Sequence { 
+		public WaitInLine(){
+			this.addChild(new Inverter(new IsTurn()));
+			this.addChild(new IdleSelector());
+		}
+	}
+
+	class IdleSelector : NonDeterministicSelector {
+		public IdleSelector(){
+			this.addChild(new Idle1());
+			this.addChild(new Idle2());
+		}
+	}
+
+	class DrinkingTree : Sequence {
+		public DrinkingTree(){
+			addChild(new AtDestination());
+			addChild(new Sequence());
+			children[children.Count-1].addChild(new Inverter( new WaitInLine() ));
+			children[children.Count-1].addChild(new MakeDrink());
+		}
+	}
 
 	public enum Status{
 		False,
