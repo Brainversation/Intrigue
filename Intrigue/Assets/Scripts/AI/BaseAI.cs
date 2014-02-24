@@ -21,6 +21,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public Vector3 destination;
 	[HideInInspector] public AIRoomInfo room;
 	[HideInInspector] public bool atDrink = false;
+	[HideInInspector] public bool isYourTurn = false;
 
 	// Wants, needs, and feelings 0-100 scale
 	[HideInInspector] public float thirst = 0f;
