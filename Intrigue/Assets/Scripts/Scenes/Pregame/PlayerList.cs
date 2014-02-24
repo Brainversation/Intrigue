@@ -18,6 +18,7 @@ public class PlayerList : MonoBehaviour {
 		this.photonView = PhotonView.Get(this);
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		player = GameObject.Find("Player").GetComponent<Player>();
+		InvokeRepeating("syncPingAndScore", 0, 2F);
 	}
 	
 	// Update is called once per frame
@@ -33,8 +34,6 @@ public class PlayerList : MonoBehaviour {
 			player.TeamID = 2;
 		}
 
-		if(player.Team =="Spy" || player.Team =="Guard")
-			photonView.RPC("editPing", PhotonTargets.All, player.Handle, player.Team, player.Ready, PhotonNetwork.GetPing());
 	}
 
 	[RPC]
@@ -47,6 +46,7 @@ public class PlayerList : MonoBehaviour {
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = handle;
 		label.text = "[0000FF]"+handle;
+		syncPingAndScore();
 	}
 
 	[RPC]
@@ -80,6 +80,10 @@ public class PlayerList : MonoBehaviour {
 		}
 	}
 
+	void syncPingAndScore(){
+		photonView.RPC("editPing", PhotonTargets.All, player.Handle, player.Team, player.Ready, PhotonNetwork.GetPing());
+	}
+
 	[RPC]
 	void addGuard(string handle){
 		guards.Add(handle);
@@ -90,6 +94,7 @@ public class PlayerList : MonoBehaviour {
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = handle;
 		label.text = "[FF0000]"+handle;
+		syncPingAndScore();
 	}
 
 	[RPC]
@@ -108,5 +113,6 @@ public class PlayerList : MonoBehaviour {
 				}
 			}
 		}
+		syncPingAndScore();
 	}
 }
