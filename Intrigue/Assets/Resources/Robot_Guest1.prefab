@@ -886,7 +886,6 @@ GameObject:
   - 65: {fileID: 6500000}
   - 111: {fileID: 11100000}
   - 195: {fileID: 19500000}
-  - 114: {fileID: 11400042}
   - 114: {fileID: 11400000}
   m_Layer: 9
   m_Name: Robot_Guest1
@@ -1745,18 +1744,6 @@ MonoBehaviour:
   bladder: 0
   timeInRoom: 11
   room: {fileID: 0}
---- !u!114 &11400042
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100116}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a3d9b35a89fb83408ad76f94c822c65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agent: {fileID: 19500000}
 --- !u!114 &11400052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1772,7 +1759,7 @@ MonoBehaviour:
   ownerId: 0
   group: 0
   prefixBackup: -1
-  observed: {fileID: 11400042}
+  observed: {fileID: 0}
   synchronization: 2
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
