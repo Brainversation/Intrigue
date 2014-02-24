@@ -142,6 +142,17 @@ namespace RBS{
 		}
 	}
 
+	class isTurn : Condition{
+		public isTurn(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if(gameObject.GetComponent<BaseAI>().isYourTurn){
+				return true;
+			}
+			return false;
+		}
+	}
+
 	class DestChange : Condition{
 		private Vector3 currDest;
 

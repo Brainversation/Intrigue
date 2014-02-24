@@ -158,6 +158,22 @@ namespace BehaviorTree{
 		}
 	} 
 
+	class LineIdle1 : Task { 
+		public override Status run(GameObject gameObject){
+			gameObject.GetComponent<Animator>().SetBool("Idle1", true);
+			return Status.True;
+		}
+	}
+
+
+	class LineIdle2 : Task { 
+		public override Status run(GameObject gameObject){
+			gameObject.GetComponent<Animator>().SetBool("Idle2", true);
+			return Status.True;
+		}
+	}
+
+	
 	// <---------------------- Behave Trees ------------------------>
 	class MakeDrink : Sequence{
 		public MakeDrink(){
@@ -172,6 +188,7 @@ namespace BehaviorTree{
 			return base.run(gameObject);
 		}
 	}
+
 
 	public enum Status{
 		False,
