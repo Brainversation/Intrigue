@@ -10,7 +10,7 @@ public class Intrigue : MonoBehaviour {
 	public float objectivesCompleted = 0;
 	[HideInInspector]
 	public bool[] objectives;
-	private int numObjectives = 3;
+	private int numObjectives = 0;
 
 
 	public static int numSpiesLeft;
@@ -46,6 +46,7 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void Start () {
+		numObjectives = GameObject.FindGameObjectsWithTag("Objective").Length;
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -74,7 +75,7 @@ public class Intrigue : MonoBehaviour {
 
 						if(totalCurActive<totalObjActive){
 							
-							if((Random.Range(0f,1f)>0.50f) && !objscriptref.active ){
+							if((Random.Range(0f,1f)>0.50f) && !objscriptref.isActive ){
 								objscriptref.activate();
 								totalCurActive++;
 							}

@@ -16,6 +16,7 @@ public class Spy : MonoBehaviour
 	public bool doingObjective = false;
 	public int remoteScore = 0;
 	public bool isAssigned = false;
+	public string objectiveType;
 	private GameObject timeLabel;
 	private GameObject outLabel;
 	private UILabel[] guiLabels;
@@ -43,7 +44,6 @@ public class Spy : MonoBehaviour
 			remoteScore = player.Score;
 			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
 			photonView.RPC("giveScore", PhotonTargets.Others, player.Score);
-
 		} else {
 			GetComponentInChildren<Camera>().enabled = false; 
 			GetComponentInChildren<AudioListener>().enabled = false;
@@ -113,6 +113,7 @@ public class Spy : MonoBehaviour
 				if( hit.transform.tag == "Objective" ){
 					Objective hitObjective = hit.transform.GetComponent<Objective>();
 					hitObjective.useObjective(gameObject);
+					objectiveType = hitObjective.objectiveType;
 				}
 				else
 					doingObjective = false;
@@ -145,7 +146,7 @@ public class Spy : MonoBehaviour
 		}
 
 		foreach(GameObject objer in objecs){
-				if(!objer.GetComponent<Objective>().textAdded && objer.GetComponent<Objective>().active){
+				if(!objer.GetComponent<Objective>().textAdded && objer.GetComponent<Objective>().isActive){
 					objer.GetComponent<Objective>().textAdded = true;
 					GameObject textInstance = Instantiate(allytext, objer.transform.position, objer.transform.rotation) as GameObject;
 					Vector3 temp = new Vector3(0,1,0);
@@ -155,7 +156,7 @@ public class Spy : MonoBehaviour
 					textInstance.transform.parent = objer.transform;
 					textInstance.GetComponent<TextMesh>().text = "[ACTIVE]";
 				}
-				else if (!objer.GetComponent<Objective>().active && objer.GetComponent<Objective>().textAdded){
+				else if (!objer.GetComponent<Objective>().isActive && objer.GetComponent<Objective>().textAdded){
 					objer.GetComponentInChildren<TextMesh>().text = "";
 				}
 		}

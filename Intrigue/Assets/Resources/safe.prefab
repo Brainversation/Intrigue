@@ -498,9 +498,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c0c13e3aa2fbe4784473c06dd1b59e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  completionTime: 5
+  completionTime: 10
   id: 0
   inUse: 0
+  isActive: 0
+  textAdded: 0
+  objectiveType: Safe
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
