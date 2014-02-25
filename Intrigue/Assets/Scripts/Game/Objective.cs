@@ -35,8 +35,13 @@ public class Objective : Photon.MonoBehaviour {
 				timeLeft -= Time.deltaTime;
 				Intrigue.playerGO.GetComponent<Spy>().doingObjective = true;
 				Intrigue.playerGO.GetComponent<Spy>().percentComplete = -((timeLeft-completionTime)/completionTime);
-				Debug.Log("Doing: " + objectiveType);
+				if(objectiveType=="Computer"){
+					photonView.RPC("playAudio", PhotonTargets.All);
+				}
 			} else if(!finished) {
+				if(objectiveType=="Safe"){
+					photonView.RPC("playAudio", PhotonTargets.All);
+				}
 				photonView.RPC("objectiveComplete", PhotonTargets.All, this.id);
 				timeLeft = 0;
 				finished = true;
@@ -59,6 +64,11 @@ public class Objective : Photon.MonoBehaviour {
 	[RPC]
 	void sendAnimBool(string name, bool value){
 		anim.SetBool(name,value);
+	}
+
+	[RPC]
+	void playAudio(){
+		audio.Play();
 	}
 
 	[RPC]
