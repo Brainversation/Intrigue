@@ -45,7 +45,7 @@ public class PlayerList : MonoBehaviour {
 		playerInfo.transform.position-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = handle;
-		label.text = "[0000FF]"+handle;
+		label.text = "[FFFFFF]"+handle;
 		syncPingAndScore();
 	}
 
@@ -62,9 +62,9 @@ public class PlayerList : MonoBehaviour {
 					foreach(Transform child in transform){
 						if(child.gameObject.GetComponent<UILabel>().user == handle){
 							if(ready)
-								child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [00FF00][READY][000000]   ("+ pingColor+ping+"[-]" + ") ms";
+								child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + "   [00FF00][READY][FFFFFF]   ("+ pingColor+ping+"[-]" + ") ms";
 							else
-								child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [FF0000][READY][000000]   ("+ pingColor+ping+"[-]" + ") ms";
+								child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + "   [FF0000][READY][FFFFFF]   ("+ pingColor+ping+"[-]" + ") ms";
 						}
 					}
 				}
@@ -72,9 +72,9 @@ public class PlayerList : MonoBehaviour {
 			foreach(Transform child in guardTable.transform){
 				if(child.gameObject.GetComponent<UILabel>().user == handle){
 						if(ready)
-							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [00FF00][READY][000000]   ("+ pingColor+ping+"[-]" + ") ms";
+							child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + "   [00FF00][READY][FFFFFF]   ("+ pingColor+ping+"[-]" + ") ms";
 						else
-							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + "   [FF0000][READY][000000]   ("+ pingColor+ping+"[-]" + ") ms";				
+							child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + "   [FF0000][READY][FFFFFF]   ("+ pingColor+ping+"[-]" + ") ms";				
 				}
 			}
 		}
@@ -93,7 +93,7 @@ public class PlayerList : MonoBehaviour {
 		playerInfo.transform.position-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = handle;
-		label.text = "[FF0000]"+handle;
+		label.text = "[FFFFFF]"+handle;
 		syncPingAndScore();
 	}
 

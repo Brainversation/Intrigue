@@ -30,22 +30,22 @@ public class ReadyButton : MonoBehaviour {
 		if(PhotonNetwork.isMasterClient){
 			if(readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
 				label.text = "START GAME";
-				sprite.color = Color.green;
+				//sprite.color = Color.green;
 				player.Ready = true;
 				readyCheckToggle.value = true;
 			}
 			else
 			{	
 				if(player.Team==""){
-					label.text = "MUST CHOOSE TEAM";
-					sprite.color = Color.red;
+					label.text = "CHOOSE TEAM";
+					//sprite.color = Color.red;
 					player.Ready = false;
 					readyCheckToggle.value = false;
 
 				}
 				else{
-					label.text = "WAITING FOR READY";
-					sprite.color = Color.red;
+					label.text = "WAITING FOR OTHERS";
+					//sprite.color = Color.red;
 					player.Ready = true;
 					readyCheckToggle.value = false;
 				}
@@ -57,8 +57,8 @@ public class ReadyButton : MonoBehaviour {
 			}
 			else{
 				if(player.Team==""){
-					label.text = "MUST CHOOSE TEAM";
-					sprite.color = Color.red;
+					label.text = "CHOOSE TEAM";
+					//sprite.color = Color.red;
 				}
 			}
 		}
