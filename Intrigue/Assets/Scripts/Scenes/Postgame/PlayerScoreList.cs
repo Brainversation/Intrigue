@@ -35,16 +35,16 @@ public class PlayerScoreList : MonoBehaviour {
 		wins = GameObject.FindGameObjectWithTag("Winner");
 
 		if(player.TeamID==1){
-			team1s.GetComponent<UILabel>().text = "TEAM 1: " + "[FF0000]"+player.TeamScore;
-			team2s.GetComponent<UILabel>().text = "TEAM 2: " + "[FF0000]"+player.EnemyScore;
+			team1s.GetComponent<UILabel>().text = "TEAM 1: " + "[FFFFFF]"+player.TeamScore;
+			team2s.GetComponent<UILabel>().text = "TEAM 2: " + "[FFFFFF]"+player.EnemyScore;
 			if(player.TeamScore>player.EnemyScore)
 				wins.GetComponent<UILabel>().text = "TEAM 1 WINS";
 			else
 				wins.GetComponent<UILabel>().text = "TEAM 2 WINS";				
 		}
 		else{
-			team1s.GetComponent<UILabel>().text = "TEAM 1: " + "[FF0000]"+player.EnemyScore;
-			team2s.GetComponent<UILabel>().text = "TEAM 2: " + "[FF0000]"+player.TeamScore;
+			team1s.GetComponent<UILabel>().text = "TEAM 1: " + "[FFFFFF]"+player.EnemyScore;
+			team2s.GetComponent<UILabel>().text = "TEAM 2: " + "[FFFFFF]"+player.TeamScore;
 			if(player.TeamScore<player.EnemyScore)
 				wins.GetComponent<UILabel>().text = "TEAM 1 WINS";
 			else
@@ -74,14 +74,14 @@ public class PlayerScoreList : MonoBehaviour {
 		if(TeamID==1){
 					foreach(Transform child in transform){
 						if(child.gameObject.GetComponent<UILabel>().user == handle){
-							child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + " : [000000]" + score + "     [000000]("+ pingColor+ping+"[-]" + ") ms";
+							child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + " : [FFFFFF]" + score + "     [FFFFFF]("+ pingColor+ping+"[-]" + ") ms";
 						}
 					}
 				}
 		else{
 			foreach(Transform child in guardTable.transform){
 				if(child.gameObject.GetComponent<UILabel>().user == handle){
-					child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + handle + " : [000000]" + score + "     [000000]("+ pingColor+ping+"[-]"  + ") ms";
+					child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + " : [FFFFFF]" + score + "     [FFFFFF]("+ pingColor+ping+"[-]"  + ") ms";
 				}
 			}
 		}
