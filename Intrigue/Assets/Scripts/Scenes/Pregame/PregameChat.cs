@@ -36,8 +36,8 @@ public class PregameChat : MonoBehaviour
 
 			if (!string.IsNullOrEmpty(text))
 			{
-				textList.Add("[FF0000]"+player.Handle+": " + "[000000]"+text);
-				photonView.RPC("recieveMessage", PhotonTargets.Others, "[0000FF]"+player.Handle+": " + "[000000]"+text);
+				textList.Add("[94937C]"+player.Handle+": " + "[FFFFFF]"+text);
+				photonView.RPC("recieveMessage", PhotonTargets.Others, "[94937C]"+player.Handle+": " + "[FFFFFF]"+text);
 				mInput.value = "";
 			}
 		}
