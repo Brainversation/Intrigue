@@ -10,15 +10,17 @@ public class LoadingScreen : MonoBehaviour {
 	public void StartLoadingLevel(string levelTitle){
 		StartCoroutine(levelLoader(levelTitle));
 		gameObject.GetComponent<UIPanel>().alpha = 1;
-		bg.GetComponent<SpriteRenderer>().enabled = false;
+		if(bg!=null)
+			bg.GetComponent<SpriteRenderer>().enabled = false;
 		foreach(Transform child in UIRoot.transform){
-			if(!child.gameObject.CompareTag("LevelLoader")){
+			if(!child.gameObject.CompareTag("LevelLoader") && !child.gameObject.CompareTag("MainCamera")){
 				NGUITools.SetActive(child.gameObject,false);
 			}
 		}
 	}
 
 	IEnumerator levelLoader(string levelTitle){
+		Debug.Log("In LevelLoader");
 		PhotonNetwork.LoadLevel2(levelToLoad);
         AsyncOperation async = Application.LoadLevelAsync(levelTitle);
         while(!async.isDone){
