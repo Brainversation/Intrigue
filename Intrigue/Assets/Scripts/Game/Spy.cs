@@ -16,6 +16,7 @@ public class Spy : MonoBehaviour
 	public bool doingObjective = false;
 	public int remoteScore = 0;
 	public bool isAssigned = false;
+	public GameObject hairHat;
 	public string objectiveType;
 	private GameObject timeLabel;
 	private GameObject outLabel;
@@ -44,6 +45,8 @@ public class Spy : MonoBehaviour
 			remoteScore = player.Score;
 			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
 			photonView.RPC("giveScore", PhotonTargets.Others, player.Score);
+			if(hairHat!=null)
+				hairHat.GetComponent<Renderer>().enabled = false;
 		} else {
 			GetComponentInChildren<Camera>().enabled = false; 
 			GetComponentInChildren<AudioListener>().enabled = false;

@@ -1887,7 +1887,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 640487573}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: .287872314, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314424099}
@@ -1920,7 +1920,7 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 0, g: 0, b: 0, a: .541176498}
   mPivot: 4
-  mWidth: 1280
+  mWidth: 1281
   mHeight: 720
   mDepth: -2
   autoResizeBoxCollider: 1
@@ -2238,7 +2238,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 718148528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: .287872314, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314424099}
@@ -2271,7 +2271,7 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 4
-  mWidth: 1280
+  mWidth: 1281
   mHeight: 720
   mDepth: -3
   autoResizeBoxCollider: 0
@@ -3937,6 +3937,10 @@ Prefab:
       propertyPath: levelToLoad
       value: Intrigue
       objectReference: {fileID: 0}
+    - target: {fileID: 11400010, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: subId
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
   m_RootGameObject: {fileID: 1597920020}
@@ -4526,6 +4530,7 @@ GameObject:
   - 114: {fileID: 1597920024}
   - 54: {fileID: 1597920023}
   - 114: {fileID: 1597920022}
+  - 114: {fileID: 1597920025}
   m_Layer: 8
   m_Name: LoadingScreen
   m_TagString: LevelLoader
@@ -4619,6 +4624,27 @@ MonoBehaviour:
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
   mClipSoftness: {x: 4, y: 4}
   mDepth: 10
+--- !u!114 &1597920025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400010, guid: c10f0a8738c6a534588c23d0b0f1f676,
+    type: 2}
+  m_PrefabInternal: {fileID: 1377761139}
+  m_GameObject: {fileID: 1597920020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subId: 10
+  ownerId: 0
+  group: 0
+  prefixBackup: -1
+  observed: {fileID: 1597920022}
+  synchronization: 2
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  instantiationId: 0
 --- !u!1 &1637961129
 GameObject:
   m_ObjectHideFlags: 0
