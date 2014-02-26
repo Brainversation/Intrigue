@@ -1830,7 +1830,7 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 0, g: 0, b: 0, a: .541176498}
   mPivot: 4
-  mWidth: 1280
+  mWidth: 960
   mHeight: 720
   mDepth: -2
   autoResizeBoxCollider: 1
@@ -1861,6 +1861,8 @@ GameObject:
   - 65: {fileID: 703302610}
   - 114: {fileID: 703302607}
   - 114: {fileID: 703302613}
+  - 114: {fileID: 703302608}
+  - 114: {fileID: 703302609}
   m_Layer: 8
   m_Name: Ready Button
   m_TagString: Untagged
@@ -1893,6 +1895,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   readyCheck: {fileID: 1883779603}
+--- !u!114 &703302608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 703302605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c041f61e4a9fbf4e830210f5d933ece, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenTarget: {fileID: 0}
+  hover: {x: 1.03999996, y: 1.03999996, z: 1.03999996}
+  pressed: {x: 1.04999995, y: 1.04999995, z: 1.04999995}
+  duration: .200000003
+--- !u!114 &703302609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 703302605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d44bc69c2ca5f943b845318866dc1bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: f8fb6bdac99ee964685545f2fffdc82c, type: 3}
+  trigger: 1
+  volume: 1
+  pitch: 1
 --- !u!65 &703302610
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2148,7 +2180,7 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 4
-  mWidth: 1280
+  mWidth: 960
   mHeight: 720
   mDepth: -3
   autoResizeBoxCollider: 0
@@ -2839,9 +2871,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: 95b14c902e5cf0041a5136e2a903b949, type: 2}
       propertyPath: mDepth
-      value: 6
+      value: 11
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11400004, guid: 95b14c902e5cf0041a5136e2a903b949, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 95b14c902e5cf0041a5136e2a903b949, type: 2}
   m_RootGameObject: {fileID: 703302605}
   m_IsPrefabParent: 0
@@ -4525,7 +4558,6 @@ GameObject:
   - 4: {fileID: 1723458730}
   - 114: {fileID: 1723458731}
   - 114: {fileID: 1723458732}
-  - 114: {fileID: 1723458733}
   m_Layer: 8
   m_Name: Label
   m_TagString: Untagged
@@ -4576,7 +4608,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 142
   mHeight: 44
-  mDepth: 6
+  mDepth: 11
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
@@ -4625,22 +4657,6 @@ MonoBehaviour:
   disabledColor: {r: 1, g: 1, b: 1, a: 1}
   dragHighlight: 0
   onClick: []
---- !u!114 &1723458733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400004, guid: 95b14c902e5cf0041a5136e2a903b949,
-    type: 2}
-  m_PrefabInternal: {fileID: 1015237948}
-  m_GameObject: {fileID: 1723458729}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d44bc69c2ca5f943b845318866dc1bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: f8fb6bdac99ee964685545f2fffdc82c, type: 3}
-  trigger: 1
-  volume: 1
-  pitch: 1
 --- !u!1 &1738687752
 GameObject:
   m_ObjectHideFlags: 0
