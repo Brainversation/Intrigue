@@ -6,6 +6,14 @@ public class LoadingScreen : MonoBehaviour {
 	public string levelToLoad;
 	public GameObject UIRoot;
 	public GameObject bg;
+	private int loadCounter=0;
+	private AsyncOperation async;
+	private PhotonView photonView = null;
+
+
+	void Start(){
+		this.photonView = PhotonView.Get(this);
+	}
 
 	public void StartLoadingLevel(string levelTitle){
 		StartCoroutine(levelLoader(levelTitle));
@@ -20,12 +28,41 @@ public class LoadingScreen : MonoBehaviour {
 	}
 
 	IEnumerator levelLoader(string levelTitle){
-		Debug.Log("In LevelLoader");
-		PhotonNetwork.LoadLevel2(levelToLoad);
-        AsyncOperation async = Application.LoadLevelAsync(levelTitle);
-        while(!async.isDone){
+	 	async = Application.LoadLevelAsync(levelTitle);
+	 	if(levelTitle=="Intrigue"){
+        	async.allowSceneActivation = false;
+        }
+        else{
+        	PhotonNetwork.LoadLevel2(levelToLoad);
+        }
+        while(async.progress<0.9f){
         	Debug.Log(async.progress);
         	yield return null;
         }
+        Debug.Log("LevelLoaded" + async.progress);
+        photonView.RPC("levelLoaded", PhotonTargets.All);
+
+        while(!async.allowSceneActivation){
+        	Debug.Log("Waiting: " + this.loadCounter + "/" + (PhotonNetwork.playerList.Length));
+	        if(PhotonNetwork.isMasterClient){
+	        	if(this.loadCounter == PhotonNetwork.playerList.Length){
+	        		photonView.RPC("startGame", PhotonTargets.All);
+	        	}
+	        }
+	        yield return null;
+	    }
+	}
+
+	[RPC]
+	void levelLoaded(){
+		Debug.Log("loaded called");
+		this.loadCounter++;
+	}
+
+	[RPC]
+	void startGame(){
+		Debug.Log("Start Game Called");
+		PhotonNetwork.LoadLevel2(levelToLoad);
+		async.allowSceneActivation = true;
 	}
 }

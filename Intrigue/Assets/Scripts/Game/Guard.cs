@@ -26,6 +26,8 @@ public class Guard : MonoBehaviour
 	public bool isOut = false;
 	public bool isAssigned = false;
 	public string localHandle = "";
+	public GameObject hairHat;
+
 	//Yield function that waits specified amount of seconds
 
 
@@ -47,6 +49,8 @@ public class Guard : MonoBehaviour
 			remoteScore = player.Score;
 			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
 			photonView.RPC("giveScore", PhotonTargets.Others, player.Score);
+			if(hairHat!=null)
+				hairHat.GetComponent<Renderer>().enabled = false;
 		} else {
 			GetComponentInChildren<Camera>().enabled = false;
 			GetComponentInChildren<AudioListener>().enabled = false;

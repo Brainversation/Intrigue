@@ -9,16 +9,12 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private GUIStyle style = new GUIStyle();
 	private Spy spyRef;
 	public bool isOut;
-	public GameObject hair;
 
 	void Start() {
 		//Get References to Animator and Collider
 		anim = GetComponent<Animator>();
 		anim.speed = 1.5f;
 		spyRef = gameObject.GetComponent<Spy>();
-		if(hair!=null){
-			hair.GetComponent<Renderer>().enabled = false;
-		}
 	}
 
 	public void Update(){
