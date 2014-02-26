@@ -9,10 +9,9 @@ public class ReadyButton : MonoBehaviour {
 	private int readyCount = 0;
 	private UILabel label;
 	private UISprite sprite;
-
-	public GameObject readyCheck;
 	private UIToggle readyCheckToggle;
-
+	public GameObject readyCheck;
+	public LoadingScreen loadingScreen;
 	// Use this for initialization
 	void Start () {
 
@@ -94,6 +93,7 @@ public class ReadyButton : MonoBehaviour {
 
 	[RPC]
 	public void go(){
-		PhotonNetwork.LoadLevel("Intrigue");
+		//PhotonNetwork.LoadLevel("Intrigue");
+		loadingScreen.StartLoadingLevel("Intrigue");
 	}
 }
