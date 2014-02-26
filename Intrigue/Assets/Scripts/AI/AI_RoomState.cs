@@ -24,7 +24,6 @@ public class AI_RoomState : MonoBehaviour{
 
 		if(other.tag == "Guest" || other.tag == "Player")
 			roomInfo.population++;
-		Debug.Log(roomInfo.population);
 	}
 
 

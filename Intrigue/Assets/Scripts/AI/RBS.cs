@@ -11,8 +11,7 @@ namespace RBS{
 	public abstract class Condition {
 		protected GameObject gameObject;
 
-		public Condition(){
-		}
+		public Condition(){}
 
 		public Condition(GameObject gameObject) {
 			this.gameObject = gameObject;
@@ -151,14 +150,17 @@ namespace RBS{
 	// <------------------------- Rules -------------------->
 
 	class WantToGetDrink : Rule{
+		private GameObject go;
 		public WantToGetDrink(GameObject gameObject) {
 			this.addCondition(new isThirsty(gameObject));
 			this.addCondition(new isBored(gameObject));
 			this.consequence = setDestRoom;
+			this.antiConsequence = stopDrinking;
 		}
 
 		private Status setDestRoom(GameObject gameObject){
 			Debug.Log("Wants a drink");
+			this.go = gameObject;
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bored -= 10;
 			if(script.room.drinkLocation != null){
@@ -172,6 +174,11 @@ namespace RBS{
 				Debug.Log("couldn't find drink location");
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 115f, false);
 			return Status.Waiting;
+		}
+
+		private Status stopDrinking(){
+			this.go.GetComponent<Animator>().SetBool("Drink", false);
+			return Status.True;
 		}
 	}
 /*

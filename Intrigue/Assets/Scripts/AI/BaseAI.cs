@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using RBS;
@@ -13,8 +13,11 @@ public class BaseAI : Photon.MonoBehaviour {
 	private Quaternion correctPlayerRot;
 	private Rule currentRule;
 	private float updateWants = 5f;
+	private int indent;
 
 	protected List<Rule> rules;
+
+	private static List<GameObject> ais = new List<GameObject>();
 
 	// AI info
 	[HideInInspector] public Vector3 destination;
@@ -34,13 +37,18 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public float bladder = 0f;
 
 	void Start(){
+		indent = ais.Count;
+		ais.Add(gameObject);
 		anim = GetComponent<Animator>();
 		anim.speed = 1f;
 		initAI();
-		bored = 51;
-		thirst = 51;
-		lonely = 51;
-		bladder = 40;
+		thirst = Random.Range(0, 100);
+		bored = Random.Range(0, 100);
+		hunger = Random.Range(0, 100);
+		lonely = Random.Range(0, 100);
+		tired = Random.Range(0, 100);
+		anxiety = Random.Range(0, 100);
+		bladder = Random.Range(0, 100);
 	}
 
 	public void Update(){
@@ -52,7 +60,6 @@ public class BaseAI : Photon.MonoBehaviour {
 		// }
 
 		if( atDest && tree != null && !IsInvoking("backToRule") && tree.run(gameObject) == Status.True){
-			Debug.Log("Done w tree");
 			Invoke("backToRule", 5f);
 		}
 
@@ -83,13 +90,13 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void FixedUpdate(){
 		if(updateWants < 0){
-			if( thirst <= 100) thirst += 1f;
-			if( bored <= 100) bored += 1f;
-			if( hunger <= 100) hunger += 1f;
-			if( lonely <= 100) lonely += 1f;
-			if( tired <= 100) tired += 1f;
-			if( anxiety <= 100) anxiety += 1f;
-			if( bladder <= 100) bladder += 1f;
+			if( thirst < 100) thirst += 1f;
+			if( bored < 100) bored += 1f;
+			if( hunger < 100) hunger += 1f;
+			if( lonely < 100) lonely += 1f;
+			if( tired < 100) tired += 1f;
+			if( anxiety < 100) anxiety += 1f;
+			if( bladder < 100) bladder += 1f;
 			updateWants = 5f;
 		} else {
 			updateWants -= Time.deltaTime;
@@ -97,13 +104,16 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	void OnGUI(){
-		GUILayout.Label( "thirst " + thirst);
-		GUILayout.Label( "bored " + bored);
-		GUILayout.Label( "hunger " + hunger);
-		GUILayout.Label( "lonely " + lonely);
-		GUILayout.Label( "tired " + tired);
-		GUILayout.Label( "anxiety " + anxiety);
-		GUILayout.Label( "bladder " + bladder);
+		GUI.color = Color.black;
+		GUILayout.BeginArea(new Rect(100 * indent, 0, 100, 100));
+			GUILayout.Label( "thirst " + thirst);
+			GUILayout.Label( "bored " + bored);
+			GUILayout.Label( "hunger " + hunger);
+			GUILayout.Label( "lonely " + lonely);
+			GUILayout.Label( "tired " + tired);
+			GUILayout.Label( "anxiety " + anxiety);
+			GUILayout.Label( "bladder " + bladder);
+		GUILayout.EndArea();
 	}
 
 	void initAI(){
