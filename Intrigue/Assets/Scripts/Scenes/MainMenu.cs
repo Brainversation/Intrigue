@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviour {
 	public GameObject mask;
 	public GameObject handleWindow;
 	public GameObject serverNameLabel;
+	public LoadingScreen loadingScreen;
 
 	void Start () {
 		Screen.lockCursor = false;
@@ -33,7 +34,6 @@ public class MainMenu : MonoBehaviour {
 			filePath = Application.persistentDataPath + "/PlayerEditor.txt";
 		else
 			filePath = Application.persistentDataPath + "/Player.txt";
-		//Debug.Log(filePath);
 		if(File.Exists(filePath) ){
 			string line = File.ReadAllText(filePath);
 			int i = 0;
@@ -53,7 +53,6 @@ public class MainMenu : MonoBehaviour {
 		file = File.CreateText(filePath);
 
 		if(handleSet){
-			Debug.Log("Handle Set");
 			mask.GetComponent<TweenAlpha>().PlayForward();
 			NGUITools.SetActive(handleWindow,false);
 			handleWindow.GetComponent<TweenAlpha>().PlayReverse();
@@ -164,7 +163,8 @@ public class MainMenu : MonoBehaviour {
 		file.WriteLine(player.Handle);
 		file.WriteLine(player.RoomName);
 		file.Close();
-		PhotonNetwork.LoadLevel("Pregame");
+		loadingScreen.StartLoadingLevel("Pregame");
+		//PhotonNetwork.LoadLevel("Pregame");
 	}
 
 	void OnPhotonJoinFailed(){
