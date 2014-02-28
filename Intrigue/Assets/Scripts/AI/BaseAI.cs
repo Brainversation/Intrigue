@@ -23,9 +23,9 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public Vector3 destination;
 	[HideInInspector] public AIRoomInfo room;
 	[HideInInspector] public Task tree = null;
-	[HideInInspector] public bool atDest = false;
 	[HideInInspector] public bool isYourTurn = false;
-	[HideInInspector] public Status behaving = Status.False;
+	[HideInInspector] public Status status = Status.False;
+	[HideInInspector] public float distFromDest = 5f;
 
 	// Wants, needs, and feelings 0-100 scale
 	[HideInInspector] public float thirst = 0f;
@@ -59,32 +59,45 @@ public class BaseAI : Photon.MonoBehaviour {
 			// Do updating stuff
 		// }
 
-		if( atDest && tree != null && !IsInvoking("backToRule") && tree.run(gameObject) == Status.True){
-			Invoke("backToRule", 5f);
-		}
+		switch(status){
+			case Status.False:
+				//Sort the list in terms of weight
+				rules.Sort();
 
-		if(agent.hasPath && agent.remainingDistance < 5f){
-			anim.SetFloat("Speed", 0f);
-			agent.ResetPath();
-			atDest = true;
-			if(tree == null) behaving = Status.False;
-		}
-
-		if( behaving == Status.False ){
-			//Sort the list in terms of weight
-			rules.Sort();
-
-			for (int i = 0; i < rules.Count; i++){
-				if (rules[i].isFired()){
-					currentRule = rules[i];
-					rules[i].weight -= 15;
-					behaving = rules[i].consequence(gameObject);
-					break;
+				for (int i = 0; i < rules.Count; i++){
+					if (rules[i].isFired()){
+						currentRule = rules[i];
+						rules[i].weight -= 15;
+						status = rules[i].consequence(gameObject);
+						break;
+					}
 				}
-			}
-		} else if( behaving == Status.True ){
-			behaving = Status.Waiting;
-			Invoke("backToRule", 2.5f);
+				break;
+
+			case Status.True:
+				status = Status.Waiting;
+				Invoke("backToRule", 2.5f);
+				break;
+
+			case Status.Tree:
+				if( tree.run(gameObject) == Status.True){
+					Invoke("backToRule", 5f);
+					tree = null;
+					status = Status.Waiting;
+				}
+				break;
+
+			case Status.Waiting:
+				if(agent.hasPath && agent.remainingDistance < distFromDest){
+					Debug.Log("STOP");
+					anim.SetFloat("Speed", 0f);
+					agent.ResetPath();
+					if(tree == null)
+						status = Status.False;
+					else
+						status = Status.Tree;
+				}
+				break;
 		}
 	}
 
@@ -105,7 +118,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void OnGUI(){
 		GUI.color = Color.black;
-		GUILayout.BeginArea(new Rect(100 * indent, 0, 100, 100));
+		GUILayout.BeginArea(new Rect(100 * indent, 0, 100, 200));
 			GUILayout.Label( "thirst " + thirst);
 			GUILayout.Label( "bored " + bored);
 			GUILayout.Label( "hunger " + hunger);
@@ -123,10 +136,6 @@ public class BaseAI : Photon.MonoBehaviour {
 		rule0.weight = 7;
 		rules.Add(rule0);
 
-/*		Rule rule2 = new ReadyToDrink(gameObject);
-		rule2.weight = 5;
-		rules.Add(rule2);
-*/
 		Rule rule4 = new WantToConverse(gameObject);
 		rule4.weight = 4;
 		rules.Add(rule4);
@@ -140,8 +149,7 @@ public class BaseAI : Photon.MonoBehaviour {
 		Debug.Log("Back to rule");
 		if(currentRule.antiConsequence != null)
 			currentRule.antiConsequence();
-		behaving = Status.False;
-		tree = null;
+		if(!agent.hasPath) status = Status.False;
 	}
 
 	public void addDrink(){

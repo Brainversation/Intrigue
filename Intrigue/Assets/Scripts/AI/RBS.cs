@@ -165,8 +165,8 @@ namespace RBS{
 			script.bored -= 10;
 			if(script.room.drinkLocation != null){
 				script.destination = script.room.drinkLocation.position;
-				script.atDest = false;
 				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
+				gameObject.GetComponent<BaseAI>().distFromDest = 10f;
 				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
 				script.tree = new DrinkingTree();
 			}
@@ -181,22 +181,6 @@ namespace RBS{
 			return Status.True;
 		}
 	}
-/*
-	class ReadyToDrink : Rule{
-		GameObject go;
-		public ReadyToDrink(GameObject gameObject){
-			go = gameObject;
-			this.addCondition( new AtDrink(gameObject) );
-			this.consequence = (new MakeDrink() ).run;
-			this.antiConsequence = stop;
-		}
-
-		private Status stop(){
-			Debug.Log("ready to drink");
-			go.GetComponent<Animator>().SetBool("Drink", false);
-			return Status.Waiting;
-		}
-	}*/
 
 	class WantToConverse : Rule{
 		GameObject go;
@@ -212,8 +196,8 @@ namespace RBS{
 			script.lonely -= 10;
 			if(script.room.converseLocation != null){
 				script.destination = script.room.converseLocation.position;
-				script.atDest = false;
 				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
+				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
 				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
 			}
 			else
@@ -237,8 +221,8 @@ namespace RBS{
 			script.bladder -= 25;
 			if(script.room.restroomLocation != null){
 				script.destination = script.room.restroomLocation.position;
-				script.atDest = false;
 				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
+				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
 				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
 			}
 			else

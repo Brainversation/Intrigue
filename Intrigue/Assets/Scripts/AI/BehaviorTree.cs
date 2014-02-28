@@ -167,6 +167,7 @@ namespace BehaviorTree{
 		public override Status run(GameObject gameObject){
 			Vector3 dest = gameObject.GetComponent<BaseAI>().destination;
 			gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
+			gameObject.GetComponent<BaseAI>().distFromDest = 5f;
 			gameObject.GetComponent<NavMeshAgent>().SetDestination(dest);
 			return Status.True;
 		}
@@ -174,6 +175,7 @@ namespace BehaviorTree{
 
 	class WalkAway : Task {
 		public override Status run(GameObject gameObject){
+			Debug.Log("Walking away");
 			Vector3 newDest;
 			newDest = new Vector3(UnityEngine.Random.Range( gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.min.x,
 															gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.max.x),
@@ -181,6 +183,8 @@ namespace BehaviorTree{
 															UnityEngine.Random.Range(gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.min.z,
 															gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.max.z));
 			gameObject.GetComponent<BaseAI>().destination = newDest;
+			gameObject.GetComponent<BaseAI>().distFromDest = 10f;
+			gameObject.GetComponent<NavMeshAgent>().SetDestination(newDest);
 			return Status.True;
 		}
 	}
@@ -235,6 +239,7 @@ namespace BehaviorTree{
 		False,
 		True,
 		Waiting,
+		Tree,
 		Error
 	}
 

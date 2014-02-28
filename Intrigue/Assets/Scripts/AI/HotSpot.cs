@@ -13,6 +13,7 @@ public class HotSpot : MonoBehaviour {
 		if(queue.Count >= 1 && !queue[0].GetComponent<BaseAI>().isYourTurn){
 			queue[0].GetComponent<BaseAI>().isYourTurn = true;
 			queue[0].GetComponent<BaseAI>().destination = actionDestination.position;
+			queue[0].GetComponent<BaseAI>().distFromDest = 1f;
 			queue[0].GetComponent<NavMeshAgent>().SetDestination(actionDestination.position);
 		}
 	}
@@ -20,7 +21,7 @@ public class HotSpot : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if(other.tag == "Guest" &&
 			other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position){
-			other.gameObject.GetComponent<BaseAI>().behaving = Status.Waiting;
+			other.gameObject.GetComponent<BaseAI>().status = Status.Waiting;
 			queue.Add(other.gameObject);
 			++population;
 		}
