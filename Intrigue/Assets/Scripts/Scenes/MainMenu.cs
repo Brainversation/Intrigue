@@ -21,6 +21,7 @@ public class MainMenu : MonoBehaviour {
 	public GameObject handleWindow;
 	public GameObject serverNameLabel;
 	public LoadingScreen loadingScreen;
+	public GameObject uiCamera;
 
 	void Start () {
 		Screen.lockCursor = false;
@@ -86,16 +87,18 @@ public class MainMenu : MonoBehaviour {
 				NGUITools.SetActive(t.gameObject,false);
 		}
 		NGUITools.SetActive(reconnectWindow, true);
+		//NGUITools.SetActive(uiCamera, true);
 		reconnectWindow.GetComponentInChildren<TweenAlpha>().Play();
 		NGUITools.SetActive(retryConnect, false);
 	}
 
 	void noInternet(){
 		foreach(Transform t in transform.GetComponentsInChildren<Transform>()){
-			if(t.gameObject!=gameObject)
+			if(t.gameObject!=gameObject )
 				NGUITools.SetActive(t.gameObject,false);
 		}
 		NGUITools.SetActive(reconnectWindow,true);
+		//NGUITools.SetActive(uiCamera, true);
 		NGUITools.SetActive(attemptingConnection, false);
 	}
 

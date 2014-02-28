@@ -344,7 +344,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.22857141
+  aspectRatio: 3.20000005
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -398,7 +398,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 226, y: 70, z: 0}
+  m_Size: {x: 224, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &145094446
 MonoBehaviour:
@@ -654,7 +654,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.85714293
+  aspectRatio: 3.77142859
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -708,7 +708,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 270, y: 70, z: 0}
+  m_Size: {x: 264, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &222907429
 MonoBehaviour:
@@ -834,7 +834,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.48571444
+  aspectRatio: 4.4000001
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -911,7 +911,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 314, y: 70, z: 0}
+  m_Size: {x: 308, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &266208684
 MonoBehaviour:
@@ -1419,7 +1419,7 @@ Prefab:
     - target: {fileID: 11400008, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
       propertyPath: bg
       value: 
-      objectReference: {fileID: 966329129}
+      objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
       propertyPath: subId
       value: 1
@@ -1630,7 +1630,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 314, y: 70, z: 0}
+  m_Size: {x: 308, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &546397794
 MonoBehaviour:
@@ -1667,7 +1667,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.48571444
+  aspectRatio: 4.4000001
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -2171,7 +2171,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.58823538
+  aspectRatio: 4.64705896
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -2207,7 +2207,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 156, y: 34, z: 0}
+  m_Size: {x: 158, y: 34, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &916704530
 MonoBehaviour:
@@ -2263,56 +2263,78 @@ MonoBehaviour:
   trigger: 1
   volume: 1
   pitch: 1
---- !u!1 &966329129
+--- !u!1 &997944122
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 966329131}
-  - 212: {fileID: 966329130}
-  m_Layer: 0
-  m_Name: New Sprite
+  - 4: {fileID: 997944124}
+  - 114: {fileID: 997944123}
+  m_Layer: 8
+  m_Name: Texture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!212 &966329130
-SpriteRenderer:
+--- !u!114 &997944123
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 966329129}
+  m_GameObject: {fileID: 997944122}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_SortingLayerID: 0
-  m_Sprite: {fileID: 21300000, guid: 58203fc261ef040c5809340c9a2196e2, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
---- !u!4 &966329131
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c5ca47aa5c01740810b7c66662099f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 4
+  mWidth: 850
+  mHeight: 403
+  mDepth: -10
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 1
+  aspectRatio: 1.90762126
+  mRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  mTexture: {fileID: 2800000, guid: 58203fc261ef040c5809340c9a2196e2, type: 3}
+  mMat: {fileID: 0}
+  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
+--- !u!4 &997944124
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 966329129}
+  m_GameObject: {fileID: 997944122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.131438017, y: 3.31367898, z: 0}
-  m_LocalScale: {x: .619522154, y: .619522154, z: .619522154}
+  m_LocalPosition: {x: -131, y: 184, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1628887036}
 --- !u!1 &1128730123
 GameObject:
   m_ObjectHideFlags: 0
@@ -2658,7 +2680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelToLoad: Pregame
   UIRoot: {fileID: 1628887035}
-  bg: {fileID: 966329129}
+  bg: {fileID: 0}
   loadingBar: {fileID: 273737344}
 --- !u!114 &1229824640
 MonoBehaviour:
@@ -2742,7 +2764,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 136, y: 34, z: 0}
+  m_Size: {x: 138, y: 34, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1330480775
 MonoBehaviour:
@@ -2779,7 +2801,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4
+  aspectRatio: 4.05882359
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -2923,86 +2945,6 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
---- !u!1 &1451436134
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1451436139}
-  - 20: {fileID: 1451436138}
-  - 92: {fileID: 1451436137}
-  - 124: {fileID: 1451436136}
-  - 81: {fileID: 1451436135}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!81 &1451436135
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1451436134}
-  m_Enabled: 1
---- !u!124 &1451436136
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1451436134}
-  m_Enabled: 1
---- !u!92 &1451436137
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1451436134}
-  m_Enabled: 1
---- !u!20 &1451436138
-Camera:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1451436134}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: .300000012
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967039
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_HDR: 0
-  m_OcclusionCulling: 1
---- !u!4 &1451436139
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1451436134}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &1480048631
 GameObject:
   m_ObjectHideFlags: 0
@@ -3323,7 +3265,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3005
+  startingRenderQueue: 3006
   mAlpha: 0
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3377,6 +3319,7 @@ GameObject:
   - 4: {fileID: 1605207864}
   - 20: {fileID: 1605207866}
   - 114: {fileID: 1605207865}
+  - 81: {fileID: 1605207867}
   m_Layer: 8
   m_Name: Camera
   m_TagString: MainCamera
@@ -3438,8 +3381,8 @@ Camera:
   m_GameObject: {fileID: 1605207863}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
-  m_BackGroundColor: {r: .5, g: .5, b: .5, a: 1}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -3459,6 +3402,13 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_HDR: 0
   m_OcclusionCulling: 1
+--- !u!81 &1605207867
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1605207863}
+  m_Enabled: 1
 --- !u!1 &1628887035
 GameObject:
   m_ObjectHideFlags: 0
@@ -3492,6 +3442,7 @@ Transform:
   - {fileID: 1846153852}
   - {fileID: 1229824636}
   - {fileID: 396887616}
+  - {fileID: 997944124}
   - {fileID: 336874169}
   - {fileID: 1552699622}
   - {fileID: 195172668}
@@ -3591,6 +3542,7 @@ MonoBehaviour:
   handleWindow: {fileID: 1755919778}
   serverNameLabel: {fileID: 1480048631}
   loadingScreen: {fileID: 1229824639}
+  uiCamera: {fileID: 1605207863}
 --- !u!1 &1724040720
 GameObject:
   m_ObjectHideFlags: 0
@@ -3927,7 +3879,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.82857132
+  aspectRatio: 2.77142859
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -3981,7 +3933,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 198, y: 70, z: 0}
+  m_Size: {x: 194, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1817840239
 MonoBehaviour:
@@ -4191,7 +4143,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 380, y: 70, z: 0}
+  m_Size: {x: 368, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1846153858
 MonoBehaviour:
@@ -4228,7 +4180,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.42857122
+  aspectRatio: 5.25714302
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -4395,7 +4347,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.05714297
+  aspectRatio: 1.97142851
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -4449,7 +4401,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 144, y: 70, z: 0}
+  m_Size: {x: 138, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1999185755
 MonoBehaviour:
