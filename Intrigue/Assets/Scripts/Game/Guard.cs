@@ -16,6 +16,7 @@ public class Guard : MonoBehaviour
 	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
 	private GameObject timeLabel;
 	private GameObject outLabel;
+	private UIPanel accusationGUI;
 	private UIPanel[] guiPanels;
 	private UILabel[] guiLabels;
 	private Renderer[] renders;
@@ -87,7 +88,11 @@ public class Guard : MonoBehaviour
 				outLabel = lab.gameObject;
 			}
 		}
-
+		foreach(UIPanel pan in guiPanels){
+			if(pan.gameObject.CompareTag("Accusations")){
+				accusationGUI = pan;
+			}
+		}
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
 		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
 		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
@@ -105,14 +110,14 @@ public class Guard : MonoBehaviour
 		}
 
 		if(accusing && accused!=null){
-			guiPanels[1].alpha = 1;
+			accusationGUI.alpha = 1;
 			if(Input.GetKeyUp(KeyCode.E)){
 				accusing = false;
 				testAccusation();
 			}
 		}
 		else{
-			guiPanels[1].alpha= 0;
+			accusationGUI.alpha = 0;
 		}
 
 		if(Input.GetKeyUp(KeyCode.Space)){
