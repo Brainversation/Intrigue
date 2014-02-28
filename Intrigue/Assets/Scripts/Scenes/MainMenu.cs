@@ -28,7 +28,10 @@ public class MainMenu : MonoBehaviour {
 		player = GameObject.Find("Player").GetComponent<Player>();
 		numOfServers = 0;
 		connect();
-
+		player.Score = 0;
+		player.TeamID = 0;
+		player.TeamScore = 0;
+		player.EnemyScore = 0;
 		//File Stuff
 		if (Application.isEditor)
 			filePath = Application.persistentDataPath + "/PlayerEditor.txt";

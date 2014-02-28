@@ -99,6 +99,8 @@ public class Spy : MonoBehaviour
 
 		if(isOut){
 			NGUITools.SetActive(outLabel, true);
+			if(hairHat!=null)
+				hairHat.GetComponent<Renderer>().enabled = true;
 		}
 		else{
 			NGUITools.SetActive(outLabel, false);
