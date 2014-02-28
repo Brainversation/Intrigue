@@ -96,6 +96,8 @@ public class Guard : MonoBehaviour
 		if(isOut){
 			accusing = false;
 			accused = null;
+			if(hairHat!=null)
+				hairHat.GetComponent<Renderer>().enabled = true;
 			NGUITools.SetActive(outLabel, true);
 		}
 		else{

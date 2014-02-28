@@ -6,6 +6,7 @@ public class LoadingScreen : MonoBehaviour {
 	public string levelToLoad;
 	public GameObject UIRoot;
 	public GameObject bg;
+	public GameObject loadingBar;
 	private int loadCounter=0;
 	private AsyncOperation async;
 	private PhotonView photonView = null;
@@ -29,6 +30,12 @@ public class LoadingScreen : MonoBehaviour {
 
 	IEnumerator levelLoader(string levelTitle){
 	 	async = Application.LoadLevelAsync(levelTitle);
+	 	
+	 	if(levelTitle=="Intrigue")
+	 		loadingBar.GetComponent<UISlider>().value = this.loadCounter/PhotonNetwork.playerList.Length;
+	 	else
+	 		loadingBar.GetComponent<UISlider>().value = async.progress;
+	 		
 	 	if(levelTitle=="Intrigue"){
         	async.allowSceneActivation = false;
         }
@@ -36,7 +43,7 @@ public class LoadingScreen : MonoBehaviour {
         	PhotonNetwork.LoadLevel2(levelToLoad);
         }
         while(async.progress<0.9f){
-        	Debug.Log(async.progress);
+        	Debug.Log(loadingBar.GetComponent<UISlider>().value);
         	yield return null;
         }
         Debug.Log("LevelLoaded" + async.progress);
