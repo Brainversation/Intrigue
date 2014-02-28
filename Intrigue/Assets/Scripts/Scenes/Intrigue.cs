@@ -38,6 +38,7 @@ public class Intrigue : MonoBehaviour {
 	private Player player;
 	private Network network;
 	public GameObject jailSpawn;
+	public LoadingScreen loadingBackup;
 
 	void Awake(){
 		GameObject menuMusic = GameObject.Find("MenuMusic");
@@ -160,14 +161,16 @@ public class Intrigue : MonoBehaviour {
 				}
 			}
 		}
-		if(player.Team=="Guard"){
+		else if(player.Team=="Guard"){
 			foreach(GameObject gu in GameObject.FindGameObjectsWithTag("Guard")){
 				if(gu.GetComponent<Guard>().enabled){
 					loadingScreen = gu.GetComponentInChildren<LoadingScreen>();
 				}
 			}
 		}
-
+		if(loadingScreen==null)
+			loadingScreen = loadingBackup;
+		
 		if(roundsLeft > 0){
 			Debug.Log( "Reset" );
 			--roundsLeft;
@@ -176,13 +179,13 @@ public class Intrigue : MonoBehaviour {
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
-			PhotonNetwork.LoadLevel( Application.loadedLevel );
-			//loadingScreen.StartLoadingLevel("Intrigue");
+			//PhotonNetwork.LoadLevel( Application.loadedLevel );
+			loadingScreen.StartLoadingLevel("Intrigue");
 		} else {
 			Debug.Log( "Game Over" );
-			PhotonNetwork.isMessageQueueRunning = false;
-			PhotonNetwork.LoadLevel("PostGame");
-			//loadingScreen.StartLoadingLevel("PostGame");
+			//PhotonNetwork.isMessageQueueRunning = false;
+			//PhotonNetwork.LoadLevel("PostGame");
+			loadingScreen.StartLoadingLevel("PostGame");
 		}
 	}
 
