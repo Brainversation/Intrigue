@@ -176,13 +176,13 @@ public class Intrigue : MonoBehaviour {
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
-			//PhotonNetwork.LoadLevel( Application.loadedLevel );
-			loadingScreen.StartLoadingLevel("Intrigue");
+			PhotonNetwork.LoadLevel( Application.loadedLevel );
+			//loadingScreen.StartLoadingLevel("Intrigue");
 		} else {
 			Debug.Log( "Game Over" );
-			//PhotonNetwork.isMessageQueueRunning = false;
-			//PhotonNetwork.LoadLevel("PostGame");
-			loadingScreen.StartLoadingLevel("PostGame");
+			PhotonNetwork.isMessageQueueRunning = false;
+			PhotonNetwork.LoadLevel("PostGame");
+			//loadingScreen.StartLoadingLevel("PostGame");
 		}
 	}
 
