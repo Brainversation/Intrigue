@@ -8,6 +8,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private Animator anim;
 	private GUIStyle style = new GUIStyle();
 	private Spy spyRef;
+	private Player player;
 	public bool isOut;
 
 	void Start() {
@@ -15,6 +16,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		anim = GetComponent<Animator>();
 		anim.speed = 1.5f;
 		spyRef = gameObject.GetComponent<Spy>();
+		player = GameObject.Find("Player").GetComponent<Player>();
+
 	}
 
 	public void Update(){
@@ -31,17 +34,19 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetBool("Run", Input.GetKey("left shift"));
 			//anim.SetBool("Interact", Input.GetKey("e"));
 			anim.SetBool("Out", false);
-			if(spyRef.doingObjective){
-				if(spyRef.objectiveType=="Safe"){
-					anim.SetBool("InteractSafe",true);
+			if(player.Team=="Spy"){
+				if(spyRef.doingObjective){
+					if(spyRef.objectiveType=="Safe"){
+						anim.SetBool("InteractSafe",true);
+					}
+					else if(spyRef.objectiveType=="Computer"){
+						anim.SetBool("InteractComp",true);
+					}
 				}
-				else if(spyRef.objectiveType=="Computer"){
-					anim.SetBool("InteractComp",true);
+				else{
+					anim.SetBool("InteractSafe",false);
+					anim.SetBool("InteractComp",false);
 				}
-			}
-			else{
-				anim.SetBool("InteractSafe",false);
-				anim.SetBool("InteractComp",false);
 			}
 		}
 		else if(photonView.isMine && isOut){

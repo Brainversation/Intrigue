@@ -22,7 +22,7 @@ public class LoadingScreen : MonoBehaviour {
 		if(bg!=null)
 			bg.GetComponent<SpriteRenderer>().enabled = false;
 		foreach(Transform child in UIRoot.transform){
-			if(!child.gameObject.CompareTag("LevelLoader") && !child.gameObject.CompareTag("MainCamera")){
+			if(!child.gameObject.CompareTag("LevelLoader") && !child.gameObject.CompareTag("MainCamera") && !child.gameObject.CompareTag("LoaderMain")){
 				NGUITools.SetActive(child.gameObject,false);
 			}
 		}
@@ -35,7 +35,7 @@ public class LoadingScreen : MonoBehaviour {
 	 		loadingBar.GetComponent<UISlider>().value = this.loadCounter/PhotonNetwork.playerList.Length;
 	 	else
 	 		loadingBar.GetComponent<UISlider>().value = async.progress;
-	 		
+
 	 	if(levelTitle=="Intrigue"){
         	async.allowSceneActivation = false;
         }

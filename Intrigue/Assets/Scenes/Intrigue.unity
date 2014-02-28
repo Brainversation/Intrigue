@@ -10525,6 +10525,7 @@ MonoBehaviour:
   wantGameOver: 1
   objectivesCompleted: 0
   objectives: 
+  loadingScreen: {fileID: 0}
   jailSpawn: {fileID: 0}
 --- !u!1 &939663059
 GameObject:
@@ -11420,6 +11421,7 @@ Transform:
   - {fileID: 322531137}
   - {fileID: 2121413529}
   - {fileID: 2004513281}
+  - {fileID: 1992291654}
   m_Father: {fileID: 0}
 --- !u!95 &1021973337
 Animator:
@@ -23825,10 +23827,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1992291650}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -91.3282318, y: 24.6162567, z: -66.6353073}
-  m_LocalScale: {x: 2.34766316, y: 5.09493637, z: 2.34766316}
+  m_LocalPosition: {x: 65.5880356, y: 20.513546, z: -55.5294228}
+  m_LocalScale: {x: 1.95638597, y: 4.24577999, z: 1.95638597}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1021973336}
 --- !u!1 &1998999492
 GameObject:
   m_ObjectHideFlags: 0

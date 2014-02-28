@@ -10,6 +10,7 @@ public class Intrigue : MonoBehaviour {
 	public float objectivesCompleted = 0;
 	[HideInInspector]
 	public bool[] objectives;
+	public LoadingScreen loadingScreen;
 	private int numObjectives = 0;
 
 
@@ -31,7 +32,7 @@ public class Intrigue : MonoBehaviour {
 
 	public static GameObject playerGO = null;
 
-	private static int rounds = 2;
+	private static int rounds = 3;
 	private static int roundsLeft = rounds;
 	private float totalObjActive;
 	private Player player;
@@ -51,6 +52,7 @@ public class Intrigue : MonoBehaviour {
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		network = GameObject.FindWithTag("Scripts").GetComponent<Network>();
+
 
 		if(PhotonNetwork.isMasterClient){
 			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
@@ -151,6 +153,21 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void gameOver(){
+		if(player.Team=="Spy"){
+			foreach(GameObject sp in GameObject.FindGameObjectsWithTag("Spy")){
+				if(sp.GetComponent<Spy>().enabled){
+					loadingScreen = sp.GetComponentInChildren<LoadingScreen>();
+				}
+			}
+		}
+		if(player.Team=="Guard"){
+			foreach(GameObject gu in GameObject.FindGameObjectsWithTag("Guard")){
+				if(gu.GetComponent<Guard>().enabled){
+					loadingScreen = gu.GetComponentInChildren<LoadingScreen>();
+				}
+			}
+		}
+
 		if(roundsLeft > 0){
 			Debug.Log( "Reset" );
 			--roundsLeft;
@@ -159,11 +176,13 @@ public class Intrigue : MonoBehaviour {
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
-			PhotonNetwork.LoadLevel( Application.loadedLevel );
+			//PhotonNetwork.LoadLevel( Application.loadedLevel );
+			loadingScreen.StartLoadingLevel("Intrigue");
 		} else {
 			Debug.Log( "Game Over" );
-			PhotonNetwork.isMessageQueueRunning = false;
-			PhotonNetwork.LoadLevel("PostGame");
+			//PhotonNetwork.isMessageQueueRunning = false;
+			//PhotonNetwork.LoadLevel("PostGame");
+			loadingScreen.StartLoadingLevel("PostGame");
 		}
 	}
 
