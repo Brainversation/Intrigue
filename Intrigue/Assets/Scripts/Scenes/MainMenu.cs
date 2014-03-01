@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour {
 	public GameObject serverNameLabel;
 	public LoadingScreen loadingScreen;
 	public GameObject uiCamera;
-
+	public GameObject bg_texture;
 	void Start () {
 		Screen.lockCursor = false;
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
@@ -82,30 +82,22 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void connectingAttempt(){
-		foreach(Transform t in transform.GetComponentsInChildren<Transform>()){
-			if(t.gameObject!=gameObject)
-				NGUITools.SetActive(t.gameObject,false);
-		}
+		NGUITools.SetActiveChildren(gameObject,false);
 		NGUITools.SetActive(reconnectWindow, true);
-		//NGUITools.SetActive(uiCamera, true);
 		reconnectWindow.GetComponentInChildren<TweenAlpha>().Play();
 		NGUITools.SetActive(retryConnect, false);
 	}
 
 	void noInternet(){
-		foreach(Transform t in transform.GetComponentsInChildren<Transform>()){
-			if(t.gameObject!=gameObject )
-				NGUITools.SetActive(t.gameObject,false);
-		}
+		NGUITools.SetActiveChildren(gameObject,false);
 		NGUITools.SetActive(reconnectWindow,true);
 		//NGUITools.SetActive(uiCamera, true);
+		//NGUITools.SetActive(bg_texture, true);
 		NGUITools.SetActive(attemptingConnection, false);
 	}
 
 	void yesInternet(){
-		foreach(Transform t in transform.GetComponentsInChildren<Transform>()){
-			NGUITools.SetActive(t.gameObject,true);
-		}
+		NGUITools.SetActiveChildren(gameObject, true);
 		NGUITools.SetActive(reconnectWindow,false);
 	}
 
