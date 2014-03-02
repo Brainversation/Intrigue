@@ -155,7 +155,8 @@ public class Intrigue : MonoBehaviour {
 
 	void gameOver(){
 		
-		playerGO.GetComponentInChildren<Camera>().enabled = false;
+		if(playerGO!=null)
+			playerGO.GetComponentInChildren<Camera>().enabled = false;
 		loadingScreen = loadingBackup;
 
 		if(roundsLeft > 0){

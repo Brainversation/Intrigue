@@ -35,7 +35,6 @@ public class LoadingScreen : MonoBehaviour {
 
 	IEnumerator levelLoader(string levelTitle){
 	 	async = Application.LoadLevelAsync(levelTitle);
-	 	Debug.Log("LevelLoading" + async.progress);
 	 	if(loadingBar!=null){
 		 	if(levelTitle=="Intrigue")
 		 		loadingBar.GetComponent<UISlider>().value = loadCounter/PhotonNetwork.playerList.Length;
@@ -73,9 +72,7 @@ public class LoadingScreen : MonoBehaviour {
 
 	[RPC]
 	void levelLoaded(string playerName){
-		Debug.Log("loaded called by : " + playerName + "while at " + loadCounter + "/" + (PhotonNetwork.playerList.Length));
 		++loadCounter;
-		Debug.Log("Now at : "+ loadCounter + "/" + (PhotonNetwork.playerList.Length));
 	}
 
 	[RPC]
