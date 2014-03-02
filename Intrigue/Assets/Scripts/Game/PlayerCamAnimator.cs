@@ -5,7 +5,7 @@ public class PlayerCamAnimator : MonoBehaviour {
 	
 	public Transform startMarker;
     public Transform endMarker;
-    public float speed = 2F;
+    public float camSpeed = 2.0f;
     public float rotSpeed = .5f;
     public float smooth = 5.0F;
 
@@ -40,7 +40,7 @@ public class PlayerCamAnimator : MonoBehaviour {
 	    			gameObject.GetComponent<MouseLook>().enabled = false;
 	    			playerObj.GetComponent<MouseLook>().enabled = false;
 	    			playerObj.GetComponent<MovementController>().enabled = false;
-	    			float distCovered = (Time.time - startTime) * speed;
+	    			float distCovered = (Time.time - startTime) * camSpeed;
 			        float fracJourney = distCovered / journeyLength;
 			        transform.position = Vector3.Lerp(startMarker.position, endMarker.position, fracJourney);
 			        transform.rotation = Quaternion.Lerp(startRot, endRot, Time.time * rotSpeed);

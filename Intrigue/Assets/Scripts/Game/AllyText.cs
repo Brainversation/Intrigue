@@ -10,7 +10,6 @@ public class AllyText : MonoBehaviour {
 	public Camera cameraToUse;	// Only use this if useMainCamera is false
 	private Camera cam;
 	private Transform thisTransform;
-	private Transform camTransform;
 
 	// Use this for initialization
 	void Start () {
@@ -19,7 +18,6 @@ public class AllyText : MonoBehaviour {
 			cam = Camera.main;
 		else
 			cam = cameraToUse;
-		camTransform = cam.transform;
 	}
 	
 	// Update is called once per frame

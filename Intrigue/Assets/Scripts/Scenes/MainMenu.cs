@@ -23,7 +23,11 @@ public class MainMenu : MonoBehaviour {
 	public LoadingScreen loadingScreen;
 	public GameObject uiCamera;
 	public GameObject bg_texture;
+	[HideInInspector] public GameObject createServerButton;
+	[HideInInspector] public GameObject findServerButton;
 	void Start () {
+		createServerButton = GameObject.Find("CREATE SERVER");
+		findServerButton = GameObject.Find("FIND SERVER");
 		Screen.lockCursor = false;
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -82,16 +86,20 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void connectingAttempt(){
-		NGUITools.SetActiveChildren(gameObject,false);
+		//NGUITools.SetActiveChildren(gameObject,false);
+		createServerButton.GetComponent<UIButton>().enabled = false;
+		findServerButton.GetComponent<UIButton>().enabled = false;
 		NGUITools.SetActive(reconnectWindow, true);
-		reconnectWindow.GetComponentInChildren<TweenAlpha>().Play();
+		reconnectWindow.GetComponentInChildren<TweenAlpha>().PlayForward();
 		NGUITools.SetActive(retryConnect, false);
 	}
 
 	void noInternet(){
-		NGUITools.SetActiveChildren(gameObject,false);
+		//NGUITools.SetActiveChildren(gameObject,false);
+		createServerButton.GetComponent<UIButton>().enabled = false;
+		findServerButton.GetComponent<UIButton>().enabled = false;
 		NGUITools.SetActive(reconnectWindow,true);
-		//NGUITools.SetActive(uiCamera, true);
+		NGUITools.SetActive(uiCamera, true);
 		//NGUITools.SetActive(bg_texture, true);
 		NGUITools.SetActive(attemptingConnection, false);
 	}
@@ -99,6 +107,8 @@ public class MainMenu : MonoBehaviour {
 	void yesInternet(){
 		NGUITools.SetActiveChildren(gameObject, true);
 		NGUITools.SetActive(reconnectWindow,false);
+		createServerButton.GetComponent<UIButton>().enabled = true;
+		findServerButton.GetComponent<UIButton>().enabled = true;
 	}
 
 	void onFindServerClicked(){
@@ -137,13 +147,13 @@ public class MainMenu : MonoBehaviour {
 
 	void createTheServer(){
 		UIInput serverName = GameObject.Find("serverName").GetComponent<UIInput>();
-		player.RoomName = serverName.text;
+		player.RoomName = serverName.value;
 		PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
 	}
 
 	void getUserHandle(){
 		UIInput playerName = GameObject.Find ("playerName").GetComponent<UIInput> ();
-		player.Handle = playerName.text;
+		player.Handle = playerName.value;
 	}
 
 	void connect(){

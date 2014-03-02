@@ -30,7 +30,9 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	public void FixedUpdate(){
 		if(photonView.isMine && !isOut){
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
+			//Debug.Log("Vert: " + Input.GetAxis("Vertical"));
 			anim.SetFloat("Direction", Input.GetAxis("Horizontal"));
+			//Debug.Log("Horiz: " + Input.GetAxis("Horizontal"));
 			anim.SetBool("Run", Input.GetKey("left shift"));
 			//anim.SetBool("Interact", Input.GetKey("e"));
 			anim.SetBool("Out", false);
