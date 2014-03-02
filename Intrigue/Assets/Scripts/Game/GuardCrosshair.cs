@@ -17,18 +17,20 @@ public class GuardCrosshair : MonoBehaviour {
 	
 	}
 	void Update(){
-			Ray ray = Camera.main.ScreenPointToRay( screenPoint );
-			RaycastHit hit;
-			if( Physics.Raycast(ray, out hit, 15.0f) ){
-				if( hit.transform.tag == "Spy" || hit.transform.tag == "Guest"){
-					canInteract = true;
+		if(Camera.main!=null){
+				Ray ray = Camera.main.ScreenPointToRay( screenPoint );
+				RaycastHit hit;
+				if( Physics.Raycast(ray, out hit, 15.0f) ){
+					if( hit.transform.tag == "Spy" || hit.transform.tag == "Guest"){
+						canInteract = true;
+					}
+					else {
+						canInteract = false;
+					}
 				}
-				else {
+				else
 					canInteract = false;
-				}
 			}
-			else
-				canInteract = false;
 	}
 
 	// Update is called once per frame

@@ -153,46 +153,48 @@ public class Guard : MonoBehaviour
 		}
 
 		//Highlights the currently targeted guest
-		RaycastHit hit;
-		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
-		if (Physics.Raycast (ray, out hit, 15)) {
-			if(accused==null)
-				if(hit.transform.gameObject.CompareTag("Guest")||hit.transform.gameObject.CompareTag("Spy")){
-						renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
-						foreach(Renderer rend in renders){
-							if(rend.gameObject.CompareTag("highLight"))
-							rend.material.color = Color.red;
-						}
-				}
-		}
-
-		if ( Input.GetKeyUp (KeyCode.E) && !accusing ){
-				if ( Physics.Raycast(ray, out hit, 15) ) {
-					if(accused==null)
-						if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
-								accusing = true;
-								accused = hit.transform.gameObject;
+		if(Camera.main!=null){
+			RaycastHit hit;
+			Ray ray = Camera.main.ScreenPointToRay( screenPoint );
+			if (Physics.Raycast (ray, out hit, 15)) {
+				if(accused==null)
+					if(hit.transform.gameObject.CompareTag("Guest")||hit.transform.gameObject.CompareTag("Spy")){
+							renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
+							foreach(Renderer rend in renders){
+								if(rend.gameObject.CompareTag("highLight"))
+								rend.material.color = Color.red;
 							}
-				}
-		}
+					}
+			}
 
-		//Create Ally Texts
-		GameObject[] allies = GameObject.FindGameObjectsWithTag("Guard");
-		foreach(GameObject ally in allies){
-			if(ally!=gameObject){
-				if(!ally.GetComponent<Guard>().textAdded){
-					ally.GetComponent<Guard>().textAdded = true;
-					GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
-					textInstance.GetComponent<AllyText>().target = ally.transform;
-					textInstance.transform.parent = ally.transform;
-					textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
-				}
-				if((ally.GetComponentInChildren<TextMesh>().text == "") && ally.GetComponent<Guard>().textAdded){
-					ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
-					
+			if ( Input.GetKeyUp (KeyCode.E) && !accusing ){
+					if ( Physics.Raycast(ray, out hit, 15) ) {
+						if(accused==null)
+							if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
+									accusing = true;
+									accused = hit.transform.gameObject;
+								}
+					}
+			}
+
+			//Create Ally Texts
+			GameObject[] allies = GameObject.FindGameObjectsWithTag("Guard");
+			foreach(GameObject ally in allies){
+				if(ally!=gameObject){
+					if(!ally.GetComponent<Guard>().textAdded){
+						ally.GetComponent<Guard>().textAdded = true;
+						GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
+						textInstance.GetComponent<AllyText>().target = ally.transform;
+						textInstance.transform.parent = ally.transform;
+						textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
+					}
+					if((ally.GetComponentInChildren<TextMesh>().text == "") && ally.GetComponent<Guard>().textAdded){
+						ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
+						
+					}
 				}
 			}
-		}	
+		}
 	}
 
 	void testAccusation(){
@@ -218,9 +220,7 @@ public class Guard : MonoBehaviour
 	void spectate(){
 		GetComponentInChildren<Camera>().enabled = false; 
 		GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
-		if(guards.Length == 0){
-			guards = GameObject.FindGameObjectsWithTag("Spy");
-		}
+
 		foreach (GameObject guard in guards){
 			if(guard.gameObject != gameObject){
 				guard.GetComponentInChildren<Camera>().enabled = true; 

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace BehaviorTree{
 
 	public abstract class Task {
-		protected List<Task> children;
+		public List<Task> children;
 
 		public Task(){
 			children = new List<Task>();
@@ -28,7 +28,6 @@ namespace BehaviorTree{
 		public Selector( List<Task> children ) : base(children){}
 
 		public override Status run(GameObject gameObject){
-			// Debug.Log("Selecting Task");
 			foreach( Task t in children ){
 				if( t.run(gameObject) == Status.True ){
 					return Status.True;
@@ -40,6 +39,7 @@ namespace BehaviorTree{
 	}
 
 	class NonDeterministicSelector : Task{
+		public NonDeterministicSelector(){}
 
 		public NonDeterministicSelector( List<Task> children ) : base(children){}
 
@@ -61,7 +61,6 @@ namespace BehaviorTree{
 		public Sequence( List<Task> children ) : base(children){}
 		
 		public override Status run(GameObject gameObject){
-			// Debug.Log("Going through Sequence");
 			foreach( Task t in children ){
 				if( t.run(gameObject) != Status.True ){
 					return Status.False;
@@ -90,7 +89,9 @@ namespace BehaviorTree{
 	}
 
 	abstract class Decorator : Task {
-		protected Task child;
+		public Task child;
+
+		public Decorator(){}
 
 		public Decorator( Task child ){
 			this.child = child;
@@ -116,18 +117,8 @@ namespace BehaviorTree{
 		}
 	}
 
-	class UntilFail : Decorator {
-
-		public UntilFail( Task child ) : base(child){}
-
-		public override Status run(GameObject gameObject){
-			while(true){
-				if( child.run(gameObject) == Status.False ) return Status.True;
-			}
-		}
-	}
-
 	class Inverter : Decorator {
+		public Inverter(){}
 		public Inverter( Task child ) : base( child ){}
 
 		public override Status run(GameObject gameObject){
@@ -158,18 +149,89 @@ namespace BehaviorTree{
 		}
 	} 
 
+	class Idle1 : Task { 
+		public override Status run(GameObject gameObject){
+			// gameObject.GetComponent<Animator>().SetBool("Idle1", true);
+			return Status.True;
+		}
+	}
+
+	class Idle2 : Task { 
+		public override Status run(GameObject gameObject){
+			// gameObject.GetComponent<Animator>().SetBool("Idle2", true);
+			return Status.True;
+		}
+	}
+
+	class GoToDestination : Task {
+		public override Status run(GameObject gameObject){
+			Vector3 dest = gameObject.GetComponent<BaseAI>().destination;
+			gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
+			gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+			gameObject.GetComponent<NavMeshAgent>().SetDestination(dest);
+			return Status.True;
+		}
+	}
+
+	class WalkAway : Task {
+		public override Status run(GameObject gameObject){
+			Debug.Log("Walking away");
+			Vector3 newDest;
+			newDest = new Vector3(UnityEngine.Random.Range( gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.min.x,
+															gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.max.x),
+															gameObject.transform.position.y,
+															UnityEngine.Random.Range(gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.min.z,
+															gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.max.z));
+			gameObject.GetComponent<BaseAI>().destination = newDest;
+			gameObject.GetComponent<BaseAI>().distFromDest = 10f;
+			gameObject.GetComponent<NavMeshAgent>().SetDestination(newDest);
+			return Status.True;
+		}
+	}
+
+	class IsTurn : Task{
+		public override Status run(GameObject gameObject){
+			if(gameObject.GetComponent<BaseAI>().isYourTurn){
+				return Status.True;
+			}
+			return Status.False;
+		}
+	}
+
+
 	// <---------------------- Behave Trees ------------------------>
 	class MakeDrink : Sequence{
 		public MakeDrink(){
+			this.addChild( new GoToDestination() );
 			this.addChild( new HoldDrink() );
 			this.addChild( new CreateDrink() );
+			this.addChild( new WalkAway() );
 		}
 
 		public override Status run(GameObject gameObject){
-			gameObject.GetComponent<BaseAI>().thirst -= 10;
-			gameObject.GetComponent<BaseAI>().bladder += 5;
-			gameObject.GetComponent<BaseAI>().atDrink = false;
 			return base.run(gameObject);
+		}
+	}
+
+	class WaitInLine : Sequence { 
+		public WaitInLine(){
+			this.addChild(new Inverter(new IsTurn()));
+			this.addChild(new IdleSelector());
+		}
+	}
+
+	class IdleSelector : NonDeterministicSelector {
+		public IdleSelector(){
+			this.addChild(new Idle1());
+			this.addChild(new Idle2());
+		}
+	}
+
+	class DrinkingTree : Sequence {
+		public DrinkingTree(){
+			addChild(new Sequence());
+			children[children.Count-1].addChild(new Inverter( new WaitInLine() ));
+			children[children.Count-1].addChild(new MakeDrink());
 		}
 	}
 
@@ -177,6 +239,7 @@ namespace BehaviorTree{
 		False,
 		True,
 		Waiting,
+		Tree,
 		Error
 	}
 

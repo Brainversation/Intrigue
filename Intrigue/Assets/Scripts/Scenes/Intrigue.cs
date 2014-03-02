@@ -154,28 +154,16 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void gameOver(){
-		if(player.Team=="Spy"){
-			foreach(GameObject sp in GameObject.FindGameObjectsWithTag("Spy")){
-				if(sp.GetComponent<Spy>().enabled){
-					loadingScreen = sp.GetComponentInChildren<LoadingScreen>();
-				}
-			}
-		}
-		else if(player.Team=="Guard"){
-			foreach(GameObject gu in GameObject.FindGameObjectsWithTag("Guard")){
-				if(gu.GetComponent<Guard>().enabled){
-					loadingScreen = gu.GetComponentInChildren<LoadingScreen>();
-				}
-			}
-		}
-		if(loadingScreen==null)
-			loadingScreen = loadingBackup;
 		
+		if(playerGO!=null)
+			playerGO.GetComponentInChildren<Camera>().enabled = false;
+		loadingScreen = loadingBackup;
+
 		if(roundsLeft > 0){
 			Debug.Log( "Reset" );
 			--roundsLeft;
 			photonView.RPC("syncRounds", PhotonTargets.OthersBuffered, roundsLeft);
-			PhotonNetwork.isMessageQueueRunning = false;
+			//PhotonNetwork.isMessageQueueRunning = false;
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;

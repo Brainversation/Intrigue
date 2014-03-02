@@ -7,13 +7,15 @@ public class LoadingScreen : MonoBehaviour {
 	public GameObject UIRoot;
 	public GameObject bg;
 	public GameObject loadingBar;
-	private int loadCounter=0;
+	private int loadCounter = 0;
 	private AsyncOperation async;
 	private PhotonView photonView = null;
+	private Player player;
 
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
+		player = GameObject.Find("Player").GetComponent<Player>();
 	}
 
 	public void StartLoadingLevel(string levelTitle){
@@ -35,7 +37,7 @@ public class LoadingScreen : MonoBehaviour {
 	 	async = Application.LoadLevelAsync(levelTitle);
 	 	if(loadingBar!=null){
 		 	if(levelTitle=="Intrigue")
-		 		loadingBar.GetComponent<UISlider>().value = this.loadCounter/PhotonNetwork.playerList.Length;
+		 		loadingBar.GetComponent<UISlider>().value = loadCounter/PhotonNetwork.playerList.Length;
 		 	else
 		 		loadingBar.GetComponent<UISlider>().value = async.progress;
 	 	}
@@ -51,12 +53,12 @@ public class LoadingScreen : MonoBehaviour {
         }
 
         Debug.Log("LevelLoaded" + async.progress);
-        photonView.RPC("levelLoaded", PhotonTargets.All);
+        photonView.RPC("levelLoaded", PhotonTargets.MasterClient, player.Handle);
 
-        while(!async.allowSceneActivation){
-        	Debug.Log("Waiting: " + this.loadCounter + "/" + (PhotonNetwork.playerList.Length));
+        while(!async.allowSceneActivation){	
 	        if(PhotonNetwork.isMasterClient){
-	        	if(this.loadCounter == PhotonNetwork.playerList.Length){
+	        	Debug.Log("Waiting: " + loadCounter + "/" + (PhotonNetwork.playerList.Length));
+	        	if(loadCounter == PhotonNetwork.playerList.Length){
 	        		photonView.RPC("startGame", PhotonTargets.All);
 	        	}
 	        }
@@ -64,10 +66,13 @@ public class LoadingScreen : MonoBehaviour {
 	    }
 	}
 
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+   	
+   	}
+
 	[RPC]
-	void levelLoaded(){
-		Debug.Log("loaded called");
-		this.loadCounter++;
+	void levelLoaded(string playerName){
+		++loadCounter;
 	}
 
 	[RPC]

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using RBS;
@@ -13,14 +13,19 @@ public class BaseAI : Photon.MonoBehaviour {
 	private Quaternion correctPlayerRot;
 	private Rule currentRule;
 	private float updateWants = 5f;
+	private int indent;
 
 	protected List<Rule> rules;
-	protected Status behaving = Status.False;
+
+	private static List<GameObject> ais = new List<GameObject>();
 
 	// AI info
 	[HideInInspector] public Vector3 destination;
 	[HideInInspector] public AIRoomInfo room;
-	[HideInInspector] public bool atDrink = false;
+	[HideInInspector] public Task tree = null;
+	[HideInInspector] public bool isYourTurn = false;
+	[HideInInspector] public Status status = Status.False;
+	[HideInInspector] public float distFromDest = 5f;
 
 	// Wants, needs, and feelings 0-100 scale
 	[HideInInspector] public float thirst = 0f;
@@ -32,13 +37,18 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public float bladder = 0f;
 
 	void Start(){
+		indent = ais.Count;
+		ais.Add(gameObject);
 		anim = GetComponent<Animator>();
 		anim.speed = 1f;
 		initAI();
-		bored = 51;
-		thirst = 51;
-		lonely = 51;
-		bladder = 40;
+		thirst = Random.Range(0, 100);
+		bored = Random.Range(0, 100);
+		hunger = Random.Range(0, 100);
+		lonely = Random.Range(0, 100);
+		tired = Random.Range(0, 100);
+		anxiety = Random.Range(0, 100);
+		bladder = Random.Range(0, 100);
 	}
 
 	public void Update(){
@@ -49,39 +59,57 @@ public class BaseAI : Photon.MonoBehaviour {
 			// Do updating stuff
 		// }
 
-		if(agent.hasPath && agent.remainingDistance < 5f){
-			anim.SetFloat("Speed", 0f);
-			agent.ResetPath();
-			behaving = Status.False;
-		}
+		switch(status){
+			case Status.False:
+				//Sort the list in terms of weight
+				rules.Sort();
 
-		if( behaving == Status.False ){
-			//Sort the list in terms of weight
-			rules.Sort();
-
-			for (int i = 0; i < rules.Count; i++){
-				if (rules[i].isFired()){
-					currentRule = rules[i];
-					rules[i].weight -= 15;
-					behaving = rules[i].consequence(gameObject);
-					break;
+				for (int i = 0; i < rules.Count; i++){
+					if (rules[i].isFired()){
+						currentRule = rules[i];
+						rules[i].weight -= 15;
+						status = rules[i].consequence(gameObject);
+						break;
+					}
 				}
-			}
-		} else if( behaving == Status.True ){
-			behaving = Status.Waiting;
-			Invoke("backToRule", 2.5f);
+				break;
+
+			case Status.True:
+				status = Status.Waiting;
+				Invoke("backToRule", 2.5f);
+				break;
+
+			case Status.Tree:
+				if( tree.run(gameObject) == Status.True){
+					Invoke("backToRule", 5f);
+					tree = null;
+					status = Status.Waiting;
+				}
+				break;
+
+			case Status.Waiting:
+				if(agent.hasPath && agent.remainingDistance < distFromDest){
+					Debug.Log("STOP");
+					anim.SetFloat("Speed", 0f);
+					agent.ResetPath();
+					if(tree == null)
+						status = Status.False;
+					else
+						status = Status.Tree;
+				}
+				break;
 		}
 	}
 
 	void FixedUpdate(){
 		if(updateWants < 0){
-			if( thirst <= 100) thirst += 1f;
-			if( bored <= 100) bored += 1f;
-			if( hunger <= 100) hunger += 1f;
-			if( lonely <= 100) lonely += 1f;
-			if( tired <= 100) tired += 1f;
-			if( anxiety <= 100) anxiety += 1f;
-			if( bladder <= 100) bladder += 1f;
+			if( thirst < 100) thirst += 1f;
+			if( bored < 100) bored += 1f;
+			if( hunger < 100) hunger += 1f;
+			if( lonely < 100) lonely += 1f;
+			if( tired < 100) tired += 1f;
+			if( anxiety < 100) anxiety += 1f;
+			if( bladder < 100) bladder += 1f;
 			updateWants = 5f;
 		} else {
 			updateWants -= Time.deltaTime;
@@ -89,13 +117,16 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	void OnGUI(){
-		GUILayout.Label( "thirst " + thirst);
-		GUILayout.Label( "bored " + bored);
-		GUILayout.Label( "hunger " + hunger);
-		GUILayout.Label( "lonely " + lonely);
-		GUILayout.Label( "tired " + tired);
-		GUILayout.Label( "anxiety " + anxiety);
-		GUILayout.Label( "bladder " + bladder);
+		GUI.color = Color.black;
+		GUILayout.BeginArea(new Rect(100 * indent, 0, 100, 200));
+			GUILayout.Label( "thirst " + thirst);
+			GUILayout.Label( "bored " + bored);
+			GUILayout.Label( "hunger " + hunger);
+			GUILayout.Label( "lonely " + lonely);
+			GUILayout.Label( "tired " + tired);
+			GUILayout.Label( "anxiety " + anxiety);
+			GUILayout.Label( "bladder " + bladder);
+		GUILayout.EndArea();
 	}
 
 	void initAI(){
@@ -104,10 +135,6 @@ public class BaseAI : Photon.MonoBehaviour {
 		Rule rule0 = new WantToGetDrink(gameObject);
 		rule0.weight = 7;
 		rules.Add(rule0);
-
-		Rule rule2 = new ReadyToDrink(gameObject);
-		rule2.weight = 5;
-		rules.Add(rule2);
 
 		Rule rule4 = new WantToConverse(gameObject);
 		rule4.weight = 4;
@@ -122,10 +149,12 @@ public class BaseAI : Photon.MonoBehaviour {
 		Debug.Log("Back to rule");
 		if(currentRule.antiConsequence != null)
 			currentRule.antiConsequence();
-		behaving = Status.False;
+		if(!agent.hasPath) status = Status.False;
 	}
 
 	public void addDrink(){
 		Debug.Log("adding Drink");
+		this.thirst -= 10;
+		this.bladder += 5;
 	}
 }

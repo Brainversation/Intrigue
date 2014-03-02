@@ -110,24 +110,26 @@ public class Spy : MonoBehaviour
 			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + seconds + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
 
 		//Interact Raycasts
-		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
-		if (Input.GetKey("e")){
-			RaycastHit hit;
-			Debug.DrawRay(ray.origin,ray.direction*15f,Color.green);
-			if( Physics.Raycast(ray, out hit, 15.0f) ){
-				if( hit.transform.tag == "Objective" ){
-					Objective hitObjective = hit.transform.GetComponent<Objective>();
-					hitObjective.useObjective(gameObject);
-					objectiveType = hitObjective.objectiveType;
+		if(Camera.main!=null){
+			Ray ray = Camera.main.ScreenPointToRay( screenPoint );
+			if (Input.GetKey("e")){
+				RaycastHit hit;
+				Debug.DrawRay(ray.origin,ray.direction*15f,Color.green);
+				if( Physics.Raycast(ray, out hit, 15.0f) ){
+					if( hit.transform.tag == "Objective" ){
+						Objective hitObjective = hit.transform.GetComponent<Objective>();
+						hitObjective.useObjective(gameObject);
+						objectiveType = hitObjective.objectiveType;
+					}
+					else
+						doingObjective = false;
 				}
 				else
-					doingObjective = false;
+						doingObjective = false;
 			}
 			else
-					doingObjective = false;
+				doingObjective = false;
 		}
-		else
-			doingObjective = false;
 
 		//Create Ally and Objective Texts
 		GameObject[] allies = GameObject.FindGameObjectsWithTag("Spy");
@@ -177,9 +179,6 @@ public class Spy : MonoBehaviour
 		Debug.Log("Trying to Spectate");
 		GetComponentInChildren<Camera>().enabled = false; 
 		GameObject[] spies = GameObject.FindGameObjectsWithTag("Spy");
-		if(spies.Length == 0){
-			spies = GameObject.FindGameObjectsWithTag("Guard");
-		}
 		foreach (GameObject spy in spies){
 			if(spy.gameObject != gameObject){
 				spy.GetComponentInChildren<Camera>().enabled = true; 

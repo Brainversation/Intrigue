@@ -17,6 +17,7 @@ public class SpyCrosshair : MonoBehaviour {
 	
 	}
 	void Update(){
+		if(Camera.main!=null){
 			Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 			RaycastHit hit;
 			if( Physics.Raycast(ray, out hit, 15.0f) ){
@@ -29,6 +30,7 @@ public class SpyCrosshair : MonoBehaviour {
 			}
 			else
 				canInteract = false;
+		}
 	}
 
 	// Update is called once per frame
