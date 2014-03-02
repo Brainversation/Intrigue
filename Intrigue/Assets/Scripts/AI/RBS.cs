@@ -183,9 +183,7 @@ namespace RBS{
 	}
 
 	class WantToConverse : Rule{
-		GameObject go;
 		public WantToConverse(GameObject gameObject){
-			go = gameObject;
 			this.addCondition( new isLonely(gameObject) );
 			this.consequence = setDestConverse;
 		}
@@ -208,9 +206,7 @@ namespace RBS{
 	}
 
 	class NeedToUseRestroom : Rule{
-		GameObject go;
 		public NeedToUseRestroom(GameObject gameObject){
-			go = gameObject;
 			this.addCondition( new isBursting(gameObject) );
 			this.consequence = setDestRestroom;
 		}
