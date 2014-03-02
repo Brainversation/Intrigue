@@ -197,7 +197,7 @@ namespace TempRBS{
     class WantToRandRoom : Rule{
         public WantToRandRoom(GameObject gameObject){
             this.conditions.Add(new Bored(gameObject));
-            this.conditions = conditions;
+            //this.conditions = conditions;
             this.consequence = setDestRoom;
         }
 
@@ -221,7 +221,7 @@ namespace TempRBS{
         public WantToWanderRoom(GameObject gameObject){
             this.conditions.Add(new AtDest(gameObject));
             this.conditions.Add(new NotBored(gameObject));
-            this.conditions = conditions;
+            //this.conditions = conditions;
             this.consequence = setDestInRoom;
         }
 
@@ -241,7 +241,7 @@ namespace TempRBS{
     class WantToInitRoom : Rule{
         public WantToInitRoom(GameObject gameObject){
             this.conditions.Add(new RoomIsNull(gameObject));
-            this.conditions = conditions;
+            //this.conditions = conditions;
             this.consequence = setDestRoom;
         }
 
@@ -266,7 +266,7 @@ namespace TempRBS{
         public WantToGoToBar(GameObject gameObject) {
             this.conditions.Add(new Thirst(gameObject));
             this.conditions.Add(new Bored(gameObject));
-            this.conditions = conditions;
+            //this.conditions = conditions;
             this.consequence = setDestRoom;
             this.barLocation = GameObject.Find("Bar").transform.position;
         }
@@ -289,7 +289,7 @@ namespace TempRBS{
     class GoToDestination : Rule{
         public GoToDestination(GameObject gameObject) {
             this.conditions.Add(new DestChange(gameObject));
-            this.conditions = conditions;
+            //this.conditions = conditions;
             this.consequence = go;
         }
 
