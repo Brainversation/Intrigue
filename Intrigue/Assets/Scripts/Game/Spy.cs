@@ -177,9 +177,6 @@ public class Spy : MonoBehaviour
 		Debug.Log("Trying to Spectate");
 		GetComponentInChildren<Camera>().enabled = false; 
 		GameObject[] spies = GameObject.FindGameObjectsWithTag("Spy");
-		if(spies.Length == 0){
-			spies = GameObject.FindGameObjectsWithTag("Guard");
-		}
 		foreach (GameObject spy in spies){
 			if(spy.gameObject != gameObject){
 				spy.GetComponentInChildren<Camera>().enabled = true; 

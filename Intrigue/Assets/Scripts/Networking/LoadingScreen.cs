@@ -33,6 +33,7 @@ public class LoadingScreen : MonoBehaviour {
 
 	IEnumerator levelLoader(string levelTitle){
 	 	async = Application.LoadLevelAsync(levelTitle);
+	 	Debug.Log("LevelLoading" + async.progress);
 	 	if(loadingBar!=null){
 		 	if(levelTitle=="Intrigue")
 		 		loadingBar.GetComponent<UISlider>().value = this.loadCounter/PhotonNetwork.playerList.Length;
@@ -63,6 +64,10 @@ public class LoadingScreen : MonoBehaviour {
 	        yield return null;
 	    }
 	}
+
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+   	
+   	}
 
 	[RPC]
 	void levelLoaded(){

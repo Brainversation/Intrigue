@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class BackupCamera : MonoBehaviour {
+	private GameObject[] cams;
+	private bool foundActive = false;
 
 	// Use this for initialization
 	void Awake () {
@@ -11,11 +13,23 @@ public class BackupCamera : MonoBehaviour {
 	}
 	
 	void Update(){
-		if(GameObject.FindGameObjectsWithTag("MainCamera").Length==0){
-			Debug.Log("Can't find cameras");
-			gameObject.GetComponent<Camera>().enabled = true;
-			gameObject.GetComponent<AudioListener>().enabled = true;
-			gameObject.GetComponentInChildren<UIRoot>().enabled = true;
+			cams = GameObject.FindGameObjectsWithTag("MainCamera");
+			foundActive = false;
+			foreach(GameObject c in cams){
+				if(c.GetComponent<Camera>().enabled){
+					foundActive = true;
+				}
+			}
+			if(!foundActive){
+				Debug.Log("Can't find cameras");
+				gameObject.GetComponent<Camera>().enabled = true;
+				gameObject.GetComponent<AudioListener>().enabled = true;
+				gameObject.GetComponentInChildren<UIRoot>().enabled = true;
+			}
+			else{
+				gameObject.GetComponent<Camera>().enabled = false;
+				gameObject.GetComponent<AudioListener>().enabled = false;
+				gameObject.GetComponentInChildren<UIRoot>().enabled = false;
+			}
 		}
-	}
 }

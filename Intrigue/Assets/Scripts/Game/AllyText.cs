@@ -25,8 +25,9 @@ public class AllyText : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 			thisTransform.position = target.position + offset;
-			thisTransform.LookAt(Camera.main.transform, Vector3.up);
+			if(Camera.main!=null && thisTransform!=null){
+				thisTransform.LookAt(Camera.main.transform, Vector3.up);
+			}
 			thisTransform.Rotate(Vector3.up, 180);
 	}
 }
-

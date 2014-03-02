@@ -218,9 +218,7 @@ public class Guard : MonoBehaviour
 	void spectate(){
 		GetComponentInChildren<Camera>().enabled = false; 
 		GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
-		if(guards.Length == 0){
-			guards = GameObject.FindGameObjectsWithTag("Spy");
-		}
+
 		foreach (GameObject guard in guards){
 			if(guard.gameObject != gameObject){
 				guard.GetComponentInChildren<Camera>().enabled = true; 
