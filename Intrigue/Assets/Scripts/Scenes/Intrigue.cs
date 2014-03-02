@@ -154,30 +154,10 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void gameOver(){
-		bool foundPlayer = false;
-		if(player.Team=="Spy"){
-			foreach(GameObject sp in GameObject.FindGameObjectsWithTag("Spy")){
-				if(sp.GetComponent<Spy>().enabled && !sp.GetComponent<Spy>().isOut){
-					loadingScreen = sp.GetComponentInChildren<LoadingScreen>();
-					foundPlayer = true;
-					Debug.Log("FoundActiveSpy");
-				}
-			}
-		}
-		else if(player.Team=="Guard"){
-			foreach(GameObject gu in GameObject.FindGameObjectsWithTag("Guard")){
-				if(gu.GetComponent<Guard>().enabled && !gu.GetComponent<Guard>().isOut){
-					loadingScreen = gu.GetComponentInChildren<LoadingScreen>();
-					foundPlayer = true;
-					Debug.Log("FoundActiveGuard");
-				}
-			}
-		}
-		if(loadingScreen==null || !foundPlayer){
-			loadingScreen = loadingBackup;
-		}
+		
+		playerGO.GetComponentInChildren<Camera>().enabled = false;
+		loadingScreen = loadingBackup;
 
-		Debug.Log("Loadingscreen = " + loadingScreen + "IsBackup: "+ (loadingScreen==loadingBackup));
 		if(roundsLeft > 0){
 			Debug.Log( "Reset" );
 			--roundsLeft;
