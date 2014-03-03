@@ -72,7 +72,6 @@ public class Spy : MonoBehaviour
 		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
 		guiLabels = GetComponentsInChildren<UILabel>();
 		uiPanels = GetComponentsInChildren<UIPanel>(true);
-		Debug.Log("PS: " + player.Score + "RS: " + remoteScore);
 		foreach(UIPanel uiP in uiPanels){
 			if(uiP.gameObject.CompareTag("ObjectivePanel")){
 				objPanel = uiP;

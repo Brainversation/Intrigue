@@ -106,7 +106,12 @@ public class Intrigue : MonoBehaviour {
 		if( timeLeft <= (timeLimit-10) ){
 			if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/totalObjActive)*100)>50){
 				if(wantGameOver){
-					Debug.Log("Game Over: \nTimeLeft: " + timeLeft + " SpiesLeft: " + numSpiesLeft + " GuardsLeft: " + numGuardsLeft + " ObjectivesCompleted:" + objectivesCompleted + " numObjectives:" + numObjectives);
+					Debug.Log("Game Over:");
+					Debug.Log("TimeLeft: " + timeLeft);
+					Debug.Log("SpiesLeft: " + numSpiesLeft);
+					Debug.Log("GuardsLeft: " + numGuardsLeft);
+					Debug.Log("ObjectivesCompleted:" + objectivesCompleted);
+					Debug.Log("numObjectives:" + numObjectives);
 					photonView.RPC("callGameOver", PhotonTargets.All);
 				}
 			}

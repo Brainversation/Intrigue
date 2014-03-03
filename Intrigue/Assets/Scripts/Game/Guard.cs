@@ -192,18 +192,20 @@ public class Guard : MonoBehaviour
 
 	void testAccusation(){
 		if(accused != null && accused.CompareTag("Spy")){
+			accusing = false;
+			accused = null;
 			photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
 			photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 			photonView.RPC("spyCaught", PhotonTargets.MasterClient);
 			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
-		}
-		else{
+			;
+		}else{
+			accusing = false;
+			accused = null;
 			photonView.RPC("guardFailed", PhotonTargets.MasterClient);
 			isOut = true;
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
 		}
-		accusing = false;
-		accused = null;
 	}
 		
 	public void outStarted(){
@@ -224,11 +226,13 @@ public class Guard : MonoBehaviour
 
 	[RPC]
 	void spyCaught(){
+		Debug.Log("spy removed");
 		--Intrigue.numSpiesLeft;
 	}
 
 	[RPC]
 	void guardFailed(){
+		Debug.Log("guard removed");
 	    --Intrigue.numGuardsLeft;
 	}
 
