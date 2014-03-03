@@ -4,10 +4,8 @@ using System.Collections;
 public class TeamChange : MonoBehaviour {
 
 	private Player player;
-	private PhotonView photonView = null;
 	// Use this for initialization
 	void Start () {
-	this.photonView = PhotonView.Get(this);
 	PhotonNetwork.networkingPeer.NewSceneLoaded();
 	player = GameObject.Find("Player").GetComponent<Player>();
 	}

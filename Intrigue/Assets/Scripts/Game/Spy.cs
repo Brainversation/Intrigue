@@ -23,7 +23,6 @@ public class Spy : MonoBehaviour
 	private UIPanel[] uiPanels;
 	private UIPanel objPanel;
 	private UISlider objSlider;
-	private GameObject[] spies = null;
 	private Intrigue intrigue;
 	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
 
@@ -174,9 +173,8 @@ public class Spy : MonoBehaviour
 
 	void spectate(){
 		Debug.Log("Trying to Spectate");
-		GetComponentInChildren<Camera>().enabled = false; 
-		GameObject[] spies = GameObject.FindGameObjectsWithTag("Spy");
-		foreach (GameObject spy in spies){
+		GetComponentInChildren<Camera>().enabled = false;
+		foreach (GameObject spy in GameObject.FindGameObjectsWithTag("Spy")){
 			if(spy.gameObject != gameObject){
 				spy.GetComponentInChildren<Camera>().enabled = true; 
 				Debug.Log("In For loop enabled a Camera");

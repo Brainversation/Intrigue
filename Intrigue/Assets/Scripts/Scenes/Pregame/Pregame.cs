@@ -5,13 +5,11 @@ public class Pregame : MonoBehaviour {
 
 	private string chatBox = "";
 	private int readyCount = 0;
-	private Player player;
 
 	// Use this for initialization
 	void Start () {
 		Screen.lockCursor = false;
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
-		player = GameObject.Find("Player").GetComponent<Player>();
 
 	}
 	

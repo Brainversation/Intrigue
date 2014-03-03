@@ -8,7 +8,6 @@ public class Guard : MonoBehaviour
 	private PhotonView photonView = null;
 	private GameObject[] guests = null;
 	private GameObject[] spies = null;
-	private GameObject[] guards = null;
 	private Player player;
 	private Intrigue intrigue;
 	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
@@ -212,10 +211,9 @@ public class Guard : MonoBehaviour
 	}
 
 	void spectate(){
-		GetComponentInChildren<Camera>().enabled = false; 
-		GameObject[] guards = GameObject.FindGameObjectsWithTag("Guard");
-
-		foreach (GameObject guard in guards){
+		GetComponentInChildren<Camera>().enabled = false;
+		
+		foreach (GameObject guard in GameObject.FindGameObjectsWithTag("Guard")){
 			if(guard.gameObject != gameObject){
 				guard.GetComponentInChildren<Camera>().enabled = true; 
 				break;
