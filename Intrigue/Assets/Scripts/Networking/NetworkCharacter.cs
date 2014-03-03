@@ -29,11 +29,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	public void FixedUpdate(){
 		if(photonView.isMine && !isOut){
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
-			//Debug.Log("Vert: " + Input.GetAxis("Vertical"));
 			anim.SetFloat("Direction", Input.GetAxis("Horizontal"));
-			//Debug.Log("Horiz: " + Input.GetAxis("Horizontal"));
 			anim.SetBool("Run", Input.GetKey("left shift"));
-			//anim.SetBool("Interact", Input.GetKey("e"));
 			anim.SetBool("Out", false);
 			if(player.Team=="Spy"){
 				if(spyRef.doingObjective){
@@ -54,7 +51,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetFloat("Speed", 0f);
 			anim.SetFloat("Direction", 0f);
 			anim.SetBool("Run", false);
-			anim.SetBool("Interact", false);
 			anim.SetBool("Out", true);
 		}
 	}
@@ -67,7 +63,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			stream.SendNext(Input.GetAxis("Vertical"));
 			stream.SendNext(Input.GetAxis("Horizontal"));
 			stream.SendNext(Input.GetKey("left shift"));
-			stream.SendNext(Input.GetKey("e"));
+			stream.SendNext(anim.GetBool("InteractSafe"));
+			stream.SendNext(anim.GetBool("InteractComp"));
 
 		}else{
 			// Network player, receive data
@@ -76,7 +73,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetFloat("Speed", (float) stream.ReceiveNext());
 			anim.SetFloat("Direction", (float) stream.ReceiveNext());
 			anim.SetBool("Run", (bool) stream.ReceiveNext());
-			anim.SetBool("Interact", (bool) stream.ReceiveNext());
+			anim.SetBool("InteractSafe", (bool) stream.ReceiveNext());
+			anim.SetBool("InteractComp", (bool) stream.ReceiveNext());
 		}
 	}
 }
