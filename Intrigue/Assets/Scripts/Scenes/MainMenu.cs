@@ -8,10 +8,9 @@ public class MainMenu : MonoBehaviour {
 	private UITable serverListTable;
 	public GameObject btnJoinServer_prefab;
 	public GameObject serverTable;
-	private string filePath;
-	private StreamWriter file;
 	private bool handleSet = false;
 	private bool serverSet = false;
+	private string playerPrefsPreffix;
 	public GameObject reconnectWindow;
 	public GameObject retryConnect;
 	public GameObject attemptingConnection;
@@ -23,6 +22,7 @@ public class MainMenu : MonoBehaviour {
 	public GameObject bg_texture;
 	[HideInInspector] public GameObject createServerButton;
 	[HideInInspector] public GameObject findServerButton;
+
 	void Start () {
 		createServerButton = GameObject.Find("CREATE SERVER");
 		findServerButton = GameObject.Find("FIND SERVER");
@@ -34,34 +34,29 @@ public class MainMenu : MonoBehaviour {
 		player.TeamID = 0;
 		player.TeamScore = 0;
 		player.EnemyScore = 0;
-		//File Stuff
+
+		//Player Prefs
 		if (Application.isEditor)
-			filePath = Application.persistentDataPath + "/PlayerEditor.txt";
+			playerPrefsPreffix = "PlayerEditor";
 		else
-			filePath = Application.persistentDataPath + "/Player.txt";
-		if(File.Exists(filePath) ){
-			string line = File.ReadAllText(filePath);
-			int i = 0;
-			foreach(string l in line.Split('\n')){
-				if(i == 0){
-					player.Handle = l;
-					if(player.Handle!="" && player.Handle!=null)
-						handleSet = true;
-				} else if(i == 1){
-					player.RoomName = l;
-					if(player.RoomName!="" && player.RoomName!=null)
-						serverSet = true;
-				}
-				++i;
-			}
+			playerPrefsPreffix = "Player";
+
+		if( PlayerPrefs.HasKey( playerPrefsPreffix + "Name" ) ){
+			player.Handle = PlayerPrefs.GetString(playerPrefsPreffix + "Name");
+			handleSet = true;
 		}
-		file = File.CreateText(filePath);
+
+		if( PlayerPrefs.HasKey( playerPrefsPreffix + "Room" ) ){
+			player.RoomName = PlayerPrefs.GetString(playerPrefsPreffix + "Room");
+			serverSet = true;
+		}
 
 		if(handleSet){
 			mask.GetComponent<TweenAlpha>().PlayForward();
 			NGUITools.SetActive(handleWindow,false);
 			handleWindow.GetComponent<TweenAlpha>().PlayReverse();
 		}
+
 		if(serverSet){
 			serverNameLabel.GetComponent<UILabel>().text = player.RoomName;
 		}
@@ -164,20 +159,14 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnJoinedRoom(){
-		file.WriteLine(player.Handle);
-		file.WriteLine(player.RoomName);
-		file.Close();
+		Debug.Log("HEEHRHREWHSHSDJDSJ");
+		PlayerPrefs.SetString(playerPrefsPreffix + "Name", player.Handle);
+		PlayerPrefs.SetString(playerPrefsPreffix + "Room", player.RoomName);
+		PlayerPrefs.Save();
 		loadingScreen.StartLoadingLevel("Pregame");
-		//PhotonNetwork.LoadLevel("Pregame");
 	}
 
 	void OnPhotonJoinFailed(){
 		Debug.Log("OnPhotonJoinFailed");
-	}
-
-	void OnApplicationQuit() {
-		file.WriteLine(player.Handle);
-		file.WriteLine(player.RoomName);
-		file.Close();
 	}
 }

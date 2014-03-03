@@ -20,6 +20,5 @@ public class JoinServer : MonoBehaviour {
 		roomNames = gameObject.GetComponentsInChildren<UILabel>();
 		roomName = roomNames[0].text;
 		PhotonNetwork.JoinRoom(roomName);
-		//Debug.Log("Clicked room: "+roomName);
 	}
 }
