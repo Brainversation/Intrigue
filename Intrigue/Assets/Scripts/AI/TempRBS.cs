@@ -286,8 +286,8 @@ namespace TempRBS{
         }
     }
 
-    class GoToDestination : Rule{
-        public GoToDestination(GameObject gameObject) {
+    class TempGoToDestination : Rule{
+        public TempGoToDestination(GameObject gameObject) {
             this.conditions.Add(new DestChange(gameObject));
             //this.conditions = conditions;
             this.consequence = go;

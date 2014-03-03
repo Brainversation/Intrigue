@@ -3,11 +3,7 @@ using System.Collections;
 
 public class Pregame : MonoBehaviour {
 
-	private PhotonView photonView = null;
-	private Vector2 scrollPositionChat = new Vector2(0, 0);
 	private string chatBox = "";
-	private string textField = "";
-	private bool isReady = false;
 	private int readyCount = 0;
 	private Player player;
 
@@ -15,8 +11,6 @@ public class Pregame : MonoBehaviour {
 	void Start () {
 		Screen.lockCursor = false;
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
-		// Get photonView component
-		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 
 	}

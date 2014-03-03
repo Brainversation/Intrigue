@@ -8,8 +8,6 @@ public class PlayerList : MonoBehaviour {
 	private Player player;
 	public GameObject playerPrefab;
 	public GameObject guardTable;
-	private float totSpies = 0;
-	private float totGuards = 0;
 	private List<string> spies = new List<string>();
 	private List<string> guards = new List<string>();
 

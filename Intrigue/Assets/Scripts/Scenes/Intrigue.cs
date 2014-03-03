@@ -36,7 +36,6 @@ public class Intrigue : MonoBehaviour {
 	private static int roundsLeft = rounds;
 	private float totalObjActive;
 	private Player player;
-	private Network network;
 	public GameObject jailSpawn;
 	public LoadingScreen loadingBackup;
 
@@ -52,7 +51,6 @@ public class Intrigue : MonoBehaviour {
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
-		network = GameObject.FindWithTag("Scripts").GetComponent<Network>();
 
 
 		if(PhotonNetwork.isMasterClient){

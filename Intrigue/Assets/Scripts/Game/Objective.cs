@@ -12,12 +12,10 @@ public class Objective : Photon.MonoBehaviour {
 	private float timeLeft;
 	private bool finished = false;
 	private Animator anim;
-	private Network network;
 	private Player player;
 	private Intrigue intrigue;
 
 	void Start () {
-		network = GameObject.FindWithTag("Scripts").GetComponent<Network>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		player = GameObject.Find("Player").GetComponent<Player>();
 		timeLeft = completionTime;

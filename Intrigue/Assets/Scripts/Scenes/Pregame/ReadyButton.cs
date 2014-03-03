@@ -8,7 +8,6 @@ public class ReadyButton : MonoBehaviour {
 	private bool isReady = false;
 	private int readyCount = 0;
 	private UILabel label;
-	private UISprite sprite;
 	private UIToggle readyCheckToggle;
 	public GameObject readyCheck;
 	public LoadingScreen loadingScreen;
@@ -19,7 +18,6 @@ public class ReadyButton : MonoBehaviour {
 	PhotonNetwork.networkingPeer.NewSceneLoaded();
 	player = GameObject.Find("Player").GetComponent<Player>();
 	label = gameObject.GetComponentInChildren<UILabel>();
-	sprite = gameObject.GetComponent<UISprite>();
 	readyCheckToggle = readyCheck.GetComponentInChildren<UIToggle>();
 
 	}
@@ -29,7 +27,6 @@ public class ReadyButton : MonoBehaviour {
 		if(PhotonNetwork.isMasterClient){
 			if(readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
 				label.text = "START GAME";
-				//sprite.color = Color.green;
 				player.Ready = true;
 				readyCheckToggle.value = true;
 			}
@@ -37,14 +34,12 @@ public class ReadyButton : MonoBehaviour {
 			{	
 				if(player.Team==""){
 					label.text = "CHOOSE TEAM";
-					//sprite.color = Color.red;
 					player.Ready = false;
 					readyCheckToggle.value = false;
 
 				}
 				else{
 					label.text = "WAITING FOR OTHERS";
-					//sprite.color = Color.red;
 					player.Ready = true;
 					readyCheckToggle.value = false;
 				}
@@ -57,7 +52,6 @@ public class ReadyButton : MonoBehaviour {
 			else{
 				if(player.Team==""){
 					label.text = "CHOOSE TEAM";
-					//sprite.color = Color.red;
 				}
 			}
 		}

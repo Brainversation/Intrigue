@@ -8,16 +8,11 @@ public class AllyText : MonoBehaviour {
 	public float clampBorderSize = 0.05f;	// How much viewport space to leave at the borders when a label is being clamped
 	public bool useMainCamera = true;	// Use the camera tagged MainCamera
 	public Camera cameraToUse;	// Only use this if useMainCamera is false
-	private Camera cam;
 	private Transform thisTransform;
 
 	// Use this for initialization
 	void Start () {
 		thisTransform = transform;
-		if (useMainCamera)
-			cam = Camera.main;
-		else
-			cam = cameraToUse;
 	}
 	
 	// Update is called once per frame

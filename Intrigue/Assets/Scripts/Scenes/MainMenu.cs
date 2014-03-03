@@ -5,8 +5,6 @@ using System.IO;
 public class MainMenu : MonoBehaviour {
 
 	private Player player;
-	private bool internetOn = false;
-	private int numOfServers;
 	private UITable serverListTable;
 	public GameObject btnJoinServer_prefab;
 	public GameObject serverTable;
@@ -31,7 +29,6 @@ public class MainMenu : MonoBehaviour {
 		Screen.lockCursor = false;
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		player = GameObject.Find("Player").GetComponent<Player>();
-		numOfServers = 0;
 		connect();
 		player.Score = 0;
 		player.TeamID = 0;
@@ -76,11 +73,10 @@ public class MainMenu : MonoBehaviour {
 			connectingAttempt();
 		}
 		else if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated || PhotonNetwork.connectionStateDetailed == PeerState.Disconnected) {
-			internetOn = false;
+
 			noInternet();
 		}
 		else{
-			internetOn = true;
 			yesInternet();
 		}
 	}

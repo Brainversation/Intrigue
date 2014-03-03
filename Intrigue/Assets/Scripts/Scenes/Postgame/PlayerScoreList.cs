@@ -11,8 +11,6 @@ public class PlayerScoreList : MonoBehaviour {
 	private GameObject team1s;
 	private GameObject team2s;
 	private GameObject wins;
-	private float totteam1 = 0;
-	private float totteam2 = 0;
 	private List<string> team1= new List<string>();
 	private List<string> team2 = new List<string>();
 

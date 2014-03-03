@@ -12,8 +12,6 @@ public class Scoreboard : MonoBehaviour {
 	public GameObject spyTable;
 	public GameObject spyTeam;
 	public GameObject guardTeam;
-	private List<string> spiesL = new List<string>();
-	private List<string> guardsL = new List<string>();
 	private GameObject [] spies;
 	private GameObject [] guards;
 	

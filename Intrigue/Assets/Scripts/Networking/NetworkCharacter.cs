@@ -6,7 +6,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private Vector3 correctPlayerPos;
 	private Quaternion correctPlayerRot;
 	private Animator anim;
-	private GUIStyle style = new GUIStyle();
 	private Spy spyRef;
 	private Player player;
 	public bool isOut;

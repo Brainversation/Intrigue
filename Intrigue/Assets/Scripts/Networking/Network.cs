@@ -3,23 +3,16 @@ using System.Collections;
 
 public class Network : MonoBehaviour {
 
-	private PhotonView photonView = null;
-	private Vector2 scrollPositionChat = new Vector2(0, 0);
 	private string chatBox = "";
-	private string textField = "";
 	private Player player;
-	private Intrigue intrigue;
 
 	// Look up how to disconnect
 	void Start () {
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		// Get photonView component
-		photonView = PhotonView.Get(this);
 		PhotonNetwork.sendRate = 60;
 		PhotonNetwork.sendRateOnSerialize = 4;
 		player = GameObject.Find("Player").GetComponent<Player>();
-		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
-
 	}
 	
 	// Update is called once per frame

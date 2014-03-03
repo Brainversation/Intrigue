@@ -4,7 +4,6 @@ using System.Collections;
 public class Guard : MonoBehaviour
 {
 	private bool accusing = false;
-	private bool isSpectating = false;
 	private GameObject accused;
 	private PhotonView photonView = null;
 	private GameObject[] guests = null;
@@ -12,7 +11,6 @@ public class Guard : MonoBehaviour
 	private GameObject[] guards = null;
 	private Player player;
 	private Intrigue intrigue;
-	private Network network;
 	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
 	private GameObject timeLabel;
 	private GameObject outLabel;
@@ -31,9 +29,6 @@ public class Guard : MonoBehaviour
 
 	//Yield function that waits specified amount of seconds
 
-
-	private Rect windowRect = new Rect(Screen.width/4, Screen.height/4, Screen.width/2, Screen.height/2);
-
 	IEnumerator Yielder(int seconds){
 		yield return new WaitForSeconds(seconds);
 	}
@@ -41,7 +36,6 @@ public class Guard : MonoBehaviour
 	void Start(){
 		InvokeRepeating("syncPingAndScore", 1, 2F);
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
-		network = GameObject.FindWithTag("Scripts").GetComponent<Network>();
 		player = GameObject.Find("Player").GetComponent<Player>();
 		photonView = PhotonView.Get(this);
 
@@ -224,7 +218,6 @@ public class Guard : MonoBehaviour
 		foreach (GameObject guard in guards){
 			if(guard.gameObject != gameObject){
 				guard.GetComponentInChildren<Camera>().enabled = true; 
-				isSpectating = true;
 				break;
 			}
 		}

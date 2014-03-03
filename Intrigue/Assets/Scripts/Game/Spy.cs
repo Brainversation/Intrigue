@@ -4,7 +4,6 @@ using System.Collections;
 public class Spy : MonoBehaviour
 {
 
-	private bool isSpectating = false;
 	private Player player;
 	public PhotonView photonView = null;
 	public GameObject allytext;
@@ -24,10 +23,8 @@ public class Spy : MonoBehaviour
 	private UIPanel[] uiPanels;
 	private UIPanel objPanel;
 	private UISlider objSlider;
-	private GameObject[] guards = null;
 	private GameObject[] spies = null;
 	private Intrigue intrigue;
-	private Rect windowRect = new Rect(Screen.width/4, Screen.height/4, Screen.width/2, Screen.height/2);
 	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
 
 	//Yield function that waits specified amount of seconds
@@ -182,7 +179,6 @@ public class Spy : MonoBehaviour
 		foreach (GameObject spy in spies){
 			if(spy.gameObject != gameObject){
 				spy.GetComponentInChildren<Camera>().enabled = true; 
-				isSpectating = true;
 				Debug.Log("In For loop enabled a Camera");
 				break;
 			}
