@@ -13,4 +13,11 @@ public class MenuMusic : MonoBehaviour {
 	    // make sure we survive going to different scenes
 	    DontDestroyOnLoad(gameObject);
 	}
+
+	void Update(){
+		GameObject[] musics = GameObject.FindGameObjectsWithTag("MenuMusic");
+		if(musics.Length>=2){
+			Destroy(musics[1]);
+		}
+	}
 }
