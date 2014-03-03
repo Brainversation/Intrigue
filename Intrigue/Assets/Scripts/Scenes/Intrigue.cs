@@ -4,38 +4,33 @@ using System.Collections.Generic;
 
 public class Intrigue : MonoBehaviour {
 
-	public bool wantGameOver = true;
-
-	[HideInInspector]
-	public float objectivesCompleted = 0;
-	[HideInInspector]
-	public bool[] objectives;
-	public LoadingScreen loadingScreen;
-	private int numObjectives = 0;
-
-
-	public static int numSpiesLeft;
-	public static int numGuardsLeft;
-	private int numSpies = 0;
-	private int numGuards = 0;
-
-	private static float timeLimit = 600;
-	private float timeLeft = timeLimit;
-
-	private PhotonView photonView = null;	private GameObject[] spawnObjects;
-	private List<Transform> spawns = new List<Transform>();
-	private List<Transform> availableSpawns = new List<Transform>();
-	private GameObject[] objArray;
-
-	private int spawnIndex;
-	private Transform spawnTrans;
-
-	public static GameObject playerGO = null;
 
 	private static int rounds = 3;
 	private static int roundsLeft = rounds;
 	private float totalObjActive;
 	private Player player;
+	private int numObjectives = 0;
+	private int numSpies = 0;
+	private int numGuards = 0;
+	private static float timeLimit = 600;
+	private float timeLeft = timeLimit;
+	private PhotonView photonView = null;	
+	private GameObject[] spawnObjects;
+	private List<Transform> spawns = new List<Transform>();
+	private List<Transform> availableSpawns = new List<Transform>();
+	private GameObject[] objArray;
+	private int spawnIndex;
+	private Transform spawnTrans;
+
+	public bool wantGameOver = true;
+	[HideInInspector]
+	public float objectivesCompleted = 0;
+	[HideInInspector]
+	public bool[] objectives;
+	public LoadingScreen loadingScreen;
+	public static int numSpiesLeft;
+	public static int numGuardsLeft;
+	public static GameObject playerGO = null;
 	public GameObject jailSpawn;
 	public LoadingScreen loadingBackup;
 
@@ -165,6 +160,12 @@ public class Intrigue : MonoBehaviour {
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
+			if(player.Team == "Spy"){
+				player.Team = "Guard";
+			}
+			else{
+				player.Team = "Spy";
+			}
 			//PhotonNetwork.LoadLevel( Application.loadedLevel );
 			loadingScreen.StartLoadingLevel("Intrigue");
 		} else {

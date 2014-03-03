@@ -39,6 +39,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetBool("Out", false);
 			
 			if(player.Team=="Spy"){
+				spyRef = gameObject.GetComponent<Spy>();
 				if(spyRef.doingObjective){
 					if(spyRef.objectiveType=="Safe"){
 						anim.SetBool("InteractSafe",true);
