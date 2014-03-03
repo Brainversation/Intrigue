@@ -94,7 +94,7 @@ public class Scoreboard : MonoBehaviour {
 									pingColor = "[FF9D00]";
 								else
 									pingColor = "[FF0000]";		
-						child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + guI.localHandle + "[-] - Score: " + guI.remoteScore + "- ping ("+ pingColor+ping+"[-]" + ") ms";	
+						child.gameObject.GetComponent<UILabel>().text = "[0000FF]" + guI.localHandle + "[-] - " + guI.remoteScore + "pts - ping ("+ pingColor+ping+"[-]" + ") ms";	
 					}
 					else if(child.gameObject.GetComponent<UILabel>().user =="" && !guI.isAssigned){
 						child.gameObject.GetComponent<UILabel>().user = guI.localHandle;
