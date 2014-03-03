@@ -102,21 +102,10 @@ public class Guard : MonoBehaviour
 			NGUITools.SetActive(outLabel, false);
 		}
 
-		if(accusing && accused!=null){
-			accusationGUI.alpha = 1;
-			if(Input.GetKeyUp(KeyCode.E)){
-				accusing = false;
-				testAccusation();
-			}
-		}
-		else{
-			accusationGUI.alpha = 0;
-		}
-
 		if(Input.GetKeyUp(KeyCode.Space)){
-					accusing = false;
-					accused = null;
-				}
+			accusing = false;
+			accused = null;
+		}
 
 		if(accused!=null && Vector3.Distance(accused.transform.position, gameObject.transform.position)>60){
 			accused = null;
@@ -159,14 +148,22 @@ public class Guard : MonoBehaviour
 							}
 					}
 			}
-
-			if ( Input.GetKeyUp (KeyCode.E) && !accusing && accused == null){
-					if ( Physics.Raycast(ray, out hit, 15) ) {
-						if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
-								accusing = true;
-								accused = hit.transform.gameObject;
-							}
+		
+			if(accusing && accused!=null){
+				accusationGUI.alpha = 1;
+				if(Input.GetKeyUp(KeyCode.E)){
+					accusing = false;
+					testAccusation();
+				}
+			} else if ( Input.GetKeyUp(KeyCode.E) ){
+				if ( Physics.Raycast(ray, out hit, 15) ) {
+					if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
+							accusing = true;
+							accused = hit.transform.gameObject;
 					}
+				}
+			} else {
+				accusationGUI.alpha = 0;
 			}
 
 			//Create Ally Texts
