@@ -31,7 +31,6 @@ public class PlayerList : MonoBehaviour {
 			photonView.RPC("removeName", PhotonTargets.AllBuffered, player.Handle, "Spy");
 			player.TeamID = 2;
 		}
-
 	}
 
 	[RPC]
@@ -97,10 +96,19 @@ public class PlayerList : MonoBehaviour {
 
 	[RPC]
 	void removeName(string handle, string team){
+	bool removed = false;
 		if(team=="Spy"){
 			foreach(Transform child in transform){
 				if(child.gameObject.GetComponent<UILabel>().user == handle){
 					NGUITools.Destroy(child.gameObject);
+					removed = true;
+				}
+			}
+			if(removed){
+				foreach(Transform child in transform){
+					Vector3 temp = new Vector3(0f, 0.1f,0);
+					if(Mathf.RoundToInt(child.gameObject.transform.localPosition.y)!=0)
+						child.gameObject.transform.position+=temp;
 				}
 			}
 		}
@@ -108,6 +116,14 @@ public class PlayerList : MonoBehaviour {
 			foreach(Transform child in guardTable.transform){
 				if(child.gameObject.GetComponent<UILabel>().user == handle){
 					NGUITools.Destroy(child.gameObject);
+					removed = true;
+				}
+			}
+			if(removed){
+				foreach(Transform child in guardTable.transform){
+					Vector3 temp = new Vector3(0f, 0.1f,0);
+					if(Mathf.RoundToInt(child.gameObject.transform.localPosition.y)!=0)
+						child.gameObject.transform.position+=temp;
 				}
 			}
 		}
