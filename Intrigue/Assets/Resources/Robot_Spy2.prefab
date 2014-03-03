@@ -2178,7 +2178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fef9e1a59141b6419af7f22eb7fb671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  charSpeed: 0
   gravity: 20
 --- !u!114 &11400008
 MonoBehaviour:
@@ -2279,7 +2279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startMarker: {fileID: 400000}
   endMarker: {fileID: 400104}
-  speed: 1
+  camSpeed: 2
   rotSpeed: .5
   smooth: 5
 --- !u!114 &11400016
