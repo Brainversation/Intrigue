@@ -46,7 +46,6 @@ public class Scoreboard : MonoBehaviour {
 		else
 			scoreboard.GetComponent<UIPanel>().alpha = 0;
 
-
 		if(player.Team=="Spy"){
 			spyTeam.GetComponent<UILabel>().text = "Spies : " + player.TeamScore;
 			guardTeam.GetComponent<UILabel>().text = "Guards : " + player.EnemyScore;
@@ -84,7 +83,7 @@ public class Scoreboard : MonoBehaviour {
 
 		foreach(GameObject gu in guards){
 			Guard guI = gu.GetComponent<Guard>();
-			if(guI.localHandle!=""){
+			if(guI.localHandle!="" && guI.localHandle!="No Handle"){
 				foreach(Transform child in guardTable.transform){
 					if(child.gameObject.GetComponent<UILabel>().user == guI.localHandle){
 							int ping = guI.localPing;

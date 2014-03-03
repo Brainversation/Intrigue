@@ -33,7 +33,7 @@ public class Guard : MonoBehaviour
 	}
 
 	void Start(){
-		InvokeRepeating("syncPingAndScore", 1, 2F);
+		InvokeRepeating("syncPingAndScore", 1, 1F);
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		player = GameObject.Find("Player").GetComponent<Player>();
 		photonView = PhotonView.Get(this);
@@ -62,10 +62,10 @@ public class Guard : MonoBehaviour
 	}
 
 	void syncPingAndScore(){
-		remoteScore = player.Score;
+		//remoteScore = player.Score;
 		localPing = PhotonNetwork.GetPing();
 		photonView.RPC("givePing", PhotonTargets.All, PhotonNetwork.GetPing());
-		photonView.RPC("giveScore", PhotonTargets.All, player.Score);
+		//photonView.RPC("giveScore", PhotonTargets.All, player.Score);
 	}
 
 	void Update () {
@@ -259,9 +259,9 @@ public class Guard : MonoBehaviour
 
 	[RPC]
 	void addPlayerScore(int scoreToAdd){
-		if(photonView.isMine)
+		if(photonView.isMine){
 			player.Score += scoreToAdd;
-		else
-			remoteScore += scoreToAdd;
+			photonView.RPC("giveScore", PhotonTargets.All, player.Score);
+		}
 	}
 }

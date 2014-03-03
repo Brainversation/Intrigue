@@ -44,8 +44,8 @@ public class Objective : Photon.MonoBehaviour {
 				timeLeft = 0;
 				finished = true;
 				user.GetComponent<Spy>().doingObjective = false;
-				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
-				photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
+				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 100);
+				photonView.RPC("addScore", PhotonTargets.All, player.TeamID, 100);
 				anim.SetBool("Complete",true);
 				isActive = false;
 				photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", true);

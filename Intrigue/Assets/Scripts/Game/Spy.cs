@@ -35,7 +35,7 @@ public class Spy : MonoBehaviour
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
-		InvokeRepeating("syncPingAndScore", 1, 2F);
+		InvokeRepeating("syncPingAndScore", 1, 1F);
 		if(photonView.isMine){
 			localHandle = player.Handle;
 			remoteScore = player.Score;
@@ -60,10 +60,10 @@ public class Spy : MonoBehaviour
 	}
 
 	void syncPingAndScore(){
-		remoteScore = player.Score;
+		//remoteScore = player.Score;
 		localPing = PhotonNetwork.GetPing();
 		photonView.RPC("givePing", PhotonTargets.All, PhotonNetwork.GetPing());
-		photonView.RPC("giveScore", PhotonTargets.All, player.Score);
+		//photonView.RPC("giveScore", PhotonTargets.All, player.Score);
 	}
 
 	void Update () {
@@ -72,6 +72,7 @@ public class Spy : MonoBehaviour
 		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
 		guiLabels = GetComponentsInChildren<UILabel>();
 		uiPanels = GetComponentsInChildren<UIPanel>(true);
+		Debug.Log("PS: " + player.Score + "RS: " + remoteScore);
 		foreach(UIPanel uiP in uiPanels){
 			if(uiP.gameObject.CompareTag("ObjectivePanel")){
 				objPanel = uiP;
@@ -210,10 +211,9 @@ public class Spy : MonoBehaviour
 
 	[RPC]
 	void addPlayerScore(int scoreToAdd){
-		if(photonView.isMine)
+		if(photonView.isMine){
 			player.Score += scoreToAdd;
-		else
-			remoteScore += scoreToAdd;
-		
+			photonView.RPC("giveScore", PhotonTargets.All, player.Score);
+		}
 	}
 }
