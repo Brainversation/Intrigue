@@ -160,13 +160,12 @@ public class Guard : MonoBehaviour
 					}
 			}
 
-			if ( Input.GetKeyUp (KeyCode.E) && !accusing ){
+			if ( Input.GetKeyUp (KeyCode.E) && !accusing && accused == null){
 					if ( Physics.Raycast(ray, out hit, 15) ) {
-						if(accused==null)
-							if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
-									accusing = true;
-									accused = hit.transform.gameObject;
-								}
+						if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
+								accusing = true;
+								accused = hit.transform.gameObject;
+							}
 					}
 			}
 
@@ -192,15 +191,12 @@ public class Guard : MonoBehaviour
 
 	void testAccusation(){
 		if(accused != null && accused.CompareTag("Spy")){
-			accusing = false;
 			accused = null;
 			photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
 			photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 			photonView.RPC("spyCaught", PhotonTargets.MasterClient);
 			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
-			;
 		}else{
-			accusing = false;
 			accused = null;
 			photonView.RPC("guardFailed", PhotonTargets.MasterClient);
 			isOut = true;
