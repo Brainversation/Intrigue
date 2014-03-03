@@ -143,13 +143,13 @@ public class MainMenu : MonoBehaviour {
 
 	void createTheServer(){
 		UIInput serverName = GameObject.Find("serverName").GetComponent<UIInput>();
-		player.RoomName = serverName.value;
+		player.RoomName = serverName.text;
 		PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
 	}
 
 	void getUserHandle(){
 		UIInput playerName = GameObject.Find ("playerName").GetComponent<UIInput> ();
-		player.Handle = playerName.value;
+		player.Handle = playerName.text;
 	}
 
 	void connect(){
