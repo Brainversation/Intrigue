@@ -18,7 +18,7 @@ public class JoinServer : MonoBehaviour {
 
 	void OnClick(){
 		roomNames = gameObject.GetComponentsInChildren<UILabel>();
-		roomName = roomNames[0].text;
+		roomName = (string) roomNames[0].text;
 		PhotonNetwork.JoinRoom(roomName);
 	}
 }

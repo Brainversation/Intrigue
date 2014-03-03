@@ -137,14 +137,14 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void createTheServer(){
-		UIInput serverName = GameObject.Find("serverName").GetComponent<UIInput>();
-		player.RoomName = (string) serverName.value;
+		UILabel serverName = GameObject.Find("serverName").GetComponent<UILabel>();
+		player.RoomName = serverName.text;
 		PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
 	}
 
 	void getUserHandle(){
-		UIInput playerName = GameObject.Find ("playerName").GetComponent<UIInput> ();
-		player.Handle = (string) playerName.value;
+		UILabel playerName = GameObject.Find ("playerName").GetComponent<UILabel> ();
+		player.Handle = playerName.text;
 	}
 
 	void connect(){
@@ -159,7 +159,6 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnJoinedRoom(){
-		Debug.Log("HEEHRHREWHSHSDJDSJ");
 		PlayerPrefs.SetString(playerPrefsPreffix + "Name", player.Handle);
 		PlayerPrefs.SetString(playerPrefsPreffix + "Room", player.RoomName);
 		PlayerPrefs.Save();
