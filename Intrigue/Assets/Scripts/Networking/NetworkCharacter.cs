@@ -14,7 +14,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	void Start() {
 		//Get References to Animator and Collider
-		wantSprint = false;
 		anim = GetComponent<Animator>();
 		anim.speed = 1.5f;
 		spyRef = gameObject.GetComponent<Spy>();

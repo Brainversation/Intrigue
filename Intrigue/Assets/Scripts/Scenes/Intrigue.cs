@@ -23,6 +23,7 @@ public class Intrigue : MonoBehaviour {
 	private Transform spawnTrans;
 
 	public bool wantGameOver = true;
+	public bool wantSprinting = false;
 	[HideInInspector]
 	public float objectivesCompleted = 0;
 	[HideInInspector]
@@ -46,7 +47,6 @@ public class Intrigue : MonoBehaviour {
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
-
 
 		if(PhotonNetwork.isMasterClient){
 			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
@@ -215,6 +215,7 @@ public class Intrigue : MonoBehaviour {
 						"Robot_"+ player.Team+"1"/*type.ToString()*/,
 						position,
 						rotation, 0);
+		Intrigue.playerGO.GetComponent<NetworkCharacter>().wantSprint = wantSprinting;
 
 		if (roundsLeft == rounds){
 			if(player.Team == "Spy")
