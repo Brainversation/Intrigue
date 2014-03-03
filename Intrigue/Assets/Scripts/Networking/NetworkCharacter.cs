@@ -8,15 +8,17 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private Animator anim;
 	private Spy spyRef;
 	private Player player;
+
 	public bool isOut;
+	public bool wantSprint;
 
 	void Start() {
 		//Get References to Animator and Collider
+		wantSprint = false;
 		anim = GetComponent<Animator>();
 		anim.speed = 1.5f;
 		spyRef = gameObject.GetComponent<Spy>();
 		player = GameObject.Find("Player").GetComponent<Player>();
-
 	}
 
 	public void Update(){
@@ -30,10 +32,12 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		if(photonView.isMine && !isOut){
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
 			//Debug.Log("Vert: " + Input.GetAxis("Vertical"));
-			//anim.SetFloat("Direction", Input.GetAxis("Horizontal")); 
 			//Debug.Log("Horiz: " + Input.GetAxis("Horizontal"));
-			anim.SetBool("Run", Input.GetKey("left shift"));
+			if(wantSprint)
+				anim.SetBool("Run", Input.GetKey("left shift"));
+			
 			anim.SetBool("Out", false);
+			
 			if(player.Team=="Spy"){
 				if(spyRef.doingObjective){
 					if(spyRef.objectiveType=="Safe"){
