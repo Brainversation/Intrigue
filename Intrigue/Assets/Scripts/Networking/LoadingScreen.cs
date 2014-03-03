@@ -34,7 +34,11 @@ public class LoadingScreen : MonoBehaviour {
 	}
 
 	IEnumerator levelLoader(string levelTitle){
-	 	async = Application.LoadLevelAsync(levelTitle);
+		if(async==null){
+	 		async = Application.LoadLevelAsync(levelTitle);
+	 		Debug.Log("Begin loading");
+	 	}
+
 	 	if(loadingBar!=null){
 		 	if(levelTitle=="Intrigue")
 		 		loadingBar.GetComponent<UISlider>().value = loadCounter/PhotonNetwork.playerList.Length;
