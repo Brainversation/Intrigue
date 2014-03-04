@@ -13,8 +13,8 @@ public class ConversationHotSpot : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if(other.tag == "Guest" ){
-			// other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position){
+		if(other.tag == "Guest" &&
+			other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position){
 			++population;
 			Debug.Log("Adding to mah pop");
 			other.GetComponent<BaseAI>().isYourTurn = true;

@@ -165,7 +165,7 @@ namespace RBS{
 			script.bored -= 10;
 			if(script.room.drinkLocation != null){
 				script.destination = script.room.drinkLocation.position;
-				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
+				script.anim.SetFloat("Speed", .2f);
 				gameObject.GetComponent<BaseAI>().distFromDest = 10f;
 				script.agent.SetDestination(script.destination);
 				script.tree = new DrinkingTree();
@@ -193,22 +193,26 @@ namespace RBS{
 
 		private Status handleConverse(GameObject gameObject){
 			Debug.Log("Wants to converse");
+			Status returnStat;
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			List<GameObject> conversers = script.room.me.GetComponent<AI_RoomState>().conversers;
 			script.lonely -= 20;
 			script.bored -= 10;
 			if(conversers.Count == 0 || conversers.Count > offset){
+				script.destination = gameObject.transform.position;
 				UnityEngine.Object.Instantiate(Resources.Load<GameObject>("ConversationHotSpot"), gameObject.transform.position, Quaternion.identity);
 				script.tree = new IdleSelector();
 				conversers.Clear();
-				conversers.Add(gameObject);
-				return Status.Tree;
+				returnStat = Status.Tree;
 			} else {
-				script.agent.SetDestination(conversers[0].transform.position);
-				conversers.Add(gameObject);
-				return Status.Waiting;
+				script.destination = conversers[0].transform.position;
+				script.anim.SetFloat("Speed", .2f);
+				script.agent.SetDestination(script.destination);
+				returnStat = Status.Waiting;
 			}
-			Debug.DrawLine(gameObject.transform.position, conversers[0].transform.position, Color.red, 15f, false);
+			conversers.Add(gameObject);
+			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
+			return returnStat;
 		}
 	}
 
@@ -224,7 +228,7 @@ namespace RBS{
 			script.bladder -= 25;
 			if(script.room.restroomLocation != null){
 				script.destination = script.room.restroomLocation.position;
-				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
+				script.anim.SetFloat("Speed", .2f);
 				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
 				script.agent.SetDestination(script.destination);
 			}

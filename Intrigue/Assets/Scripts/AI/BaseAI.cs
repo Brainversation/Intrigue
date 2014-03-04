@@ -8,7 +8,6 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	public NavMeshAgent agent;
 
-	private Animator anim;
 	private Vector3 correctPlayerPos;
 	private Quaternion correctPlayerRot;
 	private Rule currentRule;
@@ -20,6 +19,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	private static List<GameObject> ais = new List<GameObject>();
 
 	// AI info
+	[HideInInspector] public Animator anim;
 	[HideInInspector] public Vector3 destination;
 	[HideInInspector] public AIRoomInfo room;
 	[HideInInspector] public Task tree = null;
@@ -42,13 +42,13 @@ public class BaseAI : Photon.MonoBehaviour {
 		anim = GetComponent<Animator>();
 		anim.speed = 1f;
 		initAI();
-		thirst = Random.Range(0, 100);
-		bored = Random.Range(0, 100);
-		hunger = Random.Range(0, 100);
-		lonely = Random.Range(0, 100);
-		tired = Random.Range(0, 100);
-		anxiety = Random.Range(0, 100);
-		bladder = Random.Range(0, 100);
+		// thirst = Random.Range(0, 100);
+		bored = 51;//Random.Range(0, 100);
+		// hunger = Random.Range(0, 100);
+		lonely = 51;//Random.Range(0, 100);
+		// tired = Random.Range(0, 100);
+		// anxiety = Random.Range(0, 100);
+		// bladder = Random.Range(0, 100);
 	}
 
 	public void Update(){
