@@ -36,7 +36,6 @@ public class LoadingScreen : MonoBehaviour {
 	IEnumerator levelLoader(string levelTitle){
 		if(async==null){
 	 		async = Application.LoadLevelAsync(levelTitle);
-	 		Debug.Log("Begin loading");
 	 	}
 
 	 	if(loadingBar!=null){
@@ -56,7 +55,6 @@ public class LoadingScreen : MonoBehaviour {
         	yield return null;
         }
 
-        Debug.Log("LevelLoaded" + async.progress);
         photonView.RPC("levelLoaded", PhotonTargets.MasterClient, player.Handle);
 
         while(!async.allowSceneActivation){	
