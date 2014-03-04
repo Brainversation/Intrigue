@@ -999,7 +999,7 @@ MonoBehaviour:
   aspectRatio: 1
   user: 
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
   mText: LOADING...
   mFontSize: 50
@@ -7257,7 +7257,7 @@ MonoBehaviour:
   aspectRatio: 1
   user: 
   keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 0}
+  mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
   mText: Intrigue
   mFontSize: 198
@@ -17279,7 +17279,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1813289577}
   m_Layer: 0
-  m_Name: RoomColliders
+  m_Name: AI_RoomColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17315,7 +17315,7 @@ Transform:
   - {fileID: 1045609847}
   - {fileID: 1791410253}
   - {fileID: 291638629}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2024060250}
 --- !u!1 &1824777964
 GameObject:
   m_ObjectHideFlags: 0
@@ -19132,6 +19132,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1813289577}
   - {fileID: 2013751470}
   - {fileID: 822212021}
   - {fileID: 919912726}
