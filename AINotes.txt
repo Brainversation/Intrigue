@@ -28,4 +28,24 @@ Types of Tasks:
 	Decorator:
 		A task with a single child that is used to control the execution of that child.
 
-		
+Rule Converse
+	bored and lonely
+
+	consequence
+		if(list.Count == 0)
+			idle and make hotspot
+		elif count < offset
+			go to list[0].hotspot
+		else
+			clear list
+		add self to list
+
+statuses
+	waiting
+	true
+	false
+	error
+	tree
+	rule
+	ruleFired
+	converse
