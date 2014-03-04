@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BehaviorTree;
 
-public class HotSpot : MonoBehaviour {
+public class QueueHotSpot : MonoBehaviour {
 
 	[HideInInspector] public int population = 0;
 	[HideInInspector] public List<GameObject> queue = new List<GameObject>();
@@ -28,7 +28,7 @@ public class HotSpot : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider other){
-		if(other.tag == "Guest"){
+		if(other.tag == "Guest" && queue.Contains(other.gameObject)){
 			queue.Remove(other.gameObject);
 			other.gameObject.GetComponent<BaseAI>().isYourTurn = false;
 			--population;

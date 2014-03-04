@@ -1,11 +1,14 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AI_RoomState : MonoBehaviour{
 
 	public Transform dl;
 	public Transform cl;
 	public Transform rrl;
+
+	public List<GameObject> conversers;
 	
 	public AIRoomInfo roomInfo = new AIRoomInfo();
 
@@ -16,6 +19,7 @@ public class AI_RoomState : MonoBehaviour{
 		roomInfo.roomName = gameObject.name;
 		roomInfo.population = 0;
 		roomInfo.me = gameObject;
+		conversers = new List<GameObject>();
 	}
 
 	void OnTriggerEnter(Collider other){

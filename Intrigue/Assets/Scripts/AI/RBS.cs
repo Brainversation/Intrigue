@@ -167,7 +167,7 @@ namespace RBS{
 				script.destination = script.room.drinkLocation.position;
 				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
 				gameObject.GetComponent<BaseAI>().distFromDest = 10f;
-				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
+				script.agent.SetDestination(script.destination);
 				script.tree = new DrinkingTree();
 			}
 			else
@@ -183,25 +183,32 @@ namespace RBS{
 	}
 
 	class WantToConverse : Rule{
+		protected int offset = 5;
+
 		public WantToConverse(GameObject gameObject){
 			this.addCondition( new isLonely(gameObject) );
-			this.consequence = setDestConverse;
+			this.addCondition( new isBored(gameObject) );
+			this.consequence = handleConverse;
 		}
 
-		private Status setDestConverse(GameObject gameObject){
+		private Status handleConverse(GameObject gameObject){
 			Debug.Log("Wants to converse");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
-			script.lonely -= 10;
-			if(script.room.converseLocation != null){
-				script.destination = script.room.converseLocation.position;
-				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
-				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
-				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
+			List<GameObject> conversers = script.room.me.GetComponent<AI_RoomState>().conversers;
+			script.lonely -= 20;
+			script.bored -= 10;
+			if(conversers.Count == 0 || conversers.Count > offset){
+				UnityEngine.Object.Instantiate(Resources.Load<GameObject>("ConversationHotSpot"), gameObject.transform.position, Quaternion.identity);
+				script.tree = new IdleSelector();
+				conversers.Clear();
+				conversers.Add(gameObject);
+				return Status.Tree;
+			} else {
+				script.agent.SetDestination(conversers[0].transform.position);
+				conversers.Add(gameObject);
+				return Status.Waiting;
 			}
-			else
-				Debug.Log("couldn't find drink location");
-			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
-			return Status.Waiting;
+			Debug.DrawLine(gameObject.transform.position, conversers[0].transform.position, Color.red, 15f, false);
 		}
 	}
 
@@ -219,7 +226,7 @@ namespace RBS{
 				script.destination = script.room.restroomLocation.position;
 				gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
 				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
-				gameObject.GetComponent<NavMeshAgent>().SetDestination(script.destination);
+				script.agent.SetDestination(script.destination);
 			}
 			else
 				Debug.Log("Couldn't find restroom location");
