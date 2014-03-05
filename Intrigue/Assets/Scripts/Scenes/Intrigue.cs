@@ -153,8 +153,10 @@ public class Intrigue : MonoBehaviour {
 
 	void gameOver(){
 		
-		if(playerGO!=null)
+		if(playerGO!=null){
 			playerGO.GetComponentInChildren<Camera>().enabled = false;
+			playerGO.GetComponentInChildren<AudioListener>().enabled = false;
+		}
 		loadingScreen = loadingBackup;
 
 		if(roundsLeft > 0){

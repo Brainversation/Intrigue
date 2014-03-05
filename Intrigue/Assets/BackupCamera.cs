@@ -21,7 +21,6 @@ public class BackupCamera : MonoBehaviour {
 				}
 			}
 			if(!foundActive){
-				Debug.Log("Can't find cameras");
 				gameObject.GetComponent<Camera>().enabled = true;
 				gameObject.GetComponent<AudioListener>().enabled = true;
 				gameObject.GetComponentInChildren<UIRoot>().enabled = true;

@@ -11,6 +11,8 @@ public class LoadingScreen : MonoBehaviour {
 	private AsyncOperation async;
 	private PhotonView photonView = null;
 	private Player player;
+	private float countdownDuration = 10;
+	private float countdownCur = 0;
 
 
 	void Start(){
@@ -24,13 +26,6 @@ public class LoadingScreen : MonoBehaviour {
 			gameObject.GetComponent<UIPanel>().alpha = 1;
 		if(bg!=null)
 			bg.GetComponent<SpriteRenderer>().enabled = false;
-		if(UIRoot!=null){
-			foreach(Transform child in UIRoot.transform){
-				if(!child.gameObject.CompareTag("LevelLoader") && !child.gameObject.CompareTag("MainCamera") && !child.gameObject.CompareTag("LoaderMain")){
-					NGUITools.SetActive(child.gameObject,false);
-				}
-			}
-		}
 	}
 
 	IEnumerator levelLoader(string levelTitle){
@@ -38,19 +33,17 @@ public class LoadingScreen : MonoBehaviour {
 	 		async = Application.LoadLevelAsync(levelTitle);
 	 	}
 
-	 	if(loadingBar!=null){
-		 	if(levelTitle=="Intrigue")
-		 		loadingBar.GetComponent<UISlider>().value = loadCounter/PhotonNetwork.playerList.Length;
-		 	else
-		 		loadingBar.GetComponent<UISlider>().value = async.progress;
-	 	}
-
 	 	if(levelTitle=="Intrigue"){
         	async.allowSceneActivation = false;
         }
+
         else{
-        	PhotonNetwork.LoadLevel2(levelToLoad);
+        	PhotonNetwork.LoadLevel2(levelTitle);
+        	if(loadingBar!=null){
+		 		loadingBar.GetComponent<UISlider>().value = async.progress;
+	 		}
         }
+
         while(async.progress<0.9f){
         	yield return null;
         }
@@ -61,7 +54,7 @@ public class LoadingScreen : MonoBehaviour {
 	        if(PhotonNetwork.isMasterClient){
 	        	Debug.Log("Waiting: " + loadCounter + "/" + (PhotonNetwork.playerList.Length));
 	        	if(loadCounter == PhotonNetwork.playerList.Length){
-	        		photonView.RPC("startGame", PhotonTargets.All);
+	        		photonView.RPC("startGame", PhotonTargets.All, levelTitle);
 	        	}
 	        }
 	        yield return null;
@@ -72,15 +65,29 @@ public class LoadingScreen : MonoBehaviour {
    	
    	}
 
+   	IEnumerator Waiter() {
+		loadingBar.GetComponent<UISlider>().value = countdownCur/countdownDuration;
+		if(countdownCur<countdownDuration){
+			countdownCur+= Time.deltaTime;
+			yield return null;
+		}
+		else{
+		 	async.allowSceneActivation = true;
+		}
+	}
+
 	[RPC]
 	void levelLoaded(string playerName){
 		++loadCounter;
 	}
 
 	[RPC]
-	void startGame(){
+	void startGame(string level){
 		Debug.Log("Start Game Called");
-		PhotonNetwork.LoadLevel2(levelToLoad);
-		async.allowSceneActivation = true;
+		PhotonNetwork.LoadLevel2(level);
+		if(level == "Intrigue" && Application.loadedLevelName == "Intrigue")
+			StartCoroutine(Waiter());
+		else
+			async.allowSceneActivation = true;
 	}
 }
