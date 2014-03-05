@@ -7,14 +7,15 @@ public class LoadingScreen : MonoBehaviour {
 	public GameObject UIRoot;
 	public GameObject bg;
 	public GameObject loadingBar;
+	public GameObject loadTimer;
+	public GameObject loadTitle;
 	private int loadCounter = 0;
 	private AsyncOperation async;
 	private PhotonView photonView = null;
 	private Player player;
 	private float countdownDuration = 10;
 	private float countdownCur = 0;
-	private GameObject loadTimer;
-	private GameObject loadTitle;
+
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
@@ -27,8 +28,6 @@ public class LoadingScreen : MonoBehaviour {
 			gameObject.GetComponent<UIPanel>().alpha = 1;
 		if(bg!=null)
 			bg.GetComponent<SpriteRenderer>().enabled = false;
-		loadTimer = GameObject.Find("LoadTimer");
-		loadTitle = GameObject.Find("LoadTitle");
 	}
 
 	IEnumerator levelLoader(string levelTitle){

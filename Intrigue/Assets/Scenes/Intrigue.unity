@@ -3518,7 +3518,7 @@ Transform:
   m_GameObject: {fileID: 262655893}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00399201596, y: .00399201596, z: .00399201596}
+  m_LocalScale: {x: .00416666688, y: .00416666688, z: .00416666688}
   m_Children:
   - {fileID: 419677839}
   m_Father: {fileID: 1153048063}
@@ -6629,7 +6629,7 @@ GameObject:
   - 4: {fileID: 583408147}
   - 114: {fileID: 583408148}
   m_Layer: 8
-  m_Name: LoadTimer
+  m_Name: LoadNextRound
   m_TagString: LevelLoader
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12916,6 +12916,8 @@ MonoBehaviour:
   UIRoot: {fileID: 262655893}
   bg: {fileID: 0}
   loadingBar: {fileID: 1078782512}
+  loadTimer: {fileID: 540966067}
+  loadTitle: {fileID: 686391137}
 --- !u!54 &1106969096
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18066,6 +18068,18 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 17.9473324
       objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: m_Name
+      value: LoadNextRound
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: loadTimer
+      value: 
+      objectReference: {fileID: 540966067}
+    - target: {fileID: 11400008, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: loadTitle
+      value: 
+      objectReference: {fileID: 686391137}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
   m_RootGameObject: {fileID: 1106969092}

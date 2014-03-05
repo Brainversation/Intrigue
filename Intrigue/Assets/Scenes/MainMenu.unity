@@ -344,7 +344,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.22857141
+  aspectRatio: 3.25714278
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -398,7 +398,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 226, y: 70, z: 0}
+  m_Size: {x: 228, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &145094446
 MonoBehaviour:
@@ -654,7 +654,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.85714293
+  aspectRatio: 3.88571429
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -708,7 +708,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 270, y: 70, z: 0}
+  m_Size: {x: 272, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &222907429
 MonoBehaviour:
@@ -834,7 +834,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.48571444
+  aspectRatio: 4.51428556
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -911,7 +911,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 314, y: 70, z: 0}
+  m_Size: {x: 316, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &266208684
 MonoBehaviour:
@@ -1472,6 +1472,18 @@ Prefab:
       propertyPath: mAlpha
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: m_Name
+      value: LoadNextRound
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: loadTimer
+      value: 
+      objectReference: {fileID: 1411411472}
+    - target: {fileID: 11400008, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: loadTitle
+      value: 
+      objectReference: {fileID: 2006998110}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
   m_RootGameObject: {fileID: 1229824635}
@@ -1539,7 +1551,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 6.66666651
+  aspectRatio: 7.08333349
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -1678,7 +1690,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 314, y: 70, z: 0}
+  m_Size: {x: 316, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &546397794
 MonoBehaviour:
@@ -1715,7 +1727,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.48571444
+  aspectRatio: 4.51428556
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -2074,7 +2086,7 @@ GameObject:
   - 4: {fileID: 877042433}
   - 114: {fileID: 877042434}
   m_Layer: 8
-  m_Name: LoadTimer
+  m_Name: LoadNextRound
   m_TagString: LevelLoader
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2219,7 +2231,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.58823538
+  aspectRatio: 4.64705896
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -2255,7 +2267,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 156, y: 34, z: 0}
+  m_Size: {x: 158, y: 34, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &916704530
 MonoBehaviour:
@@ -2445,7 +2457,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 6.25
+  aspectRatio: 6.58333349
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -2732,6 +2744,8 @@ MonoBehaviour:
   UIRoot: {fileID: 1628887035}
   bg: {fileID: 0}
   loadingBar: {fileID: 273737344}
+  loadTimer: {fileID: 1411411472}
+  loadTitle: {fileID: 2006998110}
 --- !u!114 &1229824640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2814,7 +2828,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 136, y: 34, z: 0}
+  m_Size: {x: 140, y: 34, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1330480775
 MonoBehaviour:
@@ -2851,7 +2865,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4
+  aspectRatio: 4.11764717
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -3774,7 +3788,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 126, y: 34, z: 0}
+  m_Size: {x: 128, y: 34, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1724040726
 MonoBehaviour:
@@ -3811,7 +3825,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.70588231
+  aspectRatio: 3.7647059
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
@@ -4285,7 +4299,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 380, y: 70, z: 0}
+  m_Size: {x: 382, y: 70, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1846153858
 MonoBehaviour:
@@ -4322,7 +4336,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.42857122
+  aspectRatio: 5.45714283
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
