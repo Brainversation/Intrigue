@@ -9,17 +9,21 @@ public class LoadingScreen : MonoBehaviour {
 	public GameObject loadingBar;
 	public GameObject loadTimer;
 	public GameObject loadTitle;
+	public GameObject loadResult;
 	private int loadCounter = 0;
 	private AsyncOperation async;
 	private PhotonView photonView = null;
 	private Player player;
 	private float countdownDuration = 10;
 	private float countdownCur = 0;
+	private Intrigue intrigue;
 
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
+		if(Application.loadedLevelName=="Intrigue")
+			intrigue = GameObject.Find("Scripts").GetComponent<Intrigue>();
 	}
 
 	public void StartLoadingLevel(string levelTitle){
@@ -69,8 +73,10 @@ public class LoadingScreen : MonoBehaviour {
    	IEnumerator Waiter() {
 		loadingBar.GetComponent<UISlider>().value = countdownCur/countdownDuration;
 		loadTimer.GetComponent<UILabel>().text = Mathf.RoundToInt(countdownDuration-countdownCur)+"s";
-		if(Application.loadedLevelName == "Intrigue")
+		if(Application.loadedLevelName == "Intrigue"){
 			loadTitle.GetComponent<UILabel>().text = "ROUND OVER";
+			loadResult.GetComponent<UILabel>().text = intrigue.roundResult + " Win!";
+		}
 		else
 			loadTitle.GetComponent<UILabel>().text = "GAME STARTING";
 		if(countdownCur<countdownDuration){

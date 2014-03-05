@@ -21,7 +21,8 @@ public class Intrigue : MonoBehaviour {
 	private GameObject[] objArray;
 	private int spawnIndex;
 	private Transform spawnTrans;
-
+	[HideInInspector]
+	public string roundResult;
 	public bool wantGameOver = true;
 	public bool wantSprinting = false;
 	[HideInInspector]
@@ -112,6 +113,10 @@ public class Intrigue : MonoBehaviour {
 					Debug.Log("GuardsLeft: " + numGuardsLeft);
 					Debug.Log("ObjectivesCompleted:" + objectivesCompleted);
 					Debug.Log("numObjectives:" + numObjectives);
+					if(timeLeft<=0||numSpiesLeft<=0)
+						roundResult = "Guards";
+					else
+						roundResult = "Spies";
 					photonView.RPC("callGameOver", PhotonTargets.All);
 				}
 			}
