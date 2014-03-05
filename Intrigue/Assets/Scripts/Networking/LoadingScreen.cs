@@ -13,7 +13,8 @@ public class LoadingScreen : MonoBehaviour {
 	private Player player;
 	private float countdownDuration = 10;
 	private float countdownCur = 0;
-
+	private GameObject loadTimer;
+	private GameObject loadTitle;
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
@@ -26,6 +27,8 @@ public class LoadingScreen : MonoBehaviour {
 			gameObject.GetComponent<UIPanel>().alpha = 1;
 		if(bg!=null)
 			bg.GetComponent<SpriteRenderer>().enabled = false;
+		loadTimer = GameObject.Find("LoadTimer");
+		loadTitle = GameObject.Find("LoadTitle");
 	}
 
 	IEnumerator levelLoader(string levelTitle){
@@ -36,12 +39,11 @@ public class LoadingScreen : MonoBehaviour {
 	 	if(levelTitle=="Intrigue"){
         	async.allowSceneActivation = false;
         }
-
         else{
         	PhotonNetwork.LoadLevel2(levelTitle);
-        	if(loadingBar!=null){
-		 		loadingBar.GetComponent<UISlider>().value = async.progress;
-	 		}
+		 	loadingBar.GetComponent<UISlider>().value = async.progress;
+		 	loadTitle.GetComponent<UILabel>().text = "Intrigue";
+		 	loadTimer.GetComponent<UILabel>().text = "";
         }
 
         while(async.progress<0.9f){
@@ -67,6 +69,11 @@ public class LoadingScreen : MonoBehaviour {
 
    	IEnumerator Waiter() {
 		loadingBar.GetComponent<UISlider>().value = countdownCur/countdownDuration;
+		loadTimer.GetComponent<UILabel>().text = Mathf.RoundToInt(countdownDuration-countdownCur)+"s";
+		if(Application.loadedLevelName == "Intrigue")
+			loadTitle.GetComponent<UILabel>().text = "ROUND OVER";
+		else
+			loadTitle.GetComponent<UILabel>().text = "GAME STARTING";
 		if(countdownCur<countdownDuration){
 			countdownCur+= Time.deltaTime;
 			yield return null;
@@ -85,7 +92,7 @@ public class LoadingScreen : MonoBehaviour {
 	void startGame(string level){
 		Debug.Log("Start Game Called");
 		PhotonNetwork.LoadLevel2(level);
-		if(level == "Intrigue" && Application.loadedLevelName == "Intrigue")
+		if(level == "Intrigue")
 			StartCoroutine(Waiter());
 		else
 			async.allowSceneActivation = true;
