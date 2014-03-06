@@ -70,11 +70,14 @@ public class LoadingScreen : MonoBehaviour {
    	
    	}
 
-   	IEnumerator Waiter() {
+   	IEnumerator Waiter(string levelToLoad) {
 		loadingBar.GetComponent<UISlider>().value = countdownCur/countdownDuration;
 		loadTimer.GetComponent<UILabel>().text = Mathf.RoundToInt(countdownDuration-countdownCur)+"s";
 		if(Application.loadedLevelName == "Intrigue"){
-			loadTitle.GetComponent<UILabel>().text = "ROUND OVER";
+			if(levelToLoad=="PostGame")
+				loadTitle.GetComponent<UILabel>().text = "GAME OVER";
+			else
+				loadTitle.GetComponent<UILabel>().text = "ROUND OVER";
 			loadResult.GetComponent<UILabel>().text = intrigue.roundResult;
 		}
 		else
@@ -97,8 +100,8 @@ public class LoadingScreen : MonoBehaviour {
 	void startGame(string level){
 		Debug.Log("Start Game Called");
 		PhotonNetwork.LoadLevel2(level);
-		if(level == "Intrigue")
-			StartCoroutine(Waiter());
+		if(level == "Intrigue" || level == "PostGame")
+			StartCoroutine(Waiter(level));
 		else
 			async.allowSceneActivation = true;
 	}
