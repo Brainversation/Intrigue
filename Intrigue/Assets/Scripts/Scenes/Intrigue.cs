@@ -114,9 +114,13 @@ public class Intrigue : MonoBehaviour {
 					Debug.Log("ObjectivesCompleted:" + objectivesCompleted);
 					Debug.Log("numObjectives:" + numObjectives);
 					if(timeLeft<=0||numSpiesLeft<=0)
-						roundResult = "Guards";
+						roundResult = "Time Limit Reached.\nGuards Win!";
+					else if(numSpiesLeft<=0)
+						roundResult = "All Spies Caught.\nGuards Win!";
+					else if(numGuardsLeft<=0)
+						roundResult = "All Guards Out.\nSpies Win!";
 					else
-						roundResult = "Spies";
+						roundResult = "Objectives Completed.\nSpies Win!";
 					photonView.RPC("callGameOver", PhotonTargets.All);
 				}
 			}

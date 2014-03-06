@@ -75,7 +75,7 @@ public class LoadingScreen : MonoBehaviour {
 		loadTimer.GetComponent<UILabel>().text = Mathf.RoundToInt(countdownDuration-countdownCur)+"s";
 		if(Application.loadedLevelName == "Intrigue"){
 			loadTitle.GetComponent<UILabel>().text = "ROUND OVER";
-			loadResult.GetComponent<UILabel>().text = intrigue.roundResult + " Win!";
+			loadResult.GetComponent<UILabel>().text = intrigue.roundResult;
 		}
 		else
 			loadTitle.GetComponent<UILabel>().text = "GAME STARTING";
