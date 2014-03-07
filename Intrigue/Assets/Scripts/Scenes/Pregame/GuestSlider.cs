@@ -25,7 +25,7 @@ public class GuestSlider : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(PhotonNetwork.isMasterClient){
-			player.Guests = Mathf.RoundToInt(slider.value*20);
+			player.Guests = Mathf.RoundToInt(slider.value*80);
 			label.text = "Guest Count: " + player.Guests;
 			photonView.RPC("guestCount", PhotonTargets.Others, player.Guests);
 		}
