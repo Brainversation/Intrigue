@@ -77,6 +77,7 @@ public class LoadingScreen : MonoBehaviour {
 	        	Debug.Log("Waiting: " + loadCounter + "/" + (PhotonNetwork.playerList.Length));
 	        	if(loadCounter == PhotonNetwork.playerList.Length){
 	        		Invoke("callStart", 10);
+	        		//photonView.RPC("startGame", PhotonTargets.All, levelToLoad);
 	        	}
 	        }
 	        yield return null;
@@ -110,7 +111,8 @@ public class LoadingScreen : MonoBehaviour {
 	}
 
 	void callStart(){
-		photonView.RPC("startGame", PhotonTargets.All, levelToLoad);
+		photonView.RPC("startGame", PhotonTargets.Others, levelToLoad);
+		async.allowSceneActivation = true;
 	}
 
 	[RPC]
