@@ -19,8 +19,8 @@ public class AllyText : MonoBehaviour {
 	void Update () {
 			thisTransform.position = target.position + offset;
 			if(Camera.main!=null && thisTransform!=null){
-				thisTransform.LookAt(Camera.main.transform, Vector3.up);
+				//thisTransform.LookAt(Camera.main.transform, Vector3.up);
 			}
-			thisTransform.Rotate(Vector3.up, 180);
+			//thisTransform.Rotate(Vector3.up, 180);
 	}
 }

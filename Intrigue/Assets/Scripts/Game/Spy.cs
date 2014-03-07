@@ -69,6 +69,11 @@ public class Spy : MonoBehaviour
 	void Update () {
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
 		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
+		string secondsS;
+		if(seconds<10)
+			secondsS = "0"+seconds.ToString();
+		else
+			secondsS = seconds.ToString();
 		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
 		guiLabels = GetComponentsInChildren<UILabel>();
 		uiPanels = GetComponentsInChildren<UIPanel>(true);
@@ -103,7 +108,7 @@ public class Spy : MonoBehaviour
 		}
 
 		if(timeLabel!=null)
-			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + seconds + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
+			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + secondsS + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
 
 		//Interact Raycasts
 		if(Camera.main!=null){
@@ -152,12 +157,14 @@ public class Spy : MonoBehaviour
 				if(!objer.GetComponent<Objective>().textAdded && objer.GetComponent<Objective>().isActive){
 					objer.GetComponent<Objective>().textAdded = true;
 					GameObject textInstance = Instantiate(allytext, objer.transform.position, objer.transform.rotation) as GameObject;
-					Vector3 temp = new Vector3(0,1,0);
+					Vector3 temp = new Vector3(1.5f,-0.75f,0f);
+					Vector3 temp2 = new Vector3(270,0,0);
+					textInstance.transform.Rotate(temp2);
 					textInstance.GetComponent<AllyText>().offset = temp;
 					textInstance.transform.localScale += new Vector3(0.5f,0.5f,0.5f);
 					textInstance.GetComponent<AllyText>().target = objer.transform;
 					textInstance.transform.parent = objer.transform;
-					textInstance.GetComponent<TextMesh>().text = "[ACTIVE]";
+					textInstance.GetComponent<TextMesh>().text = "[ ]";
 				}
 				else if (!objer.GetComponent<Objective>().isActive && objer.GetComponent<Objective>().textAdded){
 					objer.GetComponentInChildren<TextMesh>().text = "";

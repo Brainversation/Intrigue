@@ -89,8 +89,14 @@ public class Guard : MonoBehaviour
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
 		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
 		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
+		string secondsS;
+		if(seconds<10)
+			secondsS = "0"+seconds.ToString();
+		else
+			secondsS = seconds.ToString();
+
 		if(timeLabel!=null)
-			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + seconds + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
+			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + secondsS + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
 		if(isOut){
 			accusing = false;
 			accused = null;
