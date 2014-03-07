@@ -113,7 +113,7 @@ public class Intrigue : MonoBehaviour {
 					Debug.Log("GuardsLeft: " + numGuardsLeft);
 					Debug.Log("ObjectivesCompleted:" + objectivesCompleted);
 					Debug.Log("numObjectives:" + numObjectives);
-					if(timeLeft<=0||numSpiesLeft<=0)
+					if(timeLeft<=0)
 						roundResult = "Time Limit Reached.\nGuards Win!";
 					else if(numSpiesLeft<=0)
 						roundResult = "All Spies Caught.\nGuards Win!";
@@ -121,7 +121,7 @@ public class Intrigue : MonoBehaviour {
 						roundResult = "All Guards Out.\nSpies Win!";
 					else
 						roundResult = "Objectives Completed.\nSpies Win!";
-					photonView.RPC("callGameOver", PhotonTargets.All);
+					photonView.RPC("callGameOver", PhotonTargets.All, roundResult);
 				}
 			}
 		}
@@ -251,7 +251,8 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	[RPC]
-	void callGameOver(){
+	void callGameOver(string resultFromMC){
+		roundResult = resultFromMC;
 		gameOver();
 	}
 

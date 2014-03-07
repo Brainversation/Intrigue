@@ -17,21 +17,38 @@ public class LoadingScreen : MonoBehaviour {
 	private float countdownDuration = 10;
 	private float countdownCur = 0;
 	private Intrigue intrigue;
+	private string roundResultDisplay;
 
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
+		if(PhotonNetwork.isMasterClient)
+			countdownDuration = 8;
 		if(Application.loadedLevelName=="Intrigue")
 			intrigue = GameObject.Find("Scripts").GetComponent<Intrigue>();
 	}
 
 	public void StartLoadingLevel(string levelTitle){
 		StartCoroutine(levelLoader(levelTitle));
+		levelToLoad = levelTitle;
 		if(gameObject.GetComponent<UIPanel>())
 			gameObject.GetComponent<UIPanel>().alpha = 1;
 		if(bg!=null)
 			bg.GetComponent<SpriteRenderer>().enabled = false;
+
+		if(levelTitle=="Intrigue"){
+			if(Application.loadedLevelName == "Intrigue"){
+				if(levelToLoad=="PostGame")
+					loadTitle.GetComponent<UILabel>().text = "GAME OVER";
+				else
+					loadTitle.GetComponent<UILabel>().text = "ROUND OVER";
+				loadResult.GetComponent<UILabel>().text = intrigue.roundResult;
+				}
+				else
+					loadTitle.GetComponent<UILabel>().text = "GAME STARTING";
+		}
+
 	}
 
 	IEnumerator levelLoader(string levelTitle){
@@ -59,7 +76,7 @@ public class LoadingScreen : MonoBehaviour {
 	        if(PhotonNetwork.isMasterClient){
 	        	Debug.Log("Waiting: " + loadCounter + "/" + (PhotonNetwork.playerList.Length));
 	        	if(loadCounter == PhotonNetwork.playerList.Length){
-	        		photonView.RPC("startGame", PhotonTargets.All, levelTitle);
+	        		Invoke("callStart", 10);
 	        	}
 	        }
 	        yield return null;
@@ -87,8 +104,13 @@ public class LoadingScreen : MonoBehaviour {
 			yield return null;
 		}
 		else{
+			PhotonNetwork.LoadLevel2(levelToLoad);
 		 	async.allowSceneActivation = true;
 		}
+	}
+
+	void callStart(){
+		photonView.RPC("startGame", PhotonTargets.All, levelToLoad);
 	}
 
 	[RPC]
@@ -99,10 +121,10 @@ public class LoadingScreen : MonoBehaviour {
 	[RPC]
 	void startGame(string level){
 		Debug.Log("Start Game Called");
-		PhotonNetwork.LoadLevel2(level);
-		if(level == "Intrigue" || level == "PostGame")
+		/*if(level == "Intrigue" || level == "PostGame")
 			StartCoroutine(Waiter(level));
 		else
+		*/
 			async.allowSceneActivation = true;
 	}
 }
