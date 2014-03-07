@@ -10,7 +10,7 @@ public class MainMenu : MonoBehaviour {
 	public GameObject serverTable;
 	private bool handleSet = false;
 	private bool serverSet = false;
-	private string playerPrefsPreffix;
+	private string playerPrefsPrefix;
 	public GameObject reconnectWindow;
 	public GameObject retryConnect;
 	public GameObject attemptingConnection;
@@ -37,17 +37,17 @@ public class MainMenu : MonoBehaviour {
 
 		//Player Prefs
 		if (Application.isEditor)
-			playerPrefsPreffix = "PlayerEditor";
+			playerPrefsPrefix = "PlayerEditor";
 		else
-			playerPrefsPreffix = "Player";
+			playerPrefsPrefix = "Player";
 
-		if( PlayerPrefs.HasKey( playerPrefsPreffix + "Name" ) ){
-			player.Handle = PlayerPrefs.GetString(playerPrefsPreffix + "Name");
+		if( PlayerPrefs.HasKey( playerPrefsPrefix + "Name" ) ){
+			player.Handle = PlayerPrefs.GetString(playerPrefsPrefix + "Name");
 			handleSet = true;
 		}
 
-		if( PlayerPrefs.HasKey( playerPrefsPreffix + "Room" ) ){
-			player.RoomName = PlayerPrefs.GetString(playerPrefsPreffix + "Room");
+		if( PlayerPrefs.HasKey( playerPrefsPrefix + "Room" ) ){
+			player.RoomName = PlayerPrefs.GetString(playerPrefsPrefix + "Room");
 			serverSet = true;
 		}
 
@@ -159,8 +159,8 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnJoinedRoom(){
-		PlayerPrefs.SetString(playerPrefsPreffix + "Name", player.Handle);
-		PlayerPrefs.SetString(playerPrefsPreffix + "Room", player.RoomName);
+		PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
+		PlayerPrefs.SetString(playerPrefsPrefix + "Room", player.RoomName);
 		PlayerPrefs.Save();
 		loadingScreen.StartLoadingLevel("Pregame");
 	}
