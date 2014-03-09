@@ -128,7 +128,7 @@ public class MainMenu : MonoBehaviour {
 		foreach (RoomInfo room in PhotonNetwork.GetRoomList()) {
 			GameObject serverInfo = NGUITools.AddChild (serverTable, btnJoinServer_prefab);
 			UILabel[] serverButText = serverInfo.GetComponentsInChildren<UILabel>();
-			Vector3 temp = new Vector3(0.52f,-0.1f+(serverNum)*0.12f,0);
+			Vector3 temp = new Vector3(0.52f,-0.1f-((serverNum)*0.12f),0);
 			serverInfo.transform.position+=temp;
 			serverButText[0].text = room.name;
 			serverButText[1].text = room.playerCount+"/"+room.maxPlayers;

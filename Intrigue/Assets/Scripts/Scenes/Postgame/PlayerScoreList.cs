@@ -91,7 +91,7 @@ public class PlayerScoreList : MonoBehaviour {
 		team1.Add(handle);
 		GameObject playerInfo = NGUITools.AddChild(gameObject, playerPrefab);
 		Vector3 temp = new Vector3(0f,(team1.Count-1)*0.1f,0);
-		playerInfo.transform.position-=temp;
+		playerInfo.transform.localPosition-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = handle;
 		label.text = handle + " : " + score;
