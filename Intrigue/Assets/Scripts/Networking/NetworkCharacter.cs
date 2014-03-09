@@ -30,8 +30,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	public void FixedUpdate(){
 		if(photonView.isMine && !isOut){
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
-			//Debug.Log("Vert: " + Input.GetAxis("Vertical"));
-			//Debug.Log("Horiz: " + Input.GetAxis("Horizontal"));
 			if(wantSprint)
 				anim.SetBool("Run", Input.GetKey("left shift"));
 			
@@ -71,6 +69,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			stream.SendNext(Input.GetKey("left shift"));
 			stream.SendNext(anim.GetBool("InteractSafe"));
 			stream.SendNext(anim.GetBool("InteractComp"));
+			stream.SendNext(anim.GetBool("Out"));
 
 		}else{
 			// Network player, receive data
@@ -81,6 +80,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetBool("Run", (bool) stream.ReceiveNext());
 			anim.SetBool("InteractSafe", (bool) stream.ReceiveNext());
 			anim.SetBool("InteractComp", (bool) stream.ReceiveNext());
+			anim.SetBool("Out", (bool) stream.ReceiveNext());
 		}
 	}
 }
