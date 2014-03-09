@@ -889,8 +889,8 @@ GameObject:
   - 143: {fileID: 14300000}
   - 65: {fileID: 6500000}
   - 114: {fileID: 11400044}
-  - 114: {fileID: 11400042}
   - 111: {fileID: 11100000}
+  - 114: {fileID: 11400000}
   m_Layer: 8
   m_Name: Robot_Spy1
   m_TagString: Spy
@@ -2413,6 +2413,21 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e0370f8b3389e40b453fff42598107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crosshairNormal: {fileID: 2800000, guid: 77203846a9ded514aba985acbba6a2e9, type: 3}
+  crosshairInteract: {fileID: 2800000, guid: 95252a15a494d9f44917e92f67db5675, type: 3}
+  teamSpy: 1
+  canInteract: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3233,20 +3248,6 @@ MonoBehaviour:
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
   mClipSoftness: {x: 4, y: 4}
   mDepth: 1
---- !u!114 &11400042
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea88a42c06b7ee445a96c091c80917d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crosshairNormal: {fileID: 2800000, guid: 77203846a9ded514aba985acbba6a2e9, type: 3}
-  crosshairInteract: {fileID: 2800000, guid: 95252a15a494d9f44917e92f67db5675, type: 3}
-  canInteract: 0
 --- !u!114 &11400044
 MonoBehaviour:
   m_ObjectHideFlags: 1

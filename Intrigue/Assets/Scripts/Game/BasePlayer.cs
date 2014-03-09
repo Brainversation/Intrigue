@@ -44,7 +44,7 @@ public class BasePlayer : MonoBehaviour {
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<MovementController>().enabled = false;
 			GetComponentInChildren<MouseLook>().enabled = false; 
-			GetComponentInChildren<SpyCrosshair>().enabled = false;
+			GetComponentInChildren<Crosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
 			guiPanels = GetComponentsInChildren<UIPanel>(true);
 			foreach(UIPanel uiP in guiPanels){

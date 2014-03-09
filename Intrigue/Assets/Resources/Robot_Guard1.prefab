@@ -890,7 +890,7 @@ GameObject:
   - 65: {fileID: 6500000}
   - 111: {fileID: 11100000}
   - 114: {fileID: 11400042}
-  - 114: {fileID: 11400044}
+  - 114: {fileID: 11400038}
   m_Layer: 8
   m_Name: Robot_Guard1
   m_TagString: Guard
@@ -3212,6 +3212,21 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &11400038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8e0370f8b3389e40b453fff42598107, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crosshairNormal: {fileID: 2800000, guid: 77203846a9ded514aba985acbba6a2e9, type: 3}
+  crosshairInteract: {fileID: 2800000, guid: 95252a15a494d9f44917e92f67db5675, type: 3}
+  teamSpy: 0
+  canInteract: 0
 --- !u!114 &11400042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3232,20 +3247,6 @@ MonoBehaviour:
   isOut: 0
   hairHat: {fileID: 100058}
   allytext: {fileID: 100000, guid: 26b1b09240bba7c4380f37e478491862, type: 2}
---- !u!114 &11400044
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffdf93944d02088429ec61ccf79123dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crosshairNormal: {fileID: 2800000, guid: 77203846a9ded514aba985acbba6a2e9, type: 3}
-  crosshairInteract: {fileID: 2800000, guid: 95252a15a494d9f44917e92f67db5675, type: 3}
-  canInteract: 0
 --- !u!114 &11400046
 MonoBehaviour:
   m_ObjectHideFlags: 1
