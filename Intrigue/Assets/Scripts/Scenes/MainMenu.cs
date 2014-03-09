@@ -22,10 +22,13 @@ public class MainMenu : MonoBehaviour {
 	public GameObject bg_texture;
 	[HideInInspector] public GameObject createServerButton;
 	[HideInInspector] public GameObject findServerButton;
+	[HideInInspector] public GameObject optionsButtons;
+	[HideInInspector] public bool connected = false;
 
 	void Start () {
 		createServerButton = GameObject.Find("CREATE SERVER");
 		findServerButton = GameObject.Find("FIND SERVER");
+		optionsButtons = GameObject.Find("OptionsButtons");
 		Screen.lockCursor = false;
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -64,15 +67,31 @@ public class MainMenu : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(!connected){
+			if(PhotonNetwork.connectionStateDetailed == PeerState.Connecting){
+				connectingAttempt();
+			}
+			else if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated || PhotonNetwork.connectionStateDetailed == PeerState.Disconnected) {
+				Debug.Log("noInternet()");
+				noInternet();
+			}
+			else{
+				Debug.Log("yesInternet()");
+				yesInternet();
+			}
+		}
+		checkInternet();
+	}
+
+	void checkInternet(){
 		if(PhotonNetwork.connectionStateDetailed == PeerState.Connecting){
-			connectingAttempt();
+			connected = false;
 		}
 		else if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated || PhotonNetwork.connectionStateDetailed == PeerState.Disconnected) {
-
-			noInternet();
+			connected = false;
 		}
 		else{
-			yesInternet();
+			connected = true;
 		}
 	}
 
@@ -98,6 +117,8 @@ public class MainMenu : MonoBehaviour {
 	void yesInternet(){
 		NGUITools.SetActiveChildren(gameObject, true);
 		NGUITools.SetActive(reconnectWindow,false);
+		NGUITools.SetActive(optionsButtons, false);
+		optionsButtons.SetActive(false);
 		createServerButton.GetComponent<UIButton>().enabled = true;
 		findServerButton.GetComponent<UIButton>().enabled = true;
 	}
