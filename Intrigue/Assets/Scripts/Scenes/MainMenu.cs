@@ -44,12 +44,14 @@ public class MainMenu : MonoBehaviour {
 		else
 			playerPrefsPrefix = "Player";
 
-		if( PlayerPrefs.HasKey( playerPrefsPrefix + "Name" ) ){
+		if( PlayerPrefs.HasKey( playerPrefsPrefix + "Name" ) &&
+				PlayerPrefs.GetString(playerPrefsPrefix + "Name") != "" ){
 			player.Handle = PlayerPrefs.GetString(playerPrefsPrefix + "Name");
 			handleSet = true;
 		}
 
-		if( PlayerPrefs.HasKey( playerPrefsPrefix + "Room" ) ){
+		if( PlayerPrefs.HasKey( playerPrefsPrefix + "Room" ) &&
+				PlayerPrefs.GetString(playerPrefsPrefix + "Room") != ""  ){
 			player.RoomName = PlayerPrefs.GetString(playerPrefsPrefix + "Room");
 			serverSet = true;
 		}
