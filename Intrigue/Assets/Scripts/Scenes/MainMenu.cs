@@ -12,6 +12,7 @@ public class MainMenu : MonoBehaviour {
 	private bool serverSet = false;
 	private string playerPrefsPrefix;
 	public GameObject reconnectWindow;
+	public GameObject createRoomFailed;
 	public GameObject retryConnect;
 	public GameObject attemptingConnection;
 	public GameObject mask;
@@ -67,18 +68,15 @@ public class MainMenu : MonoBehaviour {
 		}
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if(!connected){
 			if(PhotonNetwork.connectionStateDetailed == PeerState.Connecting){
 				connectingAttempt();
 			}
 			else if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated || PhotonNetwork.connectionStateDetailed == PeerState.Disconnected) {
-				//Debug.Log("noInternet()");
 				noInternet();
 			}
 			else{
-				//Debug.Log("yesInternet()");
 				yesInternet();
 			}
 		}
@@ -98,27 +96,27 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void connectingAttempt(){
-		//NGUITools.SetActiveChildren(gameObject,false);
 		createServerButton.GetComponent<UIButton>().enabled = false;
 		findServerButton.GetComponent<UIButton>().enabled = false;
 		NGUITools.SetActive(reconnectWindow, true);
 		reconnectWindow.GetComponentInChildren<TweenAlpha>().PlayForward();
 		NGUITools.SetActive(retryConnect, false);
+		NGUITools.SetActive(optionsButtons, false);
+		NGUITools.SetActive(createRoomFailed, false);
 	}
 
 	void noInternet(){
-		//NGUITools.SetActiveChildren(gameObject,false);
 		createServerButton.GetComponent<UIButton>().enabled = false;
 		findServerButton.GetComponent<UIButton>().enabled = false;
 		NGUITools.SetActive(reconnectWindow,true);
 		NGUITools.SetActive(uiCamera, true);
-		//NGUITools.SetActive(bg_texture, true);
 		NGUITools.SetActive(attemptingConnection, false);
 	}
 
 	void yesInternet(){
 		NGUITools.SetActiveChildren(gameObject, true);
 		NGUITools.SetActive(reconnectWindow,false);
+		NGUITools.SetActive(createRoomFailed, false);
 		NGUITools.SetActive(optionsButtons, false);
 		optionsButtons.SetActive(false);
 		createServerButton.GetComponent<UIButton>().enabled = true;
@@ -141,9 +139,8 @@ public class MainMenu : MonoBehaviour {
 	void refreshServerList(){
 		foreach(Transform child in serverTable.transform){
 				NGUITools.Destroy(child.gameObject);
-			}
+		}
 		onFindServerClicked();
-		//Debug.Log("Refreshed Servers");
 	}
 
 	void onCreateServerClicked(){
@@ -190,5 +187,15 @@ public class MainMenu : MonoBehaviour {
 
 	void OnPhotonJoinFailed(){
 		Debug.Log("OnPhotonJoinFailed");
+	}
+
+	void OnPhotonCreateRoomFailed(){
+		NGUITools.SetActive(createRoomFailed, true);
+		StartCoroutine(wait());
+	}
+
+	IEnumerator wait(){
+		yield return new WaitForSeconds(5);
+		NGUITools.SetActive(createRoomFailed, false);
 	}
 }
