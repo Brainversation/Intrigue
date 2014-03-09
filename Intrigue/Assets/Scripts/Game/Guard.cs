@@ -1,72 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-public class Guard : MonoBehaviour
-{
-	private bool accusing = false;
+public class Guard : BasePlayer{
+	
 	private GameObject accused;
-	private PhotonView photonView = null;
 	private GameObject[] guests = null;
 	private GameObject[] spies = null;
-	private Player player;
-	private Intrigue intrigue;
-	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
-	private GameObject timeLabel;
-	private GameObject outLabel;
+	private bool accusing = false;
 	private UIPanel accusationGUI;
-	private UIPanel[] guiPanels;
-	private UILabel[] guiLabels;
 	private Renderer[] renders;
-	public int remoteScore = 0;
-	public int localPing = 0;
-	public GameObject allytext;
-	public bool textAdded = false;
-	public bool isOut = false;
-	public bool isAssigned = false;
-	public string localHandle = "";
-	public GameObject hairHat;
-
-	//Yield function that waits specified amount of seconds
-
-	IEnumerator Yielder(int seconds){
-		yield return new WaitForSeconds(seconds);
-	}
-
-	void Start(){
-		InvokeRepeating("syncPingAndScore", 1, 1F);
-		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
-		player = GameObject.Find("Player").GetComponent<Player>();
-		photonView = PhotonView.Get(this);
-
-		if(photonView.isMine){
-			localHandle = player.Handle;
-			remoteScore = player.Score;
-			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
-			photonView.RPC("giveScore", PhotonTargets.Others, player.Score);
-			if(hairHat!=null)
-				hairHat.GetComponent<Renderer>().enabled = false;
-		} else {
-			GetComponentInChildren<Camera>().enabled = false;
-			GetComponentInChildren<AudioListener>().enabled = false;
-			GetComponentInChildren<MovementController>().enabled = false;
-			GetComponentInChildren<MouseLook>().enabled = false;
-			GetComponentInChildren<GuardCrosshair>().enabled = false;
-			GetComponent<MouseLook>().enabled = false;
-			guiPanels = GetComponentsInChildren<UIPanel>(true);
-			foreach(UIPanel uiP in guiPanels){
-				NGUITools.SetActive(uiP.gameObject, false);
-			}
-			enabled = false;
-
-		}
-	}
-
-	void syncPingAndScore(){
-		//remoteScore = player.Score;
-		localPing = PhotonNetwork.GetPing();
-		photonView.RPC("givePing", PhotonTargets.All, PhotonNetwork.GetPing());
-		//photonView.RPC("giveScore", PhotonTargets.All, player.Score);
-	}
 
 	void Update () {
 		guests = GameObject.FindGameObjectsWithTag("Guest");
@@ -206,22 +148,6 @@ public class Guard : MonoBehaviour
 			accused = null;
 		}
 	}
-		
-	public void outStarted(){
-		Invoke("spectate", 5);
-	}
-
-	void spectate(){
-		GetComponentInChildren<Camera>().enabled = false;
-		
-		foreach (GameObject guard in GameObject.FindGameObjectsWithTag("Guard")){
-			if(guard.gameObject != gameObject){
-				guard.GetComponentInChildren<Camera>().enabled = true; 
-				break;
-			}
-		}
-		PhotonNetwork.Destroy(gameObject);
-	}
 
 	[RPC]
 	void spyCaught(){
@@ -236,11 +162,6 @@ public class Guard : MonoBehaviour
 	}
 
 	[RPC]
-	void giveHandle(string handle){
-		localHandle = handle;
-	}
-
-	[RPC]
 	void addScore(int teamID, int scoreToAdd){
 		if(teamID == this.player.TeamID){
 			player.TeamScore += scoreToAdd;
@@ -248,6 +169,11 @@ public class Guard : MonoBehaviour
 		else{
 			player.EnemyScore += scoreToAdd;
 		}
+	}
+
+		[RPC]
+	void giveHandle(string handle){
+		localHandle = handle;
 	}
 
 	[RPC]
