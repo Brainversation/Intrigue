@@ -107,7 +107,6 @@ public class Intrigue : MonoBehaviour {
 		if( timeLeft <= (timeLimit-10) ){
 			if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/totalObjActive)*100)>50){
 				if(wantGameOver){
-					Debug.Log("Game Over:");
 					Debug.Log("TimeLeft: " + timeLeft);
 					Debug.Log("SpiesLeft: " + numSpiesLeft);
 					Debug.Log("GuardsLeft: " + numGuardsLeft);
@@ -169,8 +168,8 @@ public class Intrigue : MonoBehaviour {
 		loadingScreen = loadingBackup;
 
 		if(roundsLeft > 0){
-			Debug.Log( "Reset" );
 			--roundsLeft;
+			Debug.Log( "Reset:" + roundsLeft);
 			photonView.RPC("syncRounds", PhotonTargets.OthersBuffered, roundsLeft);
 			//PhotonNetwork.isMessageQueueRunning = false;
 			enabled = false;
@@ -186,8 +185,7 @@ public class Intrigue : MonoBehaviour {
 			loadingScreen.StartLoadingLevel("Intrigue");
 		} else {
 			Debug.Log( "Game Over" );
-			//PhotonNetwork.isMessageQueueRunning = false;
-			//PhotonNetwork.LoadLevel("PostGame");
+			roundsLeft = rounds;
 			loadingScreen.StartLoadingLevel("PostGame");
 		}
 	}

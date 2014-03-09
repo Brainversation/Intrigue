@@ -14993,7 +14993,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &540966068
 Transform:
   m_ObjectHideFlags: 0
@@ -16337,7 +16337,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &583408147
 Transform:
   m_ObjectHideFlags: 0
@@ -28896,7 +28896,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1078782513
 Transform:
   m_ObjectHideFlags: 0
@@ -29779,7 +29779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba66d7dc73d92cd4c8bcbef917c0f50c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: Pregame
+  levelToLoad: 
   UIRoot: {fileID: 262655893}
   bg: {fileID: 0}
   loadingBar: {fileID: 1078782512}
@@ -45287,6 +45287,22 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400022, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
       propertyPath: mText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400008, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: levelToLoad
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []

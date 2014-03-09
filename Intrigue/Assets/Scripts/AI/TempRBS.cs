@@ -294,7 +294,6 @@ namespace TempRBS{
         }
 
         private Status go(GameObject gameObject){
-            Debug.Log("go to Dest");
             Vector3 dest = gameObject.GetComponent<TempBaseAI>().destination;
             gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
             gameObject.GetComponent<NavMeshAgent>().SetDestination(dest);

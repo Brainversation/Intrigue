@@ -1,70 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class Spy : MonoBehaviour
-{
-
-	private Player player;
-	public PhotonView photonView = null;
-	public GameObject allytext;
-	public bool textAdded = false;
-	public bool isOut = false;
-	public string localHandle = "";
-	public int localPing = 0;
-	public float percentComplete = 0;
-	public bool doingObjective = false;
-	public int remoteScore = 0;
-	public bool isAssigned = false;
-	public GameObject hairHat;
-	public string objectiveType;
-	private GameObject timeLabel;
-	private GameObject outLabel;
-	private UILabel[] guiLabels;
-	private UIPanel[] uiPanels;
+public class Spy : BasePlayer{
+	
 	private UIPanel objPanel;
 	private UISlider objSlider;
-	private Intrigue intrigue;
-	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
-
-	//Yield function that waits specified amount of seconds
-	IEnumerator Yielder(int seconds){
-		yield return new WaitForSeconds(seconds);
-	}
-
-	void Start(){
-		photonView = PhotonView.Get(this);
-		player = GameObject.Find("Player").GetComponent<Player>();
-		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
-		InvokeRepeating("syncPingAndScore", 1, 1F);
-		if(photonView.isMine){
-			localHandle = player.Handle;
-			remoteScore = player.Score;
-			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
-			photonView.RPC("giveScore", PhotonTargets.Others, player.Score);
-			if(hairHat!=null)
-				hairHat.GetComponent<Renderer>().enabled = false;
-		} else {
-			GetComponentInChildren<Camera>().enabled = false; 
-			GetComponentInChildren<AudioListener>().enabled = false;
-			GetComponentInChildren<MovementController>().enabled = false;
-			GetComponentInChildren<MouseLook>().enabled = false; 
-			GetComponentInChildren<SpyCrosshair>().enabled = false;
-			GetComponent<MouseLook>().enabled = false;
-			uiPanels = GetComponentsInChildren<UIPanel>(true);
-			foreach(UIPanel uiP in uiPanels){
-				NGUITools.SetActive(uiP.gameObject, false);
-			}
-
-			enabled = false;
-		}
-	}
-
-	void syncPingAndScore(){
-		//remoteScore = player.Score;
-		localPing = PhotonNetwork.GetPing();
-		photonView.RPC("givePing", PhotonTargets.All, PhotonNetwork.GetPing());
-		//photonView.RPC("giveScore", PhotonTargets.All, player.Score);
-	}
+	public float percentComplete = 0;
+	public bool doingObjective = false;
+	public string objectiveType;
 
 	void Update () {
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
@@ -76,8 +19,8 @@ public class Spy : MonoBehaviour
 			secondsS = seconds.ToString();
 		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
 		guiLabels = GetComponentsInChildren<UILabel>();
-		uiPanels = GetComponentsInChildren<UIPanel>(true);
-		foreach(UIPanel uiP in uiPanels){
+		guiPanels = GetComponentsInChildren<UIPanel>(true);
+		foreach(UIPanel uiP in guiPanels){
 			if(uiP.gameObject.CompareTag("ObjectivePanel")){
 				objPanel = uiP;
 			}
@@ -170,26 +113,6 @@ public class Spy : MonoBehaviour
 					objer.GetComponentInChildren<TextMesh>().text = "";
 				}
 		}
-
-
-	}
-
-	public void outStarted(){
-		Invoke("spectate", 5);
-	}
-
-	void spectate(){
-		Debug.Log("Trying to Spectate");
-		GetComponentInChildren<Camera>().enabled = false;
-		foreach (GameObject spy in GameObject.FindGameObjectsWithTag("Spy")){
-			if(spy.gameObject != gameObject){
-				spy.GetComponentInChildren<Camera>().enabled = true; 
-				Debug.Log("In For loop enabled a Camera");
-				break;
-			}
-		}
-
-		PhotonNetwork.Destroy(gameObject);
 	}
 
 	[RPC]
@@ -200,7 +123,7 @@ public class Spy : MonoBehaviour
 		}
 	}
 
-	[RPC]
+		[RPC]
 	void giveHandle(string handle){
 		localHandle = handle;
 	}

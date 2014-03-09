@@ -3223,14 +3223,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be1dc1eba228b945ae2c0d36f51f58d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  remoteScore: 0
-  localPing: 0
-  allytext: {fileID: 100000, guid: 26b1b09240bba7c4380f37e478491862, type: 2}
-  textAdded: 0
-  isOut: 0
-  isAssigned: 0
+  photonView: {fileID: 0}
   localHandle: No Handle
+  localPing: 0
+  remoteScore: 0
+  textAdded: 0
+  isAssigned: 0
+  isOut: 0
   hairHat: {fileID: 100058}
+  allytext: {fileID: 100000, guid: 26b1b09240bba7c4380f37e478491862, type: 2}
 --- !u!114 &11400044
 MonoBehaviour:
   m_ObjectHideFlags: 1

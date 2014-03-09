@@ -23,15 +23,14 @@ public class LoadingScreen : MonoBehaviour {
 	void Start(){
 		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
-		if(PhotonNetwork.isMasterClient)
-			countdownDuration = 8;
 		if(Application.loadedLevelName=="Intrigue")
 			intrigue = GameObject.Find("Scripts").GetComponent<Intrigue>();
 	}
 
 	public void StartLoadingLevel(string levelTitle){
-		StartCoroutine(levelLoader(levelTitle));
 		levelToLoad = levelTitle;
+		async = Application.LoadLevelAsync(levelToLoad);
+		StartCoroutine(levelLoader());
 		if(gameObject.GetComponent<UIPanel>())
 			gameObject.GetComponent<UIPanel>().alpha = 1;
 		if(bg!=null)
@@ -51,16 +50,12 @@ public class LoadingScreen : MonoBehaviour {
 
 	}
 
-	IEnumerator levelLoader(string levelTitle){
-		if(async==null){
-	 		async = Application.LoadLevelAsync(levelTitle);
-	 	}
-
-	 	if(levelTitle=="Intrigue"){
+	IEnumerator levelLoader(){
+	 	if(levelToLoad=="Intrigue"){
         	async.allowSceneActivation = false;
         }
         else{
-        	PhotonNetwork.LoadLevel2(levelTitle);
+        	PhotonNetwork.LoadLevel2(levelToLoad);
 		 	loadingBar.GetComponent<UISlider>().value = async.progress;
 		 	loadTitle.GetComponent<UILabel>().text = "Intrigue";
 		 	loadTimer.GetComponent<UILabel>().text = "";
@@ -76,8 +71,8 @@ public class LoadingScreen : MonoBehaviour {
 	        if(PhotonNetwork.isMasterClient){
 	        	Debug.Log("Waiting: " + loadCounter + "/" + (PhotonNetwork.playerList.Length));
 	        	if(loadCounter == PhotonNetwork.playerList.Length){
-	        		Invoke("callStart", 10);
-	        		//photonView.RPC("startGame", PhotonTargets.All, levelToLoad);
+	        		photonView.RPC("startGame", PhotonTargets.AllBuffered);
+	        		yield break;
 	        	}
 	        }
 	        yield return null;
@@ -88,31 +83,19 @@ public class LoadingScreen : MonoBehaviour {
    	
    	}
 
-   	IEnumerator Waiter(string levelToLoad) {
-		loadingBar.GetComponent<UISlider>().value = countdownCur/countdownDuration;
-		loadTimer.GetComponent<UILabel>().text = Mathf.RoundToInt(countdownDuration-countdownCur)+"s";
-		if(Application.loadedLevelName == "Intrigue"){
-			if(levelToLoad=="PostGame")
-				loadTitle.GetComponent<UILabel>().text = "GAME OVER";
-			else
-				loadTitle.GetComponent<UILabel>().text = "ROUND OVER";
-			loadResult.GetComponent<UILabel>().text = intrigue.roundResult;
-		}
-		else
-			loadTitle.GetComponent<UILabel>().text = "GAME STARTING";
-		if(countdownCur<countdownDuration){
+   	IEnumerator Waiter() {
+		while(countdownCur<countdownDuration){
 			countdownCur+= Time.deltaTime;
+			loadingBar.GetComponent<UISlider>().value = countdownCur/countdownDuration;
+			loadTimer.GetComponent<UILabel>().text = Mathf.RoundToInt(countdownDuration-countdownCur)+"s";
 			yield return null;
 		}
-		else{
-			PhotonNetwork.LoadLevel2(levelToLoad);
-		 	async.allowSceneActivation = true;
-		}
+		PhotonNetwork.LoadLevel2(levelToLoad);
+		async.allowSceneActivation = true;
 	}
 
 	void callStart(){
-		photonView.RPC("startGame", PhotonTargets.Others, levelToLoad);
-		async.allowSceneActivation = true;
+		photonView.RPC("startGame", PhotonTargets.All);
 	}
 
 	[RPC]
@@ -121,12 +104,8 @@ public class LoadingScreen : MonoBehaviour {
 	}
 
 	[RPC]
-	void startGame(string level){
+	void startGame(){
 		Debug.Log("Start Game Called");
-		/*if(level == "Intrigue" || level == "PostGame")
-			StartCoroutine(Waiter(level));
-		else
-		*/
-			async.allowSceneActivation = true;
+		StartCoroutine(Waiter());
 	}
 }
