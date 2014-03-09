@@ -97,7 +97,7 @@ public class Guard : BasePlayer{
 					}
 			}
 		
-			if(accusing && accused!=null){
+			if(accusing && accused!=null && !accused.GetComponent<Spy>().isOut){
 				accusationGUI.alpha = 1;
 				if(Input.GetKeyUp(KeyCode.E)){
 					accusing = false;
