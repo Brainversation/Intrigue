@@ -72,11 +72,11 @@ public class MainMenu : MonoBehaviour {
 				connectingAttempt();
 			}
 			else if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated || PhotonNetwork.connectionStateDetailed == PeerState.Disconnected) {
-				Debug.Log("noInternet()");
+				//Debug.Log("noInternet()");
 				noInternet();
 			}
 			else{
-				Debug.Log("yesInternet()");
+				//Debug.Log("yesInternet()");
 				yesInternet();
 			}
 		}
@@ -141,7 +141,7 @@ public class MainMenu : MonoBehaviour {
 				NGUITools.Destroy(child.gameObject);
 			}
 		onFindServerClicked();
-		Debug.Log("Refreshed Servers");
+		//Debug.Log("Refreshed Servers");
 	}
 
 	void onCreateServerClicked(){
