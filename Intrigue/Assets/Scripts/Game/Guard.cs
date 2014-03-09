@@ -136,11 +136,15 @@ public class Guard : BasePlayer{
 
 	void testAccusation(){
 		if(accused != null && accused.CompareTag("Spy")){
-			photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
-			photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
-			photonView.RPC("spyCaught", PhotonTargets.MasterClient);
-			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
-			accused = null;
+			if(!accused.GetComponent<Spy>().isOut){
+				Debug.Log("accuse ran");
+				photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
+				photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
+				photonView.RPC("spyCaught", PhotonTargets.MasterClient);
+				accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
+				accused.GetComponent<Spy>().isOut = true;
+				accused = null;
+			}
 		}else{
 			photonView.RPC("guardFailed", PhotonTargets.MasterClient);
 			isOut = true;
