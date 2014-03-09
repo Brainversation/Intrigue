@@ -185,8 +185,7 @@ public class Intrigue : MonoBehaviour {
 			loadingScreen.StartLoadingLevel("Intrigue");
 		} else {
 			Debug.Log( "Game Over" );
-			//PhotonNetwork.isMessageQueueRunning = false;
-			//PhotonNetwork.LoadLevel("PostGame");
+			roundsLeft = rounds;
 			loadingScreen.StartLoadingLevel("PostGame");
 		}
 	}

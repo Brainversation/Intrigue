@@ -122,4 +122,27 @@ public class Spy : BasePlayer{
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
 		}
 	}
+
+		[RPC]
+	void giveHandle(string handle){
+		localHandle = handle;
+	}
+
+	[RPC]
+	void giveScore(int score){
+		remoteScore = score;
+	}
+
+	[RPC]
+	void givePing(int ping){
+		localPing = ping;
+	}
+
+	[RPC]
+	void addPlayerScore(int scoreToAdd){
+		if(photonView.isMine){
+			player.Score += scoreToAdd;
+			photonView.RPC("giveScore", PhotonTargets.All, player.Score);
+		}
+	}
 }
