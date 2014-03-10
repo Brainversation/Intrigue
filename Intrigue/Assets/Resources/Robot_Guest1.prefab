@@ -884,9 +884,9 @@ GameObject:
   - 95: {fileID: 9500000}
   - 114: {fileID: 11400052}
   - 65: {fileID: 6500000}
-  - 111: {fileID: 11100000}
   - 195: {fileID: 19500000}
   - 114: {fileID: 11400000}
+  - 54: {fileID: 5400000}
   m_Layer: 9
   m_Name: Robot_Guest1
   m_TagString: Guest
@@ -1682,6 +1682,21 @@ Transform:
   m_LocalScale: {x: .99999994, y: 1.00000012, z: .99999994}
   m_Children: []
   m_Father: {fileID: 400096}
+--- !u!54 &5400000
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100116}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &6500000
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1708,20 +1723,6 @@ Animator:
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
---- !u!111 &11100000
-Animation:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100116}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1730,11 +1731,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 100116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 779bad6cdf1374d4caff5689284f6150, type: 3}
+  m_Script: {fileID: 11500000, guid: 468cc884df37b904c9665a039f0e129b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 19500000}
+  anim: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
+  room: {fileID: 0}
+  isYourTurn: 0
+  status: 0
+  distFromDest: 5
   thirst: 0
   bored: 0
   hunger: 0
@@ -1742,8 +1748,6 @@ MonoBehaviour:
   tired: 0
   anxiety: 0
   bladder: 0
-  timeInRoom: 11
-  room: {fileID: 0}
 --- !u!114 &11400052
 MonoBehaviour:
   m_ObjectHideFlags: 1

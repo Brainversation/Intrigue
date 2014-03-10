@@ -12,11 +12,11 @@ public class BaseAI : Photon.MonoBehaviour {
 	private Quaternion correctPlayerRot;
 	private Rule currentRule;
 	private float updateWants = 5f;
-	private int indent;
+	// private int indent;
 
 	protected List<Rule> rules;
 
-	private static List<GameObject> ais = new List<GameObject>();
+	// private static List<GameObject> ais = new List<GameObject>();
 
 	// AI info
 	[HideInInspector] public Animator anim;
@@ -37,8 +37,8 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public float bladder = 0f;
 
 	void Start(){
-		indent = ais.Count;
-		ais.Add(gameObject);
+		// indent = ais.Count;
+		// ais.Add(gameObject);
 		anim = GetComponent<Animator>();
 		anim.speed = 1f;
 		initAI();
@@ -116,18 +116,18 @@ public class BaseAI : Photon.MonoBehaviour {
 		}
 	}
 
-	void OnGUI(){
-		GUI.color = Color.black;
-		GUILayout.BeginArea(new Rect(100 * indent, 0, 100, 200));
-			GUILayout.Label( "thirst " + thirst);
-			GUILayout.Label( "bored " + bored);
-			GUILayout.Label( "hunger " + hunger);
-			GUILayout.Label( "lonely " + lonely);
-			GUILayout.Label( "tired " + tired);
-			GUILayout.Label( "anxiety " + anxiety);
-			GUILayout.Label( "bladder " + bladder);
-		GUILayout.EndArea();
-	}
+	// void OnGUI(){
+	// 	GUI.color = Color.black;
+	// 	GUILayout.BeginArea(new Rect(100 * indent, 0, 100, 200));
+	// 		GUILayout.Label( "thirst " + thirst);
+	// 		GUILayout.Label( "bored " + bored);
+	// 		GUILayout.Label( "hunger " + hunger);
+	// 		GUILayout.Label( "lonely " + lonely);
+	// 		GUILayout.Label( "tired " + tired);
+	// 		GUILayout.Label( "anxiety " + anxiety);
+	// 		GUILayout.Label( "bladder " + bladder);
+	// 	GUILayout.EndArea();
+	// }
 
 	void initAI(){
 		rules = new List<Rule>();

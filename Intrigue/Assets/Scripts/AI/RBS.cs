@@ -195,7 +195,7 @@ namespace RBS{
 			Debug.Log("Wants to converse");
 			Status returnStat;
 			BaseAI script = gameObject.GetComponent<BaseAI>();
-			List<GameObject> conversers = script.room.me.GetComponent<AI_RoomState>().conversers;
+			List<GameObject> conversers = script.room.conversers;
 			script.lonely -= 20;
 			script.bored -= 10;
 			if(conversers.Count == 0 || conversers.Count > offset){

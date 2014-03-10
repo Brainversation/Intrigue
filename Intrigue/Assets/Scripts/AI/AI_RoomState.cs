@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class AI_RoomState : MonoBehaviour{
 
-	public string roomName;
-	
+	public string roomName = "";
+
 	[HideInInspector] public List<GameObject> conversers;
 	[HideInInspector] public int population;
 	[HideInInspector] public Transform drinkLocation;
