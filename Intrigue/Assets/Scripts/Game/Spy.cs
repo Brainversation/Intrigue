@@ -9,7 +9,8 @@ public class Spy : BasePlayer{
 	public bool doingObjective = false;
 	public string objectiveType;
 
-	void Update () {
+	protected override void Update () {
+		base.Update();
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
 		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
 		string secondsS;
@@ -75,27 +76,8 @@ public class Spy : BasePlayer{
 				doingObjective = false;
 		}
 
-		//Create Ally and Objective Texts
-		GameObject[] allies = GameObject.FindGameObjectsWithTag("Spy");
+		//Create Objective Texts
 		GameObject[] objecs = GameObject.FindGameObjectsWithTag("Objective");
-		foreach(GameObject ally in allies){
-			if(ally!=gameObject){
-				if(!ally.GetComponent<Spy>().textAdded){
-					//Debug.Log("creating ally text");
-					ally.GetComponent<Spy>().textAdded = true;
-					GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
-					textInstance.GetComponent<AllyText>().target = ally.transform;
-					textInstance.transform.parent = ally.transform;
-					textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
-				}
-				if((ally.GetComponentInChildren<TextMesh>().text == "") && ally.GetComponent<Spy>().textAdded){
-					//Debug.Log("Changing Handle from: " + ally.GetComponentInChildren<TextMesh>().text + " to:" + ally.GetComponent<Spy>().localHandle);
-					ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
-					
-				}
-			}
-		}
-
 		foreach(GameObject objer in objecs){
 				if(!objer.GetComponent<Objective>().textAdded && objer.GetComponent<Objective>().isActive){
 					objer.GetComponent<Objective>().textAdded = true;

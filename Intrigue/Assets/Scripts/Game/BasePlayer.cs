@@ -54,8 +54,37 @@ public class BasePlayer : MonoBehaviour {
 		}
 	}
 	
-	void Update () {
-	
+	protected virtual void Update () {
+		GameObject[] allies = GameObject.FindGameObjectsWithTag(player.Team);
+		foreach(GameObject ally in allies){
+			if(ally!=gameObject){
+				if(player.Team=="Spy"){
+					if(!ally.GetComponent<Spy>().textAdded){
+						ally.GetComponent<Spy>().textAdded = true;
+						GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
+						textInstance.GetComponent<AllyText>().target = ally.transform;
+						textInstance.transform.parent = ally.transform;
+						textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
+					}
+					if((ally.GetComponentInChildren<TextMesh>().text == "") && ally.GetComponent<Spy>().textAdded){
+						ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
+					}
+				}
+				else{
+					if(!ally.GetComponent<Guard>().textAdded){
+						ally.GetComponent<Guard>().textAdded = true;
+						GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
+						textInstance.GetComponent<AllyText>().target = ally.transform;
+						textInstance.transform.parent = ally.transform;
+						textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
+					}
+					if((ally.GetComponentInChildren<TextMesh>().text == "") && ally.GetComponent<Guard>().textAdded){
+						ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
+					}
+				}
+
+			}
+		}
 	}
 
 	void syncPingAndScore(){

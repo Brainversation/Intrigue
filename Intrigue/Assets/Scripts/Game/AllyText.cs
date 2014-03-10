@@ -17,10 +17,15 @@ public class AllyText : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(!gameObject.transform.parent.gameObject.CompareTag("Objective")){
 			thisTransform.position = target.position + offset;
 			if(Camera.main!=null && thisTransform!=null){
-				//thisTransform.LookAt(Camera.main.transform, Vector3.up);
+				thisTransform.LookAt(Camera.main.transform, Vector3.up);
 			}
-			//thisTransform.Rotate(Vector3.up, 180);
+			thisTransform.Rotate(Vector3.up, 180);
+		}
+		else{
+			thisTransform.localPosition = new Vector3(0f,1.5f,0.5f);
+		}
 	}
 }

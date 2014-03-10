@@ -10,7 +10,8 @@ public class Guard : BasePlayer{
 	private UIPanel accusationGUI;
 	private Renderer[] renders;
 
-	void Update () {
+	protected override void Update () {
+		base.Update();
 		guests = GameObject.FindGameObjectsWithTag("Guest");
 		spies = GameObject.FindGameObjectsWithTag("Spy");
 		guiPanels = GetComponentsInChildren<UIPanel>();
@@ -96,12 +97,22 @@ public class Guard : BasePlayer{
 							}
 					}
 			}
-		
-			if(accusing && accused!=null && !accused.GetComponent<Spy>().isOut){
-				accusationGUI.alpha = 1;
-				if(Input.GetKeyUp(KeyCode.E)){
-					accusing = false;
-					testAccusation();
+			
+			if(accusing && accused!=null){
+
+				if(accused.CompareTag("Spy") && !accused.GetComponent<Spy>().isOut){
+					accusationGUI.alpha = 1;
+					if(Input.GetKeyUp(KeyCode.E)){
+						accusing = false;
+						testAccusation();
+					}
+				}
+				else if(accused.CompareTag("Guest")){
+					accusationGUI.alpha = 1;
+					if(Input.GetKeyUp(KeyCode.E)){
+						accusing = false;
+						testAccusation();
+					}
 				}
 			} else if ( Input.GetKeyUp(KeyCode.E) ){
 				if ( Physics.Raycast(ray, out hit, 15) ) {
@@ -112,24 +123,6 @@ public class Guard : BasePlayer{
 				}
 			} else {
 				accusationGUI.alpha = 0;
-			}
-
-			//Create Ally Texts
-			GameObject[] allies = GameObject.FindGameObjectsWithTag("Guard");
-			foreach(GameObject ally in allies){
-				if(ally!=gameObject){
-					if(!ally.GetComponent<Guard>().textAdded){
-						ally.GetComponent<Guard>().textAdded = true;
-						GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
-						textInstance.GetComponent<AllyText>().target = ally.transform;
-						textInstance.transform.parent = ally.transform;
-						textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
-					}
-					if((ally.GetComponentInChildren<TextMesh>().text == "") && ally.GetComponent<Guard>().textAdded){
-						ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
-						
-					}
-				}
 			}
 		}
 	}
