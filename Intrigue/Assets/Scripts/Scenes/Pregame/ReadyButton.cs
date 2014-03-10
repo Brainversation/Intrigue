@@ -58,10 +58,12 @@ public class ReadyButton : MonoBehaviour {
 	}
 
 	void OnClick(){
-		if(PhotonNetwork.isMasterClient && readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
-			PhotonNetwork.room.open = false;
-			PhotonNetwork.room.visible = false;
-			photonView.RPC("go", PhotonTargets.AllBuffered);
+		if(PhotonNetwork.isMasterClient){
+			if(readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
+				PhotonNetwork.room.open = false;
+				PhotonNetwork.room.visible = false;
+				photonView.RPC("go", PhotonTargets.AllBuffered);
+			}
 		}
 		else{
 			if(isReady){
