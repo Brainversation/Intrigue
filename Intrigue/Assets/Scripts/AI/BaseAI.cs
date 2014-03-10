@@ -21,7 +21,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	// AI info
 	[HideInInspector] public Animator anim;
 	[HideInInspector] public Vector3 destination;
-	[HideInInspector] public AIRoomInfo room;
+	[HideInInspector] public AI_RoomState room;
 	[HideInInspector] public Task tree = null;
 	[HideInInspector] public bool isYourTurn = false;
 	[HideInInspector] public Status status = Status.False;

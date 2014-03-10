@@ -1974,8 +1974,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 53657056}
-  - 33: {fileID: 53657058}
   - 65: {fileID: 53657057}
+  - 114: {fileID: 53657058}
   m_Layer: 0
   m_Name: Room11
   m_TagString: Untagged
@@ -2007,14 +2007,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &53657058
-MeshFilter:
+--- !u!114 &53657058
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300420, guid: fa27b321422ea7b4983ddf4ebac9a32b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 53657055}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &57571935
 GameObject:
   m_ObjectHideFlags: 0
@@ -4765,6 +4775,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 147675970}
   - 65: {fileID: 147675971}
+  - 114: {fileID: 147675972}
   m_Layer: 0
   m_Name: Room15
   m_TagString: Untagged
@@ -4796,6 +4807,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &147675972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 147675969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &147945692
 GameObject:
   m_ObjectHideFlags: 0
@@ -9138,10 +9167,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 283192060}
-  - 33: {fileID: 283192062}
   - 65: {fileID: 283192061}
+  - 114: {fileID: 283192062}
   m_Layer: 0
-  m_Name: Room1
+  m_Name: ArtHall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9171,14 +9200,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &283192062
-MeshFilter:
+--- !u!114 &283192062
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300424, guid: fa27b321422ea7b4983ddf4ebac9a32b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 283192059}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: ArtHall
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &283232936
 GameObject:
   m_ObjectHideFlags: 0
@@ -9458,8 +9497,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 291638629}
   - 65: {fileID: 291638630}
+  - 114: {fileID: 291638631}
   m_Layer: 0
-  m_Name: Room20
+  m_Name: SittingRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9489,6 +9529,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &291638631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 291638628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: SittingRoom
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &297673125
 GameObject:
   m_ObjectHideFlags: 0
@@ -13353,8 +13411,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 454381626}
-  - 33: {fileID: 454381628}
   - 65: {fileID: 454381627}
+  - 114: {fileID: 454381628}
   m_Layer: 0
   m_Name: Room8
   m_TagString: Untagged
@@ -13386,14 +13444,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &454381628
-MeshFilter:
+--- !u!114 &454381628
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300428, guid: fa27b321422ea7b4983ddf4ebac9a32b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 454381625}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &457457059
 GameObject:
   m_ObjectHideFlags: 0
@@ -15719,10 +15787,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 558256561}
-  - 33: {fileID: 558256563}
   - 65: {fileID: 558256562}
+  - 114: {fileID: 558256563}
   m_Layer: 0
-  m_Name: Room10
+  m_Name: ArtHallBalcony
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15752,14 +15820,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &558256563
-MeshFilter:
+--- !u!114 &558256563
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300430, guid: fa27b321422ea7b4983ddf4ebac9a32b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 558256560}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: ArtHallBalcony
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &558790016
 GameObject:
   m_ObjectHideFlags: 0
@@ -16210,6 +16288,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 570019916}
   - 65: {fileID: 570019917}
+  - 114: {fileID: 570019918}
   m_Layer: 0
   m_Name: Room14
   m_TagString: Untagged
@@ -16241,6 +16320,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &570019918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 570019915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &571740489
 GameObject:
   m_ObjectHideFlags: 0
@@ -18385,6 +18482,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 639831371}
   - 65: {fileID: 639831372}
+  - 114: {fileID: 639831373}
   m_Layer: 0
   m_Name: Room12
   m_TagString: Untagged
@@ -18416,6 +18514,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &639831373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 639831370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &640072097
 GameObject:
   m_ObjectHideFlags: 0
@@ -25012,8 +25128,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 879971803}
   - 65: {fileID: 879971804}
+  - 114: {fileID: 879971805}
   m_Layer: 0
-  m_Name: Room17
+  m_Name: MusicHall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25043,6 +25160,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &879971805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 879971802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: MusicHall
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &882441895
 GameObject:
   m_ObjectHideFlags: 0
@@ -26754,8 +26889,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 988851778}
-  - 33: {fileID: 988851780}
   - 65: {fileID: 988851779}
+  - 114: {fileID: 988851780}
   m_Layer: 0
   m_Name: Room3
   m_TagString: Untagged
@@ -26787,14 +26922,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &988851780
-MeshFilter:
+--- !u!114 &988851780
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300438, guid: fa27b321422ea7b4983ddf4ebac9a32b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 988851777}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &990797180
 GameObject:
   m_ObjectHideFlags: 0
@@ -28128,8 +28273,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1036368303}
-  - 33: {fileID: 1036368305}
   - 65: {fileID: 1036368304}
+  - 114: {fileID: 1036368305}
   m_Layer: 0
   m_Name: Room7
   m_TagString: Untagged
@@ -28161,14 +28306,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &1036368305
-MeshFilter:
+--- !u!114 &1036368305
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300440, guid: fa27b321422ea7b4983ddf4ebac9a32b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1036368302}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &1043968756
 GameObject:
   m_ObjectHideFlags: 0
@@ -28352,6 +28507,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1045609847}
   - 65: {fileID: 1045609848}
+  - 114: {fileID: 1045609849}
   m_Layer: 0
   m_Name: Room18
   m_TagString: Untagged
@@ -28383,6 +28539,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1045609849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1045609846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &1047035386
 GameObject:
   m_ObjectHideFlags: 0
@@ -37197,6 +37371,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1381060054}
   - 65: {fileID: 1381060055}
+  - 114: {fileID: 1381060056}
   m_Layer: 0
   m_Name: Room13
   m_TagString: Untagged
@@ -37228,6 +37403,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1381060056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1381060053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &1383641645
 GameObject:
   m_ObjectHideFlags: 0
@@ -40545,8 +40738,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1495313494}
-  - 33: {fileID: 1495313496}
   - 65: {fileID: 1495313495}
+  - 114: {fileID: 1495313496}
   m_Layer: 0
   m_Name: Room5
   m_TagString: Untagged
@@ -40578,14 +40771,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &1495313496
-MeshFilter:
+--- !u!114 &1495313496
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300446, guid: fa27b321422ea7b4983ddf4ebac9a32b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1495313493}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &1499179237
 GameObject:
   m_ObjectHideFlags: 0
@@ -46458,6 +46661,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1725112065}
   - 65: {fileID: 1725112066}
+  - 114: {fileID: 1725112067}
   m_Layer: 0
   m_Name: Room16
   m_TagString: Untagged
@@ -46489,6 +46693,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1725112067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1725112064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &1728350352
 GameObject:
   m_ObjectHideFlags: 0
@@ -47092,8 +47314,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1760243641}
-  - 33: {fileID: 1760243643}
   - 65: {fileID: 1760243642}
+  - 114: {fileID: 1760243643}
   m_Layer: 0
   m_Name: Room4
   m_TagString: Untagged
@@ -47125,14 +47347,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &1760243643
-MeshFilter:
+--- !u!114 &1760243643
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300450, guid: fa27b321422ea7b4983ddf4ebac9a32b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1760243640}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &1764210296
 GameObject:
   m_ObjectHideFlags: 0
@@ -47645,8 +47877,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 1791410253}
   - 65: {fileID: 1791410254}
+  - 114: {fileID: 1791410255}
   m_Layer: 0
-  m_Name: Room19
+  m_Name: BackYard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47676,6 +47909,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1791410255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1791410252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: BackYard
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &1795097612
 GameObject:
   m_ObjectHideFlags: 0
@@ -52226,8 +52477,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1985850896}
-  - 33: {fileID: 1985850898}
   - 65: {fileID: 1985850897}
+  - 114: {fileID: 1985850898}
   m_Layer: 0
   m_Name: Room6
   m_TagString: Untagged
@@ -52259,14 +52510,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &1985850898
-MeshFilter:
+--- !u!114 &1985850898
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300456, guid: fa27b321422ea7b4983ddf4ebac9a32b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1985850895}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &1987246509
 GameObject:
   m_ObjectHideFlags: 0
@@ -55071,8 +55332,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2081182863}
-  - 33: {fileID: 2081182865}
   - 65: {fileID: 2081182864}
+  - 114: {fileID: 2081182865}
   m_Layer: 0
   m_Name: Room2
   m_TagString: Untagged
@@ -55104,14 +55365,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &2081182865
-MeshFilter:
+--- !u!114 &2081182865
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300458, guid: fa27b321422ea7b4983ddf4ebac9a32b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2081182862}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!1 &2083701803
 GameObject:
   m_ObjectHideFlags: 0
@@ -56193,8 +56464,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2143231060}
-  - 33: {fileID: 2143231059}
   - 65: {fileID: 2143231058}
+  - 114: {fileID: 2143231059}
   m_Layer: 0
   m_Name: Room9
   m_TagString: Untagged
@@ -56215,14 +56486,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &2143231059
-MeshFilter:
+--- !u!114 &2143231059
+MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 3300460, guid: fa27b321422ea7b4983ddf4ebac9a32b,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2143231057}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7edaea76c10ad614dabd0cb774c05de8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  conversers: []
+  population: 0
+  drinkLocation: {fileID: 0}
+  converseLocation: {fileID: 0}
+  restroomLocation: {fileID: 0}
+  me: {fileID: 0}
 --- !u!4 &2143231060
 Transform:
   m_ObjectHideFlags: 0
