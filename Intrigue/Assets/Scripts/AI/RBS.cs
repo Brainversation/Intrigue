@@ -194,8 +194,12 @@ namespace RBS{
 		private Status handleConverse(GameObject gameObject){
 			Debug.Log("Wants to converse");
 			Status returnStat;
+			List<GameObject> conversers;
 			BaseAI script = gameObject.GetComponent<BaseAI>();
-			List<GameObject> conversers = script.room.conversers;
+			if(script.room != null)
+				conversers = script.room.conversers;
+			else
+				return Status.False;
 			script.lonely -= 20;
 			script.bored -= 10;
 			if(conversers.Count == 0 || conversers.Count > offset){
