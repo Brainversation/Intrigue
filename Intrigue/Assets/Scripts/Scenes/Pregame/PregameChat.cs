@@ -34,10 +34,17 @@ public class PregameChat : MonoBehaviour
 			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
 			string text = NGUIText.StripSymbols(mInput.value);
 
-			if (!string.IsNullOrEmpty(text))
-			{
-				textList.Add("[94937C]"+player.Handle+": " + "[FFFFFF]"+text);
-				photonView.RPC("recieveMessage", PhotonTargets.Others, "[94937C]"+player.Handle+": " + "[FFFFFF]"+text);
+			if (!string.IsNullOrEmpty(text)){
+				if(player.Team == "Spy"){
+					textList.Add("[8169FF]"+player.Handle+": [-]"+text);
+					photonView.RPC("recieveMessage", PhotonTargets.Others, "[8169FF]"+player.Handle+": [-]"+text);
+				} else if(player.Team == "Guard") {
+					textList.Add("[FF2B2B]"+player.Handle+": [-]"+text);
+					photonView.RPC("recieveMessage", PhotonTargets.Others, "[FF2B2B]"+player.Handle+": [-]"+text);
+				} else {
+					textList.Add(player.Handle+": [-]"+text);
+					photonView.RPC("recieveMessage", PhotonTargets.Others, player.Handle+": [-]"+text);
+				}
 				mInput.value = "";
 			}
 		}

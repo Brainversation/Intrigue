@@ -27,6 +27,7 @@ public class ReadyButton : MonoBehaviour {
 		if(PhotonNetwork.isMasterClient){
 			if(readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
 				label.text = "START GAME";
+				label.fontSize = 28;
 				player.Ready = true;
 				readyCheckToggle.value = true;
 			}
@@ -34,12 +35,14 @@ public class ReadyButton : MonoBehaviour {
 			{	
 				if(player.Team==""){
 					label.text = "CHOOSE TEAM";
+					label.fontSize = 28;
 					player.Ready = false;
 					readyCheckToggle.value = false;
 
 				}
 				else{
 					label.text = "WAITING FOR OTHERS";
+					label.fontSize = 24;
 					player.Ready = true;
 					readyCheckToggle.value = false;
 				}
@@ -48,10 +51,12 @@ public class ReadyButton : MonoBehaviour {
 		else{
 			if(player.Team!=""){
 				label.text = "READY";
+				label.fontSize = 40;
 			}
 			else{
 				if(player.Team==""){
 					label.text = "CHOOSE TEAM";
+					label.fontSize = 28;
 				}
 			}
 		}
