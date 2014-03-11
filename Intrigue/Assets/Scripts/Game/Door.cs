@@ -12,20 +12,20 @@ public class Door : MonoBehaviour {
 	private Vector3 temp;
 
     void Start() {
-        startMarker = transform.position;
+        startMarker = transform.localPosition;
     }
     void Update() {
     	if(openRight){
 	    	if(curInside>=1){
 	    		open = true;
-	    		if(transform.position.x<startMarker.x+moveDist){
+	    		if(transform.localPosition.x<startMarker.x+moveDist){
 	    			transform.Translate(Time.deltaTime*speed, 0f, 0f, Space.Self);
 	    			GetComponent<SphereCollider>().center = GetComponent<SphereCollider>().center - new Vector3(Time.deltaTime*speed*2,0f,0f);
 	    		}
 			}
 			else {
 				open = false;
-				if(transform.position.x>startMarker.x){
+				if(transform.localPosition.x>startMarker.x){
 	    			transform.Translate(Time.deltaTime*-speed, 0f, 0f, Space.Self);
 	    			GetComponent<SphereCollider>().center = GetComponent<SphereCollider>().center + new Vector3(Time.deltaTime*speed*2,0f,0f);
 	    		}
@@ -34,14 +34,14 @@ public class Door : MonoBehaviour {
 	    else{
 	    	if(curInside>=1){
 	    		open = true;
-	    		if(transform.position.x>startMarker.x-moveDist){
+	    		if(transform.localPosition.x>startMarker.x-moveDist){
 	    			transform.Translate(Time.deltaTime*speed, 0f, 0f, Space.Self);
 	    			GetComponent<SphereCollider>().center = GetComponent<SphereCollider>().center - new Vector3(Time.deltaTime*speed*2,0f,0f);
 	    		}
 			}
 			else {
 				open = false;
-				if(transform.position.x<startMarker.x){
+				if(transform.localPosition.x<startMarker.x){
 	    			transform.Translate(Time.deltaTime*-speed, 0f, 0f, Space.Self);
 	    			GetComponent<SphereCollider>().center = GetComponent<SphereCollider>().center + new Vector3(Time.deltaTime*speed*2,0f,0f);
 	    		}
