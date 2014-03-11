@@ -33,7 +33,6 @@ public class Intrigue : MonoBehaviour {
 	public static int numSpiesLeft;
 	public static int numGuardsLeft;
 	public static GameObject playerGO = null;
-	public GameObject jailSpawn;
 	public LoadingScreen loadingBackup;
 
 	void Awake(){
