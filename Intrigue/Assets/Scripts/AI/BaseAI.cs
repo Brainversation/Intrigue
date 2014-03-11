@@ -52,52 +52,49 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	public void Update(){
-		// if(!PhotonNetwork.isMasterClient){
-		// 	transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
-		// 	transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
-		// } else {
-			// Do updating stuff
-		// }
+		if(!PhotonNetwork.isMasterClient){
+			transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
+			transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
+		} else {
+			switch(status){
+				case Status.False:
+					//Sort the list in terms of weight
+					rules.Sort();
 
-		switch(status){
-			case Status.False:
-				//Sort the list in terms of weight
-				rules.Sort();
-
-				for (int i = 0; i < rules.Count; i++){
-					if (rules[i].isFired()){
-						currentRule = rules[i];
-						rules[i].weight -= 15;
-						status = rules[i].consequence(gameObject);
-						break;
+					for (int i = 0; i < rules.Count; i++){
+						if (rules[i].isFired()){
+							currentRule = rules[i];
+							rules[i].weight -= 15;
+							status = rules[i].consequence(gameObject);
+							break;
+						}
 					}
-				}
-				break;
+					break;
 
-			case Status.True:
-				status = Status.Waiting;
-				Invoke("backToRule", 2.5f);
-				break;
-
-			case Status.Tree:
-				if( tree.run(gameObject) == Status.True){
-					Invoke("backToRule", 5f);
-					tree = null;
+				case Status.True:
 					status = Status.Waiting;
-				}
-				break;
+					Invoke("backToRule", 2.5f);
+					break;
 
-			case Status.Waiting:
-				if(agent.hasPath && agent.remainingDistance < distFromDest){
-					Debug.Log("STOP");
-					anim.SetFloat("Speed", 0f);
-					agent.ResetPath();
-					if(tree == null)
-						status = Status.False;
-					else
-						status = Status.Tree;
-				}
-				break;
+				case Status.Tree:
+					if( tree.run(gameObject) == Status.True){
+						Invoke("backToRule", 5f);
+						tree = null;
+						status = Status.Waiting;
+					}
+					break;
+
+				case Status.Waiting:
+					if(agent.hasPath && agent.remainingDistance < distFromDest){
+						anim.SetFloat("Speed", 0f);
+						agent.ResetPath();
+						if(tree == null)
+							status = Status.False;
+						else
+							status = Status.Tree;
+					}
+					break;
+			}
 		}
 	}
 
@@ -113,6 +110,21 @@ public class BaseAI : Photon.MonoBehaviour {
 			updateWants = 5f;
 		} else {
 			updateWants -= Time.deltaTime;
+		}
+	}
+
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+		if (stream.isWriting){
+			// We own this player: send the others our data
+			stream.SendNext(transform.position);
+			stream.SendNext(transform.rotation);
+			stream.SendNext((float) anim.GetFloat("Speed"));
+
+		}else{
+			// Network player, receive data
+			this.correctPlayerPos = (Vector3) stream.ReceiveNext();
+			this.correctPlayerRot = (Quaternion) stream.ReceiveNext();
+			anim.SetFloat("Speed", (float) stream.ReceiveNext());
 		}
 	}
 
