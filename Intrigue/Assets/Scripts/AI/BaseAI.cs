@@ -85,8 +85,12 @@ public class BaseAI : Photon.MonoBehaviour {
 					break;
 
 				case Status.Waiting:
+					if (agent.pathStatus == NavMeshPathStatus.PathPartial ||
+						`agent.pathStatus == NavMeshPathStatus.PathPartial){
+						Debug.Log("Path invalid or can not be reached!");
+					}
 					if(agent.hasPath && !agent.pathPending && agent.remainingDistance < distFromDest){
-						anim.SetFloat("Speed", 0f);
+						anim.SetBool("Speed", false);
 						agent.ResetPath();
 						if(tree == null)
 							status = Status.False;
@@ -118,12 +122,13 @@ public class BaseAI : Photon.MonoBehaviour {
 			// We own this player: send the others our data
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
+			stream.SendNext(anim.GetBool("Speed"));
 
 		}else{
 			// Network player, receive data
 			this.correctPlayerPos = (Vector3) stream.ReceiveNext();
 			this.correctPlayerRot = (Quaternion) stream.ReceiveNext();
-			anim.SetFloat("Speed", (float) stream.ReceiveNext());
+			anim.SetBool("Speed", (bool) stream.ReceiveNext());
 		}
 	}
 

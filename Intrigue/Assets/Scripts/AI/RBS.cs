@@ -199,7 +199,7 @@ namespace RBS{
             //Set BaseAI variables and run
             script.distFromDest = 5f;
             script.agent.SetDestination(newDest);
-            script.anim.SetFloat("Speed", .2f);
+            script.anim.SetBool("Speed", true);
             return Status.Waiting;
 		}
 	}
@@ -238,7 +238,7 @@ namespace RBS{
             }
 */
             script.agent.SetDestination(newDest);
-            script.anim.SetFloat("Speed", .2f);
+            script.anim.SetBool("Speed", true);
             return Status.Waiting;
 		}
 
@@ -266,10 +266,9 @@ namespace RBS{
 			script.thirst -= 25;
 			/*if(script.room.drinkLocation != null){*/
 				script.destination = drinkLocation.transform.position; //script.room.drinkLocation.position;
-				script.anim.SetFloat("Speed", .2f);
+				script.anim.SetBool("Speed", true);
 				gameObject.GetComponent<BaseAI>().distFromDest = 10f;
 				script.agent.SetDestination(script.destination);
-				Debug.Log("After Set Dest of GetDrink");
 				script.tree = new DrinkingTree();
 			/*}
 			else
@@ -312,7 +311,7 @@ namespace RBS{
 				returnStat = Status.Tree;
 			} else {
 				script.destination = conversers[0].transform.position;
-				script.anim.SetFloat("Speed", .2f);
+				script.anim.SetBool("Speed", true);
 				script.agent.SetDestination(script.destination);
 				returnStat = Status.Waiting;
 			}
@@ -338,7 +337,7 @@ namespace RBS{
 			GameObject bathroomLocation = bathroomLocations[UnityEngine.Random.Range(0, bathroomLocations.Length)];
 			/*if(script.room.restroomLocation != null){*/
 				script.destination = bathroomLocation.transform.position; //script.room.restroomLocation.position;
-				script.anim.SetFloat("Speed", .2f);
+				script.anim.SetBool("Speed", true);
 				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
 				script.agent.SetDestination(script.destination);
 			/*}
