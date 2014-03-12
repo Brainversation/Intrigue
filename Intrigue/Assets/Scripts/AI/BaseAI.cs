@@ -86,7 +86,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 				case Status.Waiting:
 					if (agent.pathStatus == NavMeshPathStatus.PathPartial ||
-						`agent.pathStatus == NavMeshPathStatus.PathPartial){
+						agent.pathStatus == NavMeshPathStatus.PathPartial){
 						Debug.Log("Path invalid or can not be reached!");
 					}
 					if(agent.hasPath && !agent.pathPending && agent.remainingDistance < distFromDest){
