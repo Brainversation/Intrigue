@@ -42,13 +42,13 @@ public class BaseAI : Photon.MonoBehaviour {
 		anim = GetComponent<Animator>();
 		anim.speed = 1f;
 		initAI();
-		thirst = 51; //Random.Range(0, 100);
-		bored = 51;//Random.Range(0, 100);
-		// hunger = Random.Range(0, 100);
-		//lonely = 51;//Random.Range(0, 100);
-		// tired = Random.Range(0, 100);
-		//anxiety = 25f; //Random.Range(0, 100);
-		// bladder = 51;//Random.Range(0, 100);
+		thirst = Random.Range(0, 100);
+		bored = Random.Range(0, 100);
+		hunger = Random.Range(0, 100);
+		lonely = Random.Range(0, 100);
+		tired = Random.Range(0, 100);
+		anxiety = Random.Range(0, 100);
+		bladder = Random.Range(0, 100);
 	}
 
 	public void Update(){
@@ -85,9 +85,7 @@ public class BaseAI : Photon.MonoBehaviour {
 					break;
 
 				case Status.Waiting:
-					Debug.Log("Status == Waiting");
-					if(agent.hasPath && agent.remainingDistance < distFromDest){
-						Debug.Log("Reseting Agent");
+					if(agent.hasPath && !agent.pathPending && agent.remainingDistance < distFromDest){
 						anim.SetFloat("Speed", 0f);
 						agent.ResetPath();
 						if(tree == null)
@@ -107,7 +105,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			if( hunger < 100) hunger += 1f;
 			if( lonely < 100) lonely += 1f;
 			if( tired < 100) tired += 1f;
-			if( anxiety < 100) anxiety += 3f;
+			if( anxiety < 100) anxiety += 1f;
 			if( bladder < 100) bladder += 1f;
 			updateWants = 5f;
 		} else {
@@ -149,21 +147,18 @@ public class BaseAI : Photon.MonoBehaviour {
 		rule0.weight = 7;
 		rules.Add(rule0);
 
-/*
 		Rule rule1 = new WantToConverse(gameObject);
 		rule1.weight = 4;
 		rules.Add(rule1);
-*/
-/*
+
+
 		Rule rule2 = new NeedToUseRestroom(gameObject);
 		rule2.weight = 10;
 		rules.Add(rule2);
-*/
-/*
+
 		Rule rule3 = new WantToMoveRoom(gameObject);
 		rule3.weight = 1;
 		rules.Add(rule3);
-*/
 /*
 		Rule rule4 = new WantToWanderRoom(gameObject);
 		rule4.weight = 1;

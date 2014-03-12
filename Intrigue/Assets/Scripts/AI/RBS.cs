@@ -173,19 +173,19 @@ namespace RBS{
 		}
 
 		private Status goToRoom(GameObject gameObject){
-			Debug.Log("Going to Room");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			GameObject curRoom = script.room.me;
 			GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
-
 			GameObject room = rooms[UnityEngine.Random.Range(0, rooms.Length)];
 
+			//ensure next room to go to is not the same as the current room
 			while(room == curRoom){
 				room = rooms[UnityEngine.Random.Range(0, rooms.Length)];
 			}
 
 			Debug.Log("Room: " + room.name);
 
+			//Pick spot inside collider of chosen room
 			Vector3 newDest;
 			NavMeshPath path = new NavMeshPath();
             newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.x,
@@ -194,28 +194,12 @@ namespace RBS{
                                   UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.z,
                                   room.GetComponent<BoxCollider>().bounds.max.z));
 
-            //Debug.Log("newDest: " + newDest);
-            //Debug.Log("path: " + path);
-            script.agent.CalculatePath(newDest, path);
-
-            while(path.status ==  NavMeshPathStatus.PathPartial){
-            	newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.x,
-                                      room.GetComponent<BoxCollider>().bounds.max.x),
-                                      gameObject.transform.position.y,
-                                      UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.z,
-                                      room.GetComponent<BoxCollider>().bounds.max.z));
-
-            	script.agent.CalculatePath(newDest, path);
-            }
-
-            Debug.Log("After finding in bound path");
-
             script.anxiety -= 25;
 
+            //Set BaseAI variables and run
             script.distFromDest = 5f;
             script.agent.SetDestination(newDest);
             script.anim.SetFloat("Speed", .2f);
-            Debug.Log("After setDest in goToRoom");
             return Status.Waiting;
 		}
 	}
@@ -230,6 +214,7 @@ namespace RBS{
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			GameObject room = script.room.me;
 
+			//Choose random point inside curRoom collider
 			Vector3 newDest;
 			NavMeshPath path = new NavMeshPath();
             newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.x,
@@ -238,8 +223,7 @@ namespace RBS{
                                   UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.z,
                                   room.GetComponent<BoxCollider>().bounds.max.z));
 
-            //Debug.Log("newDest: " + newDest);
-            //Debug.Log("path: " + path);
+            //Following ensures that chosen random point is on navMesh, currently probably not useful.
 /*            
             script.agent.CalculatePath(newDest, path);
 
@@ -253,7 +237,6 @@ namespace RBS{
             	script.agent.CalculatePath(newDest, path);
             }
 */
-            //script.distFromDest = 2f;
             script.agent.SetDestination(newDest);
             script.anim.SetFloat("Speed", .2f);
             return Status.Waiting;
