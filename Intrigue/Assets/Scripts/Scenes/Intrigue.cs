@@ -170,7 +170,6 @@ public class Intrigue : MonoBehaviour {
 			--roundsLeft;
 			Debug.Log( "Reset:" + roundsLeft);
 			photonView.RPC("syncRounds", PhotonTargets.OthersBuffered, roundsLeft);
-			//PhotonNetwork.isMessageQueueRunning = false;
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
@@ -180,7 +179,6 @@ public class Intrigue : MonoBehaviour {
 			else{
 				player.Team = "Spy";
 			}
-			//PhotonNetwork.LoadLevel( Application.loadedLevel );
 			loadingScreen.StartLoadingLevel("Intrigue");
 		} else {
 			Debug.Log( "Game Over" );
@@ -218,7 +216,6 @@ public class Intrigue : MonoBehaviour {
 
 	[RPC]
 	void getSpawnPoint(Vector3 position, Quaternion rotation){
-		//int type = Mathf.RoundToInt(Random.Range(1,3));
 		Intrigue.playerGO = PhotonNetwork.Instantiate(
 						"Robot_"+ player.Team+"1"/*type.ToString()*/,
 						position,
