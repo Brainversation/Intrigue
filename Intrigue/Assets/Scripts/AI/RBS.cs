@@ -141,6 +141,23 @@ namespace RBS{
 		}
 	}
 
+	class isContent : Condition{
+		public isContent(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if(gameObject.GetComponent<BaseAI>().thirst < 50 &&
+				gameObject.GetComponent<BaseAI>().bored < 50 &&
+				//gameObject.GetComponent<BaseAI>().hunger < 50 &&
+				gameObject.GetComponent<BaseAI>().lonely < 50 &&
+				//gameObject.GetComponent<BaseAI>().tired < 50 &&
+				gameObject.GetComponent<BaseAI>().anxiety < 50 &&
+				gameObject.GetComponent<BaseAI>().bladder < 50){
+				return true;
+			}
+			return false;
+		}
+	}
+
 	class StayStill : Condition{
 		public override bool test(){
 			return true;
@@ -148,6 +165,101 @@ namespace RBS{
 	}
 
 	// <------------------------- Rules -------------------->
+
+	class WantToMoveRoom : Rule{
+		public WantToMoveRoom(GameObject gameObject){
+			this.addCondition(new isAnxious(gameObject));
+			this.consequence = goToRoom;
+		}
+
+		private Status goToRoom(GameObject gameObject){
+			Debug.Log("Going to Room");
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+			GameObject curRoom = script.room.me;
+			GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+
+			GameObject room = rooms[UnityEngine.Random.Range(0, rooms.Length)];
+
+			while(room == curRoom){
+				room = rooms[UnityEngine.Random.Range(0, rooms.Length)];
+			}
+
+			Debug.Log("Room: " + room.name);
+
+			Vector3 newDest;
+			NavMeshPath path = new NavMeshPath();
+            newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.x,
+                                  room.GetComponent<BoxCollider>().bounds.max.x),
+                                  gameObject.transform.position.y,
+                                  UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.z,
+                                  room.GetComponent<BoxCollider>().bounds.max.z));
+
+            //Debug.Log("newDest: " + newDest);
+            //Debug.Log("path: " + path);
+            script.agent.CalculatePath(newDest, path);
+
+            while(path.status ==  NavMeshPathStatus.PathPartial){
+            	newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.x,
+                                      room.GetComponent<BoxCollider>().bounds.max.x),
+                                      gameObject.transform.position.y,
+                                      UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.z,
+                                      room.GetComponent<BoxCollider>().bounds.max.z));
+
+            	script.agent.CalculatePath(newDest, path);
+            }
+
+            Debug.Log("After finding in bound path");
+
+            script.anxiety -= 25;
+
+            script.distFromDest = 5f;
+            script.agent.SetDestination(newDest);
+            script.anim.SetFloat("Speed", .2f);
+            Debug.Log("After setDest in goToRoom");
+            return Status.Waiting;
+		}
+	}
+
+	class WantToWanderRoom : Rule{
+		public WantToWanderRoom(GameObject gameObject){
+			this.addCondition(new isContent(gameObject));
+			this.consequence = wanderRoom;
+		}
+
+		private Status wanderRoom(GameObject gameObject){
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+			GameObject room = script.room.me;
+
+			Vector3 newDest;
+			NavMeshPath path = new NavMeshPath();
+            newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.x,
+                                  room.GetComponent<BoxCollider>().bounds.max.x),
+                                  gameObject.transform.position.y,
+                                  UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.z,
+                                  room.GetComponent<BoxCollider>().bounds.max.z));
+
+            //Debug.Log("newDest: " + newDest);
+            //Debug.Log("path: " + path);
+/*            
+            script.agent.CalculatePath(newDest, path);
+
+            while(path.status ==  NavMeshPathStatus.PathPartial){
+            	newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.x,
+                                      room.GetComponent<BoxCollider>().bounds.max.x),
+                                      gameObject.transform.position.y,
+                                      UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.z,
+                                      room.GetComponent<BoxCollider>().bounds.max.z));
+
+            	script.agent.CalculatePath(newDest, path);
+            }
+*/
+            //script.distFromDest = 2f;
+            script.agent.SetDestination(newDest);
+            script.anim.SetFloat("Speed", .2f);
+            return Status.Waiting;
+		}
+
+	}
 
 	class WantToGetDrink : Rule{
 		private GameObject go;
@@ -160,18 +272,25 @@ namespace RBS{
 
 		private Status setDestRoom(GameObject gameObject){
 			Debug.Log("Wants a drink");
+
+			GameObject[] drinkLocations = GameObject.FindGameObjectsWithTag("Drink");
+
+			GameObject drinkLocation = drinkLocations[UnityEngine.Random.Range(0, drinkLocations.Length)];
+
 			this.go = gameObject;
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bored -= 10;
-			if(script.room.drinkLocation != null){
-				script.destination = script.room.drinkLocation.position;
+			script.thirst -= 25;
+			/*if(script.room.drinkLocation != null){*/
+				script.destination = drinkLocation.transform.position; //script.room.drinkLocation.position;
 				script.anim.SetFloat("Speed", .2f);
 				gameObject.GetComponent<BaseAI>().distFromDest = 10f;
 				script.agent.SetDestination(script.destination);
+				Debug.Log("After Set Dest of GetDrink");
 				script.tree = new DrinkingTree();
-			}
+			/*}
 			else
-				Debug.Log("couldn't find drink location");
+				Debug.Log("couldn't find drink location");*/
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 115f, false);
 			return Status.Waiting;
 		}
@@ -230,14 +349,18 @@ namespace RBS{
 			Debug.Log("needs to use restroom");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bladder -= 25;
-			if(script.room.restroomLocation != null){
-				script.destination = script.room.restroomLocation.position;
+
+			GameObject[] bathroomLocations = GameObject.FindGameObjectsWithTag("RestRoom");
+
+			GameObject bathroomLocation = bathroomLocations[UnityEngine.Random.Range(0, bathroomLocations.Length)];
+			/*if(script.room.restroomLocation != null){*/
+				script.destination = bathroomLocation.transform.position; //script.room.restroomLocation.position;
 				script.anim.SetFloat("Speed", .2f);
 				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
 				script.agent.SetDestination(script.destination);
-			}
+			/*}
 			else
-				Debug.Log("Couldn't find restroom location");
+				Debug.Log("Couldn't find restroom location");*/
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
 			return Status.Waiting;
 		}

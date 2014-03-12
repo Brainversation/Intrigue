@@ -21,8 +21,10 @@ public class AI_RoomState : MonoBehaviour{
 	}
 
 	void OnTriggerEnter(Collider other){
-		if(other.tag == "Guest")
+		if(other.tag == "Guest"){
 			other.gameObject.GetComponent<BaseAI>().room = this;
+			other.gameObject.GetComponent<BaseAI>().anxiety += population * 2;
+		}
 
 		if(other.tag == "Guest" || other.tag == "Player")
 			population++;

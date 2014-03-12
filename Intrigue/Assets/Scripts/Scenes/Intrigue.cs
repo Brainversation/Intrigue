@@ -106,11 +106,11 @@ public class Intrigue : MonoBehaviour {
 		if( timeLeft <= (timeLimit-10) ){
 			if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/totalObjActive)*100)>50){
 				if(wantGameOver){
-					Debug.Log("TimeLeft: " + timeLeft);
-					Debug.Log("SpiesLeft: " + numSpiesLeft);
-					Debug.Log("GuardsLeft: " + numGuardsLeft);
-					Debug.Log("ObjectivesCompleted:" + objectivesCompleted);
-					Debug.Log("numObjectives:" + numObjectives);
+					//Debug.Log("TimeLeft: " + timeLeft);
+					//Debug.Log("SpiesLeft: " + numSpiesLeft);
+					//Debug.Log("GuardsLeft: " + numGuardsLeft);
+					//Debug.Log("ObjectivesCompleted:" + objectivesCompleted);
+					//Debug.Log("numObjectives:" + numObjectives);
 					if(timeLeft<=0)
 						roundResult = "Time Limit Reached.\nGuards Win!";
 					else if(numSpiesLeft<=0)
