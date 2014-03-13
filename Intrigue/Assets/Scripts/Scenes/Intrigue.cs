@@ -10,6 +10,7 @@ public class Intrigue : MonoBehaviour {
 	private float totalObjActive;
 	private Player player;
 	private int numObjectives = 0;
+	private int winningTeamThisRound;
 	private int numSpies = 0;
 	private int numGuards = 0;
 	private static float timeLimit = 600;
@@ -106,20 +107,23 @@ public class Intrigue : MonoBehaviour {
 		if( timeLeft <= (timeLimit-10) ){
 			if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/totalObjActive)*100)>50){
 				if(wantGameOver){
-					//Debug.Log("TimeLeft: " + timeLeft);
-					//Debug.Log("SpiesLeft: " + numSpiesLeft);
-					//Debug.Log("GuardsLeft: " + numGuardsLeft);
-					//Debug.Log("ObjectivesCompleted:" + objectivesCompleted);
-					//Debug.Log("numObjectives:" + numObjectives);
-					if(timeLeft<=0)
+					if(timeLeft<=0){
 						roundResult = "Time Limit Reached.\nGuards Win!";
-					else if(numSpiesLeft<=0)
+						winningTeamThisRound = 2;
+					}
+					else if(numSpiesLeft<=0){
 						roundResult = "All Spies Caught.\nGuards Win!";
-					else if(numGuardsLeft<=0)
+						winningTeamThisRound = 2;
+					}
+					else if(numGuardsLeft<=0){
 						roundResult = "All Guards Out.\nSpies Win!";
-					else
+						winningTeamThisRound = 1;
+					}
+					else{
 						roundResult = "Objectives Completed.\nSpies Win!";
-					photonView.RPC("callGameOver", PhotonTargets.All, roundResult);
+						winningTeamThisRound = 1;
+					}
+					photonView.RPC("callGameOver", PhotonTargets.All, roundResult, winningTeamThisRound);
 				}
 			}
 		}
@@ -159,12 +163,32 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void gameOver(){
-		
 		if(playerGO!=null){
 			playerGO.GetComponentInChildren<Camera>().enabled = false;
 			playerGO.GetComponentInChildren<AudioListener>().enabled = false;
 		}
 		loadingScreen = loadingBackup;
+
+		//Add bonus points for winning round
+		if(winningTeamThisRound==1){
+			if(player.Team == "Spy"){
+				player.TeamScore += 300;
+			}
+			else{
+				player.EnemyScore += 300;
+			}
+		}
+		else{
+			if(player.Team == "Spy"){
+				player.EnemyScore += 300;
+			}
+			else{
+				player.TeamScore += 300;
+			}
+		}
+
+
+
 
 		if(roundsLeft > 0){
 			--roundsLeft;
@@ -245,7 +269,8 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	[RPC]
-	void callGameOver(string resultFromMC){
+	void callGameOver(string resultFromMC, int winningTeam){
+		winningTeamThisRound = winningTeam;
 		roundResult = resultFromMC;
 		gameOver();
 	}

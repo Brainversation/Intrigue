@@ -23,7 +23,6 @@ public class PlayerScoreList : MonoBehaviour {
 		InvokeRepeating("syncPingAndScore", 0, 2F);
 		if(player.TeamID==1){
 			photonView.RPC("addTeam1", PhotonTargets.AllBuffered, player.Handle, player.Score);
-			Debug.Log("Calling addteam1");
 		}
 		else{
 			photonView.RPC("addTeam2", PhotonTargets.AllBuffered, player.Handle, player.Score);
@@ -71,12 +70,12 @@ public class PlayerScoreList : MonoBehaviour {
 			pingColor = "[FF0000]";
 
 		if(TeamID==1){
-					foreach(Transform child in transform){
-						if(child.gameObject.GetComponent<UILabel>().user == handle){
-							child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + " : [FFFFFF]" + score + "     [FFFFFF]("+ pingColor+ping+"[-]" + ") ms";
-						}
-					}
+			foreach(Transform child in transform){
+				if(child.gameObject.GetComponent<UILabel>().user == handle){
+					child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + " : [FFFFFF]" + score + "     [FFFFFF]("+ pingColor+ping+"[-]" + ") ms";
 				}
+			}
+		}
 		else{
 			foreach(Transform child in guardTable.transform){
 				if(child.gameObject.GetComponent<UILabel>().user == handle){
@@ -96,7 +95,6 @@ public class PlayerScoreList : MonoBehaviour {
 		label.user = handle;
 		label.text = handle + " : " + score;
 		syncPingAndScore();
-		Debug.Log("Addteam1");
 	}
 
 	[RPC]
