@@ -8,7 +8,9 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private Animator anim;
 	private Spy spyRef;
 	private Player player;
-
+	private float stamina = 100;
+	private float staminaDrainSpeed = 20;
+	private float staminaRegenSpeed = 5;
 	public bool isOut;
 	public bool wantSprint;
 
@@ -29,10 +31,20 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	public void FixedUpdate(){
 		if(photonView.isMine && !isOut){
+			Debug.Log("Stamina: " + stamina);
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
-			if(wantSprint)
+			if(wantSprint && stamina>=1 && Input.GetKey("left shift")){
+				stamina-=staminaDrainSpeed*Time.deltaTime;
 				anim.SetBool("Run", Input.GetKey("left shift"));
-			
+			}
+			else{
+				anim.SetBool("Run", false);
+				if(stamina<100 && !Input.GetKey("left shift"))
+					stamina+=staminaRegenSpeed*Time.deltaTime;
+				if(stamina>100)
+					stamina=100;
+			}
+
 			anim.SetBool("Out", false);
 			
 			if(player.Team=="Spy"){
