@@ -66,7 +66,7 @@ public class BasePlayer : MonoBehaviour {
 						textInstance.transform.parent = ally.transform;
 						textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
 					}
-					if((ally.GetComponentInChildren<TextMesh>().text == "") && ally.GetComponent<Spy>().textAdded){
+					if((ally.GetComponentInChildren<TextMesh>().text == ""|| ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Spy>().textAdded){
 						ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
 					}
 				}
@@ -78,7 +78,7 @@ public class BasePlayer : MonoBehaviour {
 						textInstance.transform.parent = ally.transform;
 						textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
 					}
-					if((ally.GetComponentInChildren<TextMesh>().text == "") && ally.GetComponent<Guard>().textAdded){
+					if((ally.GetComponentInChildren<TextMesh>().text == "" || ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Guard>().textAdded){
 						ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
 					}
 				}
