@@ -54,6 +54,11 @@ public class ConversationHotSpot : MonoBehaviour {
 			Debug.Log("Adding to mah pop");
 			other.GetComponent<BaseAI>().isYourTurn = true;
 		}
+
+		//AKA Player
+		if(other.gameObject.layer == 8){
+			//Activate GUI that says enter conversation hotspot
+		}
 	}
 
 	void OnTriggerExit(Collider other){
