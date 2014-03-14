@@ -27,7 +27,6 @@ public class ConversationHotSpot : MonoBehaviour {
 
 	void Update () {
 		if(population == 0){
-			Debug.Log("Killin mahself");
 			Destroy(gameObject);
 		} else {
 			int i = 0;

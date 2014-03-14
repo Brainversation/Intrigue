@@ -239,7 +239,6 @@ namespace BehaviorTree{
 		False,
 		True,
 		Waiting,
-		Animation,
 		Tree,
 		Error
 	}

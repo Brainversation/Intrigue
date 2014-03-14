@@ -103,24 +103,9 @@ public class BaseAI : Photon.MonoBehaviour {
 						agent.ResetPath();
 						if(tree == null)
 							status = Status.False;
-						else if (isYourTurn)
-							status = Status.Animation;
 						else
 							status = Status.Tree;
 					}
-				break;
-
-				case Status.Animation:
-					//Do idle animations
-					if(animationTime <= 0){
-						Debug.Log("Did Animation");
-						animationTime = 5;
-						status = Status.False;
-					}
-					else{
-						animationTime -= Time.deltaTime;
-					}
-
 				break;
 			}
 		}
