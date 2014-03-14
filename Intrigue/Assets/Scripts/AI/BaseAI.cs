@@ -12,11 +12,9 @@ public class BaseAI : Photon.MonoBehaviour {
 	private Quaternion correctPlayerRot;
 	private Rule currentRule;
 	private float updateWants = 5f;
-	// private int indent;
+	private float animationTime = 5;
 
 	protected List<Rule> rules;
-
-	// private static List<GameObject> ais = new List<GameObject>();
 
 	// AI info
 	[HideInInspector] public Animator anim;
@@ -36,11 +34,9 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public float anxiety = 0f;
 	[HideInInspector] public float bladder = 0f;
 
-	private bool aiTesting = false;
+	private bool aiTesting = true;
 
 	void Start(){
-		// indent = ais.Count;
-		// ais.Add(gameObject);
 		anim = GetComponent<Animator>();
 		anim.speed = 1f;
 		initAI();
@@ -81,12 +77,12 @@ public class BaseAI : Photon.MonoBehaviour {
 							break;
 						}
 					}
-					break;
+				break;
 
 				case Status.True:
 					status = Status.Waiting;
 					Invoke("backToRule", 2.5f);
-					break;
+				break;
 
 				case Status.Tree:
 					if( tree.run(gameObject) == Status.True){
@@ -94,22 +90,38 @@ public class BaseAI : Photon.MonoBehaviour {
 						tree = null;
 						status = Status.Waiting;
 					}
-					break;
+				break;
 
 				case Status.Waiting:
 					if (agent.pathStatus == NavMeshPathStatus.PathPartial ||
 						agent.pathStatus == NavMeshPathStatus.PathPartial){
 						Debug.Log("Path invalid or can not be reached!");
 					}
+
 					if(agent.hasPath && !agent.pathPending && agent.remainingDistance < distFromDest){
 						anim.SetBool("Speed", false);
 						agent.ResetPath();
 						if(tree == null)
 							status = Status.False;
+						else if (isYourTurn)
+							status = Status.Animation;
 						else
 							status = Status.Tree;
 					}
-					break;
+				break;
+
+				case Status.Animation:
+					//Do idle animations
+					if(animationTime <= 0){
+						Debug.Log("Did Animation");
+						animationTime = 5;
+						status = Status.False;
+					}
+					else{
+						animationTime -= Time.deltaTime;
+					}
+
+				break;
 			}
 		}
 	}
@@ -175,13 +187,13 @@ public class BaseAI : Photon.MonoBehaviour {
 		rules.Add(rule1);
 
 
-		Rule rule2 = new NeedToUseRestroom(gameObject);
-		rule2.weight = 10;
-		rules.Add(rule2);
+		// Rule rule2 = new NeedToUseRestroom(gameObject);
+		// rule2.weight = 10;
+		// rules.Add(rule2);
 
-		Rule rule3 = new WantToMoveRoom(gameObject);
-		rule3.weight = 1;
-		rules.Add(rule3);
+		// Rule rule3 = new WantToMoveRoom(gameObject);
+		// rule3.weight = 1;
+		// rules.Add(rule3);
 
 		// Rule rule4 = new WantToWanderRoom(gameObject);
 		// rule4.weight = 1;
