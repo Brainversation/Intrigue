@@ -36,23 +36,35 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public float anxiety = 0f;
 	[HideInInspector] public float bladder = 0f;
 
+	private bool aiTesting = true;
+
 	void Start(){
 		// indent = ais.Count;
 		// ais.Add(gameObject);
 		anim = GetComponent<Animator>();
 		anim.speed = 1f;
 		initAI();
-		thirst = Random.Range(0, 100);
-		bored = Random.Range(0, 100);
-		hunger = Random.Range(0, 100);
-		lonely = Random.Range(0, 100);
-		tired = Random.Range(0, 100);
-		anxiety = Random.Range(0, 100);
-		bladder = Random.Range(0, 100);
+		if(aiTesting){
+			thirst = 0;
+			bored = 60;
+			hunger = 0;
+			lonely = 60;
+			tired = 0;
+			anxiety = 0;
+			bladder = 0;
+		} else {
+			thirst = Random.Range(0, 100);
+			bored = Random.Range(0, 100);
+			hunger = Random.Range(0, 100);
+			lonely = Random.Range(0, 100);
+			tired = Random.Range(0, 100);
+			anxiety = Random.Range(0, 100);
+			bladder = Random.Range(0, 100);
+		}
 	}
 
 	public void Update(){
-		if(!PhotonNetwork.isMasterClient){
+		if(!PhotonNetwork.isMasterClient && !aiTesting){
 			transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
 			transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
 		} else {
@@ -117,7 +129,12 @@ public class BaseAI : Photon.MonoBehaviour {
 		}
 	}
 
+	void OnTriggerEnter(Collider other){
+		if(other.tag == "Conversation") transform.LookAt(other.transform.position);
+	}
+
 	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+		if(aiTesting) return;
 		if (stream.isWriting){
 			// We own this player: send the others our data
 			stream.SendNext(transform.position);
@@ -132,18 +149,19 @@ public class BaseAI : Photon.MonoBehaviour {
 		}
 	}
 
-	// void OnGUI(){
-	// 	GUI.color = Color.black;
-	// 	GUILayout.BeginArea(new Rect(100 * indent, 0, 100, 200));
-	// 		GUILayout.Label( "thirst " + thirst);
-	// 		GUILayout.Label( "bored " + bored);
-	// 		GUILayout.Label( "hunger " + hunger);
-	// 		GUILayout.Label( "lonely " + lonely);
-	// 		GUILayout.Label( "tired " + tired);
-	// 		GUILayout.Label( "anxiety " + anxiety);
-	// 		GUILayout.Label( "bladder " + bladder);
-	// 	GUILayout.EndArea();
-	// }
+	void OnGUI(){
+		if(!aiTesting) return;
+		GUI.color = Color.black;
+		GUILayout.BeginArea(new Rect(100, 0, 100, 200));
+			GUILayout.Label( "thirst " + thirst);
+			GUILayout.Label( "bored " + bored);
+			GUILayout.Label( "hunger " + hunger);
+			GUILayout.Label( "lonely " + lonely);
+			GUILayout.Label( "tired " + tired);
+			GUILayout.Label( "anxiety " + anxiety);
+			GUILayout.Label( "bladder " + bladder);
+		GUILayout.EndArea();
+	}
 
 	void initAI(){
 		rules = new List<Rule>();

@@ -8,9 +8,9 @@ public class AI_RoomState : MonoBehaviour{
 
 	[HideInInspector] public List<GameObject> conversers;
 	[HideInInspector] public int population;
-	[HideInInspector] public Transform drinkLocation;
-	[HideInInspector] public Transform converseLocation;
-	[HideInInspector] public Transform restroomLocation;
+	[HideInInspector] public Vector3 drinkLocation;
+	[HideInInspector] public Vector3 converseLocation;
+	[HideInInspector] public Vector3 restroomLocation;
 	[HideInInspector] public GameObject me;
 
 	public void Start(){
@@ -24,10 +24,14 @@ public class AI_RoomState : MonoBehaviour{
 		if(other.tag == "Guest"){
 			other.gameObject.GetComponent<BaseAI>().room = this;
 			other.gameObject.GetComponent<BaseAI>().anxiety += population * 2;
+			population++;
 		}
 
-		if(other.tag == "Guest" || other.tag == "Player")
-			population++;
+		if(other.tag == "Guest" || other.tag == "Player") population++;
+
+		if(other.tag == "Drink"){
+			drinkLocation = other.transform.position;
+		}
 	}
 
 

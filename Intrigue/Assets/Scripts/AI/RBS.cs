@@ -284,9 +284,10 @@ namespace RBS{
 	}
 
 	class WantToConverse : Rule{
-		protected int offset = 5;
+		protected int offset;
 
 		public WantToConverse(GameObject gameObject){
+			offset = ConversationHotSpot.max;
 			this.addCondition( new isLonely(gameObject) );
 			this.addCondition( new isBored(gameObject) );
 			this.consequence = handleConverse;
@@ -303,7 +304,7 @@ namespace RBS{
 				return Status.False;
 			script.lonely -= 20;
 			script.bored -= 10;
-			if(conversers.Count == 0 || conversers.Count > offset){
+			if(conversers.Count == 0 || conversers.Count >= offset){
 				script.destination = gameObject.transform.position;
 				UnityEngine.Object.Instantiate(Resources.Load<GameObject>("ConversationHotSpot"), gameObject.transform.position, Quaternion.identity);
 				script.tree = new IdleSelector();
