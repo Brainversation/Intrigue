@@ -15,7 +15,7 @@ public class ConversationHotSpot : MonoBehaviour {
 	public static int max = 5;
 
 	void Start(){
-		radius = GetComponent<NavMeshObstacle>().radius = max;
+		radius = GetComponent<NavMeshObstacle>().radius = max/2;
 		GetComponent<SphereCollider>().radius = max*1.5f;
 		center = transform.TransformPoint(GetComponent<SphereCollider>().center);
 		slice = 360/max;

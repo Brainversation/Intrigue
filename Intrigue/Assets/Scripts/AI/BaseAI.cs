@@ -175,18 +175,17 @@ public class BaseAI : Photon.MonoBehaviour {
 		rules.Add(rule1);
 
 
-		Rule rule2 = new NeedToUseRestroom(gameObject);
-		rule2.weight = 10;
-		rules.Add(rule2);
+		// Rule rule2 = new NeedToUseRestroom(gameObject);
+		// rule2.weight = 10;
+		// rules.Add(rule2);
 
-		Rule rule3 = new WantToMoveRoom(gameObject);
-		rule3.weight = 1;
-		rules.Add(rule3);
-/*
-		Rule rule4 = new WantToWanderRoom(gameObject);
-		rule4.weight = 1;
-		rules.Add(rule4);
-*/
+		// Rule rule3 = new WantToMoveRoom(gameObject);
+		// rule3.weight = 1;
+		// rules.Add(rule3);
+
+		// Rule rule4 = new WantToWanderRoom(gameObject);
+		// rule4.weight = 1;
+		// rules.Add(rule4);
 	}
 
 	void backToRule(){
