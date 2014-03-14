@@ -11,6 +11,8 @@ public class ConversationHotSpot : MonoBehaviour {
 	private float radius;
 	private Vector3 center;
 	private float slice;
+	private int talkerIndex = 0;
+	private float talkerTime = 5;
 
 	public static int max = 5;
 
@@ -31,8 +33,20 @@ public class ConversationHotSpot : MonoBehaviour {
 		} else {
 			int i = 0;
 			foreach(GameObject g in queue){
-				if(g.GetComponent<BaseAI>().status != Status.Waiting)
+				if(g.GetComponent<BaseAI>().status != Status.Waiting){
+					if(i == talkerIndex && queue.Count > 1){
+						g.GetComponent<Animator>().SetBool("Converse", true);
+						talkerTime -= Time.deltaTime;
+					}
+
+					if(talkerTime < 0){
+						queue[talkerIndex].GetComponent<Animator>().SetBool("Converse", false);
+						talkerIndex = Random.Range(0, queue.Count);
+						talkerTime = 5;
+					}
 					g.transform.LookAt(transform.position);
+				}
+				++i;
 			}
 		}
 
