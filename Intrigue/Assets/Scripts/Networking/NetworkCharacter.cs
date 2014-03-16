@@ -11,6 +11,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private UISlider sprintSlider;
 	private Spy spyRef;
 	private Player player;
+	private Camera cam;
+	private Vector3 camStart;
 	private float stamina = 100;
 	private float staminaDrainSpeed;
 	private float staminaRegenSpeed;
@@ -43,6 +45,10 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	public void FixedUpdate(){
 		if(photonView.isMine && !isOut){
+			if(cam==null){
+				cam = GetComponentInChildren<Camera>();
+				camStart = cam.transform.localPosition;
+			}
 			guiPanels = GetComponentsInChildren<UIPanel>(true);
 			if(sprintPanel==null||sprintSlider==null){
 				foreach(UIPanel uiP in guiPanels){
@@ -65,9 +71,11 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			if(wantSprint && stamina>=1 && Input.GetKey("left shift")){
 				stamina-=staminaDrainSpeed*Time.deltaTime;
 				canRegen = false;
+				cam.transform.localPosition = camStart + new Vector3(0f,0f,2f);
 				anim.SetBool("Run", Input.GetKey("left shift"));
 			}
 			else{
+				cam.transform.localPosition = camStart;
 				if(!canRegen){
 					Invoke("StartRegen", 3);
 				}
