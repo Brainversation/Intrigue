@@ -12,12 +12,14 @@ public class AI_RoomState : MonoBehaviour{
 	[HideInInspector] public Vector3 converseLocation;
 	[HideInInspector] public Vector3 restroomLocation;
 	[HideInInspector] public GameObject me;
+	[HideInInspector] public Vector3 nullLocation;
 
 	public void Start(){
 		roomName = gameObject.name;
 		population = 0;
 		me = gameObject;
 		conversers = new List<GameObject>();
+		nullLocation = new Vector3(0,0,0);
 	}
 
 	void OnTriggerEnter(Collider other){
@@ -31,6 +33,25 @@ public class AI_RoomState : MonoBehaviour{
 
 		if(other.tag == "Drink"){
 			drinkLocation = other.transform.position;
+			Debug.Log("drinkLocation: " + drinkLocation);
+		}
+
+		if(other.tag == "RestRoom"){
+			restroomLocation = other.transform.position;
+			Debug.Log("bathroomLocation: " + restroomLocation);
+		}
+
+	}
+
+	void OnTriggerStay(Collider other){
+		if(other.tag == "Drink"){
+			drinkLocation = other.transform.position;
+			Debug.Log("drinkLocation: " + drinkLocation);
+		}
+
+		if(other.tag == "RestRoom"){
+			restroomLocation = other.transform.position;
+			Debug.Log("bathroomLocation: " + restroomLocation);
 		}
 	}
 

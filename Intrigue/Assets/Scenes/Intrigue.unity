@@ -934,6 +934,7 @@ GameObject:
   - 4: {fileID: 33430989}
   - 65: {fileID: 33430988}
   - 114: {fileID: 33430987}
+  - 54: {fileID: 33430990}
   m_Layer: 0
   m_Name: DrinkHotSpot
   m_TagString: Drink
@@ -980,6 +981,21 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1403218789}
+--- !u!54 &33430990
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 33430986}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &33723166
 GameObject:
   m_ObjectHideFlags: 0
@@ -2077,9 +2093,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &57571935
 GameObject:
@@ -4881,9 +4897,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &147945692
 GameObject:
@@ -5199,9 +5215,9 @@ MonoBehaviour:
   roomName: Entance
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 150763674}
 --- !u!65 &150763677
 BoxCollider:
@@ -8589,7 +8605,7 @@ Transform:
   m_GameObject: {fileID: 262655893}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .0036764706, y: .0036764706, z: .0036764706}
+  m_LocalScale: {x: .00453514745, y: .00453514745, z: .00453514745}
   m_Children:
   - {fileID: 419677839}
   m_Father: {fileID: 1153048063}
@@ -9333,9 +9349,9 @@ MonoBehaviour:
   roomName: poopvan
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &283232936
 GameObject:
@@ -9662,9 +9678,9 @@ MonoBehaviour:
   roomName: SittingRoom
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &297673125
 GameObject:
@@ -9992,9 +10008,9 @@ MonoBehaviour:
   roomName: MusicHall
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!65 &318807700
 BoxCollider:
@@ -10379,9 +10395,9 @@ MonoBehaviour:
   roomName: Entance
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 325157165}
 --- !u!65 &325157168
 BoxCollider:
@@ -13682,9 +13698,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!65 &452212596
 BoxCollider:
@@ -13754,9 +13770,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &457457059
 GameObject:
@@ -16130,9 +16146,9 @@ MonoBehaviour:
   roomName: ArtHallBalcony
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &558790016
 GameObject:
@@ -16630,9 +16646,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &571740489
 GameObject:
@@ -18824,9 +18840,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &640072097
 GameObject:
@@ -22046,6 +22062,7 @@ GameObject:
   - 4: {fileID: 742078803}
   - 65: {fileID: 742078805}
   - 114: {fileID: 742078804}
+  - 54: {fileID: 742078806}
   m_Layer: 0
   m_Name: DrinkHotSpot
   m_TagString: Drink
@@ -22092,6 +22109,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 1.03999996, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &742078806
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 742078802}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &748274399
 GameObject:
   m_ObjectHideFlags: 0
@@ -25574,9 +25606,9 @@ MonoBehaviour:
   roomName: MusicHall
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &882441895
 GameObject:
@@ -25744,6 +25776,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 901295422}
   - 65: {fileID: 901295423}
+  - 54: {fileID: 901295424}
   m_Layer: 0
   m_Name: RestRoom
   m_TagString: RestRoom
@@ -25775,6 +25808,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 3, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &901295424
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 901295421}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &903792745
 GameObject:
   m_ObjectHideFlags: 0
@@ -27471,9 +27519,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &990797180
 GameObject:
@@ -27586,6 +27634,7 @@ GameObject:
   - 4: {fileID: 999785964}
   - 65: {fileID: 999785966}
   - 114: {fileID: 999785965}
+  - 54: {fileID: 999785967}
   m_Layer: 0
   m_Name: DrinkHotSpot
   m_TagString: Drink
@@ -27632,6 +27681,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 1.03999996, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &999785967
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 999785963}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1003080030
 GameObject:
   m_ObjectHideFlags: 0
@@ -28911,9 +28975,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &1043968756
 GameObject:
@@ -29144,9 +29208,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &1047035386
 GameObject:
@@ -30199,9 +30263,9 @@ MonoBehaviour:
   roomName: BackYard
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!65 &1076814225
 BoxCollider:
@@ -31159,9 +31223,9 @@ MonoBehaviour:
   roomName: Entance
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 1104309579}
 --- !u!65 &1104309582
 BoxCollider:
@@ -31373,6 +31437,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1109899266}
   - 65: {fileID: 1109899267}
+  - 54: {fileID: 1109899268}
   m_Layer: 0
   m_Name: RestRoom
   m_TagString: RestRoom
@@ -31404,6 +31469,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 3, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1109899268
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1109899265}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1111335059
 GameObject:
   m_ObjectHideFlags: 0
@@ -37136,6 +37216,7 @@ GameObject:
   - 4: {fileID: 1318312547}
   - 65: {fileID: 1318312549}
   - 114: {fileID: 1318312548}
+  - 54: {fileID: 1318312550}
   m_Layer: 0
   m_Name: DrinkHotSpot
   m_TagString: Drink
@@ -37182,6 +37263,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 1.03999996, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1318312550
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1318312546}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1340180173
 GameObject:
   m_ObjectHideFlags: 0
@@ -38310,9 +38406,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &1383641645
 GameObject:
@@ -38957,9 +39053,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!65 &1396161858
 BoxCollider:
@@ -41771,9 +41867,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &1499179237
 GameObject:
@@ -41990,9 +42086,9 @@ MonoBehaviour:
   roomName: poopvan
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!65 &1508801473
 BoxCollider:
@@ -43309,6 +43405,7 @@ GameObject:
   - 4: {fileID: 1574600559}
   - 65: {fileID: 1574600561}
   - 114: {fileID: 1574600560}
+  - 54: {fileID: 1574600562}
   m_Layer: 0
   m_Name: DrinkHotSpot
   m_TagString: Drink
@@ -43355,6 +43452,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 1.03999996, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1574600562
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1574600558}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1587585521
 GameObject:
   m_ObjectHideFlags: 0
@@ -47856,9 +47968,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &1728350352
 GameObject:
@@ -48510,9 +48622,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &1764210296
 GameObject:
@@ -49072,9 +49184,9 @@ MonoBehaviour:
   roomName: BackYard
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &1795097612
 GameObject:
@@ -50124,6 +50236,7 @@ GameObject:
   - 4: {fileID: 1827754397}
   - 65: {fileID: 1827754399}
   - 114: {fileID: 1827754398}
+  - 54: {fileID: 1827754400}
   m_Layer: 0
   m_Name: DrinkHotSpot
   m_TagString: Drink
@@ -50170,6 +50283,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 1.03999996, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1827754400
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1827754396}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1840616361
 GameObject:
   m_ObjectHideFlags: 0
@@ -53741,9 +53869,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &1987246509
 GameObject:
@@ -56596,9 +56724,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!1 &2083701803
 GameObject:
@@ -57761,9 +57889,9 @@ MonoBehaviour:
   roomName: 
   conversers: []
   population: 0
-  drinkLocation: {fileID: 0}
-  converseLocation: {fileID: 0}
-  restroomLocation: {fileID: 0}
+  drinkLocation: {x: 0, y: 0, z: 0}
+  converseLocation: {x: 0, y: 0, z: 0}
+  restroomLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
 --- !u!4 &2143231060
 Transform:

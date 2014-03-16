@@ -255,24 +255,29 @@ namespace RBS{
 
 		private Status setDestRoom(GameObject gameObject){
 			Debug.Log("Wants a drink");
-
-			GameObject[] drinkLocations = GameObject.FindGameObjectsWithTag("Drink");
-
-			GameObject drinkLocation = drinkLocations[UnityEngine.Random.Range(0, drinkLocations.Length)];
-
-			this.go = gameObject;
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bored -= 10;
 			script.thirst -= 25;
-			/*if(script.room.drinkLocation != null){*/
+
+			//Check room for hotspot location
+			if(script.room.drinkLocation != script.room.nullLocation){
+				script.destination = script.room.drinkLocation; //script.room.drinkLocation.position;
+				script.anim.SetBool("Speed", true);
+				gameObject.GetComponent<BaseAI>().distFromDest = 10f;
+				script.agent.SetDestination(script.destination);
+				script.tree = new DrinkingTree();
+			}
+			//Choose random hotspot location
+			else{
+
+				GameObject[] drinkLocations = GameObject.FindGameObjectsWithTag("Drink");
+				GameObject drinkLocation = drinkLocations[UnityEngine.Random.Range(0, drinkLocations.Length)];
 				script.destination = drinkLocation.transform.position; //script.room.drinkLocation.position;
 				script.anim.SetBool("Speed", true);
 				gameObject.GetComponent<BaseAI>().distFromDest = 10f;
 				script.agent.SetDestination(script.destination);
 				script.tree = new DrinkingTree();
-			/*}
-			else
-				Debug.Log("couldn't find drink location");*/
+			}
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 115f, false);
 			return Status.Waiting;
 		}
@@ -333,17 +338,23 @@ namespace RBS{
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bladder -= 25;
 
-			GameObject[] bathroomLocations = GameObject.FindGameObjectsWithTag("RestRoom");
+			//Check if room has hotspot
+			if(script.room.restroomLocation != script.room.nullLocation){
+				script.destination = script.room.restroomLocation; //script.room.restroomLocation.position;
+				script.anim.SetBool("Speed", true);
+				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+				script.agent.SetDestination(script.destination);
+			}
 
-			GameObject bathroomLocation = bathroomLocations[UnityEngine.Random.Range(0, bathroomLocations.Length)];
-			/*if(script.room.restroomLocation != null){*/
+			//Find random hotspot
+			else{
+				GameObject[] bathroomLocations = GameObject.FindGameObjectsWithTag("RestRoom");
+				GameObject bathroomLocation = bathroomLocations[UnityEngine.Random.Range(0, bathroomLocations.Length)];
 				script.destination = bathroomLocation.transform.position; //script.room.restroomLocation.position;
 				script.anim.SetBool("Speed", true);
 				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
 				script.agent.SetDestination(script.destination);
-			/*}
-			else
-				Debug.Log("Couldn't find restroom location");*/
+			}
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
 			return Status.Waiting;
 		}
