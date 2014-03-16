@@ -30,6 +30,8 @@ public class Intrigue : MonoBehaviour {
 	public float objectivesCompleted = 0;
 	[HideInInspector]
 	public bool[] objectives;
+	[HideInInspector]
+	public bool gameOverFlag = false;
 	public LoadingScreen loadingScreen;
 	public static int numSpiesLeft;
 	public static int numGuardsLeft;
@@ -163,6 +165,7 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void gameOver(){
+		gameOverFlag = true;
 		if(playerGO!=null){
 			playerGO.GetComponentInChildren<Camera>().enabled = false;
 			playerGO.GetComponentInChildren<AudioListener>().enabled = false;

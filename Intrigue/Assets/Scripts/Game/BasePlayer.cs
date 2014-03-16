@@ -98,10 +98,12 @@ public class BasePlayer : MonoBehaviour {
 
 	void spectate(){
 		GetComponentInChildren<Camera>().enabled = false;
-		foreach (GameObject teamMates in GameObject.FindGameObjectsWithTag(player.Team)){
-			if(teamMates.gameObject != gameObject){
-				teamMates.GetComponentInChildren<Camera>().enabled = true; 
-				break;
+		if(!intrigue.gameOverFlag){
+			foreach (GameObject teamMates in GameObject.FindGameObjectsWithTag(player.Team)){
+				if(teamMates.gameObject != gameObject){
+					teamMates.GetComponentInChildren<Camera>().enabled = true; 
+					break;
+				}
 			}
 		}
 
