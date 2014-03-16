@@ -41,7 +41,7 @@ public class LoadingScreen : MonoBehaviour {
 				if(levelToLoad=="PostGame")
 					loadTitle.GetComponent<UILabel>().text = "GAME OVER";
 				else
-					loadTitle.GetComponent<UILabel>().text = "ROUND OVER";
+					loadTitle.GetComponent<UILabel>().text = "ROUND OVER\n[FF0000]SWITCHING SIDES[-]";
 				loadResult.GetComponent<UILabel>().text = intrigue.roundResult;
 				}
 				else
