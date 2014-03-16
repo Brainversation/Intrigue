@@ -106,5 +106,33 @@ public class Scoreboard : MonoBehaviour {
 
 	}
 
+	[RPC]
+	void removeName(string handle, string team){
+		Debug.Log("Removing: " + handle);
+		bool removed = false;
+		float removedHeight=0;
+		GameObject curTable;
+		if(team=="Spy")
+			curTable = spyTable;
+		else
+			curTable = guardTable;
+
+		foreach(Transform child in curTable.transform){
+			if(child.gameObject.GetComponent<UILabel>().user == handle){
+				removedHeight = child.localPosition.y;
+				NGUITools.Destroy(child.gameObject);
+				removed = true;
+			}
+		}
+		if(removed){
+			foreach(Transform child in curTable.transform){
+				Vector3 temp = new Vector3(0f, 0.1f,0);
+				if(Mathf.RoundToInt(child.gameObject.transform.localPosition.y)<Mathf.RoundToInt(removedHeight)){
+					child.gameObject.transform.position+=temp;
+				}
+			}
+		}
+	}
+
 
 }

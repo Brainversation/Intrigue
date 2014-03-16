@@ -37,7 +37,8 @@ public class Network : MonoBehaviour {
 
 	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
 		Debug.Log("OnPhotonPlayerDisconnected: " + photonPlayer.ID );
-		
+		//Scoreboard sb = Intrigue.playerGO.GetComponentInChildren<Scoreboard>();
+		//sb.GetComponent<PhotonView>().RPC("removeName", PhotonTargets.All, player.Handle, player.Team);
 		if( player.Team == "Guard" ){
 			--Intrigue.numGuardsLeft;
 		} else {
