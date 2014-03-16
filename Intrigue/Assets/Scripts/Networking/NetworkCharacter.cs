@@ -6,11 +6,15 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private Vector3 correctPlayerPos;
 	private Quaternion correctPlayerRot;
 	private Animator anim;
+	private UIPanel sprintPanel;
+	private UIPanel[] guiPanels;
+	private UISlider sprintSlider;
 	private Spy spyRef;
 	private Player player;
 	private float stamina = 100;
-	private float staminaDrainSpeed = 20;
-	private float staminaRegenSpeed = 5;
+	private float staminaDrainSpeed;
+	private float staminaRegenSpeed;
+	private bool canRegen;
 	public bool isOut;
 	public bool wantSprint;
 
@@ -20,6 +24,14 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		anim.speed = 1.0f;
 		spyRef = gameObject.GetComponent<Spy>();
 		player = GameObject.Find("Player").GetComponent<Player>();
+		if(player.Team=="Spy"){
+			staminaDrainSpeed = 20;
+			staminaRegenSpeed = 10;
+		}
+		else{
+			staminaDrainSpeed = 15;
+			staminaRegenSpeed = 10;
+		}
 	}
 
 	public void Update(){
@@ -31,14 +43,36 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	public void FixedUpdate(){
 		if(photonView.isMine && !isOut){
+			guiPanels = GetComponentsInChildren<UIPanel>(true);
+			if(sprintPanel==null||sprintSlider==null){
+				foreach(UIPanel uiP in guiPanels){
+					if(uiP.gameObject.CompareTag("SprintPanel")){
+						sprintPanel = uiP;
+						sprintSlider = sprintPanel.GetComponentInChildren<UISlider>();
+					}
+				}
+			}
+
+			if(wantSprint && stamina<100){
+				NGUITools.SetActive(sprintPanel.gameObject, true);
+				sprintSlider.value = stamina/100;
+			}
+			else{
+				NGUITools.SetActive(sprintPanel.gameObject, false);
+			}
+
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
 			if(wantSprint && stamina>=1 && Input.GetKey("left shift")){
 				stamina-=staminaDrainSpeed*Time.deltaTime;
+				canRegen = false;
 				anim.SetBool("Run", Input.GetKey("left shift"));
 			}
 			else{
+				if(!canRegen){
+					Invoke("StartRegen", 3);
+				}
 				anim.SetBool("Run", false);
-				if(stamina<100 && !Input.GetKey("left shift"))
+				if(stamina<100 && canRegen)
 					stamina+=staminaRegenSpeed*Time.deltaTime;
 				if(stamina>100)
 					stamina=100;
@@ -93,5 +127,9 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetBool("InteractComp", (bool) stream.ReceiveNext());
 			anim.SetBool("Out", (bool) stream.ReceiveNext());
 		}
+	}
+
+	void StartRegen(){
+		canRegen = true;
 	}
 }
