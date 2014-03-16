@@ -68,7 +68,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			}
 
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
-			if(wantSprint && stamina>=1 && Input.GetKey("left shift")){
+			if(wantSprint && stamina>=1 && Input.GetKey("left shift") && Input.GetAxis("Vertical")!=0){
 				stamina-=staminaDrainSpeed*Time.deltaTime;
 				canRegen = false;
 				cam.transform.localPosition = camStart + new Vector3(0f,0f,2f);
@@ -90,7 +90,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			
 			if(player.Team=="Spy"){
 				spyRef = gameObject.GetComponent<Spy>();
-				if(spyRef.doingObjective){
+				if(spyRef!=null && spyRef.doingObjective){
 					if(spyRef.objectiveType=="Safe"){
 						anim.SetBool("InteractSafe",true);
 					}
