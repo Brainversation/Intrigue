@@ -24,7 +24,7 @@ public class Crosshair : MonoBehaviour {
 			if(teamSpy){
 				Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 				RaycastHit hit;
-				if( Physics.Raycast(ray, out hit, 15.0f) ){
+				if( Physics.Raycast(ray, out hit, 7f) ){
 					if( hit.transform.tag == "Objective" && hit.transform.gameObject.GetComponent<Objective>().isActive ){
 						canInteract = true;
 					}

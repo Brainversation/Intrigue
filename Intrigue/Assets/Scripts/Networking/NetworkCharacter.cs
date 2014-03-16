@@ -31,7 +31,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	public void FixedUpdate(){
 		if(photonView.isMine && !isOut){
-			Debug.Log("Stamina: " + stamina);
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
 			if(wantSprint && stamina>=1 && Input.GetKey("left shift")){
 				stamina-=staminaDrainSpeed*Time.deltaTime;

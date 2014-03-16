@@ -59,8 +59,8 @@ public class Spy : BasePlayer{
 			Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 			if (Input.GetKey("e")){
 				RaycastHit hit;
-				Debug.DrawRay(ray.origin,ray.direction*15f,Color.green);
-				if( Physics.Raycast(ray, out hit, 15.0f) ){
+				Debug.DrawRay(ray.origin,ray.direction*7f,Color.green);
+				if( Physics.Raycast(ray, out hit, 7.0f) ){
 					if( hit.transform.tag == "Objective" ){
 						Objective hitObjective = hit.transform.GetComponent<Objective>();
 						hitObjective.useObjective(gameObject);
