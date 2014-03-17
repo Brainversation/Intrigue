@@ -34,7 +34,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public float anxiety = 0f;
 	[HideInInspector] public float bladder = 0f;
 
-	private bool aiTesting = true;
+	private bool aiTesting = false;
 
 	void Start(){
 		anim = GetComponent<Animator>();
