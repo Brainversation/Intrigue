@@ -53,7 +53,7 @@ public class Intrigue : MonoBehaviour {
 
 		if(PhotonNetwork.isMasterClient){
 			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
-			Debug.Log("numspawns " + spawnObjects.Length);
+			//Debug.Log("numspawns " + spawnObjects.Length);
 			for(int i=0; i < spawnObjects.Length; i++){
 				spawns.Add(spawnObjects[i].transform);
 			}
@@ -259,14 +259,14 @@ public class Intrigue : MonoBehaviour {
 
 	[RPC]
 	void addSpy(){
-		Debug.Log("Adding spy");
+		//Debug.Log("Adding spy");
 		++this.numSpies;
 		++Intrigue.numSpiesLeft;
 	}
 
 	[RPC]
 	void addGuard(){
-		Debug.Log("Adding guard");
+		//Debug.Log("Adding guard");
 		++this.numGuards;
 		++Intrigue.numGuardsLeft;
 	}

@@ -87,12 +87,10 @@ public class Guard : BasePlayer{
 						nearSpy = true;
 					if(!audio.isPlaying){
 						audio.Play();
-						Debug.Log("Near spy, starting sound");
 					}
 				}
 			}
 			if(!nearSpy){
-				Debug.Log("Not near spy");
 				audio.Stop();
 			}
 		}
