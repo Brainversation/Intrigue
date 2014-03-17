@@ -18,7 +18,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private float staminaRegenSpeed;
 	private bool canRegen;
 	public bool isOut;
-	public bool wantSprint;
 
 	void Start() {
 		//Get References to Animator and Collider
@@ -59,7 +58,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 				}
 			}
 
-			if(wantSprint && stamina<100){
+			if(stamina<100){
 				NGUITools.SetActive(sprintPanel.gameObject, true);
 				sprintSlider.value = stamina/100;
 			}
@@ -68,7 +67,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			}
 
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
-			if(wantSprint && stamina>=1 && Input.GetKey("left shift") && Input.GetAxis("Vertical")!=0){
+			if(stamina>=1 && Input.GetKey("left shift") && Input.GetAxis("Vertical")!=0){
 				stamina-=staminaDrainSpeed*Time.deltaTime;
 				canRegen = false;
 				cam.transform.localPosition = camStart + new Vector3(0f,0f,2f);

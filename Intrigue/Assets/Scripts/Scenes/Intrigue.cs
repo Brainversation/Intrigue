@@ -25,7 +25,6 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector]
 	public string roundResult;
 	public bool wantGameOver = true;
-	public bool wantSprinting = false;
 	[HideInInspector]
 	public float objectivesCompleted = 0;
 	[HideInInspector]
@@ -247,7 +246,6 @@ public class Intrigue : MonoBehaviour {
 						"Robot_"+ player.Team+"1"/*type.ToString()*/,
 						position,
 						rotation, 0);
-		Intrigue.playerGO.GetComponent<NetworkCharacter>().wantSprint = wantSprinting;
 
 		if (roundsLeft == rounds){
 			if(player.Team == "Spy")
