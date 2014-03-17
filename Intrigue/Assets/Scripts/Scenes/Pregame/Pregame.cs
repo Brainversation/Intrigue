@@ -10,7 +10,6 @@ public class Pregame : MonoBehaviour {
 	void Start () {
 		Screen.lockCursor = false;
 		PhotonNetwork.networkingPeer.NewSceneLoaded();
-		PhotonNetwork.automaticallySyncScene = true;
 	}
 	
 	// Update is called once per frame
