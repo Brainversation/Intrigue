@@ -9,6 +9,7 @@ public class Guard : BasePlayer{
 	private bool accusing = false;
 	private UIPanel accusationGUI;
 	private Renderer[] renders;
+	private bool nearSpy = false;
 
 	protected override void Update () {
 		base.Update();
@@ -73,15 +74,30 @@ public class Guard : BasePlayer{
 			}
 		}
 		if(spies!=null){
+			nearSpy = false;
 			foreach (GameObject spy in spies){
-				if(spy!=accused)
+				if(spy!=accused){
 					renders = spy.GetComponentsInChildren<Renderer>();
 					foreach(Renderer rend in renders){
 						if(rend.gameObject.CompareTag("highLight"))
 							rend.material.color = Color.white;
 					}
+				}
+				if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50){
+						nearSpy = true;
+					if(!audio.isPlaying){
+						audio.Play();
+						Debug.Log("Near spy, starting sound");
+					}
+				}
+			}
+			if(!nearSpy){
+				Debug.Log("Not near spy");
+				audio.Stop();
 			}
 		}
+
+
 
 		//Highlights the currently targeted guest
 		if(Camera.main!=null){
