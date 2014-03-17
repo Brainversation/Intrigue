@@ -229,11 +229,8 @@ public class Guard : BasePlayer{
 	[RPC]
 	void markSpy(int ID){
 		if(!markedSpies.Contains(ID)){
-			Debug.Log("ADDED ID: " + ID);
 			markedSpies.Add(ID);
-			Debug.Log(markedSpies.Count);
 		} else {
-			Debug.Log("removed ID: " + ID);
 			markedSpies.Remove(ID);
 		}
 	}
@@ -241,11 +238,8 @@ public class Guard : BasePlayer{
 	[RPC]
 	void markGuest(int ID){
 		if(!markedGuests.Contains(ID)){
-			Debug.Log("ADDED ID: " + ID);
 			markedGuests.Add(ID);
-			Debug.Log(markedGuests.Count);
 		} else {
-			Debug.Log("removed ID: " + ID);
 			markedGuests.Remove(ID);
 		}
 	}
