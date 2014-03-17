@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Guard : BasePlayer{
 	
@@ -10,6 +11,8 @@ public class Guard : BasePlayer{
 	private UIPanel accusationGUI;
 	private Renderer[] renders;
 	private bool nearSpy = false;
+	private static List<int> markedSpies = new List<int>();
+	private static List<int> markedGuests = new List<int>();
 
 	protected override void Update () {
 		base.Update();
@@ -67,8 +70,13 @@ public class Guard : BasePlayer{
 				if(guest!=accused){
 					renders = guest.GetComponentsInChildren<Renderer>();
 					foreach(Renderer rend in renders){
-						if(rend.gameObject.CompareTag("highLight"))
-							rend.material.color = Color.white;
+						if(rend.gameObject.CompareTag("highLight")){
+							if(markedGuests.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID)){
+								rend.material.color = Color.green;
+							} else {
+								rend.material.color = Color.white;
+							}
+						}
 					}
 				}
 			}
@@ -79,8 +87,13 @@ public class Guard : BasePlayer{
 				if(spy!=accused){
 					renders = spy.GetComponentsInChildren<Renderer>();
 					foreach(Renderer rend in renders){
-						if(rend.gameObject.CompareTag("highLight"))
-							rend.material.color = Color.white;
+						if(rend.gameObject.CompareTag("highLight")){
+							if(markedSpies.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().owner.ID)){
+								rend.material.color = Color.green;
+							} else {
+								rend.material.color = Color.white;
+							}
+						}
 					}
 				}
 				if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50){
@@ -133,6 +146,14 @@ public class Guard : BasePlayer{
 					if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
 							accusing = true;
 							accused = hit.transform.gameObject;
+					}
+				}
+			} else if( Input.GetKeyUp(KeyCode.M) ){
+				if ( Physics.Raycast(ray, out hit, 15) ) {
+					if(hit.transform.gameObject.CompareTag("Guest")){
+						photonView.RPC("markGuest", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().viewID);
+					} else if (hit.transform.gameObject.CompareTag("Spy")){
+						photonView.RPC("markSpy", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().owner.ID);
 					}
 				}
 			} else {
@@ -202,6 +223,30 @@ public class Guard : BasePlayer{
 		if(photonView.isMine){
 			player.Score += scoreToAdd;
 			photonView.RPC("giveScore", PhotonTargets.All, player.Score);
+		}
+	}
+
+	[RPC]
+	void markSpy(int ID){
+		if(!markedSpies.Contains(ID)){
+			Debug.Log("ADDED ID: " + ID);
+			markedSpies.Add(ID);
+			Debug.Log(markedSpies.Count);
+		} else {
+			Debug.Log("removed ID: " + ID);
+			markedSpies.Remove(ID);
+		}
+	}
+
+	[RPC]
+	void markGuest(int ID){
+		if(!markedGuests.Contains(ID)){
+			Debug.Log("ADDED ID: " + ID);
+			markedGuests.Add(ID);
+			Debug.Log(markedGuests.Count);
+		} else {
+			Debug.Log("removed ID: " + ID);
+			markedGuests.Remove(ID);
 		}
 	}
 }
