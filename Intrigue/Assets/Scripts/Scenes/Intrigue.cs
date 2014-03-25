@@ -43,7 +43,7 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void Start () {
-		wantGameOver = false;
+		wantGameOver = true;
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 
