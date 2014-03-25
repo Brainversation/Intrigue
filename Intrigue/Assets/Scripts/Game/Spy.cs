@@ -11,37 +11,26 @@ public class Spy : BasePlayer{
 
 	protected override void Update () {
 		base.Update();
-		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
-		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
-		string secondsS;
-		if(seconds<10)
-			secondsS = "0"+seconds.ToString();
-		else
-			secondsS = seconds.ToString();
-		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
-		guiLabels = GetComponentsInChildren<UILabel>();
-		guiPanels = GetComponentsInChildren<UIPanel>(true);
-		foreach(UIPanel uiP in guiPanels){
-			if(uiP.gameObject.CompareTag("ObjectivePanel")){
-				objPanel = uiP;
-			}
-		}
+		//Locate the necessary NGUI objects
+		/*------------------------------------------------------*/
+		locateNGUIObjects();
+		/*------------------------------------------------------*/
 
+
+
+		//NGUI code for doing Objectives
+		/*------------------------------------------------------*/
 		NGUITools.SetActive(objPanel.gameObject, doingObjective);
 		if(doingObjective){
 			objSlider = objPanel.GetComponentInChildren<UISlider>();
 			objSlider.value = percentComplete;
 		}
+		/*------------------------------------------------------*/
 
-		foreach(UILabel lab in guiLabels){
-			if(lab.gameObject.CompareTag("TimeLabel")){
-				timeLabel = lab.gameObject;
-			}
-			else if(lab.gameObject.CompareTag("OutLabel")){
-				outLabel = lab.gameObject;
-			}
-		}
 
+
+		//NGUI code for getting out
+		/*------------------------------------------------------*/
 		if(isOut){
 			NGUITools.SetActive(outLabel, true);
 			if(hairHat!=null)
@@ -50,32 +39,56 @@ public class Spy : BasePlayer{
 		else{
 			NGUITools.SetActive(outLabel, false);
 		}
+		/*------------------------------------------------------*/
 
+
+
+		//NGUI code for updating time/round display
+		/*------------------------------------------------------*/
 		if(timeLabel!=null)
-			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + secondsS + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
+			updateTimeLabel();
+		/*------------------------------------------------------*/
 
-		//Interact Raycasts
-		if(Camera.main!=null){
-			Ray ray = Camera.main.ScreenPointToRay( screenPoint );
-			if (Input.GetKey("e")){
-				RaycastHit hit;
-				Debug.DrawRay(ray.origin,ray.direction*7f,Color.green);
-				if( Physics.Raycast(ray, out hit, 7.0f) ){
-					if( hit.transform.tag == "Objective" ){
-						Objective hitObjective = hit.transform.GetComponent<Objective>();
-						hitObjective.useObjective(gameObject);
-						objectiveType = hitObjective.objectiveType;
-					}
-					else
-						doingObjective = false;
+
+
+		//Code for interacting
+		/*------------------------------------------------------*/
+		if(Camera.main!=null)
+			attemptInteract();
+		/*------------------------------------------------------*/
+
+
+
+		//Code to add [] display for active objectives
+		/*------------------------------------------------------*/
+		addObjectiveText();
+		/*------------------------------------------------------*/
+	}
+
+
+	void locateNGUIObjects(){
+		guiLabels = GetComponentsInChildren<UILabel>();
+		guiPanels = GetComponentsInChildren<UIPanel>(true);
+		if(objPanel == null){
+			foreach(UIPanel uiP in guiPanels){
+				if(uiP.gameObject.CompareTag("ObjectivePanel")){
+					objPanel = uiP;
 				}
-				else
-						doingObjective = false;
 			}
-			else
-				doingObjective = false;
 		}
+		if(timeLabel == null || outLabel == null){
+			foreach(UILabel lab in guiLabels){
+				if(lab.gameObject.CompareTag("TimeLabel")){
+					timeLabel = lab.gameObject;
+				}
+				else if(lab.gameObject.CompareTag("OutLabel")){
+					outLabel = lab.gameObject;
+				}
+			}
+		}
+	}
 
+	void addObjectiveText(){
 		//Create Objective Texts
 		GameObject[] objecs = GameObject.FindGameObjectsWithTag("Objective");
 		foreach(GameObject objer in objecs){
@@ -95,6 +108,42 @@ public class Spy : BasePlayer{
 					objer.GetComponentInChildren<TextMesh>().text = "";
 				}
 		}
+	}
+
+	void updateTimeLabel(){
+		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
+		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
+		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
+		string secondsS;
+		if(seconds<10)
+			secondsS = "0"+seconds.ToString();
+		else
+			secondsS = seconds.ToString();
+
+		timeLabel.GetComponent<UILabel>().text = minutesLeft +":" 
+												+ secondsS + "\nRound: " + 
+												curRound +"/" + 
+												(intrigue.GetRounds+1);
+	}
+
+	void attemptInteract(){
+		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
+		if (Input.GetKey("e")){
+			RaycastHit hit;
+			if( Physics.Raycast(ray, out hit, 7.0f) ){
+				if( hit.transform.tag == "Objective" ){
+					Objective hitObjective = hit.transform.GetComponent<Objective>();
+					hitObjective.useObjective(gameObject);
+					objectiveType = hitObjective.objectiveType;
+				}
+				else
+					doingObjective = false;
+			}
+			else
+					doingObjective = false;
+		}
+		else
+			doingObjective = false;
 	}
 
 	[RPC]

@@ -29,7 +29,7 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector] public float objectivesCompleted = 0;
 	[HideInInspector] public bool[] objectives;
 	[HideInInspector] public bool gameOverFlag = false;
-	[HideInInspector] public bool wantGameOver;
+	public bool wantGameOver;
 	
 	public static int numSpiesLeft;
 	public static int numGuardsLeft;
@@ -43,7 +43,7 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void Start () {
-		wantGameOver = true;
+		//wantGameOver = true;
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 
