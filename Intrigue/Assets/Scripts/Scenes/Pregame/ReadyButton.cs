@@ -10,19 +10,14 @@ public class ReadyButton : MonoBehaviour {
 	private UILabel label;
 	private UIToggle readyCheckToggle;
 	public GameObject readyCheck;
-	public LoadingScreen loadingScreen;
-	// Use this for initialization
+
 	void Start () {
-
-	this.photonView = PhotonView.Get(this);
-	PhotonNetwork.networkingPeer.NewSceneLoaded();
-	player = GameObject.Find("Player").GetComponent<Player>();
-	label = gameObject.GetComponentInChildren<UILabel>();
-	readyCheckToggle = readyCheck.GetComponentInChildren<UIToggle>();
-
+		this.photonView = PhotonView.Get(this);
+		player = GameObject.Find("Player").GetComponent<Player>();
+		label = gameObject.GetComponentInChildren<UILabel>();
+		readyCheckToggle = readyCheck.GetComponentInChildren<UIToggle>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if(PhotonNetwork.isMasterClient){
 			if(readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
@@ -67,7 +62,7 @@ public class ReadyButton : MonoBehaviour {
 			if(readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
 				PhotonNetwork.room.open = false;
 				PhotonNetwork.room.visible = false;
-				photonView.RPC("go", PhotonTargets.AllBuffered);
+				photonView.RPC("go", PhotonTargets.All);
 			}
 		}
 		else{
@@ -88,15 +83,14 @@ public class ReadyButton : MonoBehaviour {
 
 		}
 	}
+	
+	[RPC]
+	public void go(){
+		PhotonNetwork.LoadLevel("Intrigue");
+	}
 
 	[RPC]
 	public void ready(int val){
 		this.readyCount +=val;
-	}
-
-	[RPC]
-	public void go(){
-		//PhotonNetwork.LoadLevel("Intrigue");
-		loadingScreen.StartLoadingLevel("Intrigue");
 	}
 }

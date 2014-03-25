@@ -5,11 +5,8 @@ using System.Collections.Generic;
 public class Intrigue : MonoBehaviour {
 
 
-	private static int rounds = 3;
-	private static int roundsLeft = rounds;
 	private float totalObjActive;
 	private Player player;
-	private int numObjectives = 0;
 	private int winningTeamThisRound;
 	private int numSpies = 0;
 	private int numGuards = 0;
@@ -22,20 +19,21 @@ public class Intrigue : MonoBehaviour {
 	private GameObject[] objArray;
 	private int spawnIndex;
 	private Transform spawnTrans;
-	[HideInInspector]
-	public string roundResult;
-	public bool wantGameOver = true;
-	[HideInInspector]
-	public float objectivesCompleted = 0;
-	[HideInInspector]
-	public bool[] objectives;
-	[HideInInspector]
-	public bool gameOverFlag = false;
-	public LoadingScreen loadingScreen;
+	private int readyCount = 0;
+	private bool gameStart = false;
+
+	private static int rounds = 3;
+	private static int roundsLeft = rounds;
+
+	[HideInInspector] public string roundResult;
+	[HideInInspector] public float objectivesCompleted = 0;
+	[HideInInspector] public bool[] objectives;
+	[HideInInspector] public bool gameOverFlag = false;
+	[HideInInspector] public bool wantGameOver = false;
+	
 	public static int numSpiesLeft;
 	public static int numGuardsLeft;
 	public static GameObject playerGO = null;
-	public LoadingScreen loadingBackup;
 
 	void Awake(){
 		GameObject menuMusic = GameObject.Find("MenuMusic");
@@ -45,19 +43,16 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void Start () {
-		numObjectives = GameObject.FindGameObjectsWithTag("Objective").Length;
-		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 
 		if(PhotonNetwork.isMasterClient){
 			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
-			//Debug.Log("numspawns " + spawnObjects.Length);
 			for(int i=0; i < spawnObjects.Length; i++){
 				spawns.Add(spawnObjects[i].transform);
 			}
 			availableSpawns = spawns;
-			spawnGuests();
+			StartCoroutine(spawnGuests());
 
 			objArray = GameObject.FindGameObjectsWithTag("Objective");
 			totalObjActive = Mathf.RoundToInt(GameObject.FindGameObjectsWithTag("Objective").Length*.67f);
@@ -92,40 +87,33 @@ public class Intrigue : MonoBehaviour {
 			enabled = false;
 		}
 		
-		numObjectives = GameObject.FindGameObjectsWithTag("Objective").Length;
-		objectives = new bool[numObjectives];
-		// set all objectives to incomplete at start
-		for(int i = 0; i < objectives.Length; i++){
-			objectives[i] = false;
-		}
-
+		objectives = new bool[GameObject.FindGameObjectsWithTag("Objective").Length];
 		joinGame();
 	}
 
 	void Update () {
+		if(!gameStart) return;
 		timeLeft -= Time.deltaTime;
 		photonView.RPC("syncTime", PhotonTargets.OthersBuffered, timeLeft);
-		if( timeLeft <= (timeLimit-10) ){
-			if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/totalObjActive)*100)>50){
-				if(wantGameOver){
-					if(timeLeft<=0){
-						roundResult = "Time Limit Reached.\nGuards Win!";
-						winningTeamThisRound = 2;
-					}
-					else if(numSpiesLeft<=0){
-						roundResult = "All Spies Caught.\nGuards Win!";
-						winningTeamThisRound = 2;
-					}
-					else if(numGuardsLeft<=0){
-						roundResult = "All Guards Out.\nSpies Win!";
-						winningTeamThisRound = 1;
-					}
-					else{
-						roundResult = "Objectives Completed.\nSpies Win!";
-						winningTeamThisRound = 1;
-					}
-					photonView.RPC("callGameOver", PhotonTargets.All, roundResult, winningTeamThisRound);
+		if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/totalObjActive)*100)>50){
+			if(wantGameOver){
+				if(timeLeft<=0){
+					roundResult = "Time Limit Reached.\nGuards Win!";
+					winningTeamThisRound = 2;
 				}
+				else if(numSpiesLeft<=0){
+					roundResult = "All Spies Caught.\nGuards Win!";
+					winningTeamThisRound = 2;
+				}
+				else if(numGuardsLeft<=0){
+					roundResult = "All Guards Out.\nSpies Win!";
+					winningTeamThisRound = 1;
+				}
+				else{
+					roundResult = "Objectives Completed.\nSpies Win!";
+					winningTeamThisRound = 1;
+				}
+				photonView.RPC("callGameOver", PhotonTargets.All, roundResult, winningTeamThisRound);
 			}
 		}
 	}
@@ -147,14 +135,21 @@ public class Intrigue : MonoBehaviour {
 		photonView.RPC("sendSpawnPoint", PhotonTargets.MasterClient);
 	}
 
-	void spawnGuests(){
+	IEnumerator spawnGuests(){
+		while(readyCount != PhotonNetwork.playerList.Length)
+			yield return null;
+
 		for( int x = 0; x < player.Guests; ++x)
 		{	
 			nextSpawnPoint();
 			//int type = Mathf.RoundToInt(Random.Range(1,4));
 			//Debug.Log("Guest type: " + type);
 			PhotonNetwork.InstantiateSceneObject("Robot_Guest1"/*+type.ToString()*/, spawnTrans.position, spawnTrans.rotation, 0, null);
+			yield return  new WaitForSeconds(.1f);
 		}
+
+		// Send turn off loading
+		gameStart = true;
 	}
 
 	void nextSpawnPoint(){
@@ -169,7 +164,6 @@ public class Intrigue : MonoBehaviour {
 			playerGO.GetComponentInChildren<Camera>().enabled = false;
 			playerGO.GetComponentInChildren<AudioListener>().enabled = false;
 		}
-		loadingScreen = loadingBackup;
 
 		//Add bonus points for winning round
 		if(winningTeamThisRound==1){
@@ -189,27 +183,21 @@ public class Intrigue : MonoBehaviour {
 			}
 		}
 
-
-
-
 		if(roundsLeft > 0){
 			--roundsLeft;
-			Debug.Log( "Reset:" + roundsLeft);
-			photonView.RPC("syncRounds", PhotonTargets.OthersBuffered, roundsLeft);
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
 			if(player.Team == "Spy"){
 				player.Team = "Guard";
-			}
-			else{
+			} else {
 				player.Team = "Spy";
 			}
-			loadingScreen.StartLoadingLevel("Intrigue");
+			PhotonNetwork.LoadLevel("Intrigue");
 		} else {
 			Debug.Log( "Game Over" );
 			roundsLeft = rounds;
-			loadingScreen.StartLoadingLevel("PostGame");
+			PhotonNetwork.LoadLevel("PostGame");
 		}
 	}
 
@@ -253,18 +241,19 @@ public class Intrigue : MonoBehaviour {
 			else
 				player.TeamID = 2;
 		}
+		photonView.RPC("ready", PhotonTargets.MasterClient);
 	}
 
 	[RPC]
 	void addSpy(){
-		//Debug.Log("Adding spy");
+		Debug.Log("Adding spy");
 		++this.numSpies;
 		++Intrigue.numSpiesLeft;
 	}
 
 	[RPC]
 	void addGuard(){
-		//Debug.Log("Adding guard");
+		Debug.Log("Adding guard");
 		++this.numGuards;
 		++Intrigue.numGuardsLeft;
 	}
@@ -282,7 +271,7 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	[RPC]
-	void syncRounds(int rounds){
-		roundsLeft = rounds;
+	public void ready(){
+		++this.readyCount;
 	}
 }

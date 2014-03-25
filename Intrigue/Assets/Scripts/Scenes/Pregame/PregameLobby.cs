@@ -15,7 +15,6 @@ public class PregameLobby : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Screen.lockCursor = false;
-		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		// Get photonView component
 		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();

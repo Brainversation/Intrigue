@@ -18,7 +18,6 @@ public class MainMenu : MonoBehaviour {
 	public GameObject mask;
 	public GameObject handleWindow;
 	public GameObject serverNameLabel;
-	public LoadingScreen loadingScreen;
 	public GameObject uiCamera;
 	public GameObject bg_texture;
 	[HideInInspector] public GameObject createServerButton;
@@ -31,7 +30,6 @@ public class MainMenu : MonoBehaviour {
 		findServerButton = GameObject.Find("FIND SERVER");
 		optionsButtons = GameObject.Find("OptionsButtons");
 		Screen.lockCursor = false;
-		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		player = GameObject.Find("Player").GetComponent<Player>();
 		connect();
 		player.Score = 0;
@@ -182,7 +180,7 @@ public class MainMenu : MonoBehaviour {
 		PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
 		PlayerPrefs.SetString(playerPrefsPrefix + "Room", player.RoomName);
 		PlayerPrefs.Save();
-		loadingScreen.StartLoadingLevel("Pregame");
+		PhotonNetwork.LoadLevel("Pregame");
 	}
 
 	void OnPhotonJoinFailed(){

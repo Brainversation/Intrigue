@@ -17,7 +17,6 @@ public class PregameChat : MonoBehaviour
 	void Start ()
 	{
 		this.photonView = PhotonView.Get(this);
-		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		player = GameObject.Find("Player").GetComponent<Player>();
 		mInput = GetComponent<UIInput>();
 		mInput.label.maxLineCount = 1;

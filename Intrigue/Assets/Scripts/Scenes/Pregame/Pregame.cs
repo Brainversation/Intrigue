@@ -9,7 +9,6 @@ public class Pregame : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Screen.lockCursor = false;
-		PhotonNetwork.networkingPeer.NewSceneLoaded();
 	}
 	
 	// Update is called once per frame
@@ -33,10 +32,5 @@ public class Pregame : MonoBehaviour {
 	[RPC]
 	public void ready( int val ){
 		this.readyCount += val;
-	}
-	
-	[RPC]
-	public void go(){
-		PhotonNetwork.LoadLevel("Intrigue");
 	}
 }

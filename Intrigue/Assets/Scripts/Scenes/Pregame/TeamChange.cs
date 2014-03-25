@@ -6,7 +6,6 @@ public class TeamChange : MonoBehaviour {
 	private Player player;
 	// Use this for initialization
 	void Start () {
-	PhotonNetwork.networkingPeer.NewSceneLoaded();
 	player = GameObject.Find("Player").GetComponent<Player>();
 	}
 	

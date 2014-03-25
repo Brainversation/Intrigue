@@ -18,7 +18,6 @@ public class PlayerScoreList : MonoBehaviour {
 	void Start(){
 		Screen.lockCursor = false;
 		this.photonView = PhotonView.Get(this);
-		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		player = GameObject.Find("Player").GetComponent<Player>();
 		InvokeRepeating("syncPingAndScore", 0, 2F);
 		if(player.TeamID==1){

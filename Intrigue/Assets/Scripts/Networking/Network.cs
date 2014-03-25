@@ -6,19 +6,14 @@ public class Network : MonoBehaviour {
 	private string chatBox = "";
 	private Player player;
 
-	// Look up how to disconnect
 	void Start () {
-		PhotonNetwork.networkingPeer.NewSceneLoaded();
 		// Get photonView component
-		PhotonNetwork.sendRate = 60;
-		PhotonNetwork.sendRateOnSerialize = 4;
 		player = GameObject.Find("Player").GetComponent<Player>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if( PhotonNetwork.connectionStateDetailed == PeerState.JoinedLobby ){
-			PhotonNetwork.isMessageQueueRunning = false;
 			PhotonNetwork.LoadLevel("MainMenu");
 		}
 

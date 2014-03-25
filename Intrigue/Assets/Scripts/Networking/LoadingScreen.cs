@@ -55,7 +55,7 @@ public class LoadingScreen : MonoBehaviour {
         	async.allowSceneActivation = false;
         }
         else{
-        	PhotonNetwork.LoadLevel2(levelToLoad);
+        	// PhotonNetwork.LoadLevel2(levelToLoad);
 		 	loadingBar.GetComponent<UISlider>().value = async.progress;
 		 	loadTitle.GetComponent<UILabel>().text = "Intrigue";
 		 	loadTimer.GetComponent<UILabel>().text = "";
@@ -90,7 +90,7 @@ public class LoadingScreen : MonoBehaviour {
 			loadTimer.GetComponent<UILabel>().text = Mathf.RoundToInt(countdownDuration-countdownCur)+"s";
 			yield return null;
 		}
-		PhotonNetwork.LoadLevel2(levelToLoad);
+		// PhotonNetwork.LoadLevel2(levelToLoad);
 		async.allowSceneActivation = true;
 	}
 
