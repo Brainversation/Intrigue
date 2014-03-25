@@ -64,7 +64,7 @@ public class ConversationHotSpot : MonoBehaviour {
 			++population;
 			Debug.DrawLine(other.gameObject.transform.position, spots[queue.Count], Color.red, 15f, false);
 			queue.Add(other.gameObject);
-			Debug.Log("Adding to mah pop");
+			// Debug.Log("Adding to mah pop");
 			other.GetComponent<BaseAI>().isYourTurn = true;
 		}
 

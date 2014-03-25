@@ -175,7 +175,7 @@ namespace BehaviorTree{
 
 	class WalkAway : Task {
 		public override Status run(GameObject gameObject){
-			Debug.Log("Walking away");
+			// Debug.Log("Walking away");
 			Vector3 newDest;
 			newDest = new Vector3(UnityEngine.Random.Range( gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.min.x,
 															gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.max.x),

@@ -69,7 +69,7 @@ public class LoadingScreen : MonoBehaviour {
 
         while(!async.allowSceneActivation){	
 	        if(PhotonNetwork.isMasterClient){
-	        	Debug.Log("Waiting: " + loadCounter + "/" + (PhotonNetwork.playerList.Length));
+	        	// Debug.Log("Waiting: " + loadCounter + "/" + (PhotonNetwork.playerList.Length));
 	        	if(loadCounter == PhotonNetwork.playerList.Length){
 	        		photonView.RPC("startGame", PhotonTargets.AllBuffered);
 	        		yield break;

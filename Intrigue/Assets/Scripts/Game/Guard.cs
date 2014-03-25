@@ -165,7 +165,6 @@ public class Guard : BasePlayer{
 	void testAccusation(){
 		if(accused != null && accused.CompareTag("Spy")){
 			if(!accused.GetComponent<Spy>().isOut){
-				Debug.Log("accuse ran");
 				photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
 				photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 				photonView.RPC("spyCaught", PhotonTargets.MasterClient);

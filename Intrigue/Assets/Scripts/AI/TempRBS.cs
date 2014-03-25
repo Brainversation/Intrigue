@@ -272,7 +272,7 @@ namespace TempRBS{
         }
 
         private Status setDestRoom(GameObject gameObject){
-            Debug.Log("Set Dest");
+            // Debug.Log("Set Dest");
             gameObject.GetComponent<TempBaseAI>().timeInRoom = 0f;
             gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
             // Vector3 temp = barLocation;

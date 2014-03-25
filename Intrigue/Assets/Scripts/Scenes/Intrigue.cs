@@ -29,7 +29,7 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector] public float objectivesCompleted = 0;
 	[HideInInspector] public bool[] objectives;
 	[HideInInspector] public bool gameOverFlag = false;
-	[HideInInspector] public bool wantGameOver = false;
+	[HideInInspector] public bool wantGameOver;
 	
 	public static int numSpiesLeft;
 	public static int numGuardsLeft;
@@ -43,6 +43,7 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void Start () {
+		wantGameOver = false;
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 
@@ -82,7 +83,6 @@ public class Intrigue : MonoBehaviour {
 				}
 
 			}
-			
 		} else {
 			enabled = false;
 		}
@@ -97,6 +97,7 @@ public class Intrigue : MonoBehaviour {
 		photonView.RPC("syncTime", PhotonTargets.OthersBuffered, timeLeft);
 		if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/totalObjActive)*100)>50){
 			if(wantGameOver){
+				Debug.Log("HERE!!!!!!!!!!!");
 				if(timeLeft<=0){
 					roundResult = "Time Limit Reached.\nGuards Win!";
 					winningTeamThisRound = 2;

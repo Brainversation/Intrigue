@@ -108,7 +108,7 @@ public class Scoreboard : MonoBehaviour {
 
 	[RPC]
 	void removeName(string handle, string team){
-		Debug.Log("Removing: " + handle);
+		// Debug.Log("Removing: " + handle);
 		bool removed = false;
 		float removedHeight=0;
 		GameObject curTable;

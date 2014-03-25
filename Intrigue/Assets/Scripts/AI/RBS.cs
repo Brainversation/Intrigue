@@ -183,7 +183,7 @@ namespace RBS{
 				room = rooms[UnityEngine.Random.Range(0, rooms.Length)];
 			}
 
-			Debug.Log("Room: " + room.name);
+			// Debug.Log("Room: " + room.name);
 
 			//Pick spot inside collider of chosen room
 			Vector3 newDest;
@@ -254,7 +254,7 @@ namespace RBS{
 		}
 
 		private Status setDestRoom(GameObject gameObject){
-			Debug.Log("Wants a drink");
+			// Debug.Log("Wants a drink");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bored -= 10;
 			script.thirst -= 25;
@@ -299,7 +299,7 @@ namespace RBS{
 		}
 
 		private Status handleConverse(GameObject gameObject){
-			Debug.Log("Wants to converse");
+			// Debug.Log("Wants to converse");
 			Status returnStat;
 			List<GameObject> conversers;
 			BaseAI script = gameObject.GetComponent<BaseAI>();
@@ -334,7 +334,7 @@ namespace RBS{
 		}
 
 		private Status setDestRestroom(GameObject gameObject){
-			Debug.Log("needs to use restroom");
+			// Debug.Log("needs to use restroom");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bladder -= 25;
 

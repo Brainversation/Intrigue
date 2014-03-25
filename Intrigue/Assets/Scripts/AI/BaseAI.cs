@@ -186,14 +186,14 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	void backToRule(){
-		Debug.Log("Back to rule");
+		// Debug.Log("Back to rule");
 		if(currentRule.antiConsequence != null)
 			currentRule.antiConsequence();
 		if(!agent.hasPath) status = Status.False;
 	}
 
 	public void addDrink(){
-		Debug.Log("adding Drink");
+		// Debug.Log("adding Drink");
 		this.thirst -= 10;
 		this.bladder += 5;
 	}
