@@ -18,32 +18,24 @@ public class Guard : BasePlayer{
 		base.Update();
 		guests = GameObject.FindGameObjectsWithTag("Guest");
 		spies = GameObject.FindGameObjectsWithTag("Spy");
-		guiPanels = GetComponentsInChildren<UIPanel>();
-		guiLabels = GetComponentsInChildren<UILabel>();
-		foreach(UILabel lab in guiLabels){
-			if(lab.gameObject.CompareTag("TimeLabel")){
-				timeLabel = lab.gameObject;
-			}
-			else if(lab.gameObject.CompareTag("OutLabel")){
-				outLabel = lab.gameObject;
-			}
-		}
-		foreach(UIPanel pan in guiPanels){
-			if(pan.gameObject.CompareTag("Accusations")){
-				accusationGUI = pan;
-			}
-		}
-		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
-		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
-		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
-		string secondsS;
-		if(seconds<10)
-			secondsS = "0"+seconds.ToString();
-		else
-			secondsS = seconds.ToString();
+		
+		//Code to get references to necessary NGUI Objects
+		/*------------------------------------------------------*/
+		locateNGUIObjects();
+		/*------------------------------------------------------*/
 
+
+
+		//Code to update time/round label
+		/*------------------------------------------------------*/
 		if(timeLabel!=null)
-			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + secondsS + "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
+			updateTimeLabel();
+		/*------------------------------------------------------*/
+
+
+
+		//NGUI code for getting out
+		/*------------------------------------------------------*/
 		if(isOut){
 			accusing = false;
 			accused = null;
@@ -54,7 +46,12 @@ public class Guard : BasePlayer{
 		else{
 			NGUITools.SetActive(outLabel, false);
 		}
+		/*------------------------------------------------------*/
 
+
+
+		//Code to cancel accusation state
+		/*------------------------------------------------------*/
 		if(Input.GetKeyUp(KeyCode.Space)){
 			accusing = false;
 			accused = null;
@@ -64,55 +61,30 @@ public class Guard : BasePlayer{
 			accused = null;
 			accusing = false;
 		}
+		/*------------------------------------------------------*/
 
-		if(guests!=null){
-			foreach (GameObject guest in guests){
-				if(guest!=accused){
-					renders = guest.GetComponentsInChildren<Renderer>();
-					foreach(Renderer rend in renders){
-						if(rend.gameObject.CompareTag("highLight")){
-							if(markedGuests.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID)){
-								rend.material.color = Color.green;
-							} else {
-								rend.material.color = Color.white;
-							}
-						}
-					}
-				}
-			}
-		}
-		if(spies!=null){
-			nearSpy = false;
-			foreach (GameObject spy in spies){
-				if(spy!=accused){
-					renders = spy.GetComponentsInChildren<Renderer>();
-					foreach(Renderer rend in renders){
-						if(rend.gameObject.CompareTag("highLight")){
-							if(markedSpies.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().owner.ID)){
-								rend.material.color = Color.green;
-							} else {
-								rend.material.color = Color.white;
-							}
-						}
-					}
-				}
-				if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50){
-						nearSpy = true;
-					if(!audio.isPlaying){
-						audio.Play();
-					}
-				}
-			}
-			if(!nearSpy){
-				audio.Stop();
-			}
-		}
 
+
+		//Updates guest/spy highlighting/marking
+		/*------------------------------------------------------*/
+		updateHighlighting();
+		/*------------------------------------------------------*/
+		
 
 
 		//Highlights the currently targeted guest
+		/*------------------------------------------------------*/
 		if(Camera.main!=null){
-			RaycastHit hit;
+			highlightTargeted();
+		}
+		/*------------------------------------------------------*/
+
+
+		
+	}
+
+	void highlightTargeted(){
+		RaycastHit hit;
 			Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 			if (Physics.Raycast (ray, out hit, 15)) {
 				if(accused==null)
@@ -158,6 +130,81 @@ public class Guard : BasePlayer{
 				}
 			} else {
 				accusationGUI.alpha = 0;
+			}
+	}
+
+	void updateHighlighting(){
+		if(guests!=null){
+			foreach (GameObject guest in guests){
+				if(guest!=accused){
+					renders = guest.GetComponentsInChildren<Renderer>();
+					foreach(Renderer rend in renders){
+						if(rend.gameObject.CompareTag("highLight")){
+							if(markedGuests.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID)){
+								rend.material.color = Color.green;
+							} else {
+								rend.material.color = Color.white;
+							}
+						}
+					}
+				}
+			}
+		}
+		if(spies!=null){
+			nearSpy = false;
+			foreach (GameObject spy in spies){
+				if(spy!=accused){
+					renders = spy.GetComponentsInChildren<Renderer>();
+					foreach(Renderer rend in renders){
+						if(rend.gameObject.CompareTag("highLight")){
+							if(markedSpies.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().owner.ID)){
+								rend.material.color = Color.green;
+							} else {
+								rend.material.color = Color.white;
+							}
+						}
+					}
+				}
+				if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50){
+						nearSpy = true;
+					if(!audio.isPlaying){
+						audio.Play();
+					}
+				}
+			}
+			if(!nearSpy){
+				audio.Stop();
+			}
+		}
+	}
+	void updateTimeLabel(){
+		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
+		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
+		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
+		string secondsS;
+		if(seconds<10)
+			secondsS = "0"+seconds.ToString();
+		else
+			secondsS = seconds.ToString();
+		timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + 
+													secondsS + "\nRound: " + 
+													curRound +"/" + (intrigue.GetRounds+1);
+	}
+
+	void locateNGUIObjects(){
+		guiPanels = GetComponentsInChildren<UIPanel>();
+		guiLabels = GetComponentsInChildren<UILabel>();
+		foreach(UILabel lab in guiLabels){
+			if(lab.gameObject.CompareTag("TimeLabel")){
+				timeLabel = lab.gameObject;
+			}
+			else if(lab.gameObject.CompareTag("OutLabel")){
+				outLabel = lab.gameObject;
+			}
+		}
+		foreach(UIPanel pan in guiPanels){
+			if(pan.gameObject.CompareTag("Accusations")){
+				accusationGUI = pan;
 			}
 		}
 	}
