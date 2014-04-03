@@ -4,8 +4,15 @@ Photon Unity Networking (PUN)
 	Also included: A setup wizard, demo scenes, documentation and editor extensions.
 
 
-Requirements
-	Unity iOS PRO and Unity Android PRO for exports to these platforms
+PUN & PUN+
+	PUN is the free package of Photon Unity Networking. Export to iOS or Android requires the Unity iOS PRO and Unity Android PRO licenses.
+	PUN+ contains special native plugins that allow export to mobiles from Unity Free. You also get a Photon Cloud subscription upgrade. See below.
+
+
+Android and iOS Exports
+	See "PUN & PUN+"
+    iOS:    Set the stripping level to "Strip Bytecode" and use "DotNet 2.0 Subset" in the player settings. 
+            More aggressive stripping will break the runtime and you can't connect anymore with PUN Free.
 
 
 Help and Documentation
@@ -24,8 +31,9 @@ Integration
 
 
 Clean PUN Import (no demos)
-	To import only the scripts of Photon Unity Networking into an existing project: 
-	skip anything except the folders "Plugins" and "Editor".
+	To get a clean import of PUN and PUN+ into your project, just skip the folders "Demos" and "UtilityScripts".
+    UtilityScripts can be useful for repid prototyping but are not needed either.
+    "Important Files" are listed below.
 
 
 Server
@@ -33,17 +41,17 @@ Server
 	
 	The window "Photon Unity Networking" will help you setup a Photon Cloud account.
 	This service is geared towards room-based games and the server cannot be modified.
-	Read more about it: http://www.exitgamescloud.com
+	Read more about it: http://cloud.exitgames.com
 
 	Alternatively, download the Server SDK and run your own Photon Server.
 	The SDK has the binaries to run immediately but also includes the source code and projects
 	for the game logic. You can use that as basis to modify and extend it.
 	A 100 concurrent user license is free (also for commercial use) per game.
-	Read more about it: http://www.exitgames.com/photon
+	Read more about it: http://www.exitgames.com/en/OnPremise
 
 
-Subscriptions bought in Asset Store
-	Follow these steps, when you bought a package with Photon Cloud Subscription in the Asset Store:
+PUN+ and Networking Guide Subscriptions
+	Follow these steps when you bought PUN+ or the "Networking Guide" package with a Photon Cloud Subscription:
 
 	•	Register a Photon Cloud Account: https://cloud.exitgames.com/Account/SignUp
 	•	Get your AppID from the Dashboard
@@ -61,11 +69,14 @@ Important Files
 		changelog.txt
 
 	Extensions & Source
-		Editor\PhotonNetwork\*.*
-		Plugins\PhotonNetwork\*.*
+		Photon Unity Networking\Editor\PhotonNetwork\*.*
+		Photon Unity Networking\Plugins\PhotonNetwork\*.*
+        Plugins\**\Photon*.*
+        
 
 	The server-setup will be saved as file (can be moved into any Resources folder and edited in inspector)
 		Photon Unity Networking\Resources\PhotonServerSettings.asset
 
 	Demos
-		All demos are in separate folders. Each has a Demo<name>-Scene.
+		All demos are in separate folders in Photon Unity Networking\Demos\. Delete this folder in your projects.
+		Each has a Demo<name>-Scene.

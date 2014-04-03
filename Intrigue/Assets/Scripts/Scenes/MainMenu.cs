@@ -68,7 +68,7 @@ public class MainMenu : MonoBehaviour {
 	
 	void Update () {
 		if(!connected){
-			if(PhotonNetwork.connectionStateDetailed == PeerState.Connecting){
+			if(PhotonNetwork.connectionStateDetailed == PeerState.ConnectingToMasterserver){
 				connectingAttempt();
 			}
 			else if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated || PhotonNetwork.connectionStateDetailed == PeerState.Disconnected) {
@@ -82,7 +82,7 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void checkInternet(){
-		if(PhotonNetwork.connectionStateDetailed == PeerState.Connecting){
+		if(PhotonNetwork.connectionStateDetailed == PeerState.ConnectingToMasterserver){
 			connected = false;
 		}
 		else if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated || PhotonNetwork.connectionStateDetailed == PeerState.Disconnected) {
@@ -108,6 +108,7 @@ public class MainMenu : MonoBehaviour {
 		findServerButton.GetComponent<UIButton>().enabled = false;
 		NGUITools.SetActive(reconnectWindow,true);
 		NGUITools.SetActive(uiCamera, true);
+		NGUITools.SetActive(retryConnect, true);
 		NGUITools.SetActive(attemptingConnection, false);
 	}
 

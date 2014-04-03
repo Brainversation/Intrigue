@@ -10,7 +10,8 @@
 // ----------------------------------------------------------------------------
 
 using UnityEngine;
-using System.Collections;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+
 
 /// <summary>
 /// Summarizes a "player" within a room, identified (in that room) by actorID.
@@ -198,7 +199,7 @@ public class PhotonPlayer
         {
             PhotonNetwork.networkingPeer.OpSetCustomPropertiesOfActor(this.actorID, customProps, true, 0);
         }
-        NetworkingPeer.SendMonoMessage(PhotonNetworkingMessage.OnPhotonPlayerPropertiesChanged, this);
+        NetworkingPeer.SendMonoMessage(PhotonNetworkingMessage.OnPhotonPlayerPropertiesChanged, this, propertiesToSet);
     }
 
     /// <summary>

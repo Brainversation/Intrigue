@@ -10,7 +10,8 @@
 // ----------------------------------------------------------------------------
 
 using System;
-using System.Collections;
+using ExitGames.Client.Photon;
+
 
 /// <summary>
 /// A simplified room with just the info required to list and join, used for the room listing in the lobby.
@@ -39,7 +40,7 @@ public class RoomInfo
     protected bool visibleField = true;
 
     /// <summary>Backing field for property. False unless the GameProperty is set to true (else it's not sent).</summary>
-    protected bool autoCleanUpField = false;
+    protected bool autoCleanUpField = PhotonNetwork.autoCleanUpPlayerObjects;
 
     /// <summary>Backing field for property.</summary>
     protected string nameField;

@@ -8,11 +8,12 @@
 // <author>developer@exitgames.com</author>
 // ----------------------------------------------------------------------------
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using ExitGames.Client.Photon;
 using ExitGames.Client.Photon.Lite;
+using System;
+using System.Collections.Generic;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+
 
 /// <summary>
 /// Internally used by PUN, a LoadbalancingPeer provides the operations and enum 
@@ -27,19 +28,35 @@ internal class LoadbalancingPeer : PhotonPeer
     {
     }
 
+    public virtual bool OpGetRegions(string appId)
+    {
+        Dictionary<byte, object> parameters = new Dictionary<byte, object>();
+        parameters[(byte)ParameterCode.ApplicationId] = appId;
+
+        return this.OpCustom(OperationCode.GetRegions, parameters, true, 0, true);
+    }
+
     /// <summary>
     /// Joins the lobby on the Master Server, where you get a list of RoomInfos of currently open rooms.
     /// This is an async request which triggers a OnOperationResponse() call.
     /// </summary>
     /// <returns>If the operation could be sent (has to be connected).</returns>
-    public virtual bool OpJoinLobby()
+    public virtual bool OpJoinLobby(TypedLobby lobby)
     {
         if (this.DebugOut >= DebugLevel.INFO)
         {
             this.Listener.DebugReturn(DebugLevel.INFO, "OpJoinLobby()");
         }
 
-        return this.OpCustom(OperationCode.JoinLobby, null, true);
+        Dictionary<byte, object> parameters = null;
+        if (lobby != null && !lobby.IsDefault)
+        {
+            parameters = new Dictionary<byte, object>();
+            parameters[(byte)ParameterCode.LobbyName] = lobby.Name;
+            parameters[(byte)ParameterCode.LobbyType] = (byte)lobby.Type;
+        }
+
+        return this.OpCustom(OperationCode.JoinLobby, parameters, true);
     }
 
     /// <summary>
@@ -57,80 +74,125 @@ internal class LoadbalancingPeer : PhotonPeer
         return this.OpCustom(OperationCode.LeaveLobby, null, true);
     }
 
+
     /// <summary>
     /// Don't use this method directly, unless you know how to cache and apply customActorProperties.
     /// The PhotonNetwork methods will handle player and room properties for you and call this method.
     /// </summary>
-    public virtual bool OpCreateRoom(string gameID, bool isVisible, bool isOpen, byte maxPlayers, bool autoCleanUp, Hashtable customGameProperties, Hashtable customPlayerProperties, string[] customRoomPropertiesForLobby)
+    public virtual bool OpCreateRoom(string roomName, RoomOptions roomOptions, TypedLobby lobby, Hashtable playerProperties, bool onGameServer)
     {
         if (this.DebugOut >= DebugLevel.INFO)
         {
             this.Listener.DebugReturn(DebugLevel.INFO, "OpCreateRoom()");
         }
 
-        Hashtable gameProperties = new Hashtable();
-        gameProperties[GameProperties.IsOpen] = isOpen;
-        gameProperties[GameProperties.IsVisible] = isVisible;
-        gameProperties[GameProperties.PropsListedInLobby] = customRoomPropertiesForLobby;
-        gameProperties.MergeStringKeys(customGameProperties);
-        if (maxPlayers > 0)
-        {
-            gameProperties[GameProperties.MaxPlayers] = maxPlayers;
-        }
-
         Dictionary<byte, object> op = new Dictionary<byte, object>();
-        op[ParameterCode.GameProperties] = gameProperties;
-        op[ParameterCode.Broadcast] = true;
 
-        if (customPlayerProperties != null)
+        if (!string.IsNullOrEmpty(roomName))
         {
-            op[ParameterCode.PlayerProperties] = customPlayerProperties;
+            op[ParameterCode.RoomName] = roomName;
+        }
+        if (lobby != null)
+        {
+            op[ParameterCode.LobbyName] = lobby.Name;
+            op[ParameterCode.LobbyType] = (byte)lobby.Type;
         }
 
-        if (!string.IsNullOrEmpty(gameID))
+        if (onGameServer)
         {
-            op[ParameterCode.RoomName] = gameID;
+            if (playerProperties != null && playerProperties.Count > 0)
+            {
+                op[ParameterCode.PlayerProperties] = playerProperties;
+                op[ParameterCode.Broadcast] = true; // TODO: check if this also makes sense when creating a room?! // broadcast actor properties
+            }
+
+
+            if (roomOptions == null)
+            {
+                roomOptions = new RoomOptions();
+            }
+
+            Hashtable gameProperties = new Hashtable();
+            op[ParameterCode.GameProperties] = gameProperties;
+            gameProperties.MergeStringKeys(roomOptions.customRoomProperties);
+
+            gameProperties[GameProperties.IsOpen] = roomOptions.isOpen; // TODO: check default value. dont send this then
+            gameProperties[GameProperties.IsVisible] = roomOptions.isVisible; // TODO: check default value. dont send this then
+            gameProperties[GameProperties.PropsListedInLobby] = roomOptions.customRoomPropertiesForLobby;
+            if (roomOptions.maxPlayers > 0)
+            {
+                gameProperties[GameProperties.MaxPlayers] = roomOptions.maxPlayers;
+            }
+            if (roomOptions.cleanupCacheOnLeave)
+            {
+                op[ParameterCode.CleanupCacheOnLeave] = true;               // this is actually setting the room's config
+                gameProperties[GameProperties.CleanupCacheOnLeave] = true;  // this is only informational for the clients which join
+            }
         }
 
-        // server's default is 'false', so we actually only need to send this when 'true'
-        if (autoCleanUp)
-        {
-            op[ParameterCode.CleanupCacheOnLeave] = autoCleanUp;
-            gameProperties[GameProperties.CleanupCacheOnLeave] = autoCleanUp;
-        }
-
+        // UnityEngine.Debug.Log("CreateGame: " + SupportClass.DictionaryToString(op));
         return this.OpCustom(OperationCode.CreateGame, op, true);
     }
 
-    /// <summary>
-    /// Joins a room by name and sets this player's properties.
-    /// </summary>
-    /// <param name="roomName"></param>
-    /// <param name="playerProperties"></param>
-    /// <returns>If the operation could be sent (has to be connected).</returns>
-    public virtual bool OpJoinRoom(string roomName, Hashtable playerProperties)
+
+    /// <summary>LoadBalancingPeer.OpJoinRoom</summary>
+    public virtual bool OpJoinRoom(string roomName, RoomOptions roomOptions, TypedLobby lobby, bool createIfNotExists, Hashtable playerProperties, bool onGameServer)
     {
-        if (this.DebugOut >= DebugLevel.INFO)
-        {
-            this.Listener.DebugReturn(DebugLevel.INFO, "OpJoinRoom()");
-        }
-
-        if (string.IsNullOrEmpty(roomName))
-        {
-            this.Listener.DebugReturn(DebugLevel.ERROR, "OpJoinRoom() failed. Please specify a roomname.");
-            return false;
-        }
-
         Dictionary<byte, object> op = new Dictionary<byte, object>();
-        op[ParameterCode.RoomName] = roomName;
-        op[ParameterCode.Broadcast] = true;
-        if (playerProperties != null)
+
+        if (!string.IsNullOrEmpty(roomName))
         {
-            op[ParameterCode.PlayerProperties] = playerProperties;
+            op[ParameterCode.RoomName] = roomName;
+        }
+        if (createIfNotExists)
+        {
+            op[ParameterCode.CreateIfNotExists] = true;
+            if (lobby != null)
+            {
+                op[ParameterCode.LobbyName] = lobby.Name;
+                op[ParameterCode.LobbyType] = (byte)lobby.Type;
+            }
         }
 
+        if (onGameServer)
+        {
+            if (playerProperties != null && playerProperties.Count > 0)
+            {
+                op[ParameterCode.PlayerProperties] = playerProperties;
+                op[ParameterCode.Broadcast] = true; // broadcast actor properties
+            }
+            
+
+            if (createIfNotExists)
+            {
+                if (roomOptions == null)
+                {
+                    roomOptions = new RoomOptions();
+                }
+
+                Hashtable gameProperties = new Hashtable();
+                op[ParameterCode.GameProperties] = gameProperties;
+                gameProperties.MergeStringKeys(roomOptions.customRoomProperties);
+
+                gameProperties[GameProperties.IsOpen] = roomOptions.isOpen;
+                gameProperties[GameProperties.IsVisible] = roomOptions.isVisible;
+                gameProperties[GameProperties.PropsListedInLobby] = roomOptions.customRoomPropertiesForLobby;
+                if (roomOptions.maxPlayers > 0)
+                {
+                    gameProperties[GameProperties.MaxPlayers] = roomOptions.maxPlayers;
+                }
+                if (roomOptions.cleanupCacheOnLeave)
+                {
+                    op[ParameterCode.CleanupCacheOnLeave] = true;               // this is actually setting the room's config
+                    gameProperties[GameProperties.CleanupCacheOnLeave] = true;  // this is only informational for the clients which join
+                }
+            }
+        }
+        
+        // UnityEngine.Debug.Log("JoinGame: " + SupportClass.DictionaryToString(op));
         return this.OpCustom(OperationCode.JoinGame, op, true);
     }
+
 
     /// <summary>
     /// Operation to join a random, available room. Overloads take additional player properties.
@@ -143,7 +205,7 @@ internal class LoadbalancingPeer : PhotonPeer
     /// <param name="playerProperties">This player's properties (custom and well known).</param>
     /// <param name="matchingType">Selects one of the available matchmaking algorithms. See MatchmakingMode enum for options.</param>
     /// <returns>If the operation could be sent currently (requires connection).</returns>
-    public virtual bool OpJoinRandomRoom(Hashtable expectedCustomRoomProperties, byte expectedMaxPlayers, Hashtable playerProperties, MatchmakingMode matchingType)
+    public virtual bool OpJoinRandomRoom(Hashtable expectedCustomRoomProperties, byte expectedMaxPlayers, Hashtable playerProperties, MatchmakingMode matchingType, TypedLobby typedLobby, string sqlLobbyFilter)
     {
         if (this.DebugOut >= DebugLevel.INFO)
         {
@@ -173,6 +235,18 @@ internal class LoadbalancingPeer : PhotonPeer
             opParameters[ParameterCode.MatchMakingType] = (byte)matchingType;
         }
 
+        if (typedLobby != null)
+        {
+            opParameters[ParameterCode.LobbyName] = typedLobby.Name;
+            opParameters[ParameterCode.LobbyType] = (byte)typedLobby.Type;
+        }
+
+        if (!string.IsNullOrEmpty(sqlLobbyFilter))
+        {
+            opParameters[ParameterCode.Data] = sqlLobbyFilter;
+        }
+
+        // UnityEngine.Debug.LogWarning("OpJoinRandom: " + opParameters.ToStringFull());
         return this.OpCustom(OperationCode.JoinRandomGame, opParameters, true);
     }
 
@@ -273,48 +347,11 @@ internal class LoadbalancingPeer : PhotonPeer
     /// </remarks>
     /// <param name="appId">Your application's name or ID to authenticate. This is assigned by Photon Cloud (webpage).</param>
     /// <param name="appVersion">The client's version (clients with differing client appVersions are separated and players don't meet).</param>
-    /// <returns>If the operation could be sent (has to be connected).</returns>
-    [Obsolete("Use the other overload now.")]
-    public virtual bool OpAuthenticate(string appId, string appVersion)
-    {
-        return OpAuthenticate(appId, appVersion, null, null);
-    }
-
-    /// <summary>
-    /// Sends this app's appId and appVersion to identify this application server side.
-    /// This is an async request which triggers a OnOperationResponse() call.
-    /// </summary>
-    /// <remarks>
-    /// This operation makes use of encryption, if that is established before.
-    /// See: EstablishEncryption(). Check encryption with IsEncryptionAvailable.
-    /// This operation is allowed only once per connection (multiple calls will have ErrorCode != Ok).
-    /// </remarks>
-    /// <param name="appId">Your application's name or ID to authenticate. This is assigned by Photon Cloud (webpage).</param>
-    /// <param name="appVersion">The client's version (clients with differing client appVersions are separated and players don't meet).</param>
-    /// <param name="userId"></param>
-    /// <returns>If the operation could be sent (has to be connected).</returns>
-    [Obsolete("Use the other overload now.")]
-    public virtual bool OpAuthenticate(string appId, string appVersion, string userId)
-    { 
-        return this.OpAuthenticate(appId, appVersion, userId, null);
-    }
-
-
-    /// <summary>
-    /// Sends this app's appId and appVersion to identify this application server side.
-    /// This is an async request which triggers a OnOperationResponse() call.
-    /// </summary>
-    /// <remarks>
-    /// This operation makes use of encryption, if that is established before.
-    /// See: EstablishEncryption(). Check encryption with IsEncryptionAvailable.
-    /// This operation is allowed only once per connection (multiple calls will have ErrorCode != Ok).
-    /// </remarks>
-    /// <param name="appId">Your application's name or ID to authenticate. This is assigned by Photon Cloud (webpage).</param>
-    /// <param name="appVersion">The client's version (clients with differing client appVersions are separated and players don't meet).</param>
     /// <param name="userId"></param>
     /// <param name="authValues"></param>
+    /// <param name="regionCode">When authenticating for a specific region, a NameServer will forward you to that region's MasterServer.</param>
     /// <returns>If the operation could be sent (has to be connected).</returns>
-    public virtual bool OpAuthenticate(string appId, string appVersion, string userId, AuthenticationValues authValues)
+    public virtual bool OpAuthenticate(string appId, string appVersion, string userId, AuthenticationValues authValues, string regionCode)
     {
         if (this.DebugOut >= DebugLevel.INFO)
         {
@@ -322,13 +359,25 @@ internal class LoadbalancingPeer : PhotonPeer
         }
 
         Dictionary<byte, object> opParameters = new Dictionary<byte, object>();
+        if (authValues != null && authValues.Secret != null)
+        {
+            opParameters[ParameterCode.Secret] = authValues.Secret;
+            //return this.OpCustom(OperationCode.Authenticate, opParameters, true, (byte)0, false);
+        }
+
         opParameters[ParameterCode.AppVersion] = appVersion;
         opParameters[ParameterCode.ApplicationId] = appId;
+
+        if (!string.IsNullOrEmpty(regionCode))
+        {
+            opParameters[ParameterCode.Region] = regionCode;
+        }
 
         if (!string.IsNullOrEmpty(userId))
         {
             opParameters[ParameterCode.UserId] = userId;
         }
+
 
         if (authValues != null && authValues.AuthType != CustomAuthenticationType.None)
         {
@@ -343,13 +392,25 @@ internal class LoadbalancingPeer : PhotonPeer
             {
                 opParameters[ParameterCode.Secret] = authValues.Secret;
             }
-            else
-            {
-                opParameters[ParameterCode.ClientAuthenticationParams] = authValues.AuthParameters;
-            }
+            //else
+            //{
+                if (!string.IsNullOrEmpty(authValues.AuthParameters))
+                {
+                    opParameters[ParameterCode.ClientAuthenticationParams] = authValues.AuthParameters;
+                }
+                if (authValues.AuthPostData != null)
+                {
+                    opParameters[ParameterCode.ClientAuthenticationData] = authValues.AuthPostData;
+                }
+            //}
         }
-
-        return this.OpCustom(OperationCode.Authenticate, opParameters, true, (byte)0, this.IsEncryptionAvailable);
+        
+        bool sent = this.OpCustom(OperationCode.Authenticate, opParameters, true, (byte)0, this.IsEncryptionAvailable);
+        if (!sent)
+        {
+            this.Listener.DebugReturn(DebugLevel.ERROR, "Error calling OpAuthenticate! Did not work. Check log output, CustomAuthenticationValues and if you're connected.");
+        }
+        return sent;
     }
 
 
@@ -386,192 +447,62 @@ internal class LoadbalancingPeer : PhotonPeer
     }
 
 
-    /// <summary>
-    /// Send an event with custom code/type and any content to the other players in the same room.
-    /// </summary>
-    /// <remarks>This override explicitly uses another parameter order to not mix it up with the implementation for Hashtable only.</remarks>
-    /// <param name="eventCode">Identifies this type of event (and the content). Your game's event codes can start with 0.</param>
-    /// <param name="sendReliable">If this event has to arrive reliably (potentially repeated if it's lost).</param>
-    /// <param name="customEventContent">Any serializable datatype (including Hashtable like the other OpRaiseEvent overloads).</param>
-    /// <returns>If operation could be enqueued for sending. Sent when calling: Service or SendOutgoingCommands.</returns>
-    public virtual bool OpRaiseEvent(byte eventCode, bool sendReliable, object customEventContent)
-    {
-        return this.OpRaiseEvent(eventCode, sendReliable, customEventContent, 0, EventCaching.DoNotCache, null, ReceiverGroup.Others, 0);
-    }
+        /// <summary>
+        /// Send an event with custom code/type and any content to the other players in the same room.
+        /// </summary>
+        /// <remarks>This override explicitly uses another parameter order to not mix it up with the implementation for Hashtable only.</remarks>
+        /// <param name="eventCode">Identifies this type of event (and the content). Your game's event codes can start with 0.</param>
+        /// <param name="customEventContent">Any serializable datatype (including Hashtable like the other OpRaiseEvent overloads).</param>
+        /// <param name="sendReliable">If this event has to arrive reliably (potentially repeated if it's lost).</param>
+        /// <param name="raiseEventOptions">Contains (slightly) less often used options. If you pass null, the default options will be used.</param>
+        /// <returns>If operation could be enqueued for sending. Sent when calling: Service or SendOutgoingCommands.</returns>
+        public virtual bool OpRaiseEvent(byte eventCode, object customEventContent, bool sendReliable, RaiseEventOptions raiseEventOptions)
+        {
+            Dictionary<byte, object> opParameters = new Dictionary<byte, object>();
+            opParameters[(byte)LiteOpKey.Code] = (byte)eventCode;
+            if (customEventContent != null)
+            {
+                opParameters[(byte) LiteOpKey.Data] = customEventContent;
+            }
 
-    /// <summary>
-    /// Send an event with custom code/type and any content to the other players in the same room.
-    /// </summary>
-    /// <remarks>This override explicitly uses another parameter order to not mix it up with the implementation for Hashtable only.</remarks>
-    /// <param name="eventCode">Identifies this type of event (and the content). Your game's event codes can start with 0.</param>
-    /// <param name="sendReliable">If this event has to arrive reliably (potentially repeated if it's lost).</param>
-    /// <param name="customEventContent">Any serializable datatype (including Hashtable like the other OpRaiseEvent overloads).</param>
-    /// <param name="channelId">Command sequence in which this command belongs. Must be less than value of ChannelCount property. Default: 0.</param>
-    /// <param name="cache">Affects how the server will treat the event caching-wise. Can cache events for players joining later on or remove previously cached events. Default: DoNotCache.</param>
-    /// <param name="targetActors">List of ActorNumbers (in this room) to send the event to. Overrides caching. Default: null.</param>
-    /// <param name="receivers">Defines a target-player group. Default: Others.</param>
-    /// <param name="interestGroup">Defines to which interest group the event is sent. Players can subscribe or unsibscribe to groups. Group 0 is always sent to all. Default: 0.</param>
-    /// <returns>If operation could be enqueued for sending. Sent when calling: Service or SendOutgoingCommands.</returns>
-    public virtual bool OpRaiseEvent(byte eventCode, bool sendReliable, object customEventContent, byte channelId, EventCaching cache, int[] targetActors, ReceiverGroup receivers, byte interestGroup)
-    {
-        Dictionary<byte, object> opParameters = new Dictionary<byte, object>();
-        opParameters[(byte)LiteOpKey.Code] = (byte)eventCode;
+            if (raiseEventOptions == null)
+            {
+                raiseEventOptions = RaiseEventOptions.Default;
+            }
+            else
+            {
+                if (raiseEventOptions.CachingOption != EventCaching.DoNotCache)
+                {
+                    opParameters[(byte) LiteOpKey.Cache] = (byte) raiseEventOptions.CachingOption;
+                }
+                if (raiseEventOptions.Receivers != ReceiverGroup.Others)
+                {
+                    opParameters[(byte) LiteOpKey.ReceiverGroup] = (byte) raiseEventOptions.Receivers;
+                }
+                if (raiseEventOptions.InterestGroup != 0)
+                {
+                    opParameters[(byte) LiteOpKey.Group] = (byte) raiseEventOptions.InterestGroup;
+                }
+                if (raiseEventOptions.TargetActors != null)
+                {
+                    opParameters[(byte) LiteOpKey.ActorList] = raiseEventOptions.TargetActors;
+                }
+                if (raiseEventOptions.ForwardToWebhook)
+                {
+                    opParameters[(byte) ParameterCode.EventForward] = true; //TURNBASED
+                }
+            }
 
-        if (customEventContent != null)
-        {
-            opParameters[(byte)LiteOpKey.Data] = customEventContent;
-        }
-        if (cache != EventCaching.DoNotCache)
-        {
-            opParameters[(byte)LiteOpKey.Cache] = (byte)cache;
-        }
-        if (receivers != ReceiverGroup.Others)
-        {
-            opParameters[(byte)LiteOpKey.ReceiverGroup] = (byte)receivers;
-        }
-        if (interestGroup != 0)
-        {
-            opParameters[(byte)LiteOpKey.Group] = (byte)interestGroup;
-        }
-        if (targetActors != null)
-        {
-            opParameters[(byte)LiteOpKey.ActorList] = targetActors;
+            return this.OpCustom((byte)LiteOpCode.RaiseEvent, opParameters, sendReliable, raiseEventOptions.SequenceChannel, false);
         }
 
-        return this.OpCustom((byte)LiteOpCode.RaiseEvent, opParameters, sendReliable, channelId, false);
-    }
-
-    /// <summary>
-    /// Send your custom data as event to an "interest group" in the current Room.
-    /// </summary>
-    /// <remarks>
-    /// No matter if reliable or not, when an event is sent to a interest Group, some users won't get this data.
-    /// Clients can control the groups they are interested in by using OpChangeGroups.
-    /// </remarks>
-    /// <param name="eventCode">Identifies this type of event (and the content). Your game's event codes can start with 0.</param>
-    /// <param name="interestGroup">The ID of the interest group this event goes to (exclusively).</param>
-    /// <param name="customEventContent">Custom data you want to send along (use null, if none).</param>
-    /// <param name="sendReliable">If this event has to arrive reliably (potentially repeated if it's lost).</param>
-    /// <param name="channelId">The "channel" to which this event should belong. Per channel, the sequence is kept in order.</param>
-    /// <returns>If operation could be enqueued for sending</returns>
-    public virtual bool OpRaiseEvent(byte eventCode, byte interestGroup, Hashtable customEventContent, bool sendReliable, byte channelId)
-    {
-        Dictionary<byte, object> opParameters = new Dictionary<byte, object>();
-        opParameters[(byte)LiteOpKey.Data] = customEventContent;
-        opParameters[(byte)LiteOpKey.Code] = (byte)eventCode;
-        if (interestGroup != (byte)0)
-        {
-            opParameters[(byte)LiteOpKey.Group] = (byte)interestGroup;
-        }
-
-        return this.OpCustom((byte)LiteOpCode.RaiseEvent, opParameters, sendReliable, channelId);
-    }
-
-    /// <summary>
-    /// Used in a room to raise (send) an event to the other players. 
-    /// Multiple overloads expose different parameters to this frequently used operation.
-    /// </summary>
-    /// <param name="eventCode">Code for this "type" of event (use a code per "meaning" or content).</param>
-    /// <param name="evData">Data to send. Hashtable that contains key-values of Photon serializable datatypes.</param>
-    /// <param name="sendReliable">Use false if the event is replaced by a newer rapidly. Reliable events add overhead and add lag when repeated.</param>
-    /// <param name="channelId">The "channel" to which this event should belong. Per channel, the sequence is kept in order.</param>
-    /// <returns>If the operation could be sent (has to be connected).</returns>
-    public virtual bool OpRaiseEvent(byte eventCode, Hashtable evData, bool sendReliable, byte channelId)
-    {
-        return this.OpRaiseEvent(eventCode, evData, sendReliable, channelId, EventCaching.DoNotCache, ReceiverGroup.Others);
-    }
-
-    /// <summary>
-    /// Used in a room to raise (send) an event to the other players. 
-    /// Multiple overloads expose different parameters to this frequently used operation.
-    /// </summary>
-    /// <param name="eventCode">Code for this "type" of event (use a code per "meaning" or content).</param>
-    /// <param name="evData">Data to send. Hashtable that contains key-values of Photon serializable datatypes.</param>
-    /// <param name="sendReliable">Use false if the event is replaced by a newer rapidly. Reliable events add overhead and add lag when repeated.</param>
-    /// <param name="channelId">The "channel" to which this event should belong. Per channel, the sequence is kept in order.</param>
-    /// <param name="targetActors">Defines the target players who should receive the event (use only for small target groups).</param>
-    /// <returns>If the operation could be sent (has to be connected).</returns>
-    public virtual bool OpRaiseEvent(byte eventCode, Hashtable evData, bool sendReliable, byte channelId, int[] targetActors)
-    {
-        return this.OpRaiseEvent(eventCode, evData, sendReliable, channelId, targetActors, EventCaching.DoNotCache);
-    }
-
-    /// <summary>
-    /// Used in a room to raise (send) an event to the other players. 
-    /// Multiple overloads expose different parameters to this frequently used operation.
-    /// </summary>
-    /// <param name="eventCode">Code for this "type" of event (use a code per "meaning" or content).</param>
-    /// <param name="evData">Data to send. Hashtable that contains key-values of Photon serializable datatypes.</param>
-    /// <param name="sendReliable">Use false if the event is replaced by a newer rapidly. Reliable events add overhead and add lag when repeated.</param>
-    /// <param name="channelId">The "channel" to which this event should belong. Per channel, the sequence is kept in order.</param>
-    /// <param name="targetActors">Defines the target players who should receive the event (use only for small target groups).</param>
-    /// <param name="cache">Use EventCaching options to store this event for players who join.</param>
-    /// <returns>If the operation could be sent (has to be connected).</returns>
-    public virtual bool OpRaiseEvent(byte eventCode, Hashtable evData, bool sendReliable, byte channelId, int[] targetActors, EventCaching cache)
-    {
-        if (this.DebugOut >= DebugLevel.INFO)
-        {
-            this.Listener.DebugReturn(DebugLevel.INFO, "OpRaiseEvent()");
-        }
-
-        Dictionary<byte, object> opParameters = new Dictionary<byte, object>();
-        opParameters[ParameterCode.Data] = evData;
-        opParameters[ParameterCode.Code] = (byte)eventCode;
-
-        if (cache != EventCaching.DoNotCache)
-        {
-            opParameters[ParameterCode.Cache] = (byte)cache;
-        }
-
-        if (targetActors != null)
-        {
-            opParameters[ParameterCode.ActorList] = targetActors;
-        }
-
-        return this.OpCustom(OperationCode.RaiseEvent, opParameters, sendReliable, channelId);
-    }
-
-    /// <summary>
-    /// Used in a room to raise (send) an event to the other players. 
-    /// Multiple overloads expose different parameters to this frequently used operation.
-    /// </summary>
-    /// <param name="eventCode">Code for this "type" of event (use a code per "meaning" or content).</param>
-    /// <param name="evData">Data to send. Hashtable that contains key-values of Photon serializable datatypes.</param>
-    /// <param name="sendReliable">Use false if the event is replaced by a newer rapidly. Reliable events add overhead and add lag when repeated.</param>
-    /// <param name="channelId">The "channel" to which this event should belong. Per channel, the sequence is kept in order.</param>
-    /// <param name="cache">Use EventCaching options to store this event for players who join.</param>
-    /// <param name="receivers">ReceiverGroup defines to which group of players the event is passed on.</param>
-    /// <returns>If the operation could be sent (has to be connected).</returns>
-    public virtual bool OpRaiseEvent(byte eventCode, Hashtable evData, bool sendReliable, byte channelId, EventCaching cache, ReceiverGroup receivers)
-    {
-        if (this.DebugOut >= DebugLevel.INFO)
-        {
-            this.Listener.DebugReturn(DebugLevel.INFO, "OpRaiseEvent()");
-        }
-
-        Dictionary<byte, object> opParameters = new Dictionary<byte, object>();
-        opParameters[ParameterCode.Data] = evData;
-        opParameters[ParameterCode.Code] = (byte)eventCode;
-
-        if (receivers != ReceiverGroup.Others)
-        {
-            opParameters[ParameterCode.ReceiverGroup] = (byte)receivers;
-        }
-
-        if (cache != EventCaching.DoNotCache)
-        {
-            opParameters[ParameterCode.Cache] = (byte)cache;
-        }
-
-        return this.OpCustom((byte)OperationCode.RaiseEvent, opParameters, sendReliable, channelId);
-    }
 }
 
 /// <summary>
 /// Class for constants. These (int) values represent error codes, as defined and sent by the Photon LoadBalancing logic.
 /// Pun uses these constants internally.
 /// </summary>
-/// <note>Codes from the Photon Core are negative. Default-app error codes go down from short.max.</note>
+/// <remarks>Codes from the Photon Core are negative. Default-app error codes go down from short.max.</remarks>
 public class ErrorCode
 {
     /// <summary>(0) is always "OK", anything else an error or specific situation.</summary>
@@ -603,7 +534,7 @@ public class ErrorCode
     /// <summary>(32766) GameId (name) already in use (can't create another). Change name.</summary>
     public const int GameIdAlreadyExists = 0x7FFF - 1;
 
-    /// <summary>(32765) Game is full. This can when players took over while you joined the game.</summary>
+    /// <summary>(32765) Game is full. This rarely happens when some player joined the room before your join completed.</summary>
     public const int GameFull = 0x7FFF - 2;
 
     /// <summary>(32764) Game is closed and can't be joined. Join another game.</summary>
@@ -683,7 +614,7 @@ public class GameProperties
     public const byte IsVisible = 254;
     /// <summary>(253) Allows more players to join a room (or not).</summary>
     public const byte IsOpen = 253;
-    /// <summary>(252) Current count od players in the room. Used only in the lobby on master.</summary>
+    /// <summary>(252) Current count of players in the room. Used only in the lobby on master.</summary>
     public const byte PlayerCount = 252;
     /// <summary>(251) True if the room is to be removed from room listing (used in update to room list in lobby on master)</summary>
     public const byte Removed = 251;
@@ -710,7 +641,10 @@ public class EventCode
     public const byte Match = 227;
     /// <summary>(226) Event with stats about this application (players, rooms, etc)</summary>
     public const byte AppStats = 226;
+    /// <summary>(224) This event provides a list of lobbies with their player and game counts.</summary>
+    public const byte TypedLobbyStats = 224;
     /// <summary>(210) Internally used in case of hosting by Azure</summary>
+    [Obsolete("TCP routing was removed after becoming obsolete.")]
     public const byte AzureNodeInfo = 210;
     /// <summary>(255) Event Join: someone joined the game. The new actorNumber is provided as well as the properties of that actor (if set in OpJoin).</summary>
     public const byte Join = (byte)LiteEventCode.Join;
@@ -729,6 +663,10 @@ public class EventCode
 /// </summary>
 public class ParameterCode
 {
+    /// <summary>(237) Optional parameter to suppress events Join and Leave for a room (which might be used as lobby/chat room then).</summary>
+    public const byte SuppressRoomEvents = 237;
+    /// <summary>(234) Optional parameter of OpRaiseEvent to forward the event to some web-service.</summary>
+    public const byte EventForward = 234;
     /// <summary>(230) Address of a (game) server to use.</summary>
     public const byte Address = 230;
     /// <summary>(229) Count of players in rooms (connected to game servers for this application, used in stats event)</summary>
@@ -800,6 +738,21 @@ public class ParameterCode
     /// <summary>(216) This key's (string) value provides parameters sent to the custom authentication type/service the client connects with. Used in OpAuthenticate</summary>
     public const byte ClientAuthenticationParams = 216;
 
+    /// <summary>(215) Makes the server create a room if it doesn't exist. OpJoin uses this to always enter a room, unless it exists and is full/closed.</summary>
+    public const byte CreateIfNotExists = 215;
+
+    /// <summary>(214) This key's (string or byte[]) value provides parameters sent to the custom authentication service setup in Photon Dashboard. Used in OpAuthenticate</summary>
+    public const byte ClientAuthenticationData = 214;
+
+    /// <summary>(213) Used in matchmaking-related methods and when creating a room to name a lobby (to join or to attach a room to).</summary>
+    public const byte LobbyName = (byte)213;
+
+    /// <summary>(212) Used in matchmaking-related methods and when creating a room to define the type of a lobby. Combined with the lobby name this identifies the lobby.</summary>
+    public const byte LobbyType = (byte)212;
+
+    /// <summary>(211) This (optional) parameter can be sent in Op Authenticate to turn on Lobby Stats (info about lobby names and their user- and game-counts). See: PhotonNetwork.Lobbies</summary>
+    public const byte LobbyStats = (byte)211;
+
     /// <summary>(1) Used in Op FindFriends request. Value must be string[] of friends to look up.</summary>
     public const byte FindFriendsRequestList = (byte)1;
 
@@ -808,6 +761,9 @@ public class ParameterCode
 
     /// <summary>(2) Used in Op FindFriends response. Contains string[] of room names ("" where not known or no room joined).</summary>
     public const byte FindFriendsResponseRoomIdList = (byte)2;
+
+    /// <summary>(210) Used for region values in OpAuth and OpGetRegions.</summary>
+    public const byte Region = (byte)210;
 }
 
 /// <summary>
@@ -845,6 +801,12 @@ public class OperationCode
 
     /// <summary>(222) Request the rooms and online status for a list of friends (by name, which should be unique).</summary>
     public const byte FindFriends = 222;
+
+    /// <summary>(221) Request statistics about a specific list of lobbies (their user and game count).</summary>
+    public const byte GetLobbyStats = 221;
+
+    /// <summary>(220) Get list of regional servers from a NameServer.</summary>
+    public const byte GetRegions = 220;
 }
 
 /// <summary>
@@ -869,6 +831,12 @@ public enum CustomAuthenticationType : byte
     /// <summary>Use a custom authentification service. Currently the only implemented option.</summary>
     Custom = 0,
 
+    /// <summary>Authenticates users by their Steam Account. Set auth values accordingly!</summary>
+    Steam = 1,
+
+    /// <summary>Authenticates users by their Facebook Account. Set auth values accordingly!</summary>
+    Facebook = 2,
+
     /// <summary>Disables custom authentification. Same as not providing any AuthenticationValues for connect (more precisely for: OpAuthenticate).</summary>
     None = byte.MaxValue
 }
@@ -890,10 +858,29 @@ public class AuthenticationValues
 
     /// <summary>This string must contain any (http get) parameters expected by the used authentication service. By default, username and token.</summary>
     /// <remarks>Standard http get parameters are used here and passed on to the service that's defined in the server (Photon Cloud Dashboard).</remarks>
-    public string AuthParameters;
-
+    public string AuthParameters;   // { get { return a; } set { a = value; UnityEngine.Debug.LogWarning("AuthParameters set: " + value + " server: " + PhotonNetwork.ServerAddress); } }
+    //private string a;
+    
     /// <summary>After initial authentication, Photon provides a secret for this client / user, which is subsequently used as (cached) validation.</summary>
-    public string Secret;
+    public string Secret;   // { get { return s; } set { s = value; UnityEngine.Debug.LogWarning("Secret set: " + value + " server: " + PhotonNetwork.ServerAddress); } }
+    //private string s;
+
+    /// <summary>Data to be passed-on to the auth service via POST. Default: null (not sent). Either string or byte[] (see setters).</summary>
+    public object AuthPostData { get; private set; }
+
+    /// <summary>Sets the data to be passed-on to the auth service via POST.</summary>
+    /// <param name="byteData">Binary token / auth-data to pass on. Empty string will set AuthPostData to null.</param>
+    public virtual void SetAuthPostData(string stringData)
+    {
+        this.AuthPostData = (string.IsNullOrEmpty(stringData)) ? null : stringData;
+    }
+
+    /// <summary>Sets the data to be passed-on to the auth service via POST.</summary>
+    /// <param name="byteData">Binary token / auth-data to pass on.</param>
+    public virtual void SetAuthPostData(byte[] byteData)
+    {
+        this.AuthPostData = byteData;
+    }
 
     /// <summary>Creates the default parameter string from a user and token value, escaping both. Alternatively set AuthParameters yourself.</summary>
     /// <remarks>The default parameter string is: "username={user}&token={token}"</remarks>

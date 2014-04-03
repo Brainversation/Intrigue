@@ -1,5 +1,6 @@
+
+using System;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 
@@ -11,29 +12,32 @@ public enum CloudServerRegion { EU, US, Asia, Japan };
 /// <summary>
 /// Collection of connection-relevant settings, used internally by PhotonNetwork.ConnectUsingSettings.
 /// </summary>
-[System.Serializable]
+[Serializable]
 public class ServerSettings : ScriptableObject
 {
-    public static string DefaultCloudServerUrl = "app-eu.exitgamescloud.com";
-    
-    // per region name and server-prefix
-    // must match order in CloudServerRegion enum!
-    public static readonly string[] CloudServerRegionPrefixes = new string[] {"app-eu", "app-us", "app-asia", "app-jp"};
+    public const string DefaultCloudServerUrl = "app-eu.exitgamescloud.com";
+    public const string DefaultServerAddress = "127.0.0.1";
+    public const int DefaultMasterPort = 5055;              // default port for MasterServer
+    public const int DefaultNameServerPort = 5058;          // default port for NameServer
+    public const string DefaultAppID = "Master";
 
-    public static string DefaultServerAddress = "127.0.0.1";
-    public static int DefaultMasterPort = 5055;  // default port for master server
-    public static string DefaultAppID = "Master";
+    // per region name and server-prefix. must match order in CloudServerRegion enum! (see above)
+    public static readonly string[] CloudServerRegionPrefixes = new string[] {"app-eu", "app-us", "app-asia", "app-jp"};
 
     public enum HostingOption { NotSet, PhotonCloud, SelfHosted, OfflineMode }
 
     public HostingOption HostType = HostingOption.NotSet;
-    public string ServerAddress = DefaultServerAddress;
+
+    public string ServerAddress = DefaultServerAddress;     // the address to be used (including region-suffix)
     public int ServerPort = 5055;
     public string AppID = "";
+    public bool PingCloudServersOnAwake = false;
     public List<string> RpcList;
-        
+
     [HideInInspector]
     public bool DisableAutoOpenWizard;
+
+    public string Region { get { return ExtractRegionFromAddress(this.ServerAddress); } }
 
     public static int FindRegionForServerAddress(string server)
     {
@@ -50,14 +54,51 @@ public class ServerSettings : ScriptableObject
         return result;
     }
 
+    public static string ExtractRegionFromAddress(string address)
+    {
+        if (address == null)
+        {
+            return null;
+        }
+
+        int dotIndex = address.IndexOf('.');
+        if (dotIndex < 5)
+        {
+            return null;
+        }
+
+        string region = address.Substring(4, dotIndex-4);
+        Debug.Log("Extracted region: " + region);
+        return region;
+    }
+
     public static string FindServerAddressForRegion(int regionIndex)
     {
-        return ServerSettings.DefaultCloudServerUrl.Replace("app-eu", ServerSettings.CloudServerRegionPrefixes[regionIndex]);
+        return DefaultCloudServerUrl.Replace("app-eu", CloudServerRegionPrefixes[regionIndex]);
     }
 
     public static string FindServerAddressForRegion(CloudServerRegion regionIndex)
     {
-        return ServerSettings.DefaultCloudServerUrl.Replace("app-eu", ServerSettings.CloudServerRegionPrefixes[(int)regionIndex]);
+        return DefaultCloudServerUrl.Replace("app-eu", CloudServerRegionPrefixes[(int)regionIndex]);
+    }
+
+    /// <summary>
+    /// Tries to convert a region shortcut to a value of CloudServerRegion enum. Defaults to CloudServerRegion.US, if that fails.
+    /// </summary>
+    /// <returns>If conversion is successful.</returns>
+    public static bool TryParseCloudServerRegion(string regionShortcut, out CloudServerRegion region)
+    {
+        region = CloudServerRegion.US;
+        try
+        {
+            region = (CloudServerRegion)Enum.Parse(typeof(CloudServerRegion), regionShortcut, true);
+        }
+        catch
+        {
+            return false;
+        }
+
+        return true;
     }
 
     public void UseCloud(string cloudAppid, int regionIndex)

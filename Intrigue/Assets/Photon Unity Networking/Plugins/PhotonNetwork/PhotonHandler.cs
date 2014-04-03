@@ -4,11 +4,10 @@
 // </copyright>
 // --------------------------------------------------------------------------------------------------------------------
 
-using System;
-using System.Threading;
 using ExitGames.Client.Photon;
 using UnityEngine;
-using System.Collections;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
+
 
 /// <summary>
 /// Internal Monobehaviour that allows Photon to run an Update loop.
@@ -46,8 +45,8 @@ internal class PhotonHandler : Photon.MonoBehaviour, IPhotonPeerListener
     /// <summary>Called by Unity when the application is closed. Tries to disconnect.</summary>
     protected void OnApplicationQuit()
     {
-        PhotonNetwork.Disconnect();
         PhotonHandler.StopFallbackSendAckThread();
+        PhotonNetwork.Disconnect();
     }
 
     protected void Update()
@@ -58,7 +57,7 @@ internal class PhotonHandler : Photon.MonoBehaviour, IPhotonPeerListener
             return;
         }
 
-        if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated || PhotonNetwork.connectionStateDetailed == PeerState.Disconnected)
+        if (PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated || PhotonNetwork.connectionStateDetailed == PeerState.Disconnected || PhotonNetwork.offlineMode)
         {
             return;
         }
@@ -106,43 +105,28 @@ internal class PhotonHandler : Photon.MonoBehaviour, IPhotonPeerListener
     protected void OnLevelWasLoaded(int level)
     {
         PhotonNetwork.networkingPeer.NewSceneLoaded();
-
-        if (PhotonNetwork.automaticallySyncScene)
-        {
-            this.SetSceneInProps();
-        }
+        PhotonNetwork.networkingPeer.SetLevelInPropsIfSynced(Application.loadedLevelName);
     }
 
     protected void OnJoinedRoom()
     {
-        PhotonNetwork.networkingPeer.AutomaticallySyncScene();
+        PhotonNetwork.networkingPeer.LoadLevelIfSynced();
     }
 
     protected void OnCreatedRoom()
     {
-        if (PhotonNetwork.automaticallySyncScene)
-        {
-            this.SetSceneInProps();
-        }
-    }
-
-    protected internal void SetSceneInProps()
-    {
-        if (PhotonNetwork.isMasterClient)
-        {
-            Hashtable setScene = new Hashtable();
-            setScene[NetworkingPeer.CurrentSceneProperty] = Application.loadedLevelName;
-            PhotonNetwork.room.SetCustomProperties(setScene);
-        }
+        PhotonNetwork.networkingPeer.SetLevelInPropsIfSynced(Application.loadedLevelName);
     }
 
     public static void StartFallbackSendAckThread()
     {
+        if (sendThreadShouldRun)
+        {
+            return;
+        }
+
         sendThreadShouldRun = true;
-        Thread sendThread = new Thread(FallbackSendAckThread);
-        sendThread.Name = "FallbackSendAck";
-        sendThread.IsBackground = true;
-        sendThread.Start();
+        SupportClass.CallInBackground(FallbackSendAckThread);   // thread will call this every 100ms until method returns false
     }
 
     public static void StopFallbackSendAckThread()
@@ -150,13 +134,14 @@ internal class PhotonHandler : Photon.MonoBehaviour, IPhotonPeerListener
         sendThreadShouldRun = false;
     }
 
-    public static void FallbackSendAckThread()
+    public static bool FallbackSendAckThread()
     {
-        while (sendThreadShouldRun && PhotonNetwork.networkingPeer != null)
+        if (sendThreadShouldRun && PhotonNetwork.networkingPeer != null)
         {
             PhotonNetwork.networkingPeer.SendAcksOnly();
-            Thread.Sleep((PhotonNetwork.isMessageQueueRunning) ? 500 : 50);
         }
+
+        return sendThreadShouldRun;
     }
 
     #region Implementation of IPhotonPeerListener

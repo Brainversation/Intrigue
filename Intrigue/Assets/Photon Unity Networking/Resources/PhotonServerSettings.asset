@@ -15,6 +15,7 @@ MonoBehaviour:
   ServerAddress: 74.91.118.175
   ServerPort: 5055
   AppID: Master
+  PingCloudServersOnAwake: 0
   RpcList:
   - InstantiateRpc
   - OnAwakeRPC
@@ -59,4 +60,5 @@ MonoBehaviour:
   - sendResult
   - markSpy
   - markGuest
+  - Chat
   DisableAutoOpenWizard: 0
