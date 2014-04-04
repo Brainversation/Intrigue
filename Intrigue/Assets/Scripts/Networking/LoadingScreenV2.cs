@@ -26,10 +26,12 @@ public class LoadingScreenV2 : MonoBehaviour {
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 
 		if(intrigue.GetRoundsLeft == intrigue.GetRounds){
-			loadTitle.GetComponent<UILabel>().text = "GAME STARTING";
+			loadTitle.GetComponent<UILabel>().text = "MATCH STARTING";
+			loadResult.GetComponent<UILabel>().text = "";
 		}
 		else{
 			loadTitle.GetComponent<UILabel>().text = "ROUND STARTING\n[FF0000]SWITCHING SIDES[-]";
+			loadResult.GetComponent<UILabel>().text = player.PrevResult;
 		}
 	}
 

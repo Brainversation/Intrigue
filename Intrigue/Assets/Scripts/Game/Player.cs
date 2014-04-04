@@ -6,6 +6,7 @@ public class Player : MonoBehaviour {
 	private string handle = "";
 	private string roomName = "";
 	private string team = "";
+	private string result = "";
 	private int teamID = 0;
 	private int numberOfGuests = 0;
 	private int score = 0;
@@ -88,12 +89,22 @@ public class Player : MonoBehaviour {
 			this.ready = value;
 		}
 	}
+
 	public int Score {
 		get{
 			return this.score;
 		}
 		set{
 			this.score = value;
+		}
+	}
+
+	public string PrevResult {
+		get{
+			return this.result;
+		}
+		set{
+			this.result = value;
 		}
 	}
 }

@@ -266,6 +266,7 @@ public class Intrigue : MonoBehaviour {
 	void callGameOver(string resultFromMC, int winningTeam){
 		winningTeamThisRound = winningTeam;
 		roundResult = resultFromMC;
+		player.PrevResult = resultFromMC;
 		gameOver();
 	}
 
