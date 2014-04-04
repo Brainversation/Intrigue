@@ -20,7 +20,6 @@ public class Intrigue : MonoBehaviour {
 	private int spawnIndex;
 	private Transform spawnTrans;
 	private int readyCount = 0;
-	private bool gameStart = false;
 
 	private static int rounds = 3;
 	private static int roundsLeft = rounds;
@@ -29,6 +28,9 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector] public float objectivesCompleted = 0;
 	[HideInInspector] public bool[] objectives;
 	[HideInInspector] public bool gameOverFlag = false;
+	[HideInInspector] public bool gameStart = false;
+	[HideInInspector] public float loadedGuests = 0;
+	[HideInInspector] public float totalGuests;
 	public bool wantGameOver;
 	
 	public static int numSpiesLeft;
@@ -46,7 +48,7 @@ public class Intrigue : MonoBehaviour {
 		//wantGameOver = true;
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
-
+		totalGuests = player.Guests;
 		if(PhotonNetwork.isMasterClient){
 			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
 			for(int i=0; i < spawnObjects.Length; i++){
@@ -143,6 +145,7 @@ public class Intrigue : MonoBehaviour {
 		for( int x = 0; x < player.Guests; ++x)
 		{	
 			nextSpawnPoint();
+			loadedGuests = x;
 			//int type = Mathf.RoundToInt(Random.Range(1,4));
 			//Debug.Log("Guest type: " + type);
 			PhotonNetwork.InstantiateSceneObject("Robot_Guest1"/*+type.ToString()*/, spawnTrans.position, spawnTrans.rotation, 0, null);

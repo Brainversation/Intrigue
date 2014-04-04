@@ -21,6 +21,8 @@ public class BasePlayer : MonoBehaviour {
 	public GameObject hairHat;
 	public GameObject allytext;
 
+	private bool roundStarted = false;
+
 	//Yield function that waits specified amount of seconds
 	IEnumerator Yielder(int seconds){
 		yield return new WaitForSeconds(seconds);
@@ -55,6 +57,21 @@ public class BasePlayer : MonoBehaviour {
 	}
 	
 	protected virtual void Update () {
+		if(!intrigue.gameStart && !roundStarted){
+			GetComponentInChildren<Camera>().enabled = false;
+			GetComponentInChildren<AudioListener>().enabled = false;
+			GetComponentInChildren<MovementController>().enabled = false;
+			GetComponentInChildren<Crosshair>().enabled = false;
+		}
+		else if(intrigue.gameStart && !roundStarted){
+			GetComponentInChildren<Camera>().enabled = true;
+			GetComponentInChildren<AudioListener>().enabled = true;
+			GetComponentInChildren<MovementController>().enabled = true;
+			GetComponentInChildren<Crosshair>().enabled = true;
+			roundStarted = true;
+		}
+
+		//Puts ally usernames above their head
 		GameObject[] allies = GameObject.FindGameObjectsWithTag(player.Team);
 		foreach(GameObject ally in allies){
 			if(ally!=gameObject){
@@ -85,6 +102,8 @@ public class BasePlayer : MonoBehaviour {
 
 			}
 		}
+
+
 	}
 
 	void syncPingAndScore(){
