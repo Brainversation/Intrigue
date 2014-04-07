@@ -75,8 +75,6 @@ public class Objective : Photon.MonoBehaviour {
 			finished = true;
 			isActive = false;
 			timeLeft = 0;
-			intrigue.objectivesCompleted++;
-			intrigue.objectives[id] = true;
 		}	
 	}
 

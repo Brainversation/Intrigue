@@ -27,12 +27,12 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector] public string roundResult;
 	[HideInInspector] public float objectivesCompleted = 0;
 	[HideInInspector] public bool[] objectives;
+	[HideInInspector] public bool[] mainObjectives;
 	[HideInInspector] public bool gameOverFlag = false;
 	[HideInInspector] public bool gameStart = false;
 	[HideInInspector] public float loadedGuests = 0;
 	[HideInInspector] public float totalGuests;
 	public bool wantGameOver;
-	
 	public static int numSpiesLeft;
 	public static int numGuardsLeft;
 	public static GameObject playerGO = null;
@@ -90,6 +90,7 @@ public class Intrigue : MonoBehaviour {
 		}
 		
 		objectives = new bool[GameObject.FindGameObjectsWithTag("Objective").Length];
+		mainObjectives = new bool[GameObject.FindGameObjectsWithTag("ObjectiveMain").Length];
 		joinGame();
 	}
 
@@ -97,9 +98,11 @@ public class Intrigue : MonoBehaviour {
 		if(!gameStart) return;
 		timeLeft -= Time.deltaTime;
 		photonView.RPC("syncTime", PhotonTargets.OthersBuffered, timeLeft);
-		if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || ((objectivesCompleted/totalObjActive)*100)>50){
+		if(objectivesCompleted == 2){
+			Debug.Log("2/3 objectives complete");
+		}
+		if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || objectivesCompleted == 2){
 			if(wantGameOver){
-				Debug.Log("HERE!!!!!!!!!!!");
 				if(timeLeft<=0){
 					roundResult = "Time Limit Reached.\nGuards Win!";
 					winningTeamThisRound = 2;
@@ -153,7 +156,7 @@ public class Intrigue : MonoBehaviour {
 		}
 
 		// Send turn off loading
-		gameStart = true;
+		photonView.RPC("sendGameStart", PhotonTargets.AllBuffered);
 	}
 
 	void nextSpawnPoint(){
@@ -223,6 +226,10 @@ public class Intrigue : MonoBehaviour {
 		}
 	}
 
+	[RPC]
+	void sendGameStart(){
+		gameStart = true;
+	}
 
 	[RPC]
 	void sendSpawnPoint(PhotonMessageInfo info){

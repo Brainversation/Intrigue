@@ -4,6 +4,7 @@ using System.Collections;
 public class ObjectiveMain : Photon.MonoBehaviour {
 	[HideInInspector]
 	public float completionTime = 60;
+	public int objectiveName;
 	public TextMesh completionPercent;
 	public TextMesh status;
 	public int id;
@@ -21,19 +22,11 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		player = GameObject.Find("Player").GetComponent<Player>();
 		timeLeft = completionTime;
+		status.text = "SERVER: <"+objectiveName+">";
 	}
 
 	void Update(){
 		completionPercent.text = Mathf.RoundToInt(100-((timeLeft/completionTime)*100)).ToString() + "%";
-		if(inUse){
-			status.text = "Uploading...";
-		}
-		else if(!finished){
-			status.text = "   SECURE";
-		}
-		else{
-			status.text = "STOLEN";
-		}
 	}
 
 	public void useObjective(GameObject user){
@@ -46,6 +39,7 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 			//Debug.Log("Doing Main Objective at " + distMultiplier +"x");
 			if(timeLeft > 0){
 				timeLeft -= Time.deltaTime*distMultiplier;
+				photonView.RPC("updateTimeLeft", PhotonTargets.OthersBuffered);
 				inUse = true;
 				Intrigue.playerGO.GetComponent<Spy>().doingObjective = true;
 				Intrigue.playerGO.GetComponent<Spy>().percentComplete = -((timeLeft-completionTime)/completionTime);
@@ -80,13 +74,19 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 	}
 
 	[RPC]
+	void updateTimeLeft(){
+		timeLeft -= Time.deltaTime*distMultiplier;
+	}
+
+	[RPC]
 	void objectiveComplete(int id){
 		if(id == this.id){
 			finished = true;
 			isActive = false;
 			timeLeft = 0;
 			intrigue.objectivesCompleted++;
-			intrigue.objectives[id] = true;
+			intrigue.mainObjectives[objectiveName-1] = true;
+			Debug.Log("MainObjective: " + objectiveName + " completed out of " + intrigue.mainObjectives.Length);
 		}	
 	}
 
