@@ -130,11 +130,17 @@ public class Spy : BasePlayer{
 		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 		if (Input.GetKey("e")){
 			RaycastHit hit;
-			if( Physics.Raycast(ray, out hit, 7.0f) ){
-				if( hit.transform.tag == "Objective" ){
-					Objective hitObjective = hit.transform.GetComponent<Objective>();
+			if( Physics.Raycast(ray, out hit, 1000f) ){
+				if( hit.transform.tag == "ObjectiveMain" ){
+					Debug.Log("Hit OM");
+					ObjectiveMain hitObjective = hit.transform.GetComponent<ObjectiveMain>();
 					hitObjective.useObjective(gameObject);
 					objectiveType = hitObjective.objectiveType;
+				}
+				else if((Vector3.Distance(hit.transform.position, transform.position)<7 && hit.transform.tag == "Objective")){
+					Objective hitObjective = hit.transform.GetComponent<Objective>();
+					hitObjective.useObjective(gameObject);
+					objectiveType = hitObjective.objectiveType;				
 				}
 				else
 					doingObjective = false;
