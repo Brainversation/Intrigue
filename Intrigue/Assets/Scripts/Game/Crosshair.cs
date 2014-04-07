@@ -28,9 +28,7 @@ public class Crosshair : MonoBehaviour {
 					if( hit.transform.tag == "ObjectiveMain" || hit.transform.tag =="Objective"){
 						if(hit.transform.tag == "ObjectiveMain" && hit.transform.gameObject.GetComponent<ObjectiveMain>().isActive ){
 							canInteract = true;
-						}
-						else if(hit.transform.tag == "Objective" && hit.transform.gameObject.GetComponent<Objective>().isActive 
-							&& (Vector3.Distance(hit.transform.position, transform.position)<=7){
+						} else if(hit.transform.tag == "Objective" && hit.transform.gameObject.GetComponent<Objective>().isActive && (Vector3.Distance(hit.transform.position, transform.position) )<=7){
 							canInteract = true;
 						}
 						else{
