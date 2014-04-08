@@ -86,7 +86,6 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 			timeLeft = 0;
 			intrigue.objectivesCompleted++;
 			intrigue.mainObjectives[objectiveName-1] = true;
-			Debug.Log("MainObjective: " + objectiveName + " completed out of " + intrigue.mainObjectives.Length);
 		}	
 	}
 

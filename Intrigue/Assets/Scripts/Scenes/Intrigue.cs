@@ -98,9 +98,6 @@ public class Intrigue : MonoBehaviour {
 		if(!gameStart) return;
 		timeLeft -= Time.deltaTime;
 		photonView.RPC("syncTime", PhotonTargets.OthersBuffered, timeLeft);
-		if(objectivesCompleted == 2){
-			Debug.Log("2/3 objectives complete");
-		}
 		if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || objectivesCompleted == 2){
 			if(wantGameOver){
 				if(timeLeft<=0){
