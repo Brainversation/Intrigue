@@ -158,6 +158,22 @@ namespace RBS{
 		}
 	}
 
+	class hasArt : Condition{
+		public hasArt(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			return gameObject.GetComponent<BaseAI>().room.hasArt;
+		}
+	}
+
+	class hasConversation : Condition{
+		public hasConversation(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			return (gameObject.GetComponent<BaseAI>().room.conversers.Count > 0);
+		}
+	}
+
 	class StayStill : Condition{
 		public override bool test(){
 			return true;
@@ -345,7 +361,6 @@ namespace RBS{
 				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
 				script.agent.SetDestination(script.destination);
 			}
-
 			//Find random hotspot
 			else{
 				GameObject[] bathroomLocations = GameObject.FindGameObjectsWithTag("RestRoom");
@@ -355,6 +370,37 @@ namespace RBS{
 				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
 				script.agent.SetDestination(script.destination);
 			}
+			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
+			return Status.Waiting;
+		}
+	}
+
+	class AdmireArt : Rule{
+		public AdmireArt(GameObject gameObject){
+			this.addCondition(new hasArt(gameObject));
+			this.addCondition(new isBored(gameObject));
+			this.addCondition(new hasConversation(gameObject));
+			this.consequence = goToArt;
+		}
+
+		private Status goToArt(GameObject gameObject){
+			// Debug.Log("needs to use restroom");
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+			script.bored -= 25;
+
+			int minIndex = 0;
+			for(int i = 1; i < script.room.artLocations.Count; ++i){
+				if(Vector3.Distance(script.room.artLocations[i-1], gameObject.transform.position) <
+						Vector3.Distance(script.room.artLocations[i], gameObject.transform.position)){
+					minIndex = (i-1);
+				}
+			}
+
+			script.destination = script.room.artLocations[minIndex];
+			script.anim.SetBool("Speed", true);
+			gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+			script.agent.SetDestination(script.destination);
+
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
 			return Status.Waiting;
 		}

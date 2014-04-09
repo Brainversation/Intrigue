@@ -33,6 +33,10 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public float tired = 0f;
 	[HideInInspector] public float anxiety = 0f;
 	[HideInInspector] public float bladder = 0f;
+	[HideInInspector] public float anger = 0f;
+	[HideInInspector] public float happy = 0f;
+	[HideInInspector] public float sad = 0f;
+	[HideInInspector] public float toxicity = 0f;
 
 	private bool aiTesting = false;
 
@@ -56,6 +60,10 @@ public class BaseAI : Photon.MonoBehaviour {
 			tired = Random.Range(0, 100);
 			anxiety = Random.Range(0, 100);
 			bladder = Random.Range(0, 100);
+			anger = Random.Range(0, 100);
+			happy = Random.Range(0, 100);
+			sad = Random.Range(0, 100);
+			toxicity = Random.Range(0, 100);
 		}
 	}
 
