@@ -141,6 +141,50 @@ namespace RBS{
 		}
 	}
 
+	class isAngry : Condition{
+		public isAngry(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if (gameObject.GetComponent<BaseAI>().anger > 50){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	class isHappy : Condition{
+		public isHappy(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if (gameObject.GetComponent<BaseAI>().happy > 50){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	class isSad : Condition{
+		public isSad(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if (gameObject.GetComponent<BaseAI>().sad > 50){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	class isToxic : Condition{
+		public isToxic(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if (gameObject.GetComponent<BaseAI>().toxicity > 50){
+				return true;
+			}
+			return false;
+		}
+	}
+
 	class isContent : Condition{
 		public isContent(GameObject gameObject):base(gameObject){}
 

@@ -128,6 +128,10 @@ public class BaseAI : Photon.MonoBehaviour {
 			if( tired < 100) tired += 1f;
 			if( anxiety < 100) anxiety += 1f;
 			if( bladder < 100) bladder += 1f;
+			if( anger < 100) anger += 1f;
+			if( happy < 100) happy += 1f;
+			if( sad < 100) sad += 1f;
+			if( toxicity < 100) toxicity += 1f;
 			updateWants = 5f;
 		} else {
 			updateWants -= Time.deltaTime;
