@@ -86,6 +86,17 @@ namespace RBS{
 		}
 	}
 
+	class notBored : Condition{
+		public notBored(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if (gameObject.GetComponent<BaseAI>().bored > 50){
+				return false;
+			}
+			return true;
+		}
+	}
+
 	class isHungry : Condition{
 		public isHungry(GameObject gameObject):base(gameObject){}
 
@@ -428,7 +439,6 @@ namespace RBS{
 		}
 
 		private Status goToArt(GameObject gameObject){
-			// Debug.Log("needs to use restroom");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bored -= 25;
 
@@ -444,6 +454,67 @@ namespace RBS{
 			script.anim.SetBool("Speed", true);
 			gameObject.GetComponent<BaseAI>().distFromDest = 5f;
 			script.agent.SetDestination(script.destination);
+
+			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
+			return Status.Waiting;
+		}
+	}
+
+	class Relax : Rule{
+		public Relax(GameObject gameObject){
+			this.addCondition(new isAnxious(gameObject));
+			this.addCondition(new notBored(gameObject));
+			this.addCondition(new isTired(gameObject));
+			this.consequence = goRelax;
+		}
+
+		private Status goRelax(GameObject gameObject){
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+			script.anxiety -= 15;
+			script.tired -= 15;
+			script.bored += 15;
+
+			//Check if room has hotspot
+			if(script.room.relaxLocation != null){
+				script.destination = script.room.relaxLocation;
+				script.anim.SetBool("Speed", true);
+				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+				script.agent.SetDestination(script.destination);
+			}
+			//Find couch hotspot somewhere
+			else{
+				Debug.Log("Find a relaxLocation");
+			}
+
+			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
+			return Status.Waiting;
+		}
+	}
+
+	class LetOffSteam : Rule{
+		public LetOffSteam(GameObject gameObject){
+			this.addCondition(new isAnxious(gameObject));
+			this.addCondition(new notBored(gameObject));
+			this.addCondition(new isAngry(gameObject));
+			this.consequence = coolDown;
+		}
+
+		private Status coolDown(GameObject gameObject){
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+			script.anxiety -= 15;
+			script.tired -= 15;
+			script.bored += 15;
+
+			//Check if room has hotspot
+			if(script.room.relaxLocation != null){
+				script.destination = script.room.relaxLocation;
+				script.anim.SetBool("Speed", true);
+				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+				script.agent.SetDestination(script.destination);
+			} else{
+				//Find couch hotspot somewhere
+				Debug.Log("Find a relaxLocation");
+			}
 
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
 			return Status.Waiting;
