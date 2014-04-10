@@ -281,7 +281,7 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	[RPC]
-	void syncLoadedGuests(int lG, int tG){
+	void syncLoadedGuests(float lG, float tG){
 		loadedGuests = lG;
 		totalGuests = tG;
 	}

@@ -39,7 +39,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 		if(intrigue.gameStart){
 			transform.parent.gameObject.active = false;
 		}
-
+		Debug.Log(intrigue.loadedGuests + "/"+intrigue.totalGuests);
 		loadingBar.GetComponent<UISlider>().value = intrigue.loadedGuests/intrigue.totalGuests;
 	}
 
