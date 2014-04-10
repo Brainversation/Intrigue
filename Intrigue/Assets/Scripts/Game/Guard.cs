@@ -7,6 +7,7 @@ public class Guard : BasePlayer{
 
 	[HideInInspector]
 	public bool stunned = false;
+	public UIPanel stunUI;
 
 	private GameObject accused;
 	private GameObject[] guests = null;
@@ -233,10 +234,14 @@ public class Guard : BasePlayer{
 
 	void stunCooldown(){
 		stunned = false;
-		GetComponentInChildren<Camera>().enabled = true; 
+		NGUITools.SetActive(stunUI.gameObject, false);
 		GetComponentInChildren<MovementController>().enabled = true;
 		GetComponentInChildren<AudioListener>().enabled = true;
-		GetComponentInChildren<MouseLook>().enabled = true; 
+		//Have to disable the mouse look on the camera as well
+		Component [] mouseLooks = GetComponentsInChildren<MouseLook>();
+			foreach(MouseLook ml in mouseLooks){
+				ml.enabled = true;
+			}	
 		GetComponentInChildren<Crosshair>().enabled = true;
 		GetComponent<MouseLook>().enabled = true;
 		Debug.Log("STUN OVER");
@@ -246,11 +251,16 @@ public class Guard : BasePlayer{
 	void isStunned(){
 		if(photonView.isMine){
 			Debug.Log("STUNNED");
+			NGUITools.SetActive(stunUI.gameObject, true);
 			stunned = true;
-			GetComponentInChildren<Camera>().enabled = false; 
+			//Have to disable the mouse look on the camera as well
+			Component [] mouseLooks = GetComponentsInChildren<MouseLook>();
+				foreach(MouseLook ml in mouseLooks){
+					ml.enabled = false;
+				}
+
 			GetComponentInChildren<MovementController>().enabled = false;
 			GetComponentInChildren<AudioListener>().enabled = false;
-			GetComponentInChildren<MouseLook>().enabled = false; 
 			GetComponentInChildren<Crosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
 			Invoke("stunCooldown", 5);

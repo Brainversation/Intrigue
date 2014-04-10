@@ -10,6 +10,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 	public GameObject loadTimer;
 	public GameObject loadTitle;
 	public GameObject loadResult;
+	public GameObject loadNextRound;
 	private int loadCounter = 0;
 	private AsyncOperation async;
 	private PhotonView photonView = null;
@@ -26,7 +27,6 @@ public class LoadingScreenV2 : MonoBehaviour {
 		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
-		totalCountdownWithLoading = countdownDuration + (intrigue.totalGuests*0.1f);
 		loadTimer.GetComponent<UILabel>().text = totalCountdownWithLoading+"s";
 
 		if(intrigue.GetRoundsLeft == intrigue.GetRounds){
@@ -45,11 +45,13 @@ public class LoadingScreenV2 : MonoBehaviour {
 		}
 		Debug.Log(intrigue.loadedGuests + "/"+intrigue.totalGuests);
 		loadingBar.GetComponent<UISlider>().value = intrigue.loadedGuests/intrigue.totalGuests;
-		if(!intrigue.doneLoading)
-			loadTimer.GetComponent<UILabel>().text = Mathf.RoundToInt(totalCountdownWithLoading - (0.1f*intrigue.loadedGuests)) + "s";
-
+		if(!intrigue.doneLoading){
+			loadNextRound.GetComponent<UILabel>().text = "Loading Level";
+			loadTimer.GetComponent<UILabel>().text = "";
+		}
 		if(intrigue.doneLoading && !countdownStarted){
 			countdownStarted = true;
+			loadNextRound.GetComponent<UILabel>().text = "Round starts in: ";
 			StartCoroutine(Waiter());
 		}
 	}

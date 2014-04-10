@@ -1122,7 +1122,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
       propertyPath: mText
-      value: 'Round starts in:'
+      value: Loading Level
       objectReference: {fileID: 0}
     - target: {fileID: 11400004, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
       propertyPath: mWidth
@@ -25868,7 +25868,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
-  mText: 'Round starts in:'
+  mText: Loading Level
   mFontSize: 198
   mFontStyle: 0
   mEncoding: 1
@@ -40278,6 +40278,7 @@ MonoBehaviour:
   loadTimer: {fileID: 1719714483}
   loadTitle: {fileID: 331650524}
   loadResult: {fileID: 642992975}
+  loadNextRound: {fileID: 793155295}
 --- !u!54 &1280048107
 Rigidbody:
   m_ObjectHideFlags: 0
