@@ -14,16 +14,20 @@ public class LoadingScreenV2 : MonoBehaviour {
 	private AsyncOperation async;
 	private PhotonView photonView = null;
 	private Player player;
-	private float countdownDuration = 10;
+	private float countdownDuration = 5.0f;
 	private float countdownCur = 0;
 	private Intrigue intrigue;
 	private string roundResultDisplay;
+	private bool countdownStarted = false;
+	private float totalCountdownWithLoading;
 
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
+		totalCountdownWithLoading = countdownDuration + (intrigue.totalGuests*0.1f);
+		loadTimer.GetComponent<UILabel>().text = totalCountdownWithLoading+"s";
 
 		if(intrigue.GetRoundsLeft == intrigue.GetRounds){
 			loadTitle.GetComponent<UILabel>().text = "MATCH STARTING";
@@ -41,6 +45,22 @@ public class LoadingScreenV2 : MonoBehaviour {
 		}
 		Debug.Log(intrigue.loadedGuests + "/"+intrigue.totalGuests);
 		loadingBar.GetComponent<UISlider>().value = intrigue.loadedGuests/intrigue.totalGuests;
+		if(!intrigue.doneLoading)
+			loadTimer.GetComponent<UILabel>().text = Mathf.RoundToInt(totalCountdownWithLoading - (0.1f*intrigue.loadedGuests)) + "s";
+
+		if(intrigue.doneLoading && !countdownStarted){
+			countdownStarted = true;
+			StartCoroutine(Waiter());
+		}
+	}
+
+   	IEnumerator Waiter() {
+		while(countdownCur<countdownDuration){
+			countdownCur+= Time.deltaTime;
+			loadTimer.GetComponent<UILabel>().text = Mathf.RoundToInt(countdownDuration-countdownCur)+"s";
+			yield return null;
+		}
+		intrigue.GetComponent<PhotonView>().RPC("sendGameStart", PhotonTargets.AllBuffered);
 	}
 
 }

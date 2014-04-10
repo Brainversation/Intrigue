@@ -30,6 +30,7 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector] public bool[] mainObjectives;
 	[HideInInspector] public bool gameOverFlag = false;
 	[HideInInspector] public bool gameStart = false;
+	[HideInInspector] public bool doneLoading = false;
 	[HideInInspector] public float loadedGuests = 0;
 	[HideInInspector] public float totalGuests;
 	public bool wantGameOver;
@@ -49,6 +50,7 @@ public class Intrigue : MonoBehaviour {
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		totalGuests = player.Guests;
+		photonView.RPC("syncLoadedGuests", PhotonTargets.Others, 0, totalGuests);
 		if(PhotonNetwork.isMasterClient){
 			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
 			for(int i=0; i < spawnObjects.Length; i++){
@@ -154,7 +156,8 @@ public class Intrigue : MonoBehaviour {
 		}
 
 		// Send turn off loading
-		photonView.RPC("sendGameStart", PhotonTargets.AllBuffered);
+		//photonView.RPC("sendGameStart", PhotonTargets.AllBuffered);
+		photonView.RPC("sendDoneLoading", PhotonTargets.AllBuffered);
 	}
 
 	void nextSpawnPoint(){
@@ -227,6 +230,11 @@ public class Intrigue : MonoBehaviour {
 	[RPC]
 	void sendGameStart(){
 		gameStart = true;
+	}
+
+	[RPC]
+	void sendDoneLoading(){
+		doneLoading = true;
 	}
 
 	[RPC]

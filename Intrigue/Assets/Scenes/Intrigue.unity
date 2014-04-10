@@ -1114,7 +1114,63 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100016, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: mText
+      value: 'Round starts in:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: mWidth
+      value: 472
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: aspectRatio
+      value: 4.71999979
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -390
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -327
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400016, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -321.568695
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400024, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: mText
+      value: 10s
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400024, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: mWidth
+      value: 148
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400024, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: mHeight
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400024, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: mOverflow
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400024, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: aspectRatio
+      value: 1.64444447
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400024, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
+      propertyPath: mFontSize
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11400008, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
@@ -25832,7 +25888,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &793155296
 Transform:
   m_ObjectHideFlags: 0
@@ -25840,7 +25896,7 @@ Transform:
   m_PrefabInternal: {fileID: 32975330}
   m_GameObject: {fileID: 793155295}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -306.805573, y: -338.987732, z: 6.10351562e-05}
+  m_LocalPosition: {x: -390, y: -327, z: 0}
   m_LocalScale: {x: 1.00014007, y: 1.00014007, z: 1.00014007}
   m_Children: []
   m_Father: {fileID: 1280048104}
@@ -25874,18 +25930,18 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 366
+  mWidth: 472
   mHeight: 100
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.66000009
+  aspectRatio: 4.71999979
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
-  mText: 'Next Round in:'
+  mText: 'Round starts in:'
   mFontSize: 198
   mFontStyle: 0
   mEncoding: 1
@@ -30043,6 +30099,7 @@ MonoBehaviour:
   mainObjectives: 
   gameOverFlag: 0
   gameStart: 0
+  doneLoading: 0
   loadedGuests: 0
   totalGuests: 0
   wantGameOver: 1
@@ -40291,7 +40348,7 @@ MonoBehaviour:
   UIRoot: {fileID: 1280048103}
   bg: {fileID: 0}
   loadingBar: {fileID: 1882236632}
-  loadTimer: {fileID: 331650524}
+  loadTimer: {fileID: 1719714483}
   loadTitle: {fileID: 331650524}
   loadResult: {fileID: 642992975}
 --- !u!54 &1280048107
@@ -53040,7 +53097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1719714484
 Transform:
   m_ObjectHideFlags: 0
@@ -53048,7 +53105,7 @@ Transform:
   m_PrefabInternal: {fileID: 32975330}
   m_GameObject: {fileID: 1719714483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -338.987732, z: 0}
+  m_LocalPosition: {x: 0, y: -321.568695, z: 0}
   m_LocalScale: {x: 1.00014007, y: 1.00014007, z: 1.00014007}
   m_Children: []
   m_Father: {fileID: 1280048104}
@@ -53082,19 +53139,19 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 100
-  mHeight: 100
+  mWidth: 148
+  mHeight: 90
   mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: 1.64444447
   user: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
   mText: 10s
-  mFontSize: 198
+  mFontSize: 90
   mFontStyle: 0
   mEncoding: 1
   mMaxLineCount: 0
@@ -53102,7 +53159,7 @@ MonoBehaviour:
   mEffectColor: {r: 0, g: 0, b: 0, a: 1}
   mSymbols: 1
   mEffectDistance: {x: 1, y: 1}
-  mOverflow: 0
+  mOverflow: 2
   mMaterial: {fileID: 0}
   mApplyGradient: 1
   mGradientTop: {r: 1, g: 1, b: 1, a: 1}
