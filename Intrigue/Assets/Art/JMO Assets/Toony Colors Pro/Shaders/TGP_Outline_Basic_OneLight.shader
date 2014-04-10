@@ -28,7 +28,7 @@ Shader "Toony Colors Pro/Outline/OneDirLight/Basic"
 		
 		//nolightmap nodirlightmap		LIGHTMAP
 		//noforwardadd					ONLY 1 DIR LIGHT (OTHER LIGHTS AS VERTEX-LIT)
-		#pragma surface surf ToonyColors nolightmap nodirlightmap noforwardadd 
+		#pragma surface surf ToonyColors nolightmap nodirlightmap 
 		
 		sampler2D _MainTex;
 		
