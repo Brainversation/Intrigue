@@ -250,7 +250,6 @@ public class Guard : BasePlayer{
 	[RPC]
 	void isStunned(){
 		if(photonView.isMine){
-			Debug.Log("STUNNED");
 			NGUITools.SetActive(stunUI.gameObject, true);
 			stunned = true;
 			//Have to disable the mouse look on the camera as well

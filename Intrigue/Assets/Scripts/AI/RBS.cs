@@ -229,6 +229,14 @@ namespace RBS{
 		}
 	}
 
+	class notInRoom : Condition{
+		public notInRoom(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			return (gameObject.GetComponent<BaseAI>().room == null);
+		}
+	}
+
 	class StayStill : Condition{
 		public override bool test(){
 			return true;
@@ -322,6 +330,7 @@ namespace RBS{
 			this.addCondition(new isBored(gameObject));
 			this.consequence = setDestRoom;
 			this.antiConsequence = stopDrinking;
+			this.weight = 7;
 		}
 
 		private Status setDestRoom(GameObject gameObject){
@@ -367,6 +376,7 @@ namespace RBS{
 			this.addCondition( new isLonely(gameObject) );
 			this.addCondition( new isBored(gameObject) );
 			this.consequence = handleConverse;
+			this.weight = 4;
 		}
 
 		private Status handleConverse(GameObject gameObject){
@@ -451,6 +461,35 @@ namespace RBS{
 			}
 
 			script.destination = script.room.artLocations[minIndex];
+			script.anim.SetBool("Speed", true);
+			gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+			script.agent.SetDestination(script.destination);
+
+			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
+			return Status.Waiting;
+		}
+	}
+
+	class FindRoom : Rule{
+		public FindRoom(GameObject gameObject){
+			this.addCondition(new notInRoom(gameObject));
+			this.consequence = goToRoom;
+			this.weight = 1000;
+		}
+
+		private Status goToRoom(GameObject gameObject){
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+
+			int minIndex = 0;
+			GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+			for(int i = 1; i < rooms.Length; ++i){
+				if(Vector3.Distance(rooms[i-1].transform.position, gameObject.transform.position) <
+						Vector3.Distance(rooms[i].transform.position, gameObject.transform.position)){
+					minIndex = (i-1);
+				}
+			}
+
+			script.destination = rooms[minIndex].transform.position;
 			script.anim.SetBool("Speed", true);
 			gameObject.GetComponent<BaseAI>().distFromDest = 5f;
 			script.agent.SetDestination(script.destination);

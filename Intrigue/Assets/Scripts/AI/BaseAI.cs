@@ -107,7 +107,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 					if (agent.pathStatus == NavMeshPathStatus.PathPartial ||
 						agent.pathStatus == NavMeshPathStatus.PathPartial){
-						Debug.Log("Path invalid or can not be reached!");
+						//Debug.Log("Path invalid or can not be reached!");
 					}
 
 					if(agent.hasPath && !agent.pathPending && agent.remainingDistance < distFromDest){
@@ -178,27 +178,9 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void initAI(){
 		rules = new List<Rule>();
-
-		Rule rule0 = new WantToGetDrink(gameObject);
-		rule0.weight = 7;
-		rules.Add(rule0);
-
-		Rule rule1 = new WantToConverse(gameObject);
-		rule1.weight = 4;
-		rules.Add(rule1);
-
-
-		// Rule rule2 = new NeedToUseRestroom(gameObject);
-		// rule2.weight = 10;
-		// rules.Add(rule2);
-
-		// Rule rule3 = new WantToMoveRoom(gameObject);
-		// rule3.weight = 1;
-		// rules.Add(rule3);
-
-		// Rule rule4 = new WantToWanderRoom(gameObject);
-		// rule4.weight = 1;
-		// rules.Add(rule4);
+		rules.Add( new WantToGetDrink(gameObject) );
+		rules.Add( new WantToConverse(gameObject) );
+		rules.Add( new FindRoom(gameObject) );
 	}
 
 	void backToRule(){
@@ -217,7 +199,6 @@ public class BaseAI : Photon.MonoBehaviour {
 	[RPC]
 	void isStunned(){
 		if(PhotonNetwork.isMasterClient){
-			Debug.Log("Guest STUNNED");
 			stunned = true;
 			status = Status.Waiting;
 			anim.SetBool("Speed", false);

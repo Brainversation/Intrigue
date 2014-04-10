@@ -163,7 +163,6 @@ public class Spy : BasePlayer{
 			if(hit.transform.tag == "Guard" || hit.transform.tag == "Guest"){
 
 				if(stuns>=1){
-					Debug.Log("stunning!");
 					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
 					if(hit.transform.tag == "Guard")
 						photonView.RPC("addPlayerScore", PhotonTargets.All, 50);
