@@ -331,6 +331,7 @@ namespace RBS{
 			this.consequence = setDestRoom;
 			this.antiConsequence = stopDrinking;
 			this.weight = 7;
+			this.go = gameObject;
 		}
 
 		private Status setDestRoom(GameObject gameObject){

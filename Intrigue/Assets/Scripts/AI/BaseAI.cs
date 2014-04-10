@@ -185,7 +185,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void backToRule(){
 		// Debug.Log("Back to rule");
-		if(currentRule.antiConsequence != null)
+		if(currentRule != null && currentRule.antiConsequence != null)
 			currentRule.antiConsequence();
 		if(!agent.hasPath) status = Status.False;
 	}
