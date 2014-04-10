@@ -13,6 +13,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	private Rule currentRule;
 	private float updateWants = 5f;
 	private float animationTime = 5;
+	private bool stunned = false;
 
 	protected List<Rule> rules;
 
@@ -101,6 +102,9 @@ public class BaseAI : Photon.MonoBehaviour {
 				break;
 
 				case Status.Waiting:
+					if(stunned)
+						return;
+
 					if (agent.pathStatus == NavMeshPathStatus.PathPartial ||
 						agent.pathStatus == NavMeshPathStatus.PathPartial){
 						Debug.Log("Path invalid or can not be reached!");
@@ -208,5 +212,18 @@ public class BaseAI : Photon.MonoBehaviour {
 		// Debug.Log("adding Drink");
 		this.thirst -= 10;
 		this.bladder += 5;
+	}
+
+	[RPC]
+	void isStunned(){
+		if(PhotonNetwork.isMasterClient){
+			Debug.Log("Guest STUNNED");
+			stunned = true;
+			status = Status.Waiting;
+			anim.SetBool("Speed", false);
+			agent.ResetPath();
+			CancelInvoke();
+			Invoke("backToRule", 5);
+		}
 	}
 }

@@ -157,24 +157,20 @@ public class Spy : BasePlayer{
 	}
 
 	void attemptStun(){
-		Debug.Log("Attempting Stun");
 		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 		RaycastHit hit;
 		if( Physics.Raycast(ray, out hit, 10f) ){
 			if(hit.transform.tag == "Guard" || hit.transform.tag == "Guest"){
 
 				if(stuns>=1){
+					Debug.Log("stunning!");
+					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
 					if(hit.transform.tag == "Guard")
-						hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
+						photonView.RPC("addPlayerScore", PhotonTargets.All, 50);
 					else
-						Debug.Log("Attempted to stun guest");
+						photonView.RPC("addPlayerScore", PhotonTargets.All, -50);
 					stuns--;
 				}
-				if(hit.transform.tag == "Guard"){
-					photonView.RPC("addPlayerScore", PhotonTargets.All, 50);
-				} 
-
-
 			}
 
 		}
