@@ -12,14 +12,18 @@ public class Scoreboard : MonoBehaviour {
 	public GameObject spyTable;
 	public GameObject spyTeam;
 	public GameObject guardTeam;
+	public GameObject serverStats;
 	private GameObject [] spies;
 	private GameObject [] guards;
-	
+	private GameObject [] servers;
+	private int [] serverCompletions = new int [] {0,0,0};
+
 	// Use this for initialization
 	void Start () {
 		scoreboard.GetComponent<UIPanel>().alpha = 0;
 		//this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
+		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 
 		for(int i=0; i<5; i++){
 			GameObject playerScoreInstance= NGUITools.AddChild(guardTable, playerPrefab);
@@ -58,6 +62,19 @@ public class Scoreboard : MonoBehaviour {
 		spies = GameObject.FindGameObjectsWithTag("Spy");
 		guards = GameObject.FindGameObjectsWithTag("Guard");
 		
+		//SERVER STATS
+		foreach(GameObject serv in servers){
+			int curServ = serv.GetComponent<ObjectiveMain>().objectiveName-1;
+			serverCompletions[curServ] = serv.GetComponent<ObjectiveMain>().completionPercentage;
+		}
+
+		serverStats.GetComponent<UILabel>().text = "SERVERS:\n1: [FF0000]" + serverCompletions[0] + "%[-] 2: [FF0000]" + serverCompletions[1] + "%[-] 3:[FF0000] " + serverCompletions[2] + "%[-]";
+
+
+
+
+
+
 		foreach(GameObject sp in spies){
 			Spy spI = sp.GetComponent<Spy>();
 			if(spI.localHandle!=""){

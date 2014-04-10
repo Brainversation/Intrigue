@@ -8,6 +8,7 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 	public TextMesh completionPercent;
 	public TextMesh status;
 	public int id;
+	public int completionPercentage;
 	public bool inUse = false;
 	public bool isActive = true;
 	public bool textAdded = false;
@@ -27,6 +28,7 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 
 	void Update(){
 		completionPercent.text = Mathf.RoundToInt(100-((timeLeft/completionTime)*100)).ToString() + "%";
+		completionPercentage = Mathf.RoundToInt(100-((timeLeft/completionTime)*100));
 	}
 
 	public void useObjective(GameObject user){
@@ -64,6 +66,7 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 	public void activate(){
 		photonView.RPC("setActive", PhotonTargets.AllBuffered);
 	}
+
 
 	[RPC]
 	void playAudio(){
