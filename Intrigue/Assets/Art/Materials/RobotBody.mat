@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: RobotBody
-  m_Shader: {fileID: 7, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: d84268709d11078d11005b9844295342, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -22,7 +22,7 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _Detail
+          name: _BumpMap
         second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
@@ -31,6 +31,20 @@ Material:
         first:
           name: _Ramp
         second:
+          m_Texture: {fileID: 2800000, guid: 948e1b7327c293a4081ba3c18eaab19f, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Detail
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Cube
+        second:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
@@ -38,7 +52,7 @@ Material:
         first:
           name: _ToonShade
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 8900000, guid: b995d4bd9d11078d11005b9844295342, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -48,15 +62,26 @@ Material:
           m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _ParallaxMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
     m_Floats:
+      data:
+        first:
+          name: _Outline
+        second: .00499999989
       data:
         first:
           name: _Shininess
         second: .078125
       data:
         first:
-          name: _Outline
-        second: .00499999989
+          name: _Parallax
+        second: .0199999996
     m_Colors:
       data:
         first:
@@ -64,12 +89,16 @@ Material:
         second: {r: .800000012, g: .800000012, b: .800000012, a: 1}
       data:
         first:
+          name: _OutlineColor
+        second: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+      data:
+        first:
           name: _SpecColor
         second: {r: .5, g: .5, b: .5, a: 1}
       data:
         first:
-          name: _OutlineColor
-        second: {r: .200000003, g: .200000003, b: .200000003, a: 1}
+          name: _ReflectColor
+        second: {r: 1, g: 1, b: 1, a: .5}
       data:
         first:
           name: _SColor
