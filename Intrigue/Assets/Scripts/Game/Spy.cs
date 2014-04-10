@@ -53,8 +53,10 @@ public class Spy : BasePlayer{
 
 		//Code for interacting
 		/*------------------------------------------------------*/
-		if(Camera.main!=null)
-			attemptInteract();
+		if ( Input.GetKeyUp(KeyCode.E) ){
+			if(Camera.main!=null)
+				attemptInteract();
+		}
 		/*------------------------------------------------------*/
 
 
@@ -128,28 +130,42 @@ public class Spy : BasePlayer{
 
 	void attemptInteract(){
 		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
-		if (Input.GetKey("e")){
-			RaycastHit hit;
-			if( Physics.Raycast(ray, out hit, 1000f) ){
-				if( hit.transform.tag == "ObjectiveMain" ){
-					Debug.Log("Hit OM");
-					ObjectiveMain hitObjective = hit.transform.GetComponent<ObjectiveMain>();
-					hitObjective.useObjective(gameObject);
-					objectiveType = hitObjective.objectiveType;
-				}
-				else if((Vector3.Distance(hit.transform.position, transform.position)<7 && hit.transform.tag == "Objective")){
-					Objective hitObjective = hit.transform.GetComponent<Objective>();
-					hitObjective.useObjective(gameObject);
-					objectiveType = hitObjective.objectiveType;				
-				}
-				else
-					doingObjective = false;
+		RaycastHit hit;
+		if( Physics.Raycast(ray, out hit, 1000f) ){
+			if( hit.transform.tag == "ObjectiveMain" ){
+				ObjectiveMain hitObjective = hit.transform.GetComponent<ObjectiveMain>();
+				hitObjective.useObjective(gameObject);
+				objectiveType = hitObjective.objectiveType;
+			}
+			else if( hit.transform.tag == "Guard" ){
+				doStun(true, hit.transform.gameObject);
+			}
+			else if( hit.transform.tag == "Guest" ){
+				doStun(false, hit.transform.gameObject);
+			}
+			else if((Vector3.Distance(hit.transform.position, transform.position)<7 && hit.transform.tag == "Objective")){
+				Objective hitObjective = hit.transform.GetComponent<Objective>();
+				hitObjective.useObjective(gameObject);
+				objectiveType = hitObjective.objectiveType;				
 			}
 			else
-					doingObjective = false;
+				doingObjective = false;
 		}
 		else
-			doingObjective = false;
+				doingObjective = false;
+	}
+
+	void doStun(bool isGuard, GameObject stunee){
+		// since both AI and Guard will have isStunned this should work
+		stunee.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
+
+		if(isGuard){
+			// points++
+		} else {
+			// points--
+		}
+
+		// stunammo--
 	}
 
 	[RPC]

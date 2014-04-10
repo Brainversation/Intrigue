@@ -5,9 +5,12 @@ using System.Collections.Generic;
 public class AI_RoomState : MonoBehaviour{
 
 	public string roomName = "";
+	public bool hasArt = false;
 
 	[HideInInspector] public List<GameObject> conversers;
 	[HideInInspector] public int population;
+	[HideInInspector] public List<Vector3> artLocations;
+	[HideInInspector] public Vector3 relaxLocation;
 	[HideInInspector] public Vector3 drinkLocation;
 	[HideInInspector] public Vector3 converseLocation;
 	[HideInInspector] public Vector3 restroomLocation;
