@@ -31,15 +31,13 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 
 	public void useObjective(GameObject user){
 		if(isActive){
-			//Debug.Log("Distance: " + Vector3.Distance(user.transform.position, transform.position));
 			if(Vector3.Distance(user.transform.position, transform.position)>=60)
 				distMultiplier = 1;
 			else
 				distMultiplier = 6-(5*((Vector3.Distance(user.transform.position, transform.position)/60)));
-			//Debug.Log("Doing Main Objective at " + distMultiplier +"x");
 			if(timeLeft > 0){
 				timeLeft -= Time.deltaTime*distMultiplier;
-				photonView.RPC("updateTimeLeft", PhotonTargets.OthersBuffered);
+				photonView.RPC("updateTimeLeft", PhotonTargets.All, timeLeft);
 				inUse = true;
 				Intrigue.playerGO.GetComponent<Spy>().doingObjective = true;
 				Intrigue.playerGO.GetComponent<Spy>().percentComplete = -((timeLeft-completionTime)/completionTime);
@@ -56,7 +54,6 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 				finished = true;
 				user.GetComponent<Spy>().doingObjective = false;
 				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 200);
-				photonView.RPC("addScore", PhotonTargets.All, player.TeamID, 200);
 				isActive = false;
 			}
 		}
@@ -74,8 +71,8 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 	}
 
 	[RPC]
-	void updateTimeLeft(){
-		timeLeft -= Time.deltaTime*distMultiplier;
+	void updateTimeLeft(float tL){
+		timeLeft = tL;
 	}
 
 	[RPC]
@@ -93,13 +90,5 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 	void setActive(){
 		isActive = true;
 	}
-	[RPC]
-	void addScore(int teamID, int scoreToAdd){
-		if(teamID == this.player.TeamID){
-			player.TeamScore += scoreToAdd;
-		}
-		else{
-			player.EnemyScore += scoreToAdd;
-		}
-	}
+
 }
