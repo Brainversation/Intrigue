@@ -146,6 +146,7 @@ public class Intrigue : MonoBehaviour {
 		{	
 			nextSpawnPoint();
 			loadedGuests = x;
+			photonView.RPC("syncLoadedGuests", PhotonTargets.Others, loadedGuests, totalGuests);
 			//int type = Mathf.RoundToInt(Random.Range(1,4));
 			//Debug.Log("Guest type: " + type);
 			PhotonNetwork.InstantiateSceneObject("Robot_Guest1"/*+type.ToString()*/, spawnTrans.position, spawnTrans.rotation, 0, null);
@@ -277,6 +278,12 @@ public class Intrigue : MonoBehaviour {
 	[RPC]
 	void syncTime(float time){
 		this.timeLeft = time;
+	}
+
+	[RPC]
+	void syncLoadedGuests(int lG, int tG){
+		loadedGuests = lG;
+		totalGuests = tG;
 	}
 
 	[RPC]

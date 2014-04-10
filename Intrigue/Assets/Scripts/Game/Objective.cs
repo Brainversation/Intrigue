@@ -45,7 +45,7 @@ public class Objective : Photon.MonoBehaviour {
 				finished = true;
 				user.GetComponent<Spy>().doingObjective = false;
 				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 50);
-				photonView.RPC("addScore", PhotonTargets.All, player.TeamID, 50);
+				//photonView.RPC("addScore", PhotonTargets.All, player.TeamID, 50);
 				anim.SetBool("Complete",true);
 				isActive = false;
 				photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", true);
@@ -82,6 +82,7 @@ public class Objective : Photon.MonoBehaviour {
 	void setActive(){
 		isActive = true;
 	}
+
 	[RPC]
 	void addScore(int teamID, int scoreToAdd){
 		if(teamID == this.player.TeamID){

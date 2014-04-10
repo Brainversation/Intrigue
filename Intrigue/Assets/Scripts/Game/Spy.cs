@@ -8,6 +8,7 @@ public class Spy : BasePlayer{
 	public float percentComplete = 0;
 	public bool doingObjective = false;
 	public string objectiveType;
+	private int stuns = 3;
 
 	protected override void Update () {
 		base.Update();
@@ -53,13 +54,19 @@ public class Spy : BasePlayer{
 
 		//Code for interacting
 		/*------------------------------------------------------*/
-		if ( Input.GetKeyUp(KeyCode.E) ){
+		if ( Input.GetKey(KeyCode.E) ){
 			if(Camera.main!=null)
 				attemptInteract();
 		}
 		/*------------------------------------------------------*/
 
-
+		//Code for stunning
+		/*------------------------------------------------------*/
+		if ( Input.GetKeyUp(KeyCode.F) ){
+			if(Camera.main!=null)
+				attemptStun();
+		}
+		/*------------------------------------------------------*/
 
 		//Code to add [] display for active objectives
 		/*------------------------------------------------------*/
@@ -137,12 +144,6 @@ public class Spy : BasePlayer{
 				hitObjective.useObjective(gameObject);
 				objectiveType = hitObjective.objectiveType;
 			}
-			else if( hit.transform.tag == "Guard" ){
-				doStun(true, hit.transform.gameObject);
-			}
-			else if( hit.transform.tag == "Guest" ){
-				doStun(false, hit.transform.gameObject);
-			}
 			else if((Vector3.Distance(hit.transform.position, transform.position)<7 && hit.transform.tag == "Objective")){
 				Objective hitObjective = hit.transform.GetComponent<Objective>();
 				hitObjective.useObjective(gameObject);
@@ -155,17 +156,28 @@ public class Spy : BasePlayer{
 				doingObjective = false;
 	}
 
-	void doStun(bool isGuard, GameObject stunee){
-		// since both AI and Guard will have isStunned this should work
-		stunee.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
+	void attemptStun(){
+		Debug.Log("Attempting Stun");
+		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
+		RaycastHit hit;
+		if( Physics.Raycast(ray, out hit, 10f) ){
+			if(hit.transform.tag == "Guard" || hit.transform.tag == "Guest"){
 
-		if(isGuard){
-			// points++
-		} else {
-			// points--
+				if(stuns>=1){
+					if(hit.transform.tag == "Guard")
+						hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
+					else
+						Debug.Log("Attempted to stun guest");
+					stuns--;
+				}
+				if(hit.transform.tag == "Guard"){
+					photonView.RPC("addPlayerScore", PhotonTargets.All, 50);
+				} 
+
+
+			}
+
 		}
-
-		// stunammo--
 	}
 
 	[RPC]
@@ -197,5 +209,10 @@ public class Spy : BasePlayer{
 			player.Score += scoreToAdd;
 			photonView.RPC("giveScore", PhotonTargets.All, player.Score);
 		}
+		//Adding to team scores
+		if(player.TeamID == 1)
+			player.TeamScore +=scoreToAdd;
+		else
+			player.EnemyScore += scoreToAdd;
 	}
 }

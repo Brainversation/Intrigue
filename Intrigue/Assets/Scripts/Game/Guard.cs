@@ -4,6 +4,10 @@ using System.Collections.Generic;
 
 public class Guard : BasePlayer{
 	
+
+	[HideInInspector]
+	public bool stunned = false;
+
 	private GameObject accused;
 	private GameObject[] guests = null;
 	private GameObject[] spies = null;
@@ -227,6 +231,32 @@ public class Guard : BasePlayer{
 		}
 	}
 
+	void stunCooldown(){
+		stunned = false;
+		GetComponentInChildren<Camera>().enabled = true; 
+		GetComponentInChildren<MovementController>().enabled = true;
+		GetComponentInChildren<AudioListener>().enabled = true;
+		GetComponentInChildren<MouseLook>().enabled = true; 
+		GetComponentInChildren<Crosshair>().enabled = true;
+		GetComponent<MouseLook>().enabled = true;
+		Debug.Log("STUN OVER");
+	}
+
+	[RPC]
+	void isStunned(){
+		if(photonView.isMine){
+			Debug.Log("STUNNED");
+			stunned = true;
+			GetComponentInChildren<Camera>().enabled = false; 
+			GetComponentInChildren<MovementController>().enabled = false;
+			GetComponentInChildren<AudioListener>().enabled = false;
+			GetComponentInChildren<MouseLook>().enabled = false; 
+			GetComponentInChildren<Crosshair>().enabled = false;
+			GetComponent<MouseLook>().enabled = false;
+			Invoke("stunCooldown", 5);
+		}
+	}
+
 	[RPC]
 	void spyCaught(){
 		Debug.Log("spy removed");
@@ -249,7 +279,7 @@ public class Guard : BasePlayer{
 		}
 	}
 
-		[RPC]
+	[RPC]
 	void giveHandle(string handle){
 		localHandle = handle;
 	}

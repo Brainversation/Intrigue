@@ -21,6 +21,7 @@ public class Crosshair : MonoBehaviour {
 	void Update(){
 		//Spy
 		if(Camera.main!=null){
+		canInteract = false;
 			if(teamSpy){
 				Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 				RaycastHit hit;
@@ -31,16 +32,11 @@ public class Crosshair : MonoBehaviour {
 						} else if(hit.transform.tag == "Objective" && hit.transform.gameObject.GetComponent<Objective>().isActive && (Vector3.Distance(hit.transform.position, transform.position) )<=7){
 							canInteract = true;
 						}
-						else{
-							canInteract = false;
-						}
 					}
-					else{
-						canInteract = false;
+					else if( (hit.transform.tag == "Guard" || hit.transform.tag == "Guest") && Vector3.Distance(hit.transform.position, transform.position)<10){
+							canInteract = true;
 					}
 				}
-				else
-					canInteract = false;
 			}
 			else{
 				//Guard
@@ -50,16 +46,11 @@ public class Crosshair : MonoBehaviour {
 					if( hit.transform.tag == "Spy" || hit.transform.tag == "Guest"){
 						canInteract = true;
 					}
-					else {
-						canInteract = false;
-					}
 				}
-				else
-					canInteract = false;
 			}
 		}
 	}
-
+	
 	void OnGUI () {
 		if(OriginalOn == true){
 			if(canInteract==true)

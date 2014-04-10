@@ -1103,10 +1103,10 @@ Prefab:
     - target: {fileID: 11400010, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
       propertyPath: observed
       value: 
-      objectReference: {fileID: 1280048106}
+      objectReference: {fileID: 0}
     - target: {fileID: 11400010, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
       propertyPath: synchronization
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100012, guid: c10f0a8738c6a534588c23d0b0f1f676, type: 2}
       propertyPath: m_IsActive
@@ -2344,8 +2344,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -5451,8 +5454,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -5822,8 +5828,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: Entance
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -10100,8 +10109,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: poopvan
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -10488,8 +10500,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: SittingRoom
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -10819,8 +10834,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: MusicHall
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -11207,8 +11225,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: Entance
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -15137,8 +15158,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -15210,8 +15234,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -18151,8 +18178,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: ArtHallBalcony
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -18652,8 +18682,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -21020,8 +21053,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -28545,8 +28581,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: MusicHall
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -30006,7 +30045,7 @@ MonoBehaviour:
   gameStart: 0
   loadedGuests: 0
   totalGuests: 0
-  wantGameOver: 0
+  wantGameOver: 1
 --- !u!1 &938343116
 GameObject:
   m_ObjectHideFlags: 0
@@ -30561,8 +30600,8 @@ Transform:
   m_LocalPosition: {x: -5.27699471, y: 6.99440289, z: -250.267166}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2063449935}
   - {fileID: 189917849}
+  - {fileID: 2063449935}
   - {fileID: 734187158}
   - {fileID: 1942135206}
   m_Father: {fileID: 2024060250}
@@ -30882,8 +30921,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -32544,8 +32586,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -32702,8 +32747,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -33833,8 +33881,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: BackYard
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -34822,8 +34873,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: Entance
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -40217,8 +40271,8 @@ MonoBehaviour:
   ownerId: 0
   group: 0
   prefixBackup: -1
-  observed: {fileID: 1280048106}
-  synchronization: 3
+  observed: {fileID: 0}
+  synchronization: 0
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   instantiationId: 0
@@ -42714,8 +42768,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -43362,8 +43419,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -46461,8 +46521,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -46681,8 +46744,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: poopvan
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -53250,8 +53316,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -54067,8 +54136,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -54705,8 +54777,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: BackYard
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -60193,8 +60268,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -60450,16 +60528,16 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 500145176}
-  - {fileID: 201257336}
-  - {fileID: 377189679}
-  - {fileID: 376493929}
+  - {fileID: 621605816}
+  - {fileID: 1776590767}
   - {fileID: 948665221}
+  - {fileID: 376493929}
   - {fileID: 1512429055}
   - {fileID: 932646190}
-  - {fileID: 1776590767}
-  - {fileID: 1197172453}
   - {fileID: 1057954824}
-  - {fileID: 621605816}
+  - {fileID: 377189679}
+  - {fileID: 1197172453}
+  - {fileID: 201257336}
   m_Father: {fileID: 0}
 --- !u!1 &1991790372
 GameObject:
@@ -63408,8 +63486,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
@@ -64790,8 +64871,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roomName: 
+  hasArt: 0
   conversers: []
   population: 0
+  artLocations: []
+  relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
   restroomLocation: {x: 0, y: 0, z: 0}
