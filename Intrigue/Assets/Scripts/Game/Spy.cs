@@ -3,12 +3,18 @@ using System.Collections;
 
 public class Spy : BasePlayer{
 	
-	private UIPanel objPanel;
-	private UISlider objSlider;
+	public UILabel stunsUI;
 	public float percentComplete = 0;
 	public bool doingObjective = false;
 	public string objectiveType;
 	private int stuns = 3;
+	private UIPanel objPanel;
+	private UISlider objSlider;
+
+	void Awake(){
+		stunsUI.text = "Stun Charges:\n[00FF00]3[-]";
+	}
+
 
 	protected override void Update () {
 		base.Update();
@@ -169,6 +175,7 @@ public class Spy : BasePlayer{
 					else
 						photonView.RPC("addPlayerScore", PhotonTargets.All, -50);
 					stuns--;
+					stunsUI.text = "Stun Charges:\n[FF00FF]"+stuns+"[-]";
 				}
 			}
 
