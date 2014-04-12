@@ -8,18 +8,10 @@ public class Guard : BasePlayer{
 	[HideInInspector]
 	public bool stunned = false;
 	public UIPanel stunUI;
-	public AudioSource heartbeat;
-	public AudioSource server1;
-	public AudioSource server2;
-	public AudioSource server3;
 
 	private GameObject accused;
-	private bool recentlyPlayed1=false;
-	private bool recentlyPlayed2=false;
-	private bool recentlyPlayed3=false;
 	private GameObject[] guests = null;
 	private GameObject[] spies = null;
-	private GameObject[] servers = null;
 	private bool accusing = false;
 	private UIPanel accusationGUI;
 	private Renderer[] renders;
@@ -28,113 +20,56 @@ public class Guard : BasePlayer{
 	private static List<int> markedGuests = new List<int>();
 
 	protected override void Update () {
-			base.Update();
-			
-			if(photonView.isMine){
-			guests = GameObject.FindGameObjectsWithTag("Guest");
-			spies = GameObject.FindGameObjectsWithTag("Spy");
-			
-			//Code to get references to necessary NGUI Objects
-			/*------------------------------------------------------*/
-			locateNGUIObjects();
-			/*------------------------------------------------------*/
-
-			//Check if any servers under attack
-			/*------------------------------------------------------*/
-			if(servers == null){
-				servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
-			}
-			foreach(GameObject serv in servers){
-				if(serv.GetComponent<ObjectiveMain>().inUse){
-					Debug.Log(serv.GetComponent<ObjectiveMain>().objectiveName + " in use");
-					switch (serv.GetComponent<ObjectiveMain>().objectiveName){
-						case 1: if(!server1.isPlaying && !recentlyPlayed1){
-									server1.Play(); 
-									recentlyPlayed1=true;
-									Invoke("resetRecentlyPlayed1", 5f);} 
-									break;
-						case 2: if(!server2.isPlaying && !recentlyPlayed2){
-									server2.Play(); 
-									recentlyPlayed2=true;
-									Invoke("resetRecentlyPlayed2", 5f);} 
-									break;
-						case 3: if(!server3.isPlaying && !recentlyPlayed3){
-									server3.Play(); 
-									recentlyPlayed3=true;
-									Invoke("resetRecentlyPlayed3", 5f);} 
-									break;
-					}
-				}
-			}
-			/*------------------------------------------------------*/
-
-			//Code to update time/round label
-			/*------------------------------------------------------*/
-			if(timeLabel!=null)
-				updateTimeLabel();
-			/*------------------------------------------------------*/
+		base.Update();
+		guests = GameObject.FindGameObjectsWithTag("Guest");
+		spies = GameObject.FindGameObjectsWithTag("Spy");
+		
+		//Code to get references to necessary NGUI Objects
+		/*------------------------------------------------------*/
+		locateNGUIObjects();
+		/*------------------------------------------------------*/
 
 
 
-			//NGUI code for getting out
-			/*------------------------------------------------------*/
-			if(isOut){
-				accusing = false;
-				accused = null;
-				if(hairHat!=null)
-					hairHat.GetComponent<Renderer>().enabled = true;
-				NGUITools.SetActive(outLabel, true);
-			}
-			else{
-				NGUITools.SetActive(outLabel, false);
-			}
-			/*------------------------------------------------------*/
+		//Code to update time/round label
+		/*------------------------------------------------------*/
+		if(timeLabel!=null)
+			updateTimeLabel();
+		/*------------------------------------------------------*/
 
 
 
-			//Code to cancel accusation state
-			/*------------------------------------------------------*/
-			if(Input.GetKeyUp(KeyCode.Space)){
-				accusing = false;
-				accused = null;
-			}
-
-			if(accused!=null && Vector3.Distance(accused.transform.position, gameObject.transform.position)>60){
-				accused = null;
-				accusing = false;
-			}
-			/*------------------------------------------------------*/
-
-
-
-			//Updates guest/spy highlighting/marking
-			/*------------------------------------------------------*/
-			updateHighlighting();
-			/*------------------------------------------------------*/
-			
-
-
-			//Highlights the currently targeted guest
-			/*------------------------------------------------------*/
-			if(Camera.main!=null){
-				highlightTargeted();
-			}
-			/*------------------------------------------------------*/
-
-
+		//Code to cancel accusation state
+		/*------------------------------------------------------*/
+		if(Input.GetKeyUp(KeyCode.Space)){
+			accusing = false;
+			accused = null;
 		}
-	}
 
-	void resetRecentlyPlayed1(){
-		recentlyPlayed1 = false;
-	}
+		if(accused!=null && Vector3.Distance(accused.transform.position, gameObject.transform.position)>60){
+			accused = null;
+			accusing = false;
+		}
+		/*------------------------------------------------------*/
 
-	void resetRecentlyPlayed2(){
-		recentlyPlayed2 = false;
-	}
 
-	void resetRecentlyPlayed3(){
-		recentlyPlayed3 = false;
+
+		//Updates guest/spy highlighting/marking
+		/*------------------------------------------------------*/
+		updateHighlighting();
+		/*------------------------------------------------------*/
+		
+
+
+		//Highlights the currently targeted guest
+		/*------------------------------------------------------*/
+		if(Camera.main!=null){
+			highlightTargeted();
+		}
+		/*------------------------------------------------------*/
+
+
+		
 	}
 
 	void highlightTargeted(){
@@ -219,19 +154,18 @@ public class Guard : BasePlayer{
 						}
 					}
 				}
-				if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50 && Mathf.Abs(spy.transform.position.y - gameObject.transform.position.y)<=2){
+				if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50){
 						nearSpy = true;
-					if(!heartbeat.isPlaying){
-						heartbeat.Play();
+					if(!audio.isPlaying){
+						audio.Play();
 					}
 				}
 			}
 			if(!nearSpy){
-				heartbeat.Stop();
+				audio.Stop();
 			}
 		}
 	}
-
 	void updateTimeLabel(){
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
 		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
@@ -280,6 +214,8 @@ public class Guard : BasePlayer{
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
 			accused = null;
 		}
+		accusing = false;
+		accused = null;
 	}
 
 	void stunCooldown(){
