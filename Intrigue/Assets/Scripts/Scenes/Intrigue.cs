@@ -263,14 +263,12 @@ public class Intrigue : MonoBehaviour {
 
 	[RPC]
 	void addSpy(){
-		Debug.Log("Adding spy");
 		++this.numSpies;
 		++Intrigue.numSpiesLeft;
 	}
 
 	[RPC]
 	void addGuard(){
-		Debug.Log("Adding guard");
 		++this.numGuards;
 		++Intrigue.numGuardsLeft;
 	}

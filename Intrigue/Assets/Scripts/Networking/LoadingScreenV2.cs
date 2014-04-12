@@ -52,16 +52,31 @@ public class LoadingScreenV2 : MonoBehaviour {
 			countdownStarted = true;
 			loadNextRound.GetComponent<UILabel>().text = "Round starts in: ";
 			StartCoroutine(Waiter());
+			Invoke("beepLow",1);
+			Invoke("beepLow",2);
+			Invoke("beepLow",3);
+			Invoke("beepHigh",4);
 		}
 	}
 
    	IEnumerator Waiter() {
 		while(countdownCur<countdownDuration){
 			countdownCur+= Time.deltaTime;
-			loadTimer.GetComponent<UILabel>().text = Mathf.RoundToInt(countdownDuration-countdownCur)+"s";
+			int timerSec = Mathf.RoundToInt(countdownDuration-countdownCur);
+			loadTimer.GetComponent<UILabel>().text = timerSec+"s";
 			yield return null;
 		}
 		intrigue.GetComponent<PhotonView>().RPC("sendGameStart", PhotonTargets.AllBuffered);
+	}
+
+	void beepLow(){
+		audio.pitch = 0.5f;
+		audio.Play();
+	}
+
+	void beepHigh(){
+		audio.pitch = 0.65f;
+		audio.Play();
 	}
 
 }
