@@ -15,7 +15,7 @@ public class Player : MonoBehaviour {
 	private bool ready = false;
 
 	void Awake(){
-		DontDestroyOnLoad(transform.gameObject);
+		DontDestroyOnLoad(gameObject);
 	}
 
 	public int TeamID {
