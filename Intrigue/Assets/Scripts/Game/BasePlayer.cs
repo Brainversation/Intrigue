@@ -57,6 +57,7 @@ public class BasePlayer : MonoBehaviour {
 				NGUITools.SetActive(uiP.gameObject, false);
 			}
 		}
+		NGUITools.SetActive(outLabel, false);
 	}
 	
 	protected virtual void Update () {
@@ -106,6 +107,18 @@ public class BasePlayer : MonoBehaviour {
 				}
 			}
 		}
+
+		//NGUI code for getting out
+		/*------------------------------------------------------*/
+		if(isOut){
+			if(hairHat!=null)
+				hairHat.GetComponent<Renderer>().enabled = true;
+			NGUITools.SetActive(outLabel, true);
+		} else {
+			NGUITools.SetActive(outLabel, false);
+		}
+		/*------------------------------------------------------*/
+
 
 
 			//Left foot position

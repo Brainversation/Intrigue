@@ -10,88 +10,59 @@ public class Spy : BasePlayer{
 	private int stuns = 3;
 	private UIPanel objPanel;
 	private UISlider objSlider;
-	private GameObject [] servers; 
 
 	void Awake(){
 		stunsUI.text = "Stun Charges:\n[00FF00]3[-]";
-		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 	}
 
 
 	protected override void Update () {
-			base.Update();
-			if(photonView.isMine){
-			//Locate the necessary NGUI objects
-			/*------------------------------------------------------*/
-			locateNGUIObjects();
-			/*------------------------------------------------------*/
+		base.Update();
+		//Locate the necessary NGUI objects
+		/*------------------------------------------------------*/
+		locateNGUIObjects();
+		/*------------------------------------------------------*/
 
 
 
-			//NGUI code for doing Objectives
-			/*------------------------------------------------------*/
-			NGUITools.SetActive(objPanel.gameObject, doingObjective);
-			if(doingObjective){
-				objSlider = objPanel.GetComponentInChildren<UISlider>();
-				objSlider.value = percentComplete;
-			}
-			/*------------------------------------------------------*/
-
-
-
-			//NGUI code for getting out
-			/*------------------------------------------------------*/
-			if(isOut){
-				NGUITools.SetActive(outLabel, true);
-				if(hairHat!=null)
-					hairHat.GetComponent<Renderer>().enabled = true;
-			}
-			else{
-				NGUITools.SetActive(outLabel, false);
-			}
-			/*------------------------------------------------------*/
-
-
-
-			//NGUI code for updating time/round display
-			/*------------------------------------------------------*/
-			if(timeLabel!=null)
-				updateTimeLabel();
-			/*------------------------------------------------------*/
-
-
-
-			//Code for interacting
-			/*------------------------------------------------------*/
-			if ( Input.GetKey(KeyCode.E) ){
-				if(Camera.main!=null)
-					attemptInteract();
-			}
-			else{
-				doingObjective = false;
-			}
-
-			if( Input.GetKeyUp(KeyCode.E) ){
-				foreach(GameObject serv in servers){
-					serv.GetComponent<PhotonView>().RPC("setInUse",PhotonTargets.All, false);
-				}
-			}
-
-			/*------------------------------------------------------*/
-
-			//Code for stunning
-			/*------------------------------------------------------*/
-			if ( Input.GetKeyUp(KeyCode.F) ){
-				if(Camera.main!=null)
-					attemptStun();
-			}
-			/*------------------------------------------------------*/
-
-			//Code to add [] display for active objectives
-			/*------------------------------------------------------*/
-			addObjectiveText();
-			/*------------------------------------------------------*/
+		//NGUI code for doing Objectives
+		/*------------------------------------------------------*/
+		NGUITools.SetActive(objPanel.gameObject, doingObjective);
+		if(doingObjective){
+			objSlider = objPanel.GetComponentInChildren<UISlider>();
+			objSlider.value = percentComplete;
 		}
+		/*------------------------------------------------------*/
+
+
+		//NGUI code for updating time/round display
+		/*------------------------------------------------------*/
+		if(timeLabel!=null)
+			updateTimeLabel();
+		/*------------------------------------------------------*/
+
+
+
+		//Code for interacting
+		/*------------------------------------------------------*/
+		if ( Input.GetKey(KeyCode.E) ){
+			if(Camera.main!=null)
+				attemptInteract();
+		}
+		/*------------------------------------------------------*/
+
+		//Code for stunning
+		/*------------------------------------------------------*/
+		if ( Input.GetKeyUp(KeyCode.F) ){
+			if(Camera.main!=null)
+				attemptStun();
+		}
+		/*------------------------------------------------------*/
+
+		//Code to add [] display for active objectives
+		/*------------------------------------------------------*/
+		addObjectiveText();
+		/*------------------------------------------------------*/
 	}
 
 
@@ -204,7 +175,7 @@ public class Spy : BasePlayer{
 		}
 	}
 
-	[RPC]
+		[RPC]
 	void giveHandle(string handle){
 		localHandle = handle;
 	}
