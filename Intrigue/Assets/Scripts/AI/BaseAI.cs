@@ -39,6 +39,9 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public float sad = 0f;
 	[HideInInspector] public float toxicity = 0f;
 
+	//Other AI Characteristics
+	[HideInInspector] public bool smoker = false;
+
 	private bool aiTesting = false;
 
 	void Start(){
@@ -65,6 +68,13 @@ public class BaseAI : Photon.MonoBehaviour {
 			happy = Random.Range(0, 100);
 			sad = Random.Range(0, 100);
 			toxicity = Random.Range(0, 100);
+		}
+
+		if(Random.Range(0,100) > 50){
+			smoker = true;
+		}
+		else{
+			smoker = false;
 		}
 	}
 

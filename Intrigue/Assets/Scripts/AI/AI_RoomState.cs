@@ -14,8 +14,10 @@ public class AI_RoomState : MonoBehaviour{
 	[HideInInspector] public Vector3 drinkLocation;
 	[HideInInspector] public Vector3 converseLocation;
 	[HideInInspector] public Vector3 restroomLocation;
+	[HideInInspector] public Vector3 poetLocation;
 	[HideInInspector] public GameObject me;
 	[HideInInspector] public Vector3 nullLocation;
+	[HideInInspector] public GameObject poet;
 
 	public void Start(){
 		roomName = gameObject.name;
@@ -44,6 +46,18 @@ public class AI_RoomState : MonoBehaviour{
 			//Debug.Log("bathroomLocation: " + restroomLocation);
 		}
 
+		if(other.tag == "poetry"){
+			poetLocation = other.transform.position;
+		}
+
+		if(other.tag == "Relax"){
+			relaxLocation = other.transform.position;
+		}
+		/*
+		if(other.tag == "Art"){
+			artLocations.Add(other.transform.position);
+		}
+		*/
 	}
 
 	void OnTriggerStay(Collider other){

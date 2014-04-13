@@ -141,6 +141,17 @@ namespace RBS{
 		}
 	}
 
+	class isNotAnxious : Condition{
+		public isNotAnxious(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			if(gameObject.GetComponent<BaseAI>().anxiety < 50){
+				return true;
+			}
+			return false;
+		}
+	}
+
 	class isBursting : Condition{
 		public isBursting(GameObject gameObject):base(gameObject){}
 
@@ -243,6 +254,28 @@ namespace RBS{
 		}
 	}
 
+	class isNoPoet : Condition{
+		public isNoPoet(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+			if(script.room.name == "smoking" && script.room.poet != null){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	class isSmoker : Condition{
+		public isSmoker(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+
+			return script.smoker;
+		}
+	}
+
 	// <------------------------- Rules -------------------->
 
 	class WantToMoveRoom : Rule{
@@ -266,7 +299,6 @@ namespace RBS{
 
 			//Pick spot inside collider of chosen room
 			Vector3 newDest;
-			NavMeshPath path = new NavMeshPath();
             newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.x,
                                   room.GetComponent<BoxCollider>().bounds.max.x),
                                   gameObject.transform.position.y,
@@ -295,7 +327,6 @@ namespace RBS{
 
 			//Choose random point inside curRoom collider
 			Vector3 newDest;
-			NavMeshPath path = new NavMeshPath();
             newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.x,
                                   room.GetComponent<BoxCollider>().bounds.max.x),
                                   gameObject.transform.position.y,
@@ -561,6 +592,47 @@ namespace RBS{
 		}
 	}
 
+	class smoke : Rule{
+		public smoke(GameObject gameObject){
+			this.addCondition(new isAnxious(gameObject));
+			this.addCondition(new isBored(gameObject));
+			this.addCondition(new isSmoker(gameObject));
+		}
+
+		private Status goSmoke(GameObject gameObject){
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+
+			if(script.room.relaxLocation != null){
+				script.destination = script.room.relaxLocation;
+				script.anim.SetBool("Speed", true);
+				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+				script.agent.SetDestination(script.destination);
+			}
+			return Status.Waiting;
+		}
+	}
+
+	class readPoetry : Rule{
+		public readPoetry(GameObject gameObject){
+			this.addCondition(new isHappy(gameObject));
+			this.addCondition(new isNotAnxious(gameObject));
+			this.addCondition(new isNoPoet(gameObject));
+		}
+
+		private Status doPoetry(GameObject gameObject){
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+			script.bored -= 15;
+			script.tired += 15;
+
+			script.destination = script.room.poetLocation;
+			script.anim.SetBool("Speed", true);
+			gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+			script.agent.SetDestination(script.destination);
+
+			return Status.Waiting;
+		}
+	}
+
 	class DoIdle : Rule{
 		public DoIdle(GameObject gameObject){
 			this.addCondition(new StayStill());
@@ -572,5 +644,4 @@ namespace RBS{
 			return Status.True;
 		}
 	}
-
 }
