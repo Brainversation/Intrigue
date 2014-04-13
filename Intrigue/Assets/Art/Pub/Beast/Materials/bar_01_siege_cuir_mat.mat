@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: bar_01_siege_cuir_mat
-  m_Shader: {fileID: 4800000, guid: c911a36f9f848c547a08d95e0e2bee05, type: 3}
+  m_Shader: {fileID: 4800000, guid: 06d1aac584e8ea1439aef17569096dcf, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -17,7 +17,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 6256799921effc24e80a2c7e9096e4cf, type: 3}
+          m_Texture: {fileID: 2800000, guid: c1fbe35e123e4d54db85a2526d9a10a8, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -25,6 +25,20 @@ Material:
           name: _BumpMap
         second:
           m_Texture: {fileID: 2800000, guid: be1e9cd6c111f554da3876db9eb25b53, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _DecalTex
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Ramp
+        second:
+          m_Texture: {fileID: 2800000, guid: 948e1b7327c293a4081ba3c18eaab19f, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -37,17 +51,33 @@ Material:
     m_Floats:
       data:
         first:
+          name: _Outline
+        second: 0
+      data:
+        first:
           name: _Shininess
-        second: .100000001
+        second: .0237620231
       data:
         first:
           name: _Glossiness
         second: 1.71000004
+      data:
+        first:
+          name: _RimPower
+        second: 5.64285707
     m_Colors:
       data:
         first:
           name: _Color
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _OutlineColor
+        second: {r: .161764681, g: .161764681, b: .161764681, a: 1}
+      data:
+        first:
+          name: _SColor
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _SpecColor
@@ -56,3 +86,7 @@ Material:
         first:
           name: _ReflectColor
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _RimColor
+        second: {r: .800000012, g: .800000012, b: .800000012, a: .600000024}
