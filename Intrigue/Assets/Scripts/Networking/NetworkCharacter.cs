@@ -96,10 +96,14 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 					else if(spyRef.objectiveType=="Computer"){
 						anim.SetBool("InteractComp",true);
 					}
+					else if(spyRef.objectiveType=="Server"){
+						anim.SetBool("InteractServer",true);
+					}
 				}
 				else{
 					anim.SetBool("InteractSafe",false);
 					anim.SetBool("InteractComp",false);
+					anim.SetBool("InteractServer",false);
 				}
 			}
 		}
@@ -121,6 +125,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			stream.SendNext(Input.GetKey("left shift"));
 			stream.SendNext(anim.GetBool("InteractSafe"));
 			stream.SendNext(anim.GetBool("InteractComp"));
+			stream.SendNext(anim.GetBool("InteractServer"));
 			stream.SendNext(anim.GetBool("Out"));
 
 		}else{
@@ -132,6 +137,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetBool("Run", (bool) stream.ReceiveNext());
 			anim.SetBool("InteractSafe", (bool) stream.ReceiveNext());
 			anim.SetBool("InteractComp", (bool) stream.ReceiveNext());
+			anim.SetBool("InteractServer",(bool) stream.ReceiveNext());
 			anim.SetBool("Out", (bool) stream.ReceiveNext());
 		}
 	}

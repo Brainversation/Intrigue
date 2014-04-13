@@ -20,6 +20,7 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 	private float distMultiplier;
 
 	void Start () {
+		objectiveType = "Server";
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		player = GameObject.Find("Player").GetComponent<Player>();
 		timeLeft = completionTime;
@@ -43,13 +44,8 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 				inUse = true;
 				Intrigue.playerGO.GetComponent<Spy>().doingObjective = true;
 				Intrigue.playerGO.GetComponent<Spy>().percentComplete = -((timeLeft-completionTime)/completionTime);
-				if(objectiveType=="Computer"){
-					photonView.RPC("playAudio", PhotonTargets.All);
-				}
+
 			} else if(!finished) {
-				if(objectiveType=="Safe"){
-					photonView.RPC("playAudio", PhotonTargets.All);
-				}
 				photonView.RPC("objectiveComplete", PhotonTargets.All, this.id);
 				timeLeft = 0;
 				inUse = false;
