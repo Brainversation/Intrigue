@@ -64,6 +64,9 @@ public class Spy : BasePlayer{
 			if(Camera.main!=null)
 				attemptInteract();
 		}
+		else{
+			doingObjective = false;
+		}
 		/*------------------------------------------------------*/
 
 		//Code for stunning
