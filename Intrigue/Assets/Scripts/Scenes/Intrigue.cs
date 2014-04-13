@@ -50,7 +50,7 @@ public class Intrigue : MonoBehaviour {
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		totalGuests = player.Guests;
-		photonView.RPC("syncLoadedGuests", PhotonTargets.Others, 0, totalGuests);
+		photonView.RPC("syncLoadedGuests", PhotonTargets.Others, 0.0f, totalGuests);
 		if(PhotonNetwork.isMasterClient){
 			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
 			for(int i=0; i < spawnObjects.Length; i++){
@@ -152,7 +152,7 @@ public class Intrigue : MonoBehaviour {
 			//int type = Mathf.RoundToInt(Random.Range(1,4));
 			//Debug.Log("Guest type: " + type);
 			PhotonNetwork.InstantiateSceneObject("Robot_Guest1"/*+type.ToString()*/, spawnTrans.position, spawnTrans.rotation, 0, null);
-			yield return  new WaitForSeconds(.1f);
+			yield return new WaitForSeconds(.1f);
 		}
 
 		// Send turn off loading
