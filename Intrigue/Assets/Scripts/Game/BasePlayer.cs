@@ -106,6 +106,10 @@ public class BasePlayer : MonoBehaviour {
 
 	}
 
+	void playFootstep(){
+
+	}
+	
 	void syncPingAndScore(){
 		localPing = PhotonNetwork.GetPing();
 		photonView.RPC("givePing", PhotonTargets.All, localPing);
