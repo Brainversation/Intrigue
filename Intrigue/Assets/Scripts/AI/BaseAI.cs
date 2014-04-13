@@ -17,6 +17,11 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	protected List<Rule> rules;
 
+	//Audio Sources
+	public Animator animator;
+	public AudioSource footstepL;
+	public AudioSource footstepR;
+
 	// AI info
 	[HideInInspector] public Animator anim;
 	[HideInInspector] public Vector3 destination;
@@ -131,6 +136,32 @@ public class BaseAI : Photon.MonoBehaviour {
 				break;
 			}
 		}
+
+			//Left foot position
+			Vector3 leftFootT = animator.GetIKPosition(AvatarIKGoal.LeftFoot);
+			Quaternion leftFootQ = animator.GetIKRotation(AvatarIKGoal.LeftFoot);
+			Vector3 leftFootH = new Vector3(0, -animator.leftFeetBottomHeight, 0);
+			Vector3 posL = leftFootT + leftFootQ * leftFootH;
+			//Right foot position
+			Vector3 rightFootT = animator.GetIKPosition(AvatarIKGoal.RightFoot);
+			Quaternion rightFootQ = animator.GetIKRotation(AvatarIKGoal.RightFoot);
+			Vector3 rightFootH = new Vector3(0, -animator.rightFeetBottomHeight, 0);
+			Vector3 posR = rightFootT + rightFootQ * rightFootH;
+
+			float rHeight = posR.y - transform.position.y;
+			float lHeight = posL.y - transform.position.y;
+
+			if(rHeight > 0f){
+				if(!footstepR.isPlaying){
+					footstepR.Play();
+				}
+			}
+			if(lHeight > 0f){
+				if(!footstepL.isPlaying){
+					footstepL.Play();
+				}
+			}
+
 	}
 
 	void FixedUpdate(){
