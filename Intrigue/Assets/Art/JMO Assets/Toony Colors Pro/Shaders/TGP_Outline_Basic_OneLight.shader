@@ -9,6 +9,7 @@ Shader "Toony Colors Pro/Outline/OneDirLight/Basic"
 		_Ramp ("Toon Ramp (RGB)", 2D) = "gray" {}
 		
 		//COLORS
+		_MColor ("Main Color", Color) = (.5,.5,.5,1)
 		_Color ("Highlight Color", Color) = (0.8,0.8,0.8,1)
 		_SColor ("Shadow Color", Color) = (0.0,0.0,0.0,1)
 		
