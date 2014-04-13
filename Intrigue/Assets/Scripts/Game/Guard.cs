@@ -173,15 +173,15 @@ public class Guard : BasePlayer{
 						}
 					}
 				}
-				if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50){
+				if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50 && Mathf.Abs(spy.transform.position.y - gameObject.transform.position.y)<=2){
 						nearSpy = true;
-					if(!audio.isPlaying){
-						audio.Play();
+					if(!heartbeat.isPlaying){
+						heartbeat.Play();
 					}
 				}
 			}
 			if(!nearSpy){
-				audio.Stop();
+				heartbeat.Stop();
 			}
 		}
 	}
