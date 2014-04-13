@@ -9,6 +9,9 @@ public class Objective : Photon.MonoBehaviour {
 	public bool isActive = false;
 	public bool textAdded = false;
 	public string objectiveType;
+	public AudioSource tumbler;
+	public AudioSource door;
+
 	private float timeLeft;
 	private bool finished = false;
 	private Animator anim;
@@ -30,15 +33,16 @@ public class Objective : Photon.MonoBehaviour {
 	public void useObjective(GameObject user){
 		if(isActive){
 			if(timeLeft > 0){
+				if(!tumbler.isPlaying){
+					photonView.RPC("playTumbler", PhotonTargets.All);
+				}
 				timeLeft -= Time.deltaTime;
 				Intrigue.playerGO.GetComponent<Spy>().doingObjective = true;
 				Intrigue.playerGO.GetComponent<Spy>().percentComplete = -((timeLeft-completionTime)/completionTime);
-				if(objectiveType=="Computer"){
-					photonView.RPC("playAudio", PhotonTargets.All);
-				}
 			} else if(!finished) {
 				if(objectiveType=="Safe"){
-					photonView.RPC("playAudio", PhotonTargets.All);
+					photonView.RPC("playComplete", PhotonTargets.All);
+					photonView.RPC("stopTumbler", PhotonTargets.All);
 				}
 				photonView.RPC("objectiveComplete", PhotonTargets.All, this.id);
 				timeLeft = 0;
@@ -65,8 +69,18 @@ public class Objective : Photon.MonoBehaviour {
 	}
 
 	[RPC]
-	void playAudio(){
-		audio.Play();
+	void playComplete(){
+		door.Play();
+	}
+
+	[RPC]
+	void playTumbler(){
+		tumbler.Play();
+	}
+
+	[RPC]
+	void stopTumbler(){
+		tumbler.Stop();
 	}
 
 	[RPC]
