@@ -48,7 +48,7 @@ public class Intrigue : MonoBehaviour {
 	void Start () {
 		//CHANGE GAMEOVER HERE ~~~~~~~~~~~~~~~~~~~~~~~
 		
-		wantGameOver = true;
+		wantGameOver = false;
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~
 		photonView = PhotonView.Get(this);

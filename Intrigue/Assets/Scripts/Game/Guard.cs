@@ -8,6 +8,7 @@ public class Guard : BasePlayer{
 	[HideInInspector]
 	public bool stunned = false;
 	public UIPanel stunUI;
+	public AudioSource heartbeat;
 
 	private GameObject accused;
 	private GameObject[] guests = null;
@@ -20,72 +21,74 @@ public class Guard : BasePlayer{
 	private static List<int> markedGuests = new List<int>();
 
 	protected override void Update () {
-		base.Update();
-		guests = GameObject.FindGameObjectsWithTag("Guest");
-		spies = GameObject.FindGameObjectsWithTag("Spy");
-		
-		//Code to get references to necessary NGUI Objects
-		/*------------------------------------------------------*/
-		locateNGUIObjects();
-		/*------------------------------------------------------*/
+			base.Update();
+			
+			if(photonView.isMine){
+			guests = GameObject.FindGameObjectsWithTag("Guest");
+			spies = GameObject.FindGameObjectsWithTag("Spy");
+			
+			//Code to get references to necessary NGUI Objects
+			/*------------------------------------------------------*/
+			locateNGUIObjects();
+			/*------------------------------------------------------*/
 
 
 
-		//Code to update time/round label
-		/*------------------------------------------------------*/
-		if(timeLabel!=null)
-			updateTimeLabel();
-		/*------------------------------------------------------*/
+			//Code to update time/round label
+			/*------------------------------------------------------*/
+			if(timeLabel!=null)
+				updateTimeLabel();
+			/*------------------------------------------------------*/
 
 
 
-		//NGUI code for getting out
-		/*------------------------------------------------------*/
-		if(isOut){
-			accusing = false;
-			accused = null;
-			if(hairHat!=null)
-				hairHat.GetComponent<Renderer>().enabled = true;
-			NGUITools.SetActive(outLabel, true);
+			//NGUI code for getting out
+			/*------------------------------------------------------*/
+			if(isOut){
+				accusing = false;
+				accused = null;
+				if(hairHat!=null)
+					hairHat.GetComponent<Renderer>().enabled = true;
+				NGUITools.SetActive(outLabel, true);
+			}
+			else{
+				NGUITools.SetActive(outLabel, false);
+			}
+			/*------------------------------------------------------*/
+
+
+
+			//Code to cancel accusation state
+			/*------------------------------------------------------*/
+			if(Input.GetKeyUp(KeyCode.Space)){
+				accusing = false;
+				accused = null;
+			}
+
+			if(accused!=null && Vector3.Distance(accused.transform.position, gameObject.transform.position)>60){
+				accused = null;
+				accusing = false;
+			}
+			/*------------------------------------------------------*/
+
+
+
+			//Updates guest/spy highlighting/marking
+			/*------------------------------------------------------*/
+			updateHighlighting();
+			/*------------------------------------------------------*/
+			
+
+
+			//Highlights the currently targeted guest
+			/*------------------------------------------------------*/
+			if(Camera.main!=null){
+				highlightTargeted();
+			}
+			/*------------------------------------------------------*/
+
+
 		}
-		else{
-			NGUITools.SetActive(outLabel, false);
-		}
-		/*------------------------------------------------------*/
-
-
-
-		//Code to cancel accusation state
-		/*------------------------------------------------------*/
-		if(Input.GetKeyUp(KeyCode.Space)){
-			accusing = false;
-			accused = null;
-		}
-
-		if(accused!=null && Vector3.Distance(accused.transform.position, gameObject.transform.position)>60){
-			accused = null;
-			accusing = false;
-		}
-		/*------------------------------------------------------*/
-
-
-
-		//Updates guest/spy highlighting/marking
-		/*------------------------------------------------------*/
-		updateHighlighting();
-		/*------------------------------------------------------*/
-		
-
-
-		//Highlights the currently targeted guest
-		/*------------------------------------------------------*/
-		if(Camera.main!=null){
-			highlightTargeted();
-		}
-		/*------------------------------------------------------*/
-
-
-		
 	}
 
 	void highlightTargeted(){

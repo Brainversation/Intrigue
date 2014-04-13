@@ -11,7 +11,11 @@ public class BasePlayer : MonoBehaviour {
 	protected GameObject timeLabel;
 	protected GameObject outLabel;
 
+	public AudioSource footstepL;
+	public AudioSource footstepR;
+
 	public PhotonView photonView = null;
+	public Animator animator;
 	public string localHandle = "";
 	public int localPing = 0;
 	public int remoteScore = 0;
@@ -52,64 +56,86 @@ public class BasePlayer : MonoBehaviour {
 			foreach(UIPanel uiP in guiPanels){
 				NGUITools.SetActive(uiP.gameObject, false);
 			}
-			enabled = false;
 		}
 	}
 	
 	protected virtual void Update () {
-		if(!intrigue.gameStart && !roundStarted){
-			GetComponentInChildren<Camera>().enabled = false;
-			GetComponentInChildren<AudioListener>().enabled = false;
-			GetComponentInChildren<MovementController>().enabled = false;
-			GetComponentInChildren<Crosshair>().enabled = false;
-		}
-		else if(intrigue.gameStart && !roundStarted){
-			GetComponentInChildren<Camera>().enabled = true;
-			GetComponentInChildren<AudioListener>().enabled = true;
-			GetComponentInChildren<MovementController>().enabled = true;
-			GetComponentInChildren<Crosshair>().enabled = true;
-			roundStarted = true;
-		}
+		if(photonView.isMine){
+			if(!intrigue.gameStart && !roundStarted){
+				GetComponentInChildren<Camera>().enabled = false;
+				GetComponentInChildren<AudioListener>().enabled = false;
+				GetComponentInChildren<MovementController>().enabled = false;
+				GetComponentInChildren<Crosshair>().enabled = false;
+			}
+			else if(intrigue.gameStart && !roundStarted){
+				GetComponentInChildren<Camera>().enabled = true;
+				GetComponentInChildren<AudioListener>().enabled = true;
+				GetComponentInChildren<MovementController>().enabled = true;
+				GetComponentInChildren<Crosshair>().enabled = true;
+				roundStarted = true;
+			}
 
-		//Puts ally usernames above their head
-		GameObject[] allies = GameObject.FindGameObjectsWithTag(player.Team);
-		foreach(GameObject ally in allies){
-			if(ally!=gameObject){
-				if(player.Team=="Spy"){
-					if(!ally.GetComponent<Spy>().textAdded){
-						ally.GetComponent<Spy>().textAdded = true;
-						GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
-						textInstance.GetComponent<AllyText>().target = ally.transform;
-						textInstance.transform.parent = ally.transform;
-						textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
+			//Puts ally usernames above their head
+			GameObject[] allies = GameObject.FindGameObjectsWithTag(player.Team);
+			foreach(GameObject ally in allies){
+				if(ally!=gameObject){
+					if(player.Team=="Spy"){
+						if(!ally.GetComponent<Spy>().textAdded){
+							ally.GetComponent<Spy>().textAdded = true;
+							GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
+							textInstance.GetComponent<AllyText>().target = ally.transform;
+							textInstance.transform.parent = ally.transform;
+							textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
+						}
+						if((ally.GetComponentInChildren<TextMesh>().text == ""|| ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Spy>().textAdded){
+							ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
+						}
 					}
-					if((ally.GetComponentInChildren<TextMesh>().text == ""|| ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Spy>().textAdded){
-						ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
+					else{
+						if(!ally.GetComponent<Guard>().textAdded){
+							ally.GetComponent<Guard>().textAdded = true;
+							GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
+							textInstance.GetComponent<AllyText>().target = ally.transform;
+							textInstance.transform.parent = ally.transform;
+							textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
+						}
+						if((ally.GetComponentInChildren<TextMesh>().text == "" || ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Guard>().textAdded){
+							ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
+						}
 					}
 				}
-				else{
-					if(!ally.GetComponent<Guard>().textAdded){
-						ally.GetComponent<Guard>().textAdded = true;
-						GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
-						textInstance.GetComponent<AllyText>().target = ally.transform;
-						textInstance.transform.parent = ally.transform;
-						textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
-					}
-					if((ally.GetComponentInChildren<TextMesh>().text == "" || ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Guard>().textAdded){
-						ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
-					}
-				}
-
 			}
 		}
 
 
+			//Left foot position
+			Vector3 leftFootT = animator.GetIKPosition(AvatarIKGoal.LeftFoot);
+			Quaternion leftFootQ = animator.GetIKRotation(AvatarIKGoal.LeftFoot);
+			Vector3 leftFootH = new Vector3(0, -animator.leftFeetBottomHeight, 0);
+			Vector3 posL = leftFootT + leftFootQ * leftFootH;
+			//Right foot position
+			Vector3 rightFootT = animator.GetIKPosition(AvatarIKGoal.RightFoot);
+			Quaternion rightFootQ = animator.GetIKRotation(AvatarIKGoal.RightFoot);
+			Vector3 rightFootH = new Vector3(0, -animator.rightFeetBottomHeight, 0);
+			Vector3 posR = rightFootT + rightFootQ * rightFootH;
+
+			float rHeight = posR.y - transform.position.y;
+			float lHeight = posL.y - transform.position.y;
+
+			if(rHeight > 0f){
+				if(!footstepR.isPlaying){
+					footstepR.Play();
+				}
+			}
+			if(lHeight > 0f){
+				if(!footstepL.isPlaying){
+					footstepL.Play();
+				}
+			}
 	}
 
-	void playFootstep(){
 
-	}
-	
+
 	void syncPingAndScore(){
 		localPing = PhotonNetwork.GetPing();
 		photonView.RPC("givePing", PhotonTargets.All, localPing);
