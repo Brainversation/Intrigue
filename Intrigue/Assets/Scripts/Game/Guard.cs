@@ -9,10 +9,17 @@ public class Guard : BasePlayer{
 	public bool stunned = false;
 	public UIPanel stunUI;
 	public AudioSource heartbeat;
+	public AudioSource server1;
+	public AudioSource server2;
+	public AudioSource server3;
 
 	private GameObject accused;
+	private bool recentlyPlayed1=false;
+	private bool recentlyPlayed2=false;
+	private bool recentlyPlayed3=false;
 	private GameObject[] guests = null;
 	private GameObject[] spies = null;
+	private GameObject[] servers = null;
 	private bool accusing = false;
 	private UIPanel accusationGUI;
 	private Renderer[] renders;
@@ -32,7 +39,34 @@ public class Guard : BasePlayer{
 			locateNGUIObjects();
 			/*------------------------------------------------------*/
 
-
+			//Check if any servers under attack
+			/*------------------------------------------------------*/
+			if(servers == null){
+				servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
+			}
+			foreach(GameObject serv in servers){
+				if(serv.GetComponent<ObjectiveMain>().inUse){
+					Debug.Log(serv.GetComponent<ObjectiveMain>().objectiveName + " in use");
+					switch (serv.GetComponent<ObjectiveMain>().objectiveName){
+						case 1: if(!server1.isPlaying && !recentlyPlayed1){
+									server1.Play(); 
+									recentlyPlayed1=true;
+									Invoke("resetRecentlyPlayed1", 5f);} 
+									break;
+						case 2: if(!server2.isPlaying && !recentlyPlayed2){
+									server2.Play(); 
+									recentlyPlayed2=true;
+									Invoke("resetRecentlyPlayed2", 5f);} 
+									break;
+						case 3: if(!server3.isPlaying && !recentlyPlayed3){
+									server3.Play(); 
+									recentlyPlayed3=true;
+									Invoke("resetRecentlyPlayed3", 5f);} 
+									break;
+					}
+				}
+			}
+			/*------------------------------------------------------*/
 
 			//Code to update time/round label
 			/*------------------------------------------------------*/
@@ -89,6 +123,18 @@ public class Guard : BasePlayer{
 
 
 		}
+	}
+
+	void resetRecentlyPlayed1(){
+		recentlyPlayed1 = false;
+	}
+
+	void resetRecentlyPlayed2(){
+		recentlyPlayed2 = false;
+	}
+
+	void resetRecentlyPlayed3(){
+		recentlyPlayed3 = false;
 	}
 
 	void highlightTargeted(){
@@ -185,6 +231,7 @@ public class Guard : BasePlayer{
 			}
 		}
 	}
+
 	void updateTimeLabel(){
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
 		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);

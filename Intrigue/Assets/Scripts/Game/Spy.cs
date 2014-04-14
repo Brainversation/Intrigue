@@ -10,9 +10,11 @@ public class Spy : BasePlayer{
 	private int stuns = 3;
 	private UIPanel objPanel;
 	private UISlider objSlider;
+	private GameObject [] servers; 
 
 	void Awake(){
 		stunsUI.text = "Stun Charges:\n[00FF00]3[-]";
+		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 	}
 
 
@@ -68,6 +70,13 @@ public class Spy : BasePlayer{
 			else{
 				doingObjective = false;
 			}
+
+			if( Input.GetKeyUp(KeyCode.E) ){
+				foreach(GameObject serv in servers){
+					serv.GetComponent<PhotonView>().RPC("setInUse",PhotonTargets.All, false);
+				}
+			}
+
 			/*------------------------------------------------------*/
 
 			//Code for stunning
