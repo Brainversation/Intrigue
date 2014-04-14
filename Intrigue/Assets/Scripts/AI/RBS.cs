@@ -594,11 +594,14 @@ namespace RBS{
 		}
 	}
 
-/*	class smoke : Rule{
+	class smoke : Rule{
+		private GameObject go;
 		public smoke(GameObject gameObject){
 			this.addCondition(new isAnxious(gameObject));
 			this.addCondition(new isBored(gameObject));
 			this.addCondition(new isSmoker(gameObject));
+			this.consequence = goSmoke;
+			this.antiConsequence = stopSmoking;
 		}
 
 		private Status goSmoke(GameObject gameObject){
@@ -612,8 +615,13 @@ namespace RBS{
 			}
 			return Status.Waiting;
 		}
+
+		private Status stopSmoking(){
+			Debug.Log("Inside Smoking antiConsequence");
+			this.go.GetComponent<Animator>().SetBool("Smoke", true);
+			return Status.True;
+		}
 	}
-*/
 
 	class readPoetry : Rule{
 		private GameObject go;

@@ -206,6 +206,14 @@ namespace BehaviorTree{
 		}
 	}
 
+	class doSmoking : Task{
+		public override Status run(GameObject gameObject){
+			gameObject.GetComponent<Animator>().SetBool("Smoke", true);
+			Debug.Log("Now smoking");
+			return Status.True;
+		}
+	}
+
 
 	// <---------------------- Behave Trees ------------------------>
 	class MakeDrink : Sequence{
@@ -243,13 +251,20 @@ namespace BehaviorTree{
 		}
 	}
 
-	class PoetryTree: Sequence{
+	class PoetryTree : Sequence{
 		public PoetryTree(){
 			addChild(new Sequence());
 			//this.addChild(new Wait);
 			this.addChild(new doPoetry());
 		}
 
+	}
+
+	class SmokeTree : Sequence{
+		public SmokeTree(){
+			addChild(new Sequence());
+			this.addChild(new doSmoking());
+		}
 	}
 
 	public enum Status{
