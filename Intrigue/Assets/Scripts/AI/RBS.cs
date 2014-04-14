@@ -240,14 +240,6 @@ namespace RBS{
 		}
 	}
 
-	class hasDrink : Condition{
-		public hasDrink(GameObject gameObject):base(gameObject){}
-
-		public override bool test(){
-			return gameObject.GetComponent<BaseAI>().hasDrink;
-		}
-	}
-
 	class notInRoom : Condition{
 		public notInRoom(GameObject gameObject):base(gameObject){}
 
@@ -380,20 +372,24 @@ namespace RBS{
 			script.thirst -= 25;
 
 			//Check room for hotspot location
-			if(script.room.drinkLocation != Vector3.zero){
-				script.destination = script.room.drinkLocation;
+			if(script.room.drinkLocation != script.room.nullLocation){
+				script.destination = script.room.drinkLocation; //script.room.drinkLocation.position;
+				script.anim.SetBool("Speed", true);
+				gameObject.GetComponent<BaseAI>().distFromDest = 10f;
+				script.agent.SetDestination(script.destination);
+				script.tree = new DrinkingTree();
 			}
 			//Choose random hotspot location
 			else{
 
 				GameObject[] drinkLocations = GameObject.FindGameObjectsWithTag("Drink");
 				GameObject drinkLocation = drinkLocations[UnityEngine.Random.Range(0, drinkLocations.Length)];
-				script.destination = drinkLocation.transform.position;
+				script.destination = drinkLocation.transform.position; //script.room.drinkLocation.position;
+				script.anim.SetBool("Speed", true);
+				gameObject.GetComponent<BaseAI>().distFromDest = 10f;
+				script.agent.SetDestination(script.destination);
+				script.tree = new DrinkingTree();
 			}
-			script.anim.SetBool("Speed", true);
-			gameObject.GetComponent<BaseAI>().distFromDest = 10f;
-			script.agent.SetDestination(script.destination);
-			script.tree = new DrinkingTree(gameObject);
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 115f, false);
 			return Status.Waiting;
 		}
@@ -456,7 +452,7 @@ namespace RBS{
 			script.bladder -= 25;
 
 			//Check if room has hotspot
-			if(script.room.restroomLocation != Vector3.zero){
+			if(script.room.restroomLocation != script.room.nullLocation){
 				script.destination = script.room.restroomLocation; //script.room.restroomLocation.position;
 				script.anim.SetBool("Speed", true);
 				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
@@ -641,7 +637,6 @@ namespace RBS{
 		public DoIdle(GameObject gameObject){
 			this.addCondition(new StayStill());
 			this.consequence = stay;
-			this.weight = 6;
 		}
 
 		private Status stay(GameObject gameObject){
