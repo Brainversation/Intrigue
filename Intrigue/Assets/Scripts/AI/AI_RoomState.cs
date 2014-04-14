@@ -16,7 +16,6 @@ public class AI_RoomState : MonoBehaviour{
 	[HideInInspector] public Vector3 restroomLocation;
 	[HideInInspector] public Vector3 poetLocation;
 	[HideInInspector] public GameObject me;
-	[HideInInspector] public Vector3 nullLocation;
 	[HideInInspector] public GameObject poet;
 
 	public void Start(){
@@ -24,7 +23,6 @@ public class AI_RoomState : MonoBehaviour{
 		population = 0;
 		me = gameObject;
 		conversers = new List<GameObject>();
-		nullLocation = new Vector3(0,0,0);
 	}
 
 	void OnTriggerEnter(Collider other){

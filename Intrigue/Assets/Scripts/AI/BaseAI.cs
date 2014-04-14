@@ -30,6 +30,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool isYourTurn = false;
 	[HideInInspector] public Status status = Status.False;
 	[HideInInspector] public float distFromDest = 5f;
+	[HideInInspector] public bool hasDrink = false;
 
 	// Wants, needs, and feelings 0-100 scale
 	[HideInInspector] public float thirst = 0f;
@@ -46,18 +47,18 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	//Other AI Characteristics
 	[HideInInspector] public bool smoker = false;
-
-	private bool aiTesting = false;
+	
+	private bool aiTesting = true;
 
 	void Start(){
 		anim = GetComponent<Animator>();
 		anim.speed = 1f;
 		initAI();
 		if(aiTesting){
-			thirst = 0;
+			thirst = 60;
 			bored = 60;
 			hunger = 0;
-			lonely = 60;
+			lonely = 0;
 			tired = 0;
 			anxiety = 0;
 			bladder = 0;
@@ -112,7 +113,6 @@ public class BaseAI : Photon.MonoBehaviour {
 					if( tree.run(gameObject) == Status.True){
 						Invoke("backToRule", 5f);
 						tree = null;
-						status = Status.Waiting;
 					}
 				break;
 
@@ -220,8 +220,9 @@ public class BaseAI : Photon.MonoBehaviour {
 	void initAI(){
 		rules = new List<Rule>();
 		rules.Add( new WantToGetDrink(gameObject) );
-		rules.Add( new WantToConverse(gameObject) );
-		rules.Add( new FindRoom(gameObject) );
+		rules.Add( new DoIdle(gameObject) );
+		// rules.Add( new WantToConverse(gameObject) );
+		// rules.Add( new FindRoom(gameObject) );
 	}
 
 	void backToRule(){
@@ -235,6 +236,7 @@ public class BaseAI : Photon.MonoBehaviour {
 		// Debug.Log("adding Drink");
 		this.thirst -= 10;
 		this.bladder += 5;
+		this.hasDrink = true;
 	}
 
 	[RPC]
