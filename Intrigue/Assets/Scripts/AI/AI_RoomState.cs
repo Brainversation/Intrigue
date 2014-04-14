@@ -19,12 +19,12 @@ public class AI_RoomState : MonoBehaviour{
 	[HideInInspector] public Vector3 nullLocation;
 	[HideInInspector] public GameObject poet = null;
 
+
 	public void Start(){
 		roomName = gameObject.name;
 		population = 0;
 		me = gameObject;
 		conversers = new List<GameObject>();
-		nullLocation = new Vector3(0,0,0);
 	}
 
 	void OnTriggerEnter(Collider other){

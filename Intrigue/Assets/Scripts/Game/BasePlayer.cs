@@ -27,11 +27,6 @@ public class BasePlayer : MonoBehaviour {
 
 	private bool roundStarted = false;
 
-	//Yield function that waits specified amount of seconds
-	IEnumerator Yielder(int seconds){
-		yield return new WaitForSeconds(seconds);
-	}
-
 	void Start () {
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();

@@ -32,18 +32,6 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: Poetry
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
-  - m_Name: Smoke
-    m_Type: 4
-    m_DefaultFloat: 0
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 3
     m_Name: Base Layer
@@ -229,42 +217,6 @@ Transition:
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
---- !u!1101 &110134148
-Transition:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_SrcState: {fileID: 110240798}
-  m_DstState: {fileID: 110251729}
-  m_TransitionDuration: .0357142761
-  m_TransitionOffset: 0
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Smoke
-    m_EventTreshold: 0
-    m_ExitTime: .964285731
-  m_Atomic: 1
-  m_Solo: 0
-  m_Mute: 0
---- !u!1101 &110134667
-Transition:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_SrcState: {fileID: 110240798}
-  m_DstState: {fileID: 110200000}
-  m_TransitionDuration: .0357142761
-  m_TransitionOffset: 0
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Poetry
-    m_EventTreshold: 0
-    m_ExitTime: .964285731
-  m_Atomic: 1
-  m_Solo: 0
-  m_Mute: 0
 --- !u!1101 &110177309
 Transition:
   m_ObjectHideFlags: 3
@@ -291,31 +243,13 @@ Transition:
   m_Name: 
   m_SrcState: {fileID: 110230150}
   m_DstState: {fileID: 110285440}
-  m_TransitionDuration: .0688073337
-  m_TransitionOffset: 0
+  m_TransitionDuration: .0793889612
+  m_TransitionOffset: .00743438443
   m_Conditions:
   - m_ConditionMode: 5
     m_ConditionEvent: Drink
     m_EventTreshold: 0
-    m_ExitTime: .931192636
-  m_Atomic: 1
-  m_Solo: 0
-  m_Mute: 0
---- !u!1101 &110179677
-Transition:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_SrcState: {fileID: 110251729}
-  m_DstState: {fileID: 110240798}
-  m_TransitionDuration: .100000001
-  m_TransitionOffset: 0
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Smoke
-    m_EventTreshold: 0
-    m_ExitTime: .899999976
+    m_ExitTime: 1.94847262
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
@@ -355,24 +289,6 @@ Transition:
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
---- !u!1101 &110186198
-Transition:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: 
-  m_SrcState: {fileID: 110200000}
-  m_DstState: {fileID: 110240798}
-  m_TransitionDuration: .100000001
-  m_TransitionOffset: 0
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Poetry
-    m_EventTreshold: 0
-    m_ExitTime: .899999976
-  m_Atomic: 1
-  m_Solo: 0
-  m_Mute: 0
 --- !u!1101 &110194222
 Transition:
   m_ObjectHideFlags: 3
@@ -391,21 +307,6 @@ Transition:
   m_Atomic: 1
   m_Solo: 0
   m_Mute: 0
---- !u!1102 &110200000
-State:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Poetry Reading
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Motions:
-  - {fileID: 7400000, guid: d0543607f55e50e4fade3a0d9e64ce0a, type: 3}
-  m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: 288, y: -264, z: 0}
-  m_IKOnFeet: 0
-  m_Mirror: 0
-  m_Tag: 
 --- !u!1102 &110219063
 State:
   m_ObjectHideFlags: 3
@@ -466,21 +367,6 @@ State:
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
---- !u!1102 &110251729
-State:
-  m_ObjectHideFlags: 3
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Smoking
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Motions:
-  - {fileID: 7400038, guid: add9497ad90e1ee4e9d3b66e94ec42b0, type: 3}
-  m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: -168, y: -276, z: 0}
-  m_IKOnFeet: 0
-  m_Mirror: 0
-  m_Tag: 
 --- !u!1102 &110258805
 State:
   m_ObjectHideFlags: 3
@@ -492,7 +378,7 @@ State:
   m_Motions:
   - {fileID: 7400002, guid: 6ff8912f962b86240981d16c778ae1ff, type: 3}
   m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: -144, y: -156, z: 0}
+  m_Position: {x: -180, y: -132, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
@@ -522,7 +408,7 @@ State:
   m_Motions:
   - {fileID: 7400004, guid: f627a82535eb00b4cb9c402e49ac9d14, type: 3}
   m_ParentStateMachine: {fileID: 110700000}
-  m_Position: {x: 156, y: 0, z: 0}
+  m_Position: {x: 156, y: -12, z: 0}
   m_IKOnFeet: 0
   m_Mirror: 0
   m_Tag: 
@@ -540,19 +426,9 @@ StateMachine:
   - {fileID: 110230150}
   - {fileID: 110285440}
   - {fileID: 110258805}
-  - {fileID: 110200000}
-  - {fileID: 110251729}
   m_ChildStateMachine: []
   m_ChildStateMachinePosition: []
   m_OrderedTransitions:
-    data:
-      first: {fileID: 110251729}
-      second:
-      - {fileID: 110179677}
-    data:
-      first: {fileID: 110200000}
-      second:
-      - {fileID: 110186198}
     data:
       first: {fileID: 0}
       second: []
@@ -562,8 +438,6 @@ StateMachine:
       - {fileID: 110100000}
       - {fileID: 110183521}
       - {fileID: 110177309}
-      - {fileID: 110134667}
-      - {fileID: 110134148}
     data:
       first: {fileID: 110219063}
       second:
