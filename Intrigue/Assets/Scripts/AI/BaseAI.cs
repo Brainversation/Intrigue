@@ -47,8 +47,8 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	//Other AI Characteristics
 	[HideInInspector] public bool smoker = false;
-	
-	private bool aiTesting = true;
+
+	private bool aiTesting = false;
 
 	void Start(){
 		anim = GetComponent<Animator>();
