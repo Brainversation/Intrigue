@@ -27,6 +27,11 @@ public class BasePlayer : MonoBehaviour {
 
 	private bool roundStarted = false;
 
+	//Yield function that waits specified amount of seconds
+	IEnumerator Yielder(int seconds){
+		yield return new WaitForSeconds(seconds);
+	}
+
 	void Start () {
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -52,7 +57,6 @@ public class BasePlayer : MonoBehaviour {
 				NGUITools.SetActive(uiP.gameObject, false);
 			}
 		}
-		NGUITools.SetActive(outLabel, false);
 	}
 	
 	protected virtual void Update () {
@@ -102,18 +106,6 @@ public class BasePlayer : MonoBehaviour {
 				}
 			}
 		}
-
-		//NGUI code for getting out
-		/*------------------------------------------------------*/
-		if(isOut){
-			if(hairHat!=null)
-				hairHat.GetComponent<Renderer>().enabled = true;
-			NGUITools.SetActive(outLabel, true);
-		} else {
-			NGUITools.SetActive(outLabel, false);
-		}
-		/*------------------------------------------------------*/
-
 
 
 			//Left foot position

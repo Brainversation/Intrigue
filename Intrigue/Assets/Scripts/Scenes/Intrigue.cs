@@ -20,7 +20,6 @@ public class Intrigue : MonoBehaviour {
 	private int spawnIndex;
 	private Transform spawnTrans;
 	private int readyCount = 0;
-	private bool wantGameOver;
 
 	private static int rounds = 3;
 	private static int roundsLeft = rounds;
@@ -34,6 +33,7 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector] public bool doneLoading = false;
 	[HideInInspector] public float loadedGuests = 0;
 	[HideInInspector] public float totalGuests;
+	[HideInInspector] public bool wantGameOver;
 	public static int numSpiesLeft;
 	public static int numGuardsLeft;
 	public static GameObject playerGO = null;
@@ -46,11 +46,15 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void Start () {
+		//CHANGE GAMEOVER HERE ~~~~~~~~~~~~~~~~~~~~~~~
+		
 		wantGameOver = false;
+
+		//~~~~~~~~~~~~~~~~~~~~~~~~
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		totalGuests = player.Guests;
-		photonView.RPC("syncLoadedGuests", PhotonTargets.Others, 0, totalGuests);
+		photonView.RPC("syncLoadedGuests", PhotonTargets.Others, 0.0f, totalGuests);
 		if(PhotonNetwork.isMasterClient){
 			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
 			for(int i=0; i < spawnObjects.Length; i++){
@@ -152,7 +156,7 @@ public class Intrigue : MonoBehaviour {
 			//int type = Mathf.RoundToInt(Random.Range(1,4));
 			//Debug.Log("Guest type: " + type);
 			PhotonNetwork.InstantiateSceneObject("Robot_Guest1"/*+type.ToString()*/, spawnTrans.position, spawnTrans.rotation, 0, null);
-			yield return  new WaitForSeconds(.1f);
+			yield return new WaitForSeconds(.1f);
 		}
 
 		// Send turn off loading
@@ -263,14 +267,12 @@ public class Intrigue : MonoBehaviour {
 
 	[RPC]
 	void addSpy(){
-		Debug.Log("Adding spy");
 		++this.numSpies;
 		++Intrigue.numSpiesLeft;
 	}
 
 	[RPC]
 	void addGuard(){
-		Debug.Log("Adding guard");
 		++this.numGuards;
 		++Intrigue.numGuardsLeft;
 	}
