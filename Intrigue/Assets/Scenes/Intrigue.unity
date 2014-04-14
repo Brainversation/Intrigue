@@ -28762,6 +28762,10 @@ Prefab:
       propertyPath: tumbler
       value: 
       objectReference: {fileID: 2112852158}
+    - target: {fileID: 100478, guid: fa27b321422ea7b4983ddf4ebac9a32b, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8200038, guid: fa27b321422ea7b4983ddf4ebac9a32b, type: 2}
     - {fileID: 8200034, guid: fa27b321422ea7b4983ddf4ebac9a32b, type: 2}
@@ -57509,7 +57513,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1016203273
 Transform:
   m_ObjectHideFlags: 0
