@@ -259,6 +259,19 @@ namespace BehaviorTree{
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	class doPoetry : Task{
+		public override Status run(GameObject gameObject){
+			gameObject.GetComponent<Animator>().SetBool("Poetry", true);
+			Debug.Log("Now reading Poetry!!");
+			return Status.True;
+		}
+	}
+
+
+
+>>>>>>> Skeletal poetry behaviour implemented, needs appropriate animtaion and functionality to extend it.
 	// <---------------------- Behave Trees ------------------------>
 	class MakeDrink : Sequence{
 		public MakeDrink(){
@@ -298,13 +311,12 @@ namespace BehaviorTree{
 		}
 	}
 
-	class PoetryTree : Sequence{
+	class PoetryTree: Sequence{
 		public PoetryTree(){
 			addChild(new Sequence());
 			//this.addChild(new Wait);
 			this.addChild(new doPoetry());
 		}
-
 	}
 
 	class SmokeTree : Sequence{

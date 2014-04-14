@@ -48,7 +48,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool smoker = false;
 	[HideInInspector] public bool hasDrink = false;
 
-	private bool aiTesting = false;
+	private bool aiTesting = true;
 
 	void Start(){
 		anim = GetComponent<Animator>();
@@ -62,7 +62,11 @@ public class BaseAI : Photon.MonoBehaviour {
 			tired = 0;
 			anxiety = 0;
 			bladder = 0;
+<<<<<<< HEAD
 			happy = 60;
+=======
+			happy = 0;
+>>>>>>> Skeletal poetry behaviour implemented, needs appropriate animtaion and functionality to extend it.
 		} else {
 			thirst = Random.Range(0, 100);
 			bored = Random.Range(0, 100);
@@ -236,6 +240,8 @@ public class BaseAI : Photon.MonoBehaviour {
 		// Smoke
 		// ReadPoetry
 		// DoIdle
+		//rules.Add(new readPoetry(gameObject));
+		//rules.Add(new WantToGetDrink(gameObject));
 	}
 
 	void backToRule(){
