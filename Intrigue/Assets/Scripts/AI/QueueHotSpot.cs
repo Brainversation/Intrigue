@@ -12,7 +12,6 @@ public class QueueHotSpot : MonoBehaviour {
 	void Update(){
 		if(queue.Count >= 1 && !queue[0].GetComponent<BaseAI>().isYourTurn){
 			queue[0].GetComponent<BaseAI>().isYourTurn = true;
-			queue[0].GetComponent<Animator>().SetBool("Speed", true);
 			queue[0].GetComponent<BaseAI>().destination = actionDestination.position;
 			queue[0].GetComponent<BaseAI>().distFromDest = 0.5f;
 		}
