@@ -17,7 +17,7 @@ public class AI_RoomState : MonoBehaviour{
 	[HideInInspector] public Vector3 poetLocation;
 	[HideInInspector] public GameObject me;
 	[HideInInspector] public Vector3 nullLocation;
-	[HideInInspector] public GameObject poet;
+	[HideInInspector] public GameObject poet = null;
 
 	public void Start(){
 		roomName = gameObject.name;

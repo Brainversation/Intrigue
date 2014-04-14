@@ -198,6 +198,14 @@ namespace BehaviorTree{
 		}
 	}
 
+	class doPoetry : Task{
+		public override Status run(GameObject gameObject){
+			gameObject.GetComponent<Animator>().SetBool("Poetry", true);
+			Debug.Log("Now reading Poetry!!");
+			return Status.True;
+		}
+	}
+
 
 	// <---------------------- Behave Trees ------------------------>
 	class MakeDrink : Sequence{
@@ -233,6 +241,15 @@ namespace BehaviorTree{
 			children[children.Count-1].addChild(new Inverter( new WaitInLine() ));
 			children[children.Count-1].addChild(new MakeDrink());
 		}
+	}
+
+	class PoetryTree: Sequence{
+		public PoetryTree(){
+			addChild(new Sequence());
+			//this.addChild(new Wait);
+			this.addChild(new doPoetry());
+		}
+
 	}
 
 	public enum Status{

@@ -47,20 +47,21 @@ public class BaseAI : Photon.MonoBehaviour {
 	//Other AI Characteristics
 	[HideInInspector] public bool smoker = false;
 
-	private bool aiTesting = false;
+	private bool aiTesting = true;
 
 	void Start(){
 		anim = GetComponent<Animator>();
 		anim.speed = 1f;
 		initAI();
 		if(aiTesting){
-			thirst = 0;
+			thirst = 100;
 			bored = 60;
 			hunger = 0;
-			lonely = 60;
+			lonely = 0;
 			tired = 0;
 			anxiety = 0;
 			bladder = 0;
+			happy = 60;
 		} else {
 			thirst = Random.Range(0, 100);
 			bored = Random.Range(0, 100);
@@ -219,14 +220,17 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void initAI(){
 		rules = new List<Rule>();
-		rules.Add( new WantToGetDrink(gameObject) );
-		rules.Add( new WantToConverse(gameObject) );
+		//rules.Add( new WantToGetDrink(gameObject) );
+		//rules.Add( new WantToConverse(gameObject) );
 		rules.Add( new FindRoom(gameObject) );
+		//rules.Add(new readPoetry(gameObject));
+		rules.Add(new WantToGetDrink(gameObject));
 	}
 
 	void backToRule(){
 		// Debug.Log("Back to rule");
 		if(currentRule != null && currentRule.antiConsequence != null)
+			Debug.Log("running antiConsequence");
 			currentRule.antiConsequence();
 		if(!agent.hasPath) status = Status.False;
 	}

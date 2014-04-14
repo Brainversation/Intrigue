@@ -259,9 +259,10 @@ namespace RBS{
 
 		public override bool test(){
 			BaseAI script = gameObject.GetComponent<BaseAI>();
-			if(script.room.name == "smoking" && script.room.poet != null){
+			if(script.room.name == "smoking" && script.room.poet == null){
 				return true;
 			}
+			Debug.Log("There is a poet");
 			return false;
 		}
 	}
@@ -285,6 +286,7 @@ namespace RBS{
 		}
 
 		private Status goToRoom(GameObject gameObject){
+			Debug.Log("Inside find room");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			GameObject curRoom = script.room.me;
 			GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
@@ -592,7 +594,7 @@ namespace RBS{
 		}
 	}
 
-	class smoke : Rule{
+/*	class smoke : Rule{
 		public smoke(GameObject gameObject){
 			this.addCondition(new isAnxious(gameObject));
 			this.addCondition(new isBored(gameObject));
@@ -611,25 +613,42 @@ namespace RBS{
 			return Status.Waiting;
 		}
 	}
+*/
 
 	class readPoetry : Rule{
+		private GameObject go;
 		public readPoetry(GameObject gameObject){
 			this.addCondition(new isHappy(gameObject));
 			this.addCondition(new isNotAnxious(gameObject));
 			this.addCondition(new isNoPoet(gameObject));
+			this.consequence = doPoetry;
+			this.antiConsequence = stopPoetry;
+			this.go = gameObject;
+			this.weight = 10;
 		}
 
 		private Status doPoetry(GameObject gameObject){
+			Debug.Log("Inside Poetry");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bored -= 15;
 			script.tired += 15;
+			script.happy -= 50;
 
+			script.room.poet = gameObject;
 			script.destination = script.room.poetLocation;
 			script.anim.SetBool("Speed", true);
 			gameObject.GetComponent<BaseAI>().distFromDest = 5f;
 			script.agent.SetDestination(script.destination);
+			script.tree = new PoetryTree();
 
 			return Status.Waiting;
+		}
+
+		private Status stopPoetry(){
+			this.go.GetComponent<Animator>().SetBool("Poetry",false);
+			this.go.GetComponent<BaseAI>().room.poet = null;
+			Debug.Log("Inside anti-consequence of poetry");
+			return Status.True;
 		}
 	}
 
