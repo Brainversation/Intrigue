@@ -42,6 +42,7 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 				timeLeft -= Time.deltaTime*distMultiplier;
 				photonView.RPC("updateTimeLeft", PhotonTargets.All, timeLeft);
 				inUse = true;
+				photonView.RPC("setInUse", PhotonTargets.Others, true);
 				Intrigue.playerGO.GetComponent<Spy>().doingObjective = true;
 				Intrigue.playerGO.GetComponent<Spy>().percentComplete = -((timeLeft-completionTime)/completionTime);
 
@@ -49,20 +50,23 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 				photonView.RPC("objectiveComplete", PhotonTargets.All, this.id);
 				timeLeft = 0;
 				inUse = false;
+				photonView.RPC("setInUse", PhotonTargets.Others, false);
 				finished = true;
 				user.GetComponent<Spy>().doingObjective = false;
 				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 200);
 				isActive = false;
 			}
 		}
-
-
 	}
 
 	public void activate(){
 		photonView.RPC("setActive", PhotonTargets.AllBuffered);
 	}
 
+	[RPC]
+	void setInUse(bool state){
+		inUse = state;
+	}
 
 	[RPC]
 	void playAudio(){
