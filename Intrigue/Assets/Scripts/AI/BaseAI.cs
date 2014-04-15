@@ -47,7 +47,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	//Other AI Characteristics
 	[HideInInspector] public bool smoker = false;
 
-	private bool aiTesting = false;
+	private bool aiTesting = true;
 
 	void Start(){
 		anim = GetComponent<Animator>();
@@ -137,6 +137,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			}
 		}
 
+		if(!aiTesting){
 			//Left foot position
 			Vector3 leftFootT = animator.GetIKPosition(AvatarIKGoal.LeftFoot);
 			Quaternion leftFootQ = animator.GetIKRotation(AvatarIKGoal.LeftFoot);
@@ -161,6 +162,7 @@ public class BaseAI : Photon.MonoBehaviour {
 					footstepL.Play();
 				}
 			}
+		}
 
 	}
 
