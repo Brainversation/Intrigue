@@ -12,7 +12,6 @@ public class BaseAI : Photon.MonoBehaviour {
 	private Quaternion correctPlayerRot;
 	private Rule currentRule;
 	private float updateWants = 5f;
-	private float animationTime = 5;
 	private bool stunned = false;
 
 	protected List<Rule> rules;

@@ -53,14 +53,7 @@ public class AI_RoomState : MonoBehaviour{
 		if(other.tag == "Relax"){
 			relaxLocation = other.transform.position;
 		}
-		/*
-		if(other.tag == "Art"){
-			artLocations.Add(other.transform.position);
-		}
-		*/
-	}
 
-	void OnTriggerStay(Collider other){
 		if(other.tag == "Drink"){
 			drinkLocation = other.transform.position;
 			//Debug.Log("drinkLocation: " + drinkLocation);
@@ -70,6 +63,12 @@ public class AI_RoomState : MonoBehaviour{
 			restroomLocation = other.transform.position;
 			//Debug.Log("bathroomLocation: " + restroomLocation);
 		}
+
+		/*
+		if(other.tag == "Art"){
+			artLocations.Add(other.transform.position);
+		}
+		*/
 	}
 
 

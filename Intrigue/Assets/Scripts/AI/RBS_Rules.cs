@@ -270,7 +270,7 @@ namespace RBS{
 			script.bored += 15;
 
 			//Check if room has hotspot
-			if(script.room.relaxLocation != null){
+			if(script.room.relaxLocation != Vector3.zero){
 				script.destination = script.room.relaxLocation;
 				script.anim.SetBool("Speed", true);
 				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
@@ -301,7 +301,7 @@ namespace RBS{
 			script.bored += 15;
 
 			//Check if room has hotspot
-			if(script.room.relaxLocation != null){
+			if(script.room.relaxLocation != Vector3.zero){
 				script.destination = script.room.relaxLocation;
 				script.anim.SetBool("Speed", true);
 				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
@@ -326,7 +326,7 @@ namespace RBS{
 		private Status goSmoke(GameObject gameObject){
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 
-			if(script.room.relaxLocation != null){
+			if(script.room.relaxLocation != Vector3.zero){
 				script.destination = script.room.relaxLocation;
 				script.anim.SetBool("Speed", true);
 				gameObject.GetComponent<BaseAI>().distFromDest = 5f;

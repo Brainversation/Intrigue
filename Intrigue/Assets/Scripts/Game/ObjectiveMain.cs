@@ -15,14 +15,12 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 	public string objectiveType;
 	private float timeLeft;
 	private bool finished = false;
-	private Player player;
 	private Intrigue intrigue;
 	private float distMultiplier;
 
 	void Start () {
 		objectiveType = "Server";
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
-		player = GameObject.Find("Player").GetComponent<Player>();
 		timeLeft = completionTime;
 		status.text = "SERVER: <"+objectiveName+">";
 	}

@@ -158,7 +158,13 @@ public class MainMenu : MonoBehaviour {
 	void createTheServer(){
 		UILabel serverName = GameObject.Find("serverName").GetComponent<UILabel>();
 		player.RoomName = serverName.text;
-		PhotonNetwork.CreateRoom(player.RoomName, true, true, 10);
+		RoomOptions roomOp = new RoomOptions();
+		roomOp.isVisible = true;
+	    roomOp.isOpen = true;
+	    roomOp.maxPlayers = 10;
+	    // public Hashtable customRoomProperties;
+	    // public string[] customRoomPropertiesForLobby = new string[0];
+		PhotonNetwork.CreateRoom(player.RoomName, roomOp, null);
 	}
 
 	void getUserHandle(){

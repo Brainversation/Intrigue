@@ -16,10 +16,8 @@ public class Objective : Photon.MonoBehaviour {
 	private bool finished = false;
 	private Animator anim;
 	private Player player;
-	private Intrigue intrigue;
 
 	void Start () {
-		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		player = GameObject.Find("Player").GetComponent<Player>();
 		timeLeft = completionTime;
 		anim = GetComponent<Animator>();

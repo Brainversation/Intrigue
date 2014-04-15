@@ -11,20 +11,17 @@ public class LoadingScreenV2 : MonoBehaviour {
 	public GameObject loadTitle;
 	public GameObject loadResult;
 	public GameObject loadNextRound;
-	private int loadCounter = 0;
 	private AsyncOperation async;
-	private PhotonView photonView = null;
 	private Player player;
 	private float countdownDuration = 5.0f;
 	private float countdownCur = 0;
 	private Intrigue intrigue;
 	private string roundResultDisplay;
 	private bool countdownStarted = false;
-	private float totalCountdownWithLoading;
+	private float totalCountdownWithLoading = 0;
 
 
 	void Start(){
-		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		loadTimer.GetComponent<UILabel>().text = totalCountdownWithLoading+"s";
