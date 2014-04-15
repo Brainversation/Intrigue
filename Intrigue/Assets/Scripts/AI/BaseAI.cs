@@ -224,6 +224,8 @@ public class BaseAI : Photon.MonoBehaviour {
 	void initAI(){
 		rules = new List<Rule>();
 		rules.Add( new FindRoom(gameObject) );
+		rules.Add( new WantToWanderRoom(gameObject) );
+		rules.Add( new WantToMoveRoom(gameObject) );
 		//<-------- Rules To Add ------->
 		// WantToMoveRoom
 		// WantToWanderRoom
