@@ -165,6 +165,14 @@ namespace RBS{
 		}
 	}
 
+	class hasDrink : Condition{
+		public hasDrink(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			return gameObject.GetComponent<BaseAI>().hasDrink;
+		}
+	}
+
 	class hasArt : Condition{
 		public hasArt(GameObject gameObject):base(gameObject){}
 
