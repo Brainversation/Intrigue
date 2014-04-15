@@ -138,6 +138,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			}
 		}
 
+		if(!aiTesting){
 			//Left foot position
 			Vector3 leftFootT = animator.GetIKPosition(AvatarIKGoal.LeftFoot);
 			Quaternion leftFootQ = animator.GetIKRotation(AvatarIKGoal.LeftFoot);
@@ -162,6 +163,7 @@ public class BaseAI : Photon.MonoBehaviour {
 					footstepL.Play();
 				}
 			}
+		}
 
 	}
 
