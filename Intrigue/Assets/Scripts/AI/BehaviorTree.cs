@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using RBS;
 
 namespace BehaviorTree{
 
@@ -133,6 +134,21 @@ namespace BehaviorTree{
 		}
 	}
 
+	class SemaphoreGuard : Decorator {
+		private Condition cond;
+		public SemaphoreGuard(){}
+		public SemaphoreGuard( Task child, Condition cond ) : base( child ){
+			this.cond = cond;
+		}
+
+		public override Status run(GameObject gameObject){
+			if( cond.test() ){
+				return Status.True;
+			}
+			return child.run(gameObject);
+		}
+	}
+
 	// <--------------- Actions -------------------->
 
 	class CreateDrink : Task{
@@ -147,7 +163,15 @@ namespace BehaviorTree{
 			gameObject.GetComponent<Animator>().SetBool("Drink", true);
 			return Status.True;
 		}
-	} 
+	}
+
+	class AtDestination : Task {
+		public override Status run(GameObject gameObject){
+			if(gameObject.GetComponent<NavMeshAgent>().hasPath)
+				return Status.True;
+			return Status.False;
+		}
+	}
 
 	class Idle1 : Task { 
 		public override Status run(GameObject gameObject){
@@ -166,8 +190,9 @@ namespace BehaviorTree{
 	class GoToDestination : Task {
 		public override Status run(GameObject gameObject){
 			Vector3 dest = gameObject.GetComponent<BaseAI>().destination;
-			gameObject.GetComponent<Animator>().SetFloat("Speed", .2f);
-			gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+			gameObject.GetComponent<Animator>().SetBool("Speed", true);
+			gameObject.GetComponent<BaseAI>().distFromDest = 10f;
+			gameObject.GetComponent<BaseAI>().status = Status.Waiting;
 			gameObject.GetComponent<NavMeshAgent>().SetDestination(dest);
 			return Status.True;
 		}
@@ -175,7 +200,6 @@ namespace BehaviorTree{
 
 	class WalkAway : Task {
 		public override Status run(GameObject gameObject){
-			// Debug.Log("Walking away");
 			Vector3 newDest;
 			newDest = new Vector3(UnityEngine.Random.Range( gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.min.x,
 															gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.max.x),
@@ -184,6 +208,8 @@ namespace BehaviorTree{
 															gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.max.z));
 			gameObject.GetComponent<BaseAI>().destination = newDest;
 			gameObject.GetComponent<BaseAI>().distFromDest = 10f;
+			gameObject.GetComponent<Animator>().SetBool("Speed", true);
+			gameObject.GetComponent<BaseAI>().status = Status.Waiting;
 			gameObject.GetComponent<NavMeshAgent>().SetDestination(newDest);
 			return Status.True;
 		}
@@ -237,12 +263,13 @@ namespace BehaviorTree{
 	class MakeDrink : Sequence{
 		public MakeDrink(){
 			this.addChild( new GoToDestination() );
-			this.addChild( new HoldDrink() );
+			this.addChild( new AtDestination() );
 			this.addChild( new CreateDrink() );
-			this.addChild( new WalkAway() );
+			this.addChild( new HoldDrink() );
 		}
 
 		public override Status run(GameObject gameObject){
+			// Debug.Log("Making Drink");
 			return base.run(gameObject);
 		}
 	}
@@ -262,10 +289,12 @@ namespace BehaviorTree{
 	}
 
 	class DrinkingTree : Sequence {
-		public DrinkingTree(){
+		public DrinkingTree(GameObject go){
+			addChild(new Inverter( new WaitInLine() ));
+			addChild(new SemaphoreGuard(new MakeDrink(), new hasDrink(go)));
 			addChild(new Sequence());
-			children[children.Count-1].addChild(new Inverter( new WaitInLine() ));
-			children[children.Count-1].addChild(new MakeDrink());
+			children[children.Count-1].addChild(new Wait(5));
+			children[children.Count-1].addChild(new WalkAway());
 		}
 	}
 
