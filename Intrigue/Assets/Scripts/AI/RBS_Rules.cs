@@ -9,6 +9,7 @@ namespace RBS{
 		public WantToMoveRoom(GameObject gameObject){
 			this.addCondition(new isAnxious(gameObject));
 			this.consequence = goToRoom;
+			this.weight = 7;
 		}
 
 		private Status goToRoom(GameObject gameObject){
@@ -46,6 +47,7 @@ namespace RBS{
 		public WantToWanderRoom(GameObject gameObject){
 			this.addCondition(new isContent(gameObject));
 			this.consequence = wanderRoom;
+			this.weight = 7;
 		}
 
 		private Status wanderRoom(GameObject gameObject){

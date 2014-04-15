@@ -225,6 +225,8 @@ public class BaseAI : Photon.MonoBehaviour {
 		rules.Add( new WantToGetDrink(gameObject) );
 		rules.Add( new WantToConverse(gameObject) );
 		rules.Add( new FindRoom(gameObject) );
+		rules.Add( new WantToWanderRoom(gameObject) );
+		rules.Add( new WantToMoveRoom(gameObject) );
 		//<-------- Rules To Add ------->
 		// WantToMoveRoom
 		// WantToWanderRoom
