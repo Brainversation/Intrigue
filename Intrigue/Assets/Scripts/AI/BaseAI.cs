@@ -54,10 +54,10 @@ public class BaseAI : Photon.MonoBehaviour {
 		anim.speed = 1f;
 		initAI();
 		if(aiTesting){
-			thirst = 0;
+			thirst = 47;
 			bored = 60;
 			hunger = 0;
-			lonely = 60;
+			lonely = 51;
 			tired = 0;
 			anxiety = 0;
 			bladder = 0;
@@ -224,6 +224,16 @@ public class BaseAI : Photon.MonoBehaviour {
 		rules.Add( new WantToGetDrink(gameObject) );
 		rules.Add( new WantToConverse(gameObject) );
 		rules.Add( new FindRoom(gameObject) );
+		//<-------- Rules To Add ------->
+		// WantToMoveRoom
+		// WantToWanderRoom
+		// NeedToUseRestroom
+		// AdmireArt
+		// Relax
+		// LetOffSteam
+		// Smoke
+		// ReadPoetry
+		// DoIdle
 	}
 
 	void backToRule(){

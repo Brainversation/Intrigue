@@ -319,8 +319,8 @@ namespace RBS{
 		}
 	}
 
-	class smoke : Rule{
-		public smoke(GameObject gameObject){
+	class Smoke : Rule{
+		public Smoke(GameObject gameObject){
 			this.addCondition(new isAnxious(gameObject));
 			this.addCondition(new isBored(gameObject));
 			this.addCondition(new isSmoker(gameObject));
@@ -339,8 +339,8 @@ namespace RBS{
 		}
 	}
 
-	class readPoetry : Rule{
-		public readPoetry(GameObject gameObject){
+	class ReadPoetry : Rule{
+		public ReadPoetry(GameObject gameObject){
 			this.addCondition(new isHappy(gameObject));
 			this.addCondition(new isNotAnxious(gameObject));
 			this.addCondition(new isNoPoet(gameObject));
