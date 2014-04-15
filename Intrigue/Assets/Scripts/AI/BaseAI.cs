@@ -46,6 +46,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	//Other AI Characteristics
 	[HideInInspector] public bool smoker = false;
 	[HideInInspector] public bool hasDrink = false;
+	[HideInInspector] public bool inConvo = false;
 
 	private bool aiTesting = false;
 

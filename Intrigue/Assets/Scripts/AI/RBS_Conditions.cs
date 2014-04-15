@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using BehaviorTree;
 
 namespace RBS{
-	class isThirsty : Condition{
-		public isThirsty(GameObject gameObject):base(gameObject){}
+	class IsThirsty : Condition{
+		public IsThirsty(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().thirst > 50){
@@ -16,8 +16,8 @@ namespace RBS{
 		}
 	}
 
-	class isBored : Condition{
-		public isBored(GameObject gameObject):base(gameObject){}
+	class IsBored : Condition{
+		public IsBored(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().bored > 50){
@@ -27,8 +27,8 @@ namespace RBS{
 		}
 	}
 
-	class notBored : Condition{
-		public notBored(GameObject gameObject):base(gameObject){}
+	class NotBored : Condition{
+		public NotBored(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().bored > 50){
@@ -38,8 +38,8 @@ namespace RBS{
 		}
 	}
 
-	class isHungry : Condition{
-		public isHungry(GameObject gameObject):base(gameObject){}
+	class IsHungry : Condition{
+		public IsHungry(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().hunger > 50){
@@ -49,8 +49,8 @@ namespace RBS{
 		}
 	}
 
-	class isLonely : Condition{
-		public isLonely(GameObject gameObject):base(gameObject){}
+	class IsLonely : Condition{
+		public IsLonely(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().lonely > 50){
@@ -60,8 +60,8 @@ namespace RBS{
 		}
 	}
 
-	class isTired : Condition{
-		public isTired(GameObject gameObject):base(gameObject){}
+	class IsTired : Condition{
+		public IsTired(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().tired > 50){
@@ -71,8 +71,8 @@ namespace RBS{
 		}
 	}
 
-	class isAnxious : Condition{
-		public isAnxious(GameObject gameObject):base(gameObject){}
+	class IsAnxious : Condition{
+		public IsAnxious(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().anxiety > 50){
@@ -82,8 +82,8 @@ namespace RBS{
 		}
 	}
 
-	class isNotAnxious : Condition{
-		public isNotAnxious(GameObject gameObject):base(gameObject){}
+	class IsNotAnxious : Condition{
+		public IsNotAnxious(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if(gameObject.GetComponent<BaseAI>().anxiety < 50){
@@ -93,8 +93,8 @@ namespace RBS{
 		}
 	}
 
-	class isBursting : Condition{
-		public isBursting(GameObject gameObject):base(gameObject){}
+	class IsBursting : Condition{
+		public IsBursting(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().bladder > 50){
@@ -104,8 +104,8 @@ namespace RBS{
 		}
 	}
 
-	class isAngry : Condition{
-		public isAngry(GameObject gameObject):base(gameObject){}
+	class IsAngry : Condition{
+		public IsAngry(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().anger > 50){
@@ -115,8 +115,8 @@ namespace RBS{
 		}
 	}
 
-	class isHappy : Condition{
-		public isHappy(GameObject gameObject):base(gameObject){}
+	class IsHappy : Condition{
+		public IsHappy(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().happy > 50){
@@ -126,8 +126,8 @@ namespace RBS{
 		}
 	}
 
-	class isSad : Condition{
-		public isSad(GameObject gameObject):base(gameObject){}
+	class IsSad : Condition{
+		public IsSad(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().sad > 50){
@@ -137,8 +137,8 @@ namespace RBS{
 		}
 	}
 
-	class isToxic : Condition{
-		public isToxic(GameObject gameObject):base(gameObject){}
+	class IsToxic : Condition{
+		public IsToxic(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().toxicity > 50){
@@ -148,8 +148,8 @@ namespace RBS{
 		}
 	}
 
-	class isContent : Condition{
-		public isContent(GameObject gameObject):base(gameObject){}
+	class IsContent : Condition{
+		public IsContent(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			if(gameObject.GetComponent<BaseAI>().thirst < 50 &&
@@ -165,32 +165,32 @@ namespace RBS{
 		}
 	}
 
-	class hasDrink : Condition{
-		public hasDrink(GameObject gameObject):base(gameObject){}
+	class HasDrink : Condition{
+		public HasDrink(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			return gameObject.GetComponent<BaseAI>().hasDrink;
 		}
 	}
 
-	class hasArt : Condition{
-		public hasArt(GameObject gameObject):base(gameObject){}
+	class HasArt : Condition{
+		public HasArt(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			return gameObject.GetComponent<BaseAI>().room.hasArt;
 		}
 	}
 
-	class hasConversation : Condition{
-		public hasConversation(GameObject gameObject):base(gameObject){}
+	class ConversationInRoom : Condition{
+		public ConversationInRoom(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			return (gameObject.GetComponent<BaseAI>().room.conversers.Count > 0);
 		}
 	}
 
-	class notInRoom : Condition{
-		public notInRoom(GameObject gameObject):base(gameObject){}
+	class NotInRoom : Condition{
+		public NotInRoom(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			return (gameObject.GetComponent<BaseAI>().room == null);
@@ -203,8 +203,8 @@ namespace RBS{
 		}
 	}
 
-	class isNoPoet : Condition{
-		public isNoPoet(GameObject gameObject):base(gameObject){}
+	class IsNoPoet : Condition{
+		public IsNoPoet(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
 			BaseAI script = gameObject.GetComponent<BaseAI>();
@@ -215,13 +215,19 @@ namespace RBS{
 		}
 	}
 
-	class isSmoker : Condition{
-		public isSmoker(GameObject gameObject):base(gameObject){}
+	class IsSmoker : Condition{
+		public IsSmoker(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
-			BaseAI script = gameObject.GetComponent<BaseAI>();
+			return gameObject.GetComponent<BaseAI>().smoker;
+		}
+	}
 
-			return script.smoker;
+	class NotInConvo : Condition{
+		public NotInConvo(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			return !gameObject.GetComponent<BaseAI>().inConvo;
 		}
 	}
 }
