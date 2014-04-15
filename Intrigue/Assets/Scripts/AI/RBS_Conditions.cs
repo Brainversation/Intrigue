@@ -152,13 +152,10 @@ namespace RBS{
 		public IsContent(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
-			if(gameObject.GetComponent<BaseAI>().thirst < 50 &&
-				gameObject.GetComponent<BaseAI>().bored < 50 &&
-				//gameObject.GetComponent<BaseAI>().hunger < 50 &&
-				gameObject.GetComponent<BaseAI>().lonely < 50 &&
-				//gameObject.GetComponent<BaseAI>().tired < 50 &&
-				gameObject.GetComponent<BaseAI>().anxiety < 50 &&
-				gameObject.GetComponent<BaseAI>().bladder < 50){
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+			if(	script.thirst < 50 && script.bored < 50 &&
+				script.hunger < 50 && script.lonely < 50 &&
+				script.anxiety < 50 && script.bladder < 50){
 				return true;
 			}
 			return false;

@@ -7,7 +7,7 @@ using BehaviorTree;
 namespace RBS{
 	class WantToMoveRoom : Rule{
 		public WantToMoveRoom(GameObject gameObject){
-			this.addCondition(new IsAnxious(gameObject));
+			this.addCondition(new IsContent(gameObject));
 			this.consequence = goToRoom;
 			this.weight = 7;
 		}
@@ -33,7 +33,9 @@ namespace RBS{
                                   UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.z,
                                   room.GetComponent<BoxCollider>().bounds.max.z));
 
-            script.anxiety -= 25;
+			script.bored -= 20;
+			script.lonely -= 20;
+			script.anxiety -= 20;
 
             //Set BaseAI variables and run
             script.distFromDest = 5f;
@@ -45,7 +47,7 @@ namespace RBS{
 
 	class WantToWanderRoom : Rule{
 		public WantToWanderRoom(GameObject gameObject){
-			this.addCondition(new IsContent(gameObject));
+			this.addCondition(new IsBored(gameObject));
 			this.consequence = wanderRoom;
 			this.weight = 7;
 		}
@@ -76,8 +78,9 @@ namespace RBS{
             	script.agent.CalculatePath(newDest, path);
             }
 */
-            script.agent.SetDestination(newDest);
+			script.bored -= 20;
             script.anim.SetBool("Speed", true);
+            script.agent.SetDestination(newDest);
             return Status.Waiting;
 		}
 
