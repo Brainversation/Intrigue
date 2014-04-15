@@ -46,18 +46,19 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	//Other AI Characteristics
 	[HideInInspector] public bool smoker = false;
+	[HideInInspector] public bool hasDrink = false;
 
-	private bool aiTesting = true;
+	private bool aiTesting = false;
 
 	void Start(){
 		anim = GetComponent<Animator>();
 		anim.speed = 1f;
 		initAI();
 		if(aiTesting){
-			thirst = 47;
+			thirst = 51;
 			bored = 60;
 			hunger = 0;
-			lonely = 51;
+			lonely = 45;
 			tired = 0;
 			anxiety = 0;
 			bladder = 0;
@@ -247,6 +248,7 @@ public class BaseAI : Photon.MonoBehaviour {
 		// Debug.Log("adding Drink");
 		this.thirst -= 10;
 		this.bladder += 5;
+		this.hasDrink = true;
 	}
 
 	[RPC]

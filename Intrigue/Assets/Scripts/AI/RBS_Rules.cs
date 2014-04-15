@@ -100,23 +100,18 @@ namespace RBS{
 
 			//Check room for hotspot location
 			if(script.room.drinkLocation != script.room.nullLocation){
-				script.destination = script.room.drinkLocation; //script.room.drinkLocation.position;
-				script.anim.SetBool("Speed", true);
-				gameObject.GetComponent<BaseAI>().distFromDest = 10f;
-				script.agent.SetDestination(script.destination);
-				script.tree = new DrinkingTree();
+				script.destination = script.room.drinkLocation;
 			}
 			//Choose random hotspot location
 			else{
-
 				GameObject[] drinkLocations = GameObject.FindGameObjectsWithTag("Drink");
 				GameObject drinkLocation = drinkLocations[UnityEngine.Random.Range(0, drinkLocations.Length)];
-				script.destination = drinkLocation.transform.position; //script.room.drinkLocation.position;
-				script.anim.SetBool("Speed", true);
-				gameObject.GetComponent<BaseAI>().distFromDest = 10f;
-				script.agent.SetDestination(script.destination);
-				script.tree = new DrinkingTree();
+				script.destination = drinkLocation.transform.position;
 			}
+			script.anim.SetBool("Speed", true);
+			gameObject.GetComponent<BaseAI>().distFromDest = 10f;
+			script.agent.SetDestination(script.destination);
+			script.tree = new DrinkingTree(gameObject);
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 115f, false);
 			return Status.Waiting;
 		}
