@@ -13,6 +13,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	private Rule currentRule;
 	private float updateWants = 5f;
 	private bool stunned = false;
+	private bool stunInstantiated = false;
 
 	protected List<Rule> rules;
 
@@ -20,6 +21,10 @@ public class BaseAI : Photon.MonoBehaviour {
 	public Animator animator;
 	public AudioSource footstepL;
 	public AudioSource footstepR;
+
+	//Particle Effects
+	public GameObject stunPrefab;
+	private GameObject currentStunEffect;
 
 	// AI info
 	[HideInInspector] public Animator anim;
@@ -240,6 +245,8 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	void backToRule(){
+		photonView.RPC("updateStunPS", PhotonTargets.All, false);
+		stunInstantiated = false;
 		// Debug.Log("Back to rule");
 		if(currentRule != null && currentRule.antiConsequence != null)
 			currentRule.antiConsequence();
@@ -262,6 +269,22 @@ public class BaseAI : Photon.MonoBehaviour {
 			agent.ResetPath();
 			CancelInvoke();
 			Invoke("backToRule", 5);
+			if(!stunInstantiated){
+				photonView.RPC("updateStunPS", PhotonTargets.All, true);
+				stunInstantiated = true;
+			}
+		}
+	}
+
+	[RPC]
+	void updateStunPS(bool creating){
+		if(creating){
+			currentStunEffect = Instantiate(stunPrefab, transform.position, transform.rotation) as GameObject;
+			currentStunEffect.transform.parent = transform;
+			currentStunEffect.transform.localPosition = new Vector3(0, 13.25f, 0);
+		}
+		else{
+			Destroy(currentStunEffect);
 		}
 	}
 }

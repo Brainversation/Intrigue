@@ -1856,6 +1856,8 @@ MonoBehaviour:
   animator: {fileID: 9500000}
   footstepL: {fileID: 8200000}
   footstepR: {fileID: 8200002}
+  stunPrefab: {fileID: 100000, guid: 56858680ff6b1dd4687ea5deb2ad9a1f, type: 2}
+  currentStunEffect: {fileID: 0}
   anim: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
   room: {fileID: 0}
@@ -1874,6 +1876,8 @@ MonoBehaviour:
   sad: 0
   toxicity: 0
   smoker: 0
+  hasDrink: 0
+  inConvo: 0
 --- !u!114 &11400052
 MonoBehaviour:
   m_ObjectHideFlags: 1
