@@ -10,11 +10,14 @@ public class Guard : BasePlayer{
 	public AudioSource server1;
 	public AudioSource server2;
 	public AudioSource server3;
+	public GameObject stunPrefab;
 
 	private GameObject accused;
-	private bool recentlyPlayed1=false;
-	private bool recentlyPlayed2=false;
-	private bool recentlyPlayed3=false;
+	private GameObject currentStunEffect;
+	private bool recentlyPlayed1 = false;
+	private bool recentlyPlayed2 = false;
+	private bool recentlyPlayed3 = false;
+	private bool stunInstantiated = false;
 	private GameObject[] guests = null;
 	private GameObject[] spies = null;
 	private GameObject[] servers = null;
@@ -282,6 +285,8 @@ public class Guard : BasePlayer{
 
 	void stunCooldown(){
 		stunned = false;
+		stunInstantiated = false;
+		photonView.RPC("updateStunPS", PhotonTargets.All, false);
 		NGUITools.SetActive(stunUI.gameObject, false);
 		GetComponentInChildren<MovementController>().enabled = true;
 		GetComponentInChildren<AudioListener>().enabled = true;
@@ -298,6 +303,12 @@ public class Guard : BasePlayer{
 	[RPC]
 	void isStunned(){
 		if(photonView.isMine){
+			Debug.Log("I'm stunned");
+			if(!stunInstantiated){
+				photonView.RPC("updateStunPS", PhotonTargets.All, true);
+				stunInstantiated = true;
+			}
+
 			NGUITools.SetActive(stunUI.gameObject, true);
 			stunned = true;
 			//Have to disable the mouse look on the camera as well
@@ -311,6 +322,18 @@ public class Guard : BasePlayer{
 			GetComponentInChildren<Crosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
 			Invoke("stunCooldown", 5);
+		}
+	}
+
+	[RPC]
+	void updateStunPS(bool creating){
+		if(creating){
+			currentStunEffect = Instantiate(stunPrefab, transform.position, transform.rotation) as GameObject;
+			currentStunEffect.transform.parent = transform;
+			currentStunEffect.transform.localPosition = new Vector3(0, 13.25f, 0);
+		}
+		else{
+			Destroy(currentStunEffect);
 		}
 	}
 
