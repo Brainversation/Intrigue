@@ -96,12 +96,9 @@ public class Spy : BasePlayer{
 				}
 			}
 		}
-		if(timeLabel == null || outLabel == null){
+		if(outLabel == null){
 			foreach(UILabel lab in guiLabels){
-				if(lab.gameObject.CompareTag("TimeLabel")){
-					timeLabel = lab.gameObject;
-				}
-				else if(lab.gameObject.CompareTag("OutLabel")){
+				if(lab.gameObject.CompareTag("OutLabel")){
 					outLabel = lab.gameObject;
 				}
 			}

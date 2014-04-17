@@ -230,12 +230,11 @@ public class Guard : BasePlayer{
 	void locateNGUIObjects(){
 		guiPanels = GetComponentsInChildren<UIPanel>();
 		guiLabels = GetComponentsInChildren<UILabel>();
-		foreach(UILabel lab in guiLabels){
-			if(lab.gameObject.CompareTag("TimeLabel")){
-				timeLabel = lab.gameObject;
-			}
-			else if(lab.gameObject.CompareTag("OutLabel")){
-				outLabel = lab.gameObject;
+		if(outLabel == null){
+			foreach(UILabel lab in guiLabels){
+				if(lab.gameObject.CompareTag("OutLabel")){
+					outLabel = lab.gameObject;
+				}
 			}
 		}
 		foreach(UIPanel pan in guiPanels){

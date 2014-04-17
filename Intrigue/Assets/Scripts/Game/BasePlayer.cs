@@ -102,12 +102,20 @@ public class BasePlayer : MonoBehaviour {
 			secondsS = "0"+seconds.ToString();
 		else
 			secondsS = seconds.ToString();
-		timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + 
-													secondsS + "\nRound: " + 
-													curRound +"/" + (intrigue.GetRounds+1);
+		if(intrigue.GetTimeLeft>60){
+			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + 
+											secondsS + "\nRound: " + 
+											curRound +"/" + (intrigue.GetRounds+1);
+		}
+		else{
+			timeLabel.GetComponent<UILabel>().text = "[FF0000]" + minutesLeft +":" + 
+								secondsS + "[-]\nRound: " + 
+								curRound +"/" + (intrigue.GetRounds+1);
+		}
+
 	}
 
-	
+
 	void allyUsernames(){
 		//Puts ally usernames above their head
 		GameObject[] allies = GameObject.FindGameObjectsWithTag(player.Team);
