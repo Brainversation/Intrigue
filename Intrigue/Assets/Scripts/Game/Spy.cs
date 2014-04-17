@@ -52,15 +52,6 @@ public class Spy : BasePlayer{
 			/*------------------------------------------------------*/
 
 
-
-			//NGUI code for updating time/round display
-			/*------------------------------------------------------*/
-			if(timeLabel!=null)
-				updateTimeLabel();
-			/*------------------------------------------------------*/
-
-
-
 			//Code for interacting
 			/*------------------------------------------------------*/
 			if ( Input.GetKey(KeyCode.E) ){
@@ -137,22 +128,6 @@ public class Spy : BasePlayer{
 					objer.GetComponentInChildren<TextMesh>().text = "";
 				}
 		}
-	}
-
-	void updateTimeLabel(){
-		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
-		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
-		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
-		string secondsS;
-		if(seconds<10)
-			secondsS = "0"+seconds.ToString();
-		else
-			secondsS = seconds.ToString();
-
-		timeLabel.GetComponent<UILabel>().text = minutesLeft +":" 
-												+ secondsS + "\nRound: " + 
-												curRound +"/" + 
-												(intrigue.GetRounds+1);
 	}
 
 	void attemptInteract(){

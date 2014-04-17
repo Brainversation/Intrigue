@@ -10,7 +10,7 @@ public class Intrigue : MonoBehaviour {
 	private int winningTeamThisRound;
 	private int numSpies = 0;
 	private int numGuards = 0;
-	private static float timeLimit = 600;
+	private static float timeLimit = 420;
 	private float timeLeft = timeLimit;
 	private PhotonView photonView = null;	
 	private GameObject[] spawnObjects;

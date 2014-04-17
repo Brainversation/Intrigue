@@ -69,12 +69,6 @@ public class Guard : BasePlayer{
 			}
 			/*------------------------------------------------------*/
 
-			//Code to update time/round label
-			/*------------------------------------------------------*/
-			if(timeLabel!=null)
-				updateTimeLabel();
-			/*------------------------------------------------------*/
-
 
 
 			//NGUI code for getting out
@@ -231,20 +225,6 @@ public class Guard : BasePlayer{
 				heartbeat.Stop();
 			}
 		}
-	}
-
-	void updateTimeLabel(){
-		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
-		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
-		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
-		string secondsS;
-		if(seconds<10)
-			secondsS = "0"+seconds.ToString();
-		else
-			secondsS = seconds.ToString();
-		timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + 
-													secondsS + "\nRound: " + 
-													curRound +"/" + (intrigue.GetRounds+1);
 	}
 
 	void locateNGUIObjects(){
