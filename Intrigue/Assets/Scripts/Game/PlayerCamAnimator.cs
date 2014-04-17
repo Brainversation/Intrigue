@@ -24,13 +24,7 @@ public class PlayerCamAnimator : MonoBehaviour {
     	if((playerObj.tag == "Guard" && playerObj.GetComponent<Guard>().isOut) || (playerObj.tag == "Spy" && playerObj.GetComponent<Spy>().isOut)){
     			if(!started){
 	    				started = true;
-	    				if(playerObj.tag == "Guard"){
-	    					playerObj.GetComponent<Guard>().outStarted();
-	    				}
-	    				else{
-	    					playerObj.GetComponent<Spy>().outStarted();
-	    				}
-	    				
+	    				playerObj.GetComponent<BasePlayer>().outStarted();
 	    				startTime = Time.time;
 				        startRot = transform.rotation;
 				        endRot = endMarker.rotation;

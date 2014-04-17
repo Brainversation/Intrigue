@@ -268,15 +268,14 @@ public class Guard : BasePlayer{
 	void testAccusation(){
 		if(accused != null && accused.CompareTag("Spy")){
 			if(!accused.GetComponent<Spy>().isOut){
-				photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, 100);
-				photonView.RPC("addScore", PhotonTargets.AllBuffered, player.TeamID, 100);
-				photonView.RPC("spyCaught", PhotonTargets.MasterClient);
+				photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, player.TeamID, 100);
+				photonView.RPC("invokeSpyCaught", PhotonTargets.MasterClient);
 				accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
 				accused.GetComponent<Spy>().isOut = true;
 				accused = null;
 			}
 		}else{
-			photonView.RPC("guardFailed", PhotonTargets.MasterClient);
+			photonView.RPC("invokeGuardFailed", PhotonTargets.MasterClient);
 			isOut = true;
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
 			accused = null;
@@ -298,6 +297,14 @@ public class Guard : BasePlayer{
 		GetComponentInChildren<Crosshair>().enabled = true;
 		GetComponent<MouseLook>().enabled = true;
 		Debug.Log("STUN OVER");
+	}
+
+	void spyCaught(){
+		--Intrigue.numSpiesLeft;
+	}
+
+	void guardFailed(){
+	    --Intrigue.numGuardsLeft;
 	}
 
 	[RPC]
@@ -338,25 +345,13 @@ public class Guard : BasePlayer{
 	}
 
 	[RPC]
-	void spyCaught(){
-		Debug.Log("spy removed");
-		--Intrigue.numSpiesLeft;
+	void invokeSpyCaught(){
+		Invoke("spyCaught",5);
 	}
 
 	[RPC]
-	void guardFailed(){
-		Debug.Log("guard removed");
-	    --Intrigue.numGuardsLeft;
-	}
-
-	[RPC]
-	void addScore(int teamID, int scoreToAdd){
-		if(teamID == this.player.TeamID){
-			player.TeamScore += scoreToAdd;
-		}
-		else{
-			player.EnemyScore += scoreToAdd;
-		}
+	void invokeGuardFailed(){
+		Invoke("guardFailed", 5);
 	}
 
 	[RPC]
@@ -375,10 +370,16 @@ public class Guard : BasePlayer{
 	}
 
 	[RPC]
-	void addPlayerScore(int scoreToAdd){
+	void addPlayerScore(int teamID, int scoreToAdd){
 		if(photonView.isMine){
 			player.Score += scoreToAdd;
 			photonView.RPC("giveScore", PhotonTargets.All, player.Score);
+		}
+		if(teamID == this.player.TeamID){
+			player.TeamScore += scoreToAdd;
+		}
+		else{
+			player.EnemyScore += scoreToAdd;
 		}
 	}
 
