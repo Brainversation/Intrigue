@@ -15,14 +15,16 @@ public class BasePlayer : MonoBehaviour {
 	public PhotonView photonView = null;
 	public Animator animator;
 	public GameObject timeLabel;
+	public GameObject hairHat;
+	public GameObject allytext;
+	public GameObject teleportPrefab;
 	[HideInInspector] public string localHandle = "";
 	[HideInInspector] public int localPing = 0;
 	[HideInInspector] public int remoteScore = 0;
 	[HideInInspector] public bool textAdded = false;
 	[HideInInspector] public bool isAssigned = false;
 	[HideInInspector] public bool isOut = false;
-	public GameObject hairHat;
-	public GameObject allytext;
+
 
 	private bool roundStarted = false;
 
@@ -183,6 +185,11 @@ public class BasePlayer : MonoBehaviour {
 
 	public void outStarted(){
 		Invoke("spectate", 5);
+		Invoke("startTeleport", 4);
+	}
+
+	void startTeleport(){
+		photonView.RPC("createTeleport", PhotonTargets.All);
 	}
 
 	void spectate(){
@@ -198,4 +205,5 @@ public class BasePlayer : MonoBehaviour {
 
 		PhotonNetwork.Destroy(gameObject);
 	}
+
 }

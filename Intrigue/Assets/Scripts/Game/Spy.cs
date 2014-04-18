@@ -4,8 +4,11 @@ using System.Collections;
 public class Spy : BasePlayer{
 	
 	public UILabel stunsUI;
+	[HideInInspector]
 	public float percentComplete = 0;
+	[HideInInspector]
 	public bool doingObjective = false;
+	[HideInInspector]
 	public string objectiveType;
 	private int stuns = 3;
 	private UIPanel objPanel;
@@ -203,4 +206,11 @@ public class Spy : BasePlayer{
 		else
 			player.EnemyScore += scoreToAdd;
 	}
+
+	[RPC]
+	void createTeleport(){
+		GameObject teleportInstance = Instantiate(teleportPrefab, transform.position, Quaternion.identity) as GameObject;
+		teleportInstance.transform.parent = gameObject.transform;
+	}
+	
 }

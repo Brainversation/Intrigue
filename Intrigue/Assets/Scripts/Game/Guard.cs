@@ -379,4 +379,10 @@ public class Guard : BasePlayer{
 			markedGuests.Remove(ID);
 		}
 	}
+
+	[RPC]
+	void createTeleport(){
+		GameObject teleportInstance = Instantiate(teleportPrefab, transform.position, Quaternion.identity) as GameObject;
+		teleportInstance.transform.parent = gameObject.transform;
+	}
 }

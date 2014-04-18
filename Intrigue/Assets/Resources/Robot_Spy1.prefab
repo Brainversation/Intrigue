@@ -2294,7 +2294,7 @@ Transform:
   m_GameObject: {fileID: 100150}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00468384055, y: .00468384055, z: .00468384055}
+  m_LocalScale: {x: .0045454544, y: .0045454544, z: .0045454544}
   m_Children:
   - {fileID: 400148}
   - {fileID: 400142}
@@ -2811,7 +2811,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3005
+  startingRenderQueue: 3015
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -2912,7 +2912,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3005
+  startingRenderQueue: 3015
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3109,7 +3109,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3003
+  startingRenderQueue: 3013
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3307,7 +3307,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3000
+  startingRenderQueue: 3002
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3574,7 +3574,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3002
+  startingRenderQueue: 3010
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3643,14 +3643,16 @@ MonoBehaviour:
   footstepR: {fileID: 8200000}
   photonView: {fileID: 11400052}
   animator: {fileID: 9500000}
+  timeLabel: {fileID: 100148}
+  hairHat: {fileID: 100058}
+  allytext: {fileID: 100000, guid: 26b1b09240bba7c4380f37e478491862, type: 2}
+  teleportPrefab: {fileID: 100002, guid: e3ede9d2e72b68a44952a86696ab35ac, type: 2}
   localHandle: 
   localPing: 0
   remoteScore: 0
   textAdded: 0
   isAssigned: 0
   isOut: 0
-  hairHat: {fileID: 100058}
-  allytext: {fileID: 100000, guid: 26b1b09240bba7c4380f37e478491862, type: 2}
   stunsUI: {fileID: 11400060}
   percentComplete: 0
   doingObjective: 0
@@ -3931,7 +3933,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3005
+  startingRenderQueue: 3017
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}

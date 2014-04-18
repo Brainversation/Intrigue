@@ -3325,7 +3325,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3008
+  startingRenderQueue: 3010
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3426,7 +3426,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3008
+  startingRenderQueue: 3010
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3623,7 +3623,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3006
+  startingRenderQueue: 3008
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3914,7 +3914,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3002
+  startingRenderQueue: 3004
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4181,14 +4181,16 @@ MonoBehaviour:
   footstepR: {fileID: 8200004}
   photonView: {fileID: 11400052}
   animator: {fileID: 9500000}
+  timeLabel: {fileID: 100154}
+  hairHat: {fileID: 100058}
+  allytext: {fileID: 100000, guid: 26b1b09240bba7c4380f37e478491862, type: 2}
+  teleportPrefab: {fileID: 100002, guid: e3ede9d2e72b68a44952a86696ab35ac, type: 2}
   localHandle: No Handle
   localPing: 0
   remoteScore: 0
   textAdded: 0
   isAssigned: 0
   isOut: 0
-  hairHat: {fileID: 100058}
-  allytext: {fileID: 100000, guid: 26b1b09240bba7c4380f37e478491862, type: 2}
   stunned: 0
   stunUI: {fileID: 11400076}
   heartbeat: {fileID: 8200002}
@@ -4230,7 +4232,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3008
+  startingRenderQueue: 3010
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
