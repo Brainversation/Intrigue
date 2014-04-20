@@ -16,6 +16,8 @@ public class UIKeyBinding : MonoBehaviour
 	{
 		PressAndClick,
 		Select,
+		Toggle,
+		Deselect,
 	}
 
 	public enum Modifier
@@ -44,6 +46,12 @@ public class UIKeyBinding : MonoBehaviour
 
 	public Action action = Action.PressAndClick;
 
+	public NetworkCharacter networkController = null;
+
+	public MovementController movementController = null;
+
+	public GameObject Window = null;
+
 	bool mIgnoreUp = false;
 	bool mIsInput = false;
 
@@ -56,6 +64,9 @@ public class UIKeyBinding : MonoBehaviour
 		UIInput input = GetComponent<UIInput>();
 		mIsInput = (input != null);
 		if (input != null) EventDelegate.Add(input.onSubmit, OnSubmit);
+		if(action == Action.Toggle){
+			Window.GetComponent<UISprite>().alpha = 0;
+		}
 	}
 
 	/// <summary>
@@ -120,7 +131,7 @@ public class UIKeyBinding : MonoBehaviour
 		}
 		else if (action == Action.Select)
 		{
-			if (Input.GetKeyUp(keyCode))
+			if (Input.GetKeyUp(keyCode) && IsModifierActive())
 			{
 				if (mIsInput)
 				{
@@ -136,5 +147,44 @@ public class UIKeyBinding : MonoBehaviour
 				}
 			}
 		}
+		else if (action == Action.Deselect)
+		{
+			if (Input.GetKeyUp(keyCode) && !Input.GetKey(KeyCode.LeftShift))
+			{					
+				UICamera.inputHasFocus = false;
+				UICamera.selectedObject = null;
+				Debug.Log("called");
+				networkController.isChatting = false;
+				movementController.enabled = true;
+				toggleDisappear();
+			}
+		}
+		else if (action == Action.Toggle)
+		{
+			if (Input.GetKeyUp(keyCode) && IsModifierActive())
+			{
+				if(Window.GetComponent<UISprite>().alpha == 0)
+				{
+					Window.GetComponent<UISprite>().alpha = 1;
+					gameObject.GetComponentInChildren<UIInput>().enabled = true;
+					Debug.Log("Turn on " + Window.GetComponent<UISprite>().alpha);
+					networkController.isChatting = true;
+					movementController.enabled = false;
+				}
+				else
+				{	
+					gameObject.GetComponentInChildren<UIInput>().enabled = false;
+					Window.GetComponent<UISprite>().alpha = 0;
+					networkController.isChatting = false;
+					movementController.enabled = true;
+					Debug.Log("Turn off");
+				}
+			}
+		}
+	}
+
+	void toggleDisappear(){
+		gameObject.GetComponentInChildren<UIInput>().enabled = false;
+		Window.GetComponent<UISprite>().alpha = 0;
 	}
 }

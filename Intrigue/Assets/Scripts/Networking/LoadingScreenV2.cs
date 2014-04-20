@@ -44,8 +44,13 @@ public class LoadingScreenV2 : MonoBehaviour {
 		}
 
 		if(PhotonNetwork.isMasterClient){
+			if(intrigue.totalGuests!=0){
 			loadingBar.GetComponent<UISlider>().value = intrigue.loadedGuests/intrigue.totalGuests;
 			photonView.RPC("syncLoadingBar", PhotonTargets.Others, intrigue.loadedGuests/intrigue.totalGuests);
+			}
+			else{
+			photonView.RPC("syncLoadingBar", PhotonTargets.All, 1.0f);	
+			}
 		}		
 
 		if(!intrigue.doneLoading){

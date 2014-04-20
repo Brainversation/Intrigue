@@ -385,4 +385,9 @@ public class Guard : BasePlayer{
 		GameObject teleportInstance = Instantiate(teleportPrefab, transform.position, Quaternion.identity) as GameObject;
 		teleportInstance.transform.parent = gameObject.transform;
 	}
+
+	[RPC]
+	public void recieveMessage(string s){
+		textList.Add(s);
+	}
 }
