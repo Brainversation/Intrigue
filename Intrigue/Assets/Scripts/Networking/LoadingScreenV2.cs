@@ -19,9 +19,11 @@ public class LoadingScreenV2 : MonoBehaviour {
 	private string roundResultDisplay;
 	private bool countdownStarted = false;
 	private float totalCountdownWithLoading = 0;
+	private PhotonView photonView = null;
 
 
 	void Start(){
+		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		loadTimer.GetComponent<UILabel>().text = totalCountdownWithLoading+"s";
@@ -40,11 +42,18 @@ public class LoadingScreenV2 : MonoBehaviour {
 		if(intrigue.gameStart){
 			transform.parent.gameObject.SetActive(false);
 		}
-		loadingBar.GetComponent<UISlider>().value = intrigue.loadedGuests/intrigue.totalGuests;
+
+		if(PhotonNetwork.isMasterClient){
+			loadingBar.GetComponent<UISlider>().value = intrigue.loadedGuests/intrigue.totalGuests;
+			photonView.RPC("syncLoadingBar", PhotonTargets.Others, intrigue.loadedGuests/intrigue.totalGuests);
+		}		
+
 		if(!intrigue.doneLoading){
 			loadNextRound.GetComponent<UILabel>().text = "Loading Level";
 			loadTimer.GetComponent<UILabel>().text = "";
 		}
+
+
 		if(intrigue.doneLoading && !countdownStarted){
 			countdownStarted = true;
 			loadNextRound.GetComponent<UILabel>().text = "Round starts in: ";
@@ -76,4 +85,8 @@ public class LoadingScreenV2 : MonoBehaviour {
 		audio.Play();
 	}
 
+	[RPC]
+	void syncLoadingBar(float percentage){
+		loadingBar.GetComponent<UISlider>().value = percentage;
+	}
 }
