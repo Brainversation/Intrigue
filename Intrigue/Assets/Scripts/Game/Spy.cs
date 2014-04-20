@@ -213,4 +213,8 @@ public class Spy : BasePlayer{
 		teleportInstance.transform.parent = gameObject.transform;
 	}
 	
+	[RPC]
+	public void recieveMessage(string s){
+		textList.Add(s);
+	}
 }

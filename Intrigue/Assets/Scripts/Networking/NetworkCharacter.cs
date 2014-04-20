@@ -18,6 +18,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private float staminaRegenSpeed;
 	private bool canRegen;
 	public bool isOut;
+	public bool isChatting = false;
 
 	void Start() {
 		//Get References to Animator and Collider
@@ -43,7 +44,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	}
 
 	public void FixedUpdate(){
-		if(photonView.isMine && !isOut){
+		if(photonView.isMine && !isOut && !isChatting){
 			if(cam==null){
 				cam = GetComponentInChildren<Camera>();
 				camStart = cam.transform.localPosition;

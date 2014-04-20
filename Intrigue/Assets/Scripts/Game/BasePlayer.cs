@@ -18,6 +18,7 @@ public class BasePlayer : MonoBehaviour {
 	public GameObject hairHat;
 	public GameObject allytext;
 	public GameObject teleportPrefab;
+	public UITextList textList;
 	[HideInInspector] public string localHandle = "";
 	[HideInInspector] public int localPing = 0;
 	[HideInInspector] public int remoteScore = 0;
