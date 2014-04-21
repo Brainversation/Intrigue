@@ -1506,7 +1506,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400190}
   - 114: {fileID: 11400096}
-  - 65: {fileID: 6500010}
   m_Layer: 8
   m_Name: Chat Area
   m_TagString: Untagged
@@ -2215,7 +2214,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -64.5987473, y: .0420535728, z: -256.753052}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 400092}
@@ -2420,7 +2419,7 @@ Transform:
   m_GameObject: {fileID: 100150}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00395256933, y: .00395256933, z: .00395256933}
+  m_LocalScale: {x: .00455580885, y: .00455580885, z: .00455580885}
   m_Children:
   - {fileID: 400190}
   - {fileID: 400180}
@@ -2844,18 +2843,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8, y: 214, z: 0}
   m_Center: {x: -4, y: 0, z: 0}
---- !u!65 &6500010
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100190}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 355, y: 173, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1
@@ -3081,7 +3068,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3009
+  startingRenderQueue: 3011
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3182,7 +3169,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3009
+  startingRenderQueue: 3011
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3379,7 +3366,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3007
+  startingRenderQueue: 3009
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3844,7 +3831,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3006
+  startingRenderQueue: 3008
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3918,6 +3905,7 @@ MonoBehaviour:
   allytext: {fileID: 100000, guid: 26b1b09240bba7c4380f37e478491862, type: 2}
   teleportPrefab: {fileID: 100002, guid: e3ede9d2e72b68a44952a86696ab35ac, type: 2}
   textList: {fileID: 11400096}
+  chatArea: {fileID: 100190}
   localHandle: 
   localPing: 0
   remoteScore: 0
@@ -4205,7 +4193,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3012
+  startingRenderQueue: 3011
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
