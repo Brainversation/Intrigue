@@ -48,7 +48,7 @@ namespace RBS{
 		}
 
 		private Status stopMoving(){
-			this.go.GetComponent<BaseAI>.anim.SetBool("Speed", false);
+			this.go.GetComponent<BaseAI>().anim.SetBool("Speed", false);
 			return Status.True;
 		}
 	}
@@ -96,7 +96,7 @@ namespace RBS{
 		}
 
 		private Status stopMoving(){
-			this.go.GetComponent<BaseAI>.anim.SetBool("Speed", false);
+			this.go.GetComponent<BaseAI>().anim.SetBool("Speed", false);
 			return Status.True;
 		}
 
