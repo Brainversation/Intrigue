@@ -141,7 +141,7 @@ public class Guard : BasePlayer{
 							renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
 							foreach(Renderer rend in renders){
 								if(rend.gameObject.CompareTag("highLight"))
-								rend.material.color = Color.red;
+								rend.material.shader = Shader.Find("Reflect_Bump_Spec_Lightmap");
 							}
 					}
 			}
@@ -193,6 +193,7 @@ public class Guard : BasePlayer{
 								rend.material.color = Color.green;
 							} else {
 								rend.material.color = Color.white;
+								rend.material.shader = Shader.Find("Toon/Basic Outline");
 							}
 						}
 					}
@@ -210,6 +211,7 @@ public class Guard : BasePlayer{
 								rend.material.color = Color.green;
 							} else {
 								rend.material.color = Color.white;
+								rend.material.shader = Shader.Find("Toon/Basic Outline");
 							}
 						}
 					}
