@@ -286,6 +286,14 @@ public class Guard : BasePlayer{
 	    --Intrigue.numGuardsLeft;
 	}
 
+	void toggleChatOff(){
+		chatArea.GetComponentInChildren<UILabel>().alpha = 0;
+	}
+
+	void toggleChatOn(){
+		chatArea.GetComponentInChildren<UILabel>().alpha = 1;
+	}
+	
 	[RPC]
 	void isStunned(){
 		if(photonView.isMine){
@@ -388,6 +396,9 @@ public class Guard : BasePlayer{
 
 	[RPC]
 	public void recieveMessage(string s){
+		toggleChatOn();
 		textList.Add(s);
+		CancelInvoke("toggleChatOff");
+		Invoke("toggleChatOff", 5);
 	}
 }

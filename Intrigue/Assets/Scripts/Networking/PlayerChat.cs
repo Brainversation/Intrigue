@@ -42,15 +42,13 @@ public class PlayerChat : MonoBehaviour
 
 			if (!string.IsNullOrEmpty(text)){
 				if(player.Team == "Spy"){
-					textList.Add("[8169FF]"+player.Handle+": [-]"+text);
 					foreach(GameObject gu in team){
-						gu.GetComponent<Spy>().photonView.RPC("recieveMessage", PhotonTargets.Others, "[8169FF]"+player.Handle+": [-]"+text);
+						gu.GetComponent<Spy>().photonView.RPC("recieveMessage", PhotonTargets.All, "[8169FF]"+player.Handle+": [-]"+text);
 					}
 
 				} else if(player.Team == "Guard") {
-					textList.Add("[FF2B2B]"+player.Handle+": [-]"+text);
 					foreach(GameObject gu in team){
-						gu.GetComponent<Guard>().photonView.RPC("recieveMessage", PhotonTargets.Others, "[FF2B2B]"+player.Handle+": [-]"+text);
+						gu.GetComponent<Guard>().photonView.RPC("recieveMessage", PhotonTargets.All, "[FF2B2B]"+player.Handle+": [-]"+text);
 					}
 				} 
 				mInput.value = "";

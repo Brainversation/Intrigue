@@ -19,6 +19,7 @@ public class BasePlayer : MonoBehaviour {
 	public GameObject allytext;
 	public GameObject teleportPrefab;
 	public UITextList textList;
+	public GameObject chatArea;
 	[HideInInspector] public string localHandle = "";
 	[HideInInspector] public int localPing = 0;
 	[HideInInspector] public int remoteScore = 0;

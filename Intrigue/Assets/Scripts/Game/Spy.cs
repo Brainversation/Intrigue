@@ -171,6 +171,14 @@ public class Spy : BasePlayer{
 		}
 	}
 
+	void toggleChatOff(){
+		chatArea.GetComponentInChildren<UILabel>().alpha = 0;
+	}
+
+	void toggleChatOn(){
+		chatArea.GetComponentInChildren<UILabel>().alpha = 1;
+	}
+
 	[RPC]
 	void destroySpy(){
 		if( photonView.isMine){
@@ -215,6 +223,9 @@ public class Spy : BasePlayer{
 	
 	[RPC]
 	public void recieveMessage(string s){
+		toggleChatOn();
 		textList.Add(s);
+		CancelInvoke("toggleChatOff");
+		Invoke("toggleChatOff", 5);
 	}
 }
