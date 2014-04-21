@@ -210,6 +210,21 @@ public class Intrigue : MonoBehaviour {
 		}
 	}
 
+
+
+	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
+		Debug.Log("OnPhotonPlayerDisconnected: " + photonPlayer.ID );
+		// if( player.Team == "Guard" ){
+		// 	--Intrigue.numGuardsLeft;
+		// } else {
+		// 	--Intrigue.numSpiesLeft;
+		// }
+
+		if (PhotonNetwork.isMasterClient){
+			//Move Info towards to new master Client, but master client switches on its own
+		}
+	}
+
 	public float GetTimeLeft{
 		get{
 			return this.timeLeft;

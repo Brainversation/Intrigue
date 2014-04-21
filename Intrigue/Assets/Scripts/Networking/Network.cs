@@ -30,21 +30,6 @@ public class Network : MonoBehaviour {
 		}
 	}
 
-	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
-		Debug.Log("OnPhotonPlayerDisconnected: " + photonPlayer.ID );
-		//Scoreboard sb = Intrigue.playerGO.GetComponentInChildren<Scoreboard>();
-		//sb.GetComponent<PhotonView>().RPC("removeName", PhotonTargets.All, player.Handle, player.Team);
-		if( player.Team == "Guard" ){
-			--Intrigue.numGuardsLeft;
-		} else {
-			--Intrigue.numSpiesLeft;
-		}
-
-		if (PhotonNetwork.isMasterClient){
-			//Move Info towards to new master Client, but master client switches on its own
-		}
-	}
-
 	[RPC]
 	public void recieveMessage(string s){
 		this.chatBox += s;

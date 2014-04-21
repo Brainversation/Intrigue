@@ -81,6 +81,10 @@ public class MainMenu : MonoBehaviour {
 		checkInternet();
 	}
 
+	void OnGUI(){
+		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
+	}
+
 	void checkInternet(){
 		if(PhotonNetwork.connectionStateDetailed == PeerState.ConnectingToMasterserver){
 			connected = false;
