@@ -153,7 +153,6 @@ public class UIKeyBinding : MonoBehaviour
 			{					
 				UICamera.inputHasFocus = false;
 				UICamera.selectedObject = null;
-				Debug.Log("called");
 				networkController.isChatting = false;
 				movementController.enabled = true;
 				toggleDisappear();
@@ -167,7 +166,6 @@ public class UIKeyBinding : MonoBehaviour
 				{
 					Window.GetComponent<UISprite>().alpha = 1;
 					gameObject.GetComponentInChildren<UIInput>().enabled = true;
-					Debug.Log("Turn on " + Window.GetComponent<UISprite>().alpha);
 					networkController.isChatting = true;
 					movementController.enabled = false;
 				}
@@ -177,7 +175,6 @@ public class UIKeyBinding : MonoBehaviour
 					Window.GetComponent<UISprite>().alpha = 0;
 					networkController.isChatting = false;
 					movementController.enabled = true;
-					Debug.Log("Turn off");
 				}
 			}
 		}
