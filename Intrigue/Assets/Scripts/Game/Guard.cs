@@ -190,7 +190,8 @@ public class Guard : BasePlayer{
 					foreach(Renderer rend in renders){
 						if(rend.gameObject.CompareTag("highLight")){
 							if(markedGuests.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID)){
-								rend.material.color = Color.green;
+								rend.material.shader = Shader.Find("Reflect_Bump_Spec_Lightmap");
+								rend.material.SetColor("_ReflectColor", Color.yellow);
 							} else {
 								rend.material.color = Color.white;
 								rend.material.shader = Shader.Find("Toon/Basic Outline");

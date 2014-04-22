@@ -3,7 +3,7 @@ Properties {
 	_Color ("Main Color", Color) = (1,1,1,1)
 	_SpecColor ("Specular Color", Color) = (0.5,0.5,0.5,1)
 	_Shininess ("Shininess", Range (0.01, 1)) = 0.078125
-	_ReflectColor ("Reflection Color", Color) = (1,1,1,0.5)
+	_ReflectColor ("Reflection Color", Color) = (1,0,0,1)
 	_MainTex ("Base (RGB) RefStrGloss (A)", 2D) = "white" {}
 	_Detail ("Detail (RGB)", 2D) = "gray" {}
 	_Cube ("Reflection Cubemap", Cube) = "" { TexGen CubeReflect }
