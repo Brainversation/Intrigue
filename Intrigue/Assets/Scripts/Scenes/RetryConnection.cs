@@ -10,11 +10,6 @@ public class RetryConnection : Photon.MonoBehaviour {
 	void Start () {
 		player = GameObject.Find("Player").GetComponent<Player>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	void OnGUI(){
 		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
@@ -29,16 +24,18 @@ public class RetryConnection : Photon.MonoBehaviour {
 		} else {
 			GUILayout.Label("Rejoin room: " + player.RoomName + "?");
 			if(GUILayout.Button("Join")){
+				showRetry = false;
 				PhotonNetwork.JoinRoom(player.RoomName);
 			}
 			if(GUILayout.Button("Exit")){
+				showRetry = false;
 				PhotonNetwork.LoadLevel(0);
 			}
 		}
 	}
 
 	void OnJoinedRoom(){
-		Debug.Log("HERE");
+		Debug.Log("OnJoinedRoom");
 	}
 
 	void OnDisconnectedFromPhoton(){
