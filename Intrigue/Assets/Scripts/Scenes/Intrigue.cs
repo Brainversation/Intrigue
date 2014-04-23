@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Intrigue : MonoBehaviour {
 
@@ -12,7 +13,7 @@ public class Intrigue : MonoBehaviour {
 	private int numGuards = 0;
 	private static float timeLimit = 420;
 	private float timeLeft = timeLimit;
-	private PhotonView photonView = null;	
+	private PhotonView photonView = null;
 	private GameObject[] spawnObjects;
 	private List<Transform> spawns = new List<Transform>();
 	private List<Transform> availableSpawns = new List<Transform>();
@@ -96,13 +97,19 @@ public class Intrigue : MonoBehaviour {
 		
 		objectives = new bool[GameObject.FindGameObjectsWithTag("Objective").Length];
 		mainObjectives = new bool[GameObject.FindGameObjectsWithTag("ObjectiveMain").Length];
+
+		Hashtable propertiesToSet = new Hashtable();
+		propertiesToSet.Add("Handle", player.Handle);
+		propertiesToSet.Add("Team", player.Team);
+		PhotonNetwork.player.SetCustomProperties(propertiesToSet);
+
 		joinGame();
 	}
 
 	void Update () {
 		if(!gameStart) return;
 		timeLeft -= Time.deltaTime;
-		photonView.RPC("syncTime", PhotonTargets.OthersBuffered, timeLeft);
+		photonView.RPC("syncTime", PhotonTargets.Others, timeLeft);
 		if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || objectivesCompleted == 2){
 			if(wantGameOver){
 				if(timeLeft<=0){
@@ -207,21 +214,6 @@ public class Intrigue : MonoBehaviour {
 			Debug.Log( "Game Over" );
 			roundsLeft = rounds;
 			PhotonNetwork.LoadLevel("PostGame");
-		}
-	}
-
-
-
-	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
-		Debug.Log("OnPhotonPlayerDisconnected: " + photonPlayer.ID );
-		// if( player.Team == "Guard" ){
-		// 	--Intrigue.numGuardsLeft;
-		// } else {
-		// 	--Intrigue.numSpiesLeft;
-		// }
-
-		if (PhotonNetwork.isMasterClient){
-			//Move Info towards to new master Client, but master client switches on its own
 		}
 	}
 

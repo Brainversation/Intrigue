@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RetryConnection : Photon.MonoBehaviour {
+public class NetworkConnection : Photon.MonoBehaviour {
 
 	private Player player;
+	private PhotonView photonView = null;
 	private bool showRetry = false;
 
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find("Player").GetComponent<Player>();
+		photonView = PhotonView.Get(this);
 	}
 
 	void OnGUI(){
@@ -34,6 +36,25 @@ public class RetryConnection : Photon.MonoBehaviour {
 		}
 	}
 
+	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
+		Debug.Log("OnPhotonPlayerDisconnected: " +
+					(string)photonPlayer.customProperties["Handle"] +
+					(string)photonPlayer.customProperties["Team"] );
+
+		if( photonPlayer.customProperties["Team"] == "Guard" ){
+			photonView.RPC("removeGuard", PhotonTargets.All);
+		} else {
+			photonView.RPC("removeSpy", PhotonTargets.All);
+		}
+	}
+
+	void OnMasterClientSwitched(PhotonPlayer newMasterClient){
+		// call master switched stuff
+		Debug.Log("OnMasterClientDisconnected: " +
+					(string)newMasterClient.customProperties["Handle"] +
+					(string)newMasterClient.customProperties["Team"] );
+	}
+
 	void OnJoinedRoom(){
 		Debug.Log("OnJoinedRoom");
 	}
@@ -44,5 +65,15 @@ public class RetryConnection : Photon.MonoBehaviour {
 
 	void OnPhotonJoinRoomFailed(){
 		Debug.Log("FAILED ROOM");
+	}
+
+	[RPC]
+	void removeSpy(){
+		--Intrigue.numSpies;
+	}
+
+	[RPC]
+	void removeGuard(){
+		--Intrigue.numGuards;
 	}
 }

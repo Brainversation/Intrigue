@@ -7,7 +7,6 @@ public class GuestSlider : MonoBehaviour {
 	private PhotonView photonView = null;
 	private UISlider slider;
 	private UILabel label;
-	private int guestNum = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -30,12 +29,12 @@ public class GuestSlider : MonoBehaviour {
 			photonView.RPC("guestCount", PhotonTargets.Others, player.Guests);
 		}
 		else{
-			label.text = ("Guest Count: " + guestNum.ToString());
+			label.text = ("Guest Count: " + player.Guests.ToString());
 		}
 	}
 
 	[RPC]
 	void guestCount(int guests){
-		guestNum = guests;
+		player.Guests = guests;
 	}
 }
