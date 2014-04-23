@@ -36,9 +36,17 @@ public class NetworkConnection : Photon.MonoBehaviour {
 		}
 	}
 
+	void OnPhotonPlayerConnected(PhotonPlayer newPlayer){
+		if(PhotonNetwork.player.ID == newPlayer.ID){
+			// Do re-add stuff
+		} else if(PhotonNetwork.isMasterClient){
+			// Do re-add stuff
+		}
+	}
+
 	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
 		Debug.Log("OnPhotonPlayerDisconnected: " +
-					(string)photonPlayer.customProperties["Handle"] +
+					(string)photonPlayer.customProperties["Handle"] + " " +
 					(string)photonPlayer.customProperties["Team"] );
 
 		if( photonPlayer.customProperties["Team"] == "Guard" ){
@@ -51,8 +59,12 @@ public class NetworkConnection : Photon.MonoBehaviour {
 	void OnMasterClientSwitched(PhotonPlayer newMasterClient){
 		// call master switched stuff
 		Debug.Log("OnMasterClientDisconnected: " +
-					(string)newMasterClient.customProperties["Handle"] +
+					(string)newMasterClient.customProperties["Handle"] + " " +
 					(string)newMasterClient.customProperties["Team"] );
+
+		if(PhotonNetwork.player.ID == newMasterClient.ID){
+			// Do switch
+		}
 	}
 
 	void OnJoinedRoom(){
