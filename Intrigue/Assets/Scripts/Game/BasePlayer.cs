@@ -50,7 +50,6 @@ public class BasePlayer : MonoBehaviour {
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		InvokeRepeating("syncPingAndScore", 1, 1F);
-		textList.Add("[FF2B2B]Press [-]Shift [FF2B2B]+[-] Enter[FF2B2B] to chat![-]");
 		if(photonView.isMine){
 			localHandle = player.Handle;
 			remoteScore = player.Score;
@@ -74,6 +73,7 @@ public class BasePlayer : MonoBehaviour {
 				NGUITools.SetActive(uiP.gameObject, false);
 			}
 		}
+		textList.Add("[FF2B2B]Press [-]Shift [FF2B2B]+[-] Enter[FF2B2B] to chat![-]");
 	}
 	
 	protected virtual void Update () {
