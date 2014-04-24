@@ -4,11 +4,11 @@ using System.Collections;
 public class Network : MonoBehaviour {
 
 	private string chatBox = "";
-	private Player player;
+	//private Player player;
 
 	void Start () {
 		// Get photonView component
-		player = GameObject.Find("Player").GetComponent<Player>();
+		//player = GameObject.Find("Player").GetComponent<Player>();
 	}
 	
 	// Update is called once per frame

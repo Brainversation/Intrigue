@@ -9,7 +9,7 @@
 public class PlayerChat : MonoBehaviour
 {
 	public UITextList textList;
-	private PhotonView photonView = null;
+	// private PhotonView photonView = null;
 	private Player player;
 	private GameObject[] team;
 
@@ -17,7 +17,7 @@ public class PlayerChat : MonoBehaviour
 
 	void Start ()
 	{
-		this.photonView = PhotonView.Get(this);
+		//this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		mInput = GetComponent<UIInput>();
 		mInput.label.maxLineCount = 1;

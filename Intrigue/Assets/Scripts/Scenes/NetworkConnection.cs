@@ -4,13 +4,11 @@ using System.Collections;
 public class NetworkConnection : Photon.MonoBehaviour {
 
 	private Player player;
-	private PhotonView photonView = null;
 	private bool showRetry = false;
 
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find("Player").GetComponent<Player>();
-		photonView = PhotonView.Get(this);
 	}
 
 	void OnGUI(){
@@ -49,7 +47,7 @@ public class NetworkConnection : Photon.MonoBehaviour {
 					(string)photonPlayer.customProperties["Handle"] + " " +
 					(string)photonPlayer.customProperties["Team"] );
 
-		if( photonPlayer.customProperties["Team"] == "Guard" ){
+		if( (string)photonPlayer.customProperties["Team"] == "Guard" ){
 			photonView.RPC("removeGuard", PhotonTargets.All);
 		} else {
 			photonView.RPC("removeSpy", PhotonTargets.All);
@@ -81,11 +79,11 @@ public class NetworkConnection : Photon.MonoBehaviour {
 
 	[RPC]
 	void removeSpy(){
-		--Intrigue.numSpies;
+		--Intrigue.numSpiesLeft;
 	}
 
 	[RPC]
 	void removeGuard(){
-		--Intrigue.numGuards;
+		--Intrigue.numGuardsLeft;
 	}
 }
