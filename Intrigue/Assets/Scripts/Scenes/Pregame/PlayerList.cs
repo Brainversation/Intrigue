@@ -80,6 +80,17 @@ public class PlayerList : MonoBehaviour {
 		photonView.RPC("editPing", PhotonTargets.All, player.Handle, player.Team, player.Ready, PhotonNetwork.GetPing());
 	}
 
+
+	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
+		Debug.Log("OPPD from Pregame: " +
+					(string)photonPlayer.customProperties["Handle"] + " " +
+					(string)photonPlayer.customProperties["Team"] );
+
+	
+		photonView.RPC("removeName", PhotonTargets.All, photonPlayer.customProperties["Handle"], photonPlayer.customProperties["Team"] );
+	}
+
+
 	[RPC]
 	void addGuard(string handle){
 		guards.Add(handle);
