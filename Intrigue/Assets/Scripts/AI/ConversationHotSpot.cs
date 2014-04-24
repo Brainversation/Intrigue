@@ -33,18 +33,20 @@ public class ConversationHotSpot : MonoBehaviour {
 		} else {
 			int i = 0;
 			foreach(GameObject g in queue){
-				if(g.GetComponent<BaseAI>().status != Status.Waiting){
-					if(i == talkerIndex && queue.Count > 1){
-						g.GetComponent<Animator>().SetBool("Converse", true);
-						talkerTime -= Time.deltaTime;
-					}
+				if(g.tag != "Guard" && g.tag != "Spy"){
+					if(g.GetComponent<BaseAI>().status != Status.Waiting){
+						if(i == talkerIndex && queue.Count > 1){
+							g.GetComponent<Animator>().SetBool("Converse", true);
+							talkerTime -= Time.deltaTime;
+						}
 
-					if(talkerTime < 0){
-						queue[talkerIndex].GetComponent<Animator>().SetBool("Converse", false);
-						talkerIndex = Random.Range(0, queue.Count);
-						talkerTime = 5;
+						if(talkerTime < 0){
+							queue[talkerIndex].GetComponent<Animator>().SetBool("Converse", false);
+							talkerIndex = Random.Range(0, queue.Count);
+							talkerTime = 5;
+						}
+						g.transform.LookAt(transform.position);
 					}
-					g.transform.LookAt(transform.position);
 				}
 				++i;
 			}
@@ -55,7 +57,7 @@ public class ConversationHotSpot : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
 		if(other.tag == "Guest" &&
-			other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position){
+		   other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position){
 			BaseAI script = other.gameObject.GetComponent<BaseAI>();
 			script.agent.SetDestination(spots[queue.Count]);
 			script.anim.SetBool("Speed", true);
@@ -68,9 +70,22 @@ public class ConversationHotSpot : MonoBehaviour {
 			script.inConvo = true;
 		}
 
-		//AKA Player
-		if(other.gameObject.layer == 8){
-			//Activate GUI that says enter conversation hotspot
+		//Activate GUI that says enter conversation hotspot for player
+		if(other.tag == "Guard" || other.tag == "Spy"){
+			other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 1;
+		}
+	}
+
+	void OnTriggerStay(Collider other){
+		if(other.tag == "Guard" || other.tag == "Spy"){
+			// If player presses E and the GUI element is present, then add to convo
+			if(Input.GetKeyUp(KeyCode.E) && other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha == 1){
+				++population;
+				queue.Add(other.gameObject);
+				other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
+			} else if(Input.GetKeyUp(KeyCode.Space)){
+				other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
+			}	
 		}
 	}
 
@@ -80,6 +95,11 @@ public class ConversationHotSpot : MonoBehaviour {
 			queue.Remove(other.gameObject);
 			other.GetComponent<BaseAI>().isYourTurn = false;
 			other.GetComponent<BaseAI>().inConvo = false;
+		} else if (other.tag == "Guard" || other.tag == "Spy"){
+			other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
+			if(queue.Contains(other.gameObject)){
+				queue.Remove(other.gameObject);
+			}
 		}
 	}
 

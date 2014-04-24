@@ -18,8 +18,9 @@ public class BasePlayer : MonoBehaviour {
 	public GameObject hairHat;
 	public GameObject allytext;
 	public GameObject teleportPrefab;
-	public UITextList textList;
 	public GameObject chatArea;
+	public UITextList textList;
+	public UIPanel conversationGUI;
 	[HideInInspector] public string localHandle = "";
 	[HideInInspector] public int localPing = 0;
 	[HideInInspector] public int remoteScore = 0;
@@ -36,6 +37,15 @@ public class BasePlayer : MonoBehaviour {
 	}
 
 	void Start () {
+		// Set conversationGUI so spy and guard can use
+		guiPanels = GetComponentsInChildren<UIPanel>(true);
+		foreach(UIPanel uiP in guiPanels){
+			if(uiP.gameObject.CompareTag("ConversationUI")){
+				conversationGUI = uiP;
+				conversationGUI.alpha = 0;
+			}
+		}
+		
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
@@ -57,6 +67,10 @@ public class BasePlayer : MonoBehaviour {
 			GetComponent<MouseLook>().enabled = false;
 			guiPanels = GetComponentsInChildren<UIPanel>(true);
 			foreach(UIPanel uiP in guiPanels){
+				if(uiP.gameObject.CompareTag("ConversationUI")){
+					conversationGUI = uiP;
+					conversationGUI.alpha = 0;
+				}
 				NGUITools.SetActive(uiP.gameObject, false);
 			}
 		}
