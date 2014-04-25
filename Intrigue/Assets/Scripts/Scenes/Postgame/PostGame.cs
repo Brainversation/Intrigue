@@ -63,6 +63,11 @@ public class PostGame : MonoBehaviour {
 		photonView.RPC("editPing", PhotonTargets.All, player.Handle, player.TeamID, PhotonNetwork.player.ID, player.Score, PhotonNetwork.GetPing());
 	}
 
+	void leaveLobby(){
+		PhotonNetwork.LeaveRoom();
+		PhotonNetwork.LoadLevel( "MainMenu" );
+	}
+
 	[RPC]
 	void editPing(string handle, int TeamID, int playerID, int score, int ping){
 		string pingColor = "[000000]";
