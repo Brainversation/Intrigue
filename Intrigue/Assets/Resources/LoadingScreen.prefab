@@ -520,13 +520,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba66d7dc73d92cd4c8bcbef917c0f50c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: Pregame
+  levelToLoad: 50726567616d65
   UIRoot: {fileID: 0}
   bg: {fileID: 0}
   loadingBar: {fileID: 100012}
   loadTimer: {fileID: 100016}
   loadTitle: {fileID: 100018}
   loadResult: {fileID: 100014}
+  loadCounter: 0
+  photonView: {fileID: 0}
+  player: {fileID: 0}
+  countdownDuration: 10
+  countdownCur: 0
+  intrigue: {fileID: 0}
+  roundResultDisplay: 
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
