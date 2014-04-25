@@ -48,8 +48,6 @@ public class UIKeyBinding : MonoBehaviour
 
 	public NetworkCharacter networkController = null;
 
-	public MovementController movementController = null;
-
 	public GameObject Window = null;
 
 	bool mIgnoreUp = false;
@@ -154,7 +152,6 @@ public class UIKeyBinding : MonoBehaviour
 				UICamera.inputHasFocus = false;
 				UICamera.selectedObject = null;
 				networkController.isChatting = false;
-				movementController.enabled = true;
 				toggleDisappear();
 			}
 		}
@@ -167,14 +164,12 @@ public class UIKeyBinding : MonoBehaviour
 					Window.GetComponent<UISprite>().alpha = 1;
 					gameObject.GetComponentInChildren<UIInput>().enabled = true;
 					networkController.isChatting = true;
-					movementController.enabled = false;
 				}
 				else
 				{	
 					gameObject.GetComponentInChildren<UIInput>().enabled = false;
 					Window.GetComponent<UISprite>().alpha = 0;
 					networkController.isChatting = false;
-					movementController.enabled = true;
 				}
 			}
 		}

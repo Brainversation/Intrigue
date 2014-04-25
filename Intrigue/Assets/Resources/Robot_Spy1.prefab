@@ -883,7 +883,6 @@ GameObject:
   - 4: {fileID: 400116}
   - 95: {fileID: 9500000}
   - 114: {fileID: 11400052}
-  - 114: {fileID: 11400050}
   - 114: {fileID: 11400048}
   - 114: {fileID: 11400046}
   - 143: {fileID: 14300000}
@@ -3948,19 +3947,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isOut: 0
   isChatting: 0
---- !u!114 &11400050
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fef9e1a59141b6419af7f22eb7fb671, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravity: 20
-  rotSpeed: 0
 --- !u!114 &11400052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4349,7 +4335,6 @@ MonoBehaviour:
   modifier: 0
   action: 3
   networkController: {fileID: 11400048}
-  movementController: {fileID: 11400050}
   Window: {fileID: 100180}
 --- !u!114 &11400072
 MonoBehaviour:
@@ -4366,7 +4351,6 @@ MonoBehaviour:
   modifier: 1
   action: 2
   networkController: {fileID: 11400048}
-  movementController: {fileID: 11400050}
   Window: {fileID: 100180}
 --- !u!114 &11400074
 MonoBehaviour:
@@ -4592,7 +4576,6 @@ MonoBehaviour:
   modifier: 1
   action: 1
   networkController: {fileID: 11400048}
-  movementController: {fileID: 11400050}
   Window: {fileID: 100180}
 --- !u!114 &11400088
 MonoBehaviour:

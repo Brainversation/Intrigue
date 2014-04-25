@@ -33,7 +33,6 @@ public class PlayerCamAnimator : MonoBehaviour {
 
 	    			gameObject.GetComponent<MouseLook>().enabled = false;
 	    			playerObj.GetComponent<MouseLook>().enabled = false;
-	    			playerObj.GetComponent<MovementController>().enabled = false;
 	    			float distCovered = (Time.time - startTime) * camSpeed;
 			        float fracJourney = distCovered / journeyLength;
 			        transform.position = Vector3.Lerp(startMarker.position, endMarker.position, fracJourney);

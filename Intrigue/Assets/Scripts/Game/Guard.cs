@@ -269,7 +269,6 @@ public class Guard : BasePlayer{
 		stunInstantiated = false;
 		photonView.RPC("updateStunPS", PhotonTargets.All, false);
 		NGUITools.SetActive(stunUI.gameObject, false);
-		GetComponentInChildren<MovementController>().enabled = true;
 		GetComponentInChildren<AudioListener>().enabled = true;
 		//Have to disable the mouse look on the camera as well
 		Component [] mouseLooks = GetComponentsInChildren<MouseLook>();
@@ -314,7 +313,6 @@ public class Guard : BasePlayer{
 					ml.enabled = false;
 				}
 
-			GetComponentInChildren<MovementController>().enabled = false;
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<Crosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;

@@ -60,7 +60,6 @@ public class BasePlayer : MonoBehaviour {
 		} else {
 			GetComponentInChildren<Camera>().enabled = false; 
 			GetComponentInChildren<AudioListener>().enabled = false;
-			GetComponentInChildren<MovementController>().enabled = false;
 			GetComponentInChildren<MouseLook>().enabled = false; 
 			GetComponentInChildren<Crosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
@@ -81,13 +80,11 @@ public class BasePlayer : MonoBehaviour {
 			if(!intrigue.gameStart && !roundStarted){
 				GetComponentInChildren<Camera>().enabled = false;
 				GetComponentInChildren<AudioListener>().enabled = false;
-				GetComponentInChildren<MovementController>().enabled = false;
 				GetComponentInChildren<Crosshair>().enabled = false;
 			}
 			else if(intrigue.gameStart && !roundStarted){
 				GetComponentInChildren<Camera>().enabled = true;
 				GetComponentInChildren<AudioListener>().enabled = true;
-				GetComponentInChildren<MovementController>().enabled = true;
 				GetComponentInChildren<Crosshair>().enabled = true;
 				roundStarted = true;
 			}

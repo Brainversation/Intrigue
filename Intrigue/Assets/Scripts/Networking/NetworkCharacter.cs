@@ -67,6 +67,15 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 				NGUITools.SetActive(sprintPanel.gameObject, false);
 			}
 
+			//Rotating Character and Gravity
+			CharacterController controller = GetComponent<CharacterController>();
+			Vector3 moveDirection = Vector3.zero;
+			transform.Rotate(0, Input.GetAxis("Horizontal") * 90 * Time.deltaTime, 0); 
+
+			moveDirection.y -= 20 * Time.deltaTime;
+			controller.Move(moveDirection * Time.deltaTime); 
+
+
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
 			if(stamina>=1 && Input.GetKey("left shift") && Input.GetAxis("Vertical")!=0){
 				stamina-=staminaDrainSpeed*Time.deltaTime;
