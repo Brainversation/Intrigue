@@ -30,13 +30,13 @@ public class Scoreboard : MonoBehaviour {
 			Vector3 temp = new Vector3(0f,(i)*30f,0f);
 			playerScoreInstance.transform.localPosition -= temp;
 			UILabel label = playerScoreInstance.GetComponent<UILabel>();
-			label.user = "";
+			label.user = -1;
 			label.text = "";
 
 			GameObject playerScoreInstance2= NGUITools.AddChild(spyTable, playerPrefab);
 			playerScoreInstance2.transform.localPosition -= temp;
 			UILabel label2 = playerScoreInstance2.GetComponent<UILabel>();
-			label2.user = "";
+			label2.user = -1;
 			label2.text = "";
 		}
 	
@@ -79,7 +79,7 @@ public class Scoreboard : MonoBehaviour {
 			Spy spI = sp.GetComponent<Spy>();
 			if(spI.localHandle!=""){
 				foreach(Transform child in spyTable.transform){
-					if(child.gameObject.GetComponent<UILabel>().user == spI.localHandle){
+					if(child.gameObject.GetComponent<UILabel>().labelHandle == spI.localHandle){
 							int ping = spI.localPing;
 							string pingColor = "[000000]";
 								if (ping<50)
@@ -90,8 +90,8 @@ public class Scoreboard : MonoBehaviour {
 									pingColor = "[FF0000]";		
 						child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + spI.localHandle + "[-] - " + spI.remoteScore + "pts - ping("+ pingColor+ping+"[-]" + ")";	
 					}
-					else if(child.gameObject.GetComponent<UILabel>().user =="" && !spI.isAssigned){
-						child.gameObject.GetComponent<UILabel>().user = spI.localHandle;
+					else if(child.gameObject.GetComponent<UILabel>().labelHandle == "" && !spI.isAssigned){
+						child.gameObject.GetComponent<UILabel>().labelHandle = spI.localHandle;
 						spI.isAssigned = true;
 					}
 				}
@@ -102,7 +102,7 @@ public class Scoreboard : MonoBehaviour {
 			Guard guI = gu.GetComponent<Guard>();
 			if(guI.localHandle!="" && guI.localHandle!="No Handle"){
 				foreach(Transform child in guardTable.transform){
-					if(child.gameObject.GetComponent<UILabel>().user == guI.localHandle){
+					if(child.gameObject.GetComponent<UILabel>().labelHandle == guI.localHandle){
 							int ping = guI.localPing;
 							string pingColor = "[000000]";
 								if (ping<50)
@@ -113,8 +113,8 @@ public class Scoreboard : MonoBehaviour {
 									pingColor = "[FF0000]";		
 						child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + guI.localHandle + "[-] - " + guI.remoteScore + "pts - ping ("+ pingColor+ping+"[-]" + ") ms";	
 					}
-					else if(child.gameObject.GetComponent<UILabel>().user =="" && !guI.isAssigned){
-						child.gameObject.GetComponent<UILabel>().user = guI.localHandle;
+					else if(child.gameObject.GetComponent<UILabel>().labelHandle == "" && !guI.isAssigned){
+						child.gameObject.GetComponent<UILabel>().labelHandle = guI.localHandle;
 						guI.isAssigned = true;
 					}
 				}
@@ -124,7 +124,7 @@ public class Scoreboard : MonoBehaviour {
 	}
 
 	[RPC]
-	void removeName(string handle, string team){
+	void removeName(string handle, string team, int playerID){
 		// Debug.Log("Removing: " + handle);
 		bool removed = false;
 		float removedHeight=0;
@@ -135,7 +135,7 @@ public class Scoreboard : MonoBehaviour {
 			curTable = guardTable;
 
 		foreach(Transform child in curTable.transform){
-			if(child.gameObject.GetComponent<UILabel>().user == handle){
+			if(child.gameObject.GetComponent<UILabel>().user == playerID){
 				removedHeight = child.localPosition.y;
 				NGUITools.Destroy(child.gameObject);
 				removed = true;

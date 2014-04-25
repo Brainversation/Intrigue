@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 
 public class Pregame : MonoBehaviour {
@@ -20,9 +21,8 @@ public class Pregame : MonoBehaviour {
 	private Player player;
 	private bool isReady = false;
 	private int readyCount = 0;
-	private List<string> spies = new List<string>();
-	private List<string> guards = new List<string>();
-
+	private List<int> spies = new List<int>();
+	private List<int> guards = new List<int>();
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
@@ -38,6 +38,8 @@ public class Pregame : MonoBehaviour {
 
 		//Updates Ping and Score Every X Seconds
 		InvokeRepeating("syncPingAndScore", 0, 2F);
+
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Handle", player.Handle}});
 	}
 
 	void Update(){
@@ -74,30 +76,29 @@ public class Pregame : MonoBehaviour {
 	}
 
 	void syncPlayerTeam(){
-		if(player.Team=="Spy" && !spies.Contains(player.Handle)){
-			photonView.RPC("addSpy", PhotonTargets.AllBuffered, player.Handle);
-			photonView.RPC("removeName", PhotonTargets.AllBuffered, player.Handle, "Guard");
+		if(player.Team=="Spy" && !spies.Contains(PhotonNetwork.player.ID)){
+			photonView.RPC("addSpy", PhotonTargets.AllBuffered, player.Handle, PhotonNetwork.player.ID);
+			photonView.RPC("removeName", PhotonTargets.AllBuffered, player.Handle, "Guard", PhotonNetwork.player.ID);
 			player.TeamID = 1;
 		}
-		if(player.Team=="Guard" && !guards.Contains(player.Handle)){
-			photonView.RPC("addGuard", PhotonTargets.AllBuffered, player.Handle);
-			photonView.RPC("removeName", PhotonTargets.AllBuffered, player.Handle, "Spy");
+		if(player.Team=="Guard" && !guards.Contains(PhotonNetwork.player.ID)){
+			photonView.RPC("addGuard", PhotonTargets.AllBuffered, player.Handle, PhotonNetwork.player.ID);
+			photonView.RPC("removeName", PhotonTargets.AllBuffered, player.Handle, "Spy", PhotonNetwork.player.ID);
 			player.TeamID = 2;
 		}
 	}
 
 	void syncPingAndScore(){
-		photonView.RPC("editPing", PhotonTargets.All, player.Handle, player.Team, player.Ready, PhotonNetwork.GetPing());
+		photonView.RPC("editPing", PhotonTargets.All, player.Handle, player.Team, PhotonNetwork.player.ID, player.Ready, PhotonNetwork.GetPing());
 	}
 
 
 	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
-		Debug.Log("OPPD from Pregame: " +
+		/*Debug.Log("OPPD from Pregame: " +
 					(string)photonPlayer.customProperties["Handle"] + " " +
-					(string)photonPlayer.customProperties["Team"] );
-
-	
-		photonView.RPC("removeName", PhotonTargets.All, photonPlayer.customProperties["Handle"], photonPlayer.customProperties["Team"] );
+					(string)photonPlayer.customProperties["Team"] + " " +
+					photonPlayer.ID);*/
+		photonView.RPC("removeName", PhotonTargets.All, photonPlayer.customProperties["Handle"], photonPlayer.customProperties["Team"], photonPlayer.ID );
 	}
 
 	void updateGuestSlider(){
@@ -114,11 +115,13 @@ public class Pregame : MonoBehaviour {
 	void swapToSpy(){
 		player.Team = "Spy";
 		player.TeamID = 1;
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Spy"}});
 	}
 
 	void swapToGuard(){
 		player.Team = "Guard";
 		player.TeamID = 2;
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Guard"}});
 	}
 
 	void readyStatus(){
@@ -193,33 +196,35 @@ public class Pregame : MonoBehaviour {
 	}
 
 	[RPC]
-	void addSpy(string handle){
-		spies.Add(handle);
-		guards.Remove(handle);
+	void addSpy(string handle, int playerID){
+		//Debug.Log("Added spy: " + handle + " ID: " + playerID);
+		spies.Add(playerID);
+		guards.Remove(playerID);
 		GameObject playerInfo = NGUITools.AddChild(spyTable, playerPrefab);
 		Vector3 temp = new Vector3(0f,(spies.Count-1)*0.1f,0);
 		playerInfo.transform.position-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
-		label.user = handle;
+		label.user = playerID;
 		label.text = "[FFFFFF]"+handle;
 		syncPingAndScore();
 	}
 
 	[RPC]
-	void addGuard(string handle){
-		guards.Add(handle);
-		spies.Remove(handle);
+	void addGuard(string handle, int playerID){
+		//Debug.Log("Added guard: " + handle + " ID: " + playerID);
+		guards.Add(playerID);
+		spies.Remove(playerID);
 		GameObject playerInfo = NGUITools.AddChild(guardTable, playerPrefab);
 		Vector3 temp = new Vector3(0f,(guards.Count-1)*0.1f,0);
 		playerInfo.transform.position-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
-		label.user = handle;
+		label.user = playerID;
 		label.text = "[FFFFFF]"+handle;
 		syncPingAndScore();
 	}
 
 	[RPC]
-	void editPing(string handle, string team, bool ready, int ping){
+	void editPing(string handle, string team, int playerID, bool ready, int ping){
 		string pingColor = "[000000]";
 		if (ping<50)
 			pingColor = "[00FF00]";
@@ -229,7 +234,7 @@ public class Pregame : MonoBehaviour {
 			pingColor = "[FF0000]";
 		if(team=="Spy"){
 					foreach(Transform child in spyTable.transform){
-						if(child.gameObject.GetComponent<UILabel>().user == handle){
+						if(child.gameObject.GetComponent<UILabel>().user == playerID){
 							if(ready)
 								child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + "   [00FF00][READY][FFFFFF]   ("+ pingColor+ping+"[-]" + ") ms";
 							else
@@ -239,7 +244,7 @@ public class Pregame : MonoBehaviour {
 				}
 		else{
 			foreach(Transform child in guardTable.transform){
-				if(child.gameObject.GetComponent<UILabel>().user == handle){
+				if(child.gameObject.GetComponent<UILabel>().user == playerID){
 						if(ready)
 							child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + "   [00FF00][READY][FFFFFF]   ("+ pingColor+ping+"[-]" + ") ms";
 						else
@@ -250,7 +255,7 @@ public class Pregame : MonoBehaviour {
 	}
 
 	[RPC]
-	void removeName(string handle, string team){
+	void removeName(string handle, string team, int playerID){
 		bool removed = false;
 		float removedHeight=0;
 		GameObject curTable;
@@ -260,12 +265,13 @@ public class Pregame : MonoBehaviour {
 			curTable = guardTable;
 
 		foreach(Transform child in curTable.transform){
-			if(child.gameObject.GetComponent<UILabel>().user == handle){
+			if(child.gameObject.GetComponent<UILabel>().user == playerID){
 				removedHeight = child.localPosition.y;
 				NGUITools.Destroy(child.gameObject);
 				removed = true;
 			}
 		}
+
 		if(removed){
 			foreach(Transform child in curTable.transform){
 				Vector3 temp = new Vector3(0f, 0.1f,0);

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Intrigue : MonoBehaviour {
 
@@ -97,11 +96,6 @@ public class Intrigue : MonoBehaviour {
 		
 		objectives = new bool[GameObject.FindGameObjectsWithTag("Objective").Length];
 		mainObjectives = new bool[GameObject.FindGameObjectsWithTag("ObjectiveMain").Length];
-
-		Hashtable propertiesToSet = new Hashtable();
-		propertiesToSet.Add("Handle", player.Handle);
-		propertiesToSet.Add("Team", player.Team);
-		PhotonNetwork.player.SetCustomProperties(propertiesToSet);
 
 		joinGame();
 	}

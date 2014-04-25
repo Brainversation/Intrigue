@@ -16,7 +16,9 @@ using System;
 public class UILabel : UIWidget
 {
 	[HideInInspector]
-	public string user = "";
+	public int user = -1;
+	[HideInInspector]
+	public string labelHandle = "";
 
 	public enum Effect
 	{
