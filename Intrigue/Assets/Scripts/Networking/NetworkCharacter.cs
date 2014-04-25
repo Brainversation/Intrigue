@@ -87,12 +87,13 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 				stamina=100;
 		}
 
-		if(stamina<100){
-			NGUITools.SetActive(sprintPanel.gameObject, true);
-			sprintSlider.value = stamina/100;
-		}
-		else{
-			NGUITools.SetActive(sprintPanel.gameObject, false);
+		if(sprintPanel != null){
+			if(stamina<100){
+				NGUITools.SetActive(sprintPanel.gameObject, true);
+				sprintSlider.value = stamina/100;
+			}else{
+				NGUITools.SetActive(sprintPanel.gameObject, false);
+			}
 		}
 	}
 
