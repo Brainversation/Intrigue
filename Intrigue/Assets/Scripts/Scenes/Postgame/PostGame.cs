@@ -2,24 +2,29 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerScoreList : MonoBehaviour {
+public class PostGame : MonoBehaviour {
+
+
+	public GameObject playerPrefab;
+	public GameObject guardTable;
+	public GameObject spyTable;
 
 	private PhotonView photonView = null;
 	private Player player;
-	public GameObject playerPrefab;
-	public GameObject guardTable;
 	private GameObject team1s;
 	private GameObject team2s;
 	private GameObject wins;
 	private List<string> team1= new List<string>();
 	private List<string> team2 = new List<string>();
 
-	// Use this for initialization
+	// Use this for initialization 
 	void Start(){
 		Screen.lockCursor = false;
 		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
+
 		InvokeRepeating("syncPingAndScore", 0, 2F);
+
 		if(player.TeamID==1){
 			photonView.RPC("addTeam1", PhotonTargets.AllBuffered, player.Handle, player.Score);
 		}
@@ -69,7 +74,7 @@ public class PlayerScoreList : MonoBehaviour {
 			pingColor = "[FF0000]";
 
 		if(TeamID==1){
-			foreach(Transform child in transform){
+			foreach(Transform child in spyTable.transform){
 				if(child.gameObject.GetComponent<UILabel>().user == handle){
 					child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + " : [FFFFFF]" + score + "     [FFFFFF]("+ pingColor+ping+"[-]" + ") ms";
 				}
@@ -87,7 +92,7 @@ public class PlayerScoreList : MonoBehaviour {
 	[RPC]
 	void addTeam1(string handle, int score){
 		team1.Add(handle);
-		GameObject playerInfo = NGUITools.AddChild(gameObject, playerPrefab);
+		GameObject playerInfo = NGUITools.AddChild(spyTable, playerPrefab);
 		Vector3 temp = new Vector3(0f,(team1.Count-1)*0.1f,0);
 		playerInfo.transform.localPosition-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
