@@ -85,9 +85,11 @@ public class Spy : BasePlayer{
 			/*------------------------------------------------------*/
 			addObjectiveText();
 			/*------------------------------------------------------*/
+
+			// Objective Animations
+			objAnimations();
 		}
 	}
-
 
 	void locateNGUIObjects(){
 		guiLabels = GetComponentsInChildren<UILabel>();
@@ -177,6 +179,25 @@ public class Spy : BasePlayer{
 
 	void toggleChatOn(){
 		chatArea.GetComponentInChildren<UILabel>().alpha = 1;
+	}
+
+	void objAnimations(){
+		if(doingObjective){
+			if(objectiveType=="Safe"){
+				animator.SetBool("InteractSafe",true);
+			}
+			else if(objectiveType=="Computer"){
+				animator.SetBool("InteractComp",true);
+			}
+			else if(objectiveType=="Server"){
+				animator.SetBool("InteractServer",true);
+			}
+		}
+		else{
+			animator.SetBool("InteractSafe",false);
+			animator.SetBool("InteractComp",false);
+			animator.SetBool("InteractServer",false);
+		}
 	}
 
 	[RPC]
