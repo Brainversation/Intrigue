@@ -11,6 +11,7 @@ public class Guard : BasePlayer{
 	public AudioSource server2;
 	public AudioSource server3;
 	public GameObject stunPrefab;
+	public GameObject spyCaughtLabel;
 
 	private GameObject accused;
 	private GameObject currentStunEffect;
@@ -254,6 +255,8 @@ public class Guard : BasePlayer{
 				photonView.RPC("invokeSpyCaught", PhotonTargets.MasterClient);
 				accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
 				accused.GetComponent<Spy>().isOut = true;
+				spyCaughtLabel.active = true;
+				Invoke("removeSpyCaughtLabel", 2);
 				accused = null;
 			}
 		}else{
@@ -262,6 +265,10 @@ public class Guard : BasePlayer{
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
 			accused = null;
 		}
+	}
+
+	void removeSpyCaughtLabel(){
+		spyCaughtLabel.active = false;
 	}
 
 	void stunCooldown(){

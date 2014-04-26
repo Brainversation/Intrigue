@@ -1239,12 +1239,12 @@ GameObject:
   - 4: {fileID: 400158}
   - 114: {fileID: 11400036}
   m_Layer: 8
-  m_Name: OutLabel
-  m_TagString: OutLabel
+  m_Name: SpyCaughtLabel
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100160
 GameObject:
   m_ObjectHideFlags: 1
@@ -1770,6 +1770,22 @@ GameObject:
   m_Layer: 8
   m_Name: Accusation
   m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &100224
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400224}
+  - 114: {fileID: 11400050}
+  m_Layer: 8
+  m_Name: OutLabel
+  m_TagString: OutLabel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2667,9 +2683,10 @@ Transform:
   - {fileID: 400154}
   - {fileID: 400156}
   - {fileID: 400218}
-  - {fileID: 400158}
+  - {fileID: 400224}
   - {fileID: 400142}
   - {fileID: 400182}
+  - {fileID: 400158}
   m_Father: {fileID: 400144}
 --- !u!4 &400148
 Transform:
@@ -2737,8 +2754,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100158}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 9.5, z: 250}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 9.48912239, z: 249.99205}
+  m_LocalScale: {x: 1.00012982, y: 1.00012982, z: 1.00012982}
   m_Children: []
   m_Father: {fileID: 400146}
 --- !u!4 &400160
@@ -3117,6 +3134,17 @@ Transform:
   m_LocalScale: {x: .999954045, y: .999954045, z: .999954045}
   m_Children: []
   m_Father: {fileID: 400218}
+--- !u!4 &400224
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100224}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 9.5, z: 250}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400146}
 --- !u!20 &2000000
 Camera:
   m_ObjectHideFlags: 1
@@ -4473,19 +4501,19 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 0, b: 0, a: 1}
   mPivot: 4
-  mWidth: 98
-  mHeight: 20
+  mWidth: 200
+  mHeight: 50
   mDepth: 3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.9000001
+  aspectRatio: 4
   user: -1
   labelHandle: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
-  mText: YOU ARE OUT
+  mText: YOU HAVE CAUGHT A SPY
   mFontSize: 50
   mFontStyle: 0
   mEncoding: 1
@@ -4618,6 +4646,7 @@ MonoBehaviour:
   server2: {fileID: 8200008}
   server3: {fileID: 8200010}
   stunPrefab: {fileID: 100000, guid: 56858680ff6b1dd4687ea5deb2ad9a1f, type: 2}
+  spyCaughtLabel: {fileID: 100158}
 --- !u!114 &11400044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4692,6 +4721,68 @@ MonoBehaviour:
   cam: {fileID: 2000000}
   isOut: 0
   isChatting: 0
+--- !u!114 &11400050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d0b5f3bbe925a408bd595c79d0bf63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  mColor: {r: 1, g: 0, b: 0, a: 1}
+  mPivot: 4
+  mWidth: 98
+  mHeight: 20
+  mDepth: 3
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 0
+  aspectRatio: 4.9000001
+  user: -1
+  labelHandle: 
+  keepCrispWhenShrunk: 1
+  mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
+  mFont: {fileID: 0}
+  mText: YOU ARE OUT
+  mFontSize: 50
+  mFontStyle: 0
+  mEncoding: 1
+  mMaxLineCount: 0
+  mEffectStyle: 0
+  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
+  mSymbols: 1
+  mEffectDistance: {x: 1, y: 1}
+  mOverflow: 0
+  mMaterial: {fileID: 0}
+  mApplyGradient: 1
+  mGradientTop: {r: 1, g: 1, b: 1, a: 1}
+  mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
+  mSpacingX: 0
+  mSpacingY: 0
+  mShrinkToFit: 0
+  mMaxLineWidth: 0
+  mMaxLineHeight: 0
+  mLineWidth: 0
+  mMultiline: 1
 --- !u!114 &11400052
 MonoBehaviour:
   m_ObjectHideFlags: 1
