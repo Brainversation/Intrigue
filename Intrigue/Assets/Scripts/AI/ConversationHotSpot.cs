@@ -64,9 +64,8 @@ public class ConversationHotSpot : MonoBehaviour {
 			script.distFromDest = 3;
 			script.status = Status.Waiting;
 			++population;
-			Debug.DrawLine(other.gameObject.transform.position, spots[queue.Count], Color.red, 15f, false);
+			// Debug.DrawLine(other.gameObject.transform.position, spots[queue.Count], Color.red, 15f, false);
 			queue.Add(other.gameObject);
-			script.isYourTurn = true;
 			script.inConvo = true;
 		}
 
@@ -85,15 +84,14 @@ public class ConversationHotSpot : MonoBehaviour {
 				other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
 			} else if(Input.GetKeyUp(KeyCode.Space)){
 				other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
-			}	
+			}
 		}
 	}
 
 	void OnTriggerExit(Collider other){
-		if(other.tag == "Guest" && other.GetComponent<BaseAI>().isYourTurn){
+		if(other.tag == "Guest" && other.GetComponent<BaseAI>().inConvo){
 			--population;
 			queue.Remove(other.gameObject);
-			other.GetComponent<BaseAI>().isYourTurn = false;
 			other.GetComponent<BaseAI>().inConvo = false;
 		} else if (other.tag == "Guard" || other.tag == "Spy"){
 			other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
