@@ -47,7 +47,7 @@ public class Guard : BasePlayer{
 			}
 			foreach(GameObject serv in servers){
 				if(serv.GetComponent<ObjectiveMain>().inUse){
-					Debug.Log(serv.GetComponent<ObjectiveMain>().objectiveName + " in use");
+					//Debug.Log(serv.GetComponent<ObjectiveMain>().objectiveName + " in use");
 					switch (serv.GetComponent<ObjectiveMain>().objectiveName){
 						case 1: if(!server1.isPlaying && !recentlyPlayed1){
 									server1.Play(); 

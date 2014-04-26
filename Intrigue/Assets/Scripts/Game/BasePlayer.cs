@@ -58,9 +58,10 @@ public class BasePlayer : MonoBehaviour {
 			if(hairHat!=null)
 				hairHat.GetComponent<Renderer>().enabled = false;
 		} else {
-			GetComponentInChildren<Camera>().enabled = false; 
+			Camera cam = GetComponentInChildren<Camera>();
+			cam.enabled = false; 
+			cam.GetComponentInChildren<MouseLook>().enabled = false;
 			GetComponentInChildren<AudioListener>().enabled = false;
-			GetComponentInChildren<MouseLook>().enabled = false; 
 			GetComponentInChildren<Crosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
 			guiPanels = GetComponentsInChildren<UIPanel>(true);
