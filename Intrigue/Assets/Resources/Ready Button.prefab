@@ -10,7 +10,6 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400006}
   - 65: {fileID: 6500000}
-  - 114: {fileID: 11400000}
   - 114: {fileID: 11400008}
   m_Layer: 8
   m_Name: Ready Button
@@ -72,18 +71,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 150, y: 52, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5432e9630b6f38846af03038df6d665d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  readyCheck: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -221,7 +208,8 @@ MonoBehaviour:
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 3.22727275
-  user: 
+  user: -1
+  labelHandle: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
