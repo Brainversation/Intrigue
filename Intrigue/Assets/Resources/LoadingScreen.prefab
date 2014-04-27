@@ -519,23 +519,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 100006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba66d7dc73d92cd4c8bcbef917c0f50c, type: 3}
+  m_Script: {fileID: 11500000, guid: 887a0c053d4fe234f806fbd3003e00ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: 50726567616d65
+  levelToLoad: 
   UIRoot: {fileID: 0}
   bg: {fileID: 0}
-  loadingBar: {fileID: 100012}
-  loadTimer: {fileID: 100016}
-  loadTitle: {fileID: 100018}
-  loadResult: {fileID: 100014}
-  loadCounter: 0
-  photonView: {fileID: 0}
-  player: {fileID: 0}
-  countdownDuration: 10
-  countdownCur: 0
-  intrigue: {fileID: 0}
-  roundResultDisplay: 
+  loadingBar: {fileID: 0}
+  loadTimer: {fileID: 0}
+  loadTitle: {fileID: 0}
+  loadResult: {fileID: 0}
+  loadNextRound: {fileID: 0}
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1

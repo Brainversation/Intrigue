@@ -46,13 +46,13 @@ public class MainMenu : MonoBehaviour {
 			playerPrefsPrefix = "Player";
 
 		if( PlayerPrefs.HasKey( playerPrefsPrefix + "Name" ) &&
-				PlayerPrefs.GetString(playerPrefsPrefix + "Name") != "" ){
+				PlayerPrefs.GetString(playerPrefsPrefix + "Name") != string.Empty ){
 			player.Handle = PlayerPrefs.GetString(playerPrefsPrefix + "Name");
 			handleSet = true;
 		}
 
 		if( PlayerPrefs.HasKey( playerPrefsPrefix + "Room" ) &&
-				PlayerPrefs.GetString(playerPrefsPrefix + "Room") != ""  ){
+				PlayerPrefs.GetString(playerPrefsPrefix + "Room") != string.Empty  ){
 			player.RoomName = PlayerPrefs.GetString(playerPrefsPrefix + "Room");
 			serverSet = true;
 		}
@@ -222,14 +222,11 @@ public class MainMenu : MonoBehaviour {
 		PhotonNetwork.ConnectUsingSettings("0.1");
 	}
 
-	// Called after joining a lobby(Connecting To Server)
-	void OnJoinedLobby(){
-
-	}
-
 	void OnJoinedRoom(){
-		PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
-		PlayerPrefs.SetString(playerPrefsPrefix + "Room", player.RoomName);
+		if(PlayerPrefs.GetString(playerPrefsPrefix + "Name") != string.Empty)
+			PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
+		if(PlayerPrefs.GetString(playerPrefsPrefix + "Room") != string.Empty)
+			PlayerPrefs.SetString(playerPrefsPrefix + "Room", player.RoomName);
 		PlayerPrefs.Save();
 		PhotonNetwork.LoadLevel("Pregame");
 	}

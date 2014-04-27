@@ -1445,7 +1445,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 640487573}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -.205001831, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314424099}
@@ -1478,13 +1478,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: .350746274, g: .350746274, b: .350746274, a: .541176498}
   mPivot: 4
-  mWidth: 1280
+  mWidth: 1261
   mHeight: 720
   mDepth: -2
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.77777779
+  aspectRatio: 1.75138891
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
   mSpriteName: Stripes 2
   mType: 2
@@ -1636,7 +1636,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 718148528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -.205001831, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314424099}
@@ -1669,13 +1669,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 4
-  mWidth: 1280
+  mWidth: 1261
   mHeight: 720
   mDepth: -3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.77777779
+  aspectRatio: 1.75138891
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
   mSpriteName: Glow - Inner
   mType: 1
@@ -2160,7 +2160,6 @@ GameObject:
   - 65: {fileID: 1082388194}
   - 114: {fileID: 1082388193}
   - 114: {fileID: 1082388191}
-  - 114: {fileID: 1082388196}
   - 114: {fileID: 1082388192}
   m_Layer: 8
   m_Name: Chat Input
@@ -2239,10 +2238,7 @@ MonoBehaviour:
   activeTextColor: {r: 1, g: 1, b: 1, a: 1}
   caretColor: {r: 1, g: 1, b: 1, a: .800000012}
   selectionColor: {r: .470149279, g: .338177562, b: 0, a: .501960814}
-  onSubmit:
-  - mTarget: {fileID: 1082388196}
-    mMethodName: OnSubmit
-    oneShot: 0
+  onSubmit: []
   onChange: []
   mValue: 
 --- !u!65 &1082388194
@@ -2305,18 +2301,6 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
---- !u!114 &1082388196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1082388189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 756b0c4a06bd487489e98eb9b17eb371, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textList: {fileID: 1711577251}
 --- !u!1 &1093397614
 GameObject:
   m_ObjectHideFlags: 0
