@@ -47,7 +47,6 @@ public class Intrigue : MonoBehaviour {
 
 	void Start () {
 		//CHANGE GAMEOVER HERE ~~~~~~~~~~~~~~~~~~~~~~~
-		
 		wantGameOver = true;
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~
