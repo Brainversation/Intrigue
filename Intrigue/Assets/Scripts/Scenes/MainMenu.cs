@@ -4,13 +4,9 @@ using System.IO;
 
 public class MainMenu : MonoBehaviour {
 
-	private Player player;
-	private UITable serverListTable;
+
 	public GameObject btnJoinServer_prefab;
 	public GameObject serverTable;
-	private bool handleSet = false;
-	private bool serverSet = false;
-	private string playerPrefsPrefix;
 	public GameObject reconnectWindow;
 	public GameObject createRoomFailed;
 	public GameObject retryConnect;
@@ -20,10 +16,16 @@ public class MainMenu : MonoBehaviour {
 	public GameObject serverNameLabel;
 	public GameObject uiCamera;
 	public GameObject bg_texture;
+	public UILabel connectionStatus;
 	[HideInInspector] public GameObject createServerButton;
 	[HideInInspector] public GameObject findServerButton;
 	[HideInInspector] public GameObject optionsButtons;
 	[HideInInspector] public bool connected = false;
+	private bool handleSet = false;
+	private bool serverSet = false;
+	private Player player;
+	private UITable serverListTable;
+	private string playerPrefsPrefix;
 
 	void Start () {
 		createServerButton = GameObject.Find("CREATE SERVER");
@@ -68,6 +70,7 @@ public class MainMenu : MonoBehaviour {
 	
 	void Update () {
 		if(!connected){
+			connectionStatus.text = "[FF0000]No Internet Connection[-]";
 			if(PhotonNetwork.connectionStateDetailed == PeerState.ConnectingToMasterserver){
 				connectingAttempt();
 			}
@@ -78,11 +81,48 @@ public class MainMenu : MonoBehaviour {
 				yesInternet();
 			}
 		}
+		else{
+			 switch (PhotonNetwork.connectionStateDetailed)
+            	{
+					case PeerState.PeerCreated: connectionStatus.text = "[FF3300]Unable to Connect to Server";
+						break;
+					case PeerState.Disconnected: connectionStatus.text = "[FF3300]Unable to Connect to Server";
+						break;
+					case PeerState.Disconnecting: connectionStatus.text = "[FF3300]Disconnecting from Server";
+						break;
+					case PeerState.Authenticating: connectionStatus.text = "[FFCC00]Authenticating";
+						break;
+					case PeerState.ConnectingToGameserver: connectionStatus.text = "[FF3300]Connecting to Game...";
+						break;
+					case PeerState.ConnectingToMasterserver: connectionStatus.text = "[FF3300]Connecting to Server";
+						break;
+					case PeerState.ConnectingToNameServer: connectionStatus.text = "[FF3300]Connecting...";
+						break;
+					case PeerState.Joining: connectionStatus.text = "[009900]Joining Lobby...";
+						break;
+					case PeerState.Leaving: connectionStatus.text = "[009900]Disconnecting from Lobby";
+						break;
+					case PeerState.Uninitialized: connectionStatus.text = "[FF0000]Connection Uninitialized";
+						break;
+					case PeerState.Authenticated: connectionStatus.text = "[00FF00]Authenticated";
+						break;		
+					case PeerState.JoinedLobby: connectionStatus.text = "[00FF00]Connected to Server";
+						break;
+					case PeerState.DisconnectingFromMasterserver: connectionStatus.text = "[FF3300]Disconnecting from Server";
+						break;	
+					case PeerState.ConnectedToGameserver: connectionStatus.text = "[00FF00]Connected to Server";
+						break;	
+					default: connectionStatus.text = "[800000]Connection Unknown :O";
+						break;
+
+            	}
+			//connectionStatus.text = PhotonNetwork.connectionStateDetailed.ToString();
+		}
 		checkInternet();
 	}
 
 	void OnGUI(){
-		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
+		//GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
 	}
 
 	void checkInternet(){
