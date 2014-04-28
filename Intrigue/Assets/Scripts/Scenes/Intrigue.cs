@@ -47,7 +47,7 @@ public class Intrigue : MonoBehaviour {
 
 	void Start () {
 		//CHANGE GAMEOVER HERE ~~~~~~~~~~~~~~~~~~~~~~~
-		wantGameOver = true;
+		wantGameOver = false;
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~
 		photonView = PhotonView.Get(this);
@@ -151,9 +151,9 @@ public class Intrigue : MonoBehaviour {
 		{	
 			nextSpawnPoint();
 			loadedGuests = x;
-			//int type = Mathf.RoundToInt(Random.Range(1,4));
+			int type = Mathf.RoundToInt(Random.Range(1,5));
 			//Debug.Log("Guest type: " + type);
-			PhotonNetwork.InstantiateSceneObject("Robot_Guest1"/*+type.ToString()*/, spawnTrans.position, spawnTrans.rotation, 0, null);
+			PhotonNetwork.InstantiateSceneObject("Robot_Guest4"/*+type.ToString()*/, spawnTrans.position, spawnTrans.rotation, 0, null);
 			yield return new WaitForSeconds(.1f);
 		}
 
@@ -248,8 +248,9 @@ public class Intrigue : MonoBehaviour {
 
 	[RPC]
 	void getSpawnPoint(Vector3 position, Quaternion rotation){
+		int type = Mathf.RoundToInt(Random.Range(1,4));
 		Intrigue.playerGO = PhotonNetwork.Instantiate(
-						"Robot_"+ player.Team+"1"/*type.ToString()*/,
+						"Robot_"+ player.Team+"2"/*type.ToString()*/,
 						position,
 						rotation, 0);
 

@@ -61,7 +61,6 @@ GameObject:
   - 4: {fileID: 400006}
   - 95: {fileID: 9500002}
   - 114: {fileID: 11400020}
-  - 114: {fileID: 11400010}
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400018}
   - 143: {fileID: 14300000}
@@ -2272,7 +2271,7 @@ Transform:
   m_GameObject: {fileID: 100086}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00405679503, y: .00405679503, z: .00405679503}
+  m_LocalScale: {x: .00625000009, y: .00625000009, z: .00625000009}
   m_Children:
   - {fileID: 400092}
   - {fileID: 400036}
@@ -3897,20 +3896,6 @@ MonoBehaviour:
   disabledColor: {r: .5, g: .5, b: .5, a: 1}
   dragHighlight: 0
   onClick: []
---- !u!114 &11400010
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fef9e1a59141b6419af7f22eb7fb671, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravity: 20
-  rotSpeed: 0
-  moveDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3922,9 +3907,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054a0b483d2ae61479ada5fcce173dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprintPanel: {fileID: 0}
-  sprintSlider: {fileID: 0}
-  cam: {fileID: 0}
+  sprintPanel: {fileID: 11400100}
+  sprintSlider: {fileID: 11400034}
+  cam: {fileID: 2000000}
   isOut: 0
   isChatting: 0
 --- !u!114 &11400014
@@ -4012,7 +3997,7 @@ MonoBehaviour:
   group: 0
   prefixBackup: -1
   observed: {fileID: 11400012}
-  synchronization: 2
+  synchronization: 3
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   instantiationId: -1
@@ -4174,7 +4159,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3020
+  startingRenderQueue: 3050
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4563,7 +4548,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3044
+  startingRenderQueue: 3076
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -5051,7 +5036,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3044
+  startingRenderQueue: 3076
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -5648,7 +5633,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3044
+  startingRenderQueue: 3084
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -5688,7 +5673,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3036
+  startingRenderQueue: 3064
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -6014,7 +5999,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3000
+  startingRenderQueue: 3010
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}

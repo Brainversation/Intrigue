@@ -1481,7 +1481,6 @@ GameObject:
   - 4: {fileID: 400188}
   - 95: {fileID: 9500000}
   - 114: {fileID: 11400088}
-  - 114: {fileID: 11400090}
   - 114: {fileID: 11400092}
   - 114: {fileID: 11400094}
   - 143: {fileID: 14300000}
@@ -2615,7 +2614,7 @@ Transform:
   m_GameObject: {fileID: 100184}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00405679503, y: .00405679503, z: .00405679503}
+  m_LocalScale: {x: .00625000009, y: .00625000009, z: .00625000009}
   m_Children:
   - {fileID: 400182}
   - {fileID: 400180}
@@ -3125,7 +3124,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3009
+  startingRenderQueue: 3078
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3289,7 +3288,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3009
+  startingRenderQueue: 3078
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3968,7 +3967,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3009
+  startingRenderQueue: 3094
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4174,7 +4173,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3006
+  startingRenderQueue: 3061
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4614,7 +4613,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3007
+  startingRenderQueue: 3074
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4782,20 +4781,6 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   instantiationId: -1
---- !u!114 &11400090
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fef9e1a59141b6419af7f22eb7fb671, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gravity: 20
-  rotSpeed: 0
-  moveDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &11400092
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4807,9 +4792,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054a0b483d2ae61479ada5fcce173dbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprintPanel: {fileID: 0}
-  sprintSlider: {fileID: 0}
-  cam: {fileID: 0}
+  sprintPanel: {fileID: 11400044}
+  sprintSlider: {fileID: 11400040}
+  cam: {fileID: 2000000}
   isOut: 0
   isChatting: 0
 --- !u!114 &11400094
@@ -4845,12 +4830,12 @@ MonoBehaviour:
   footstepR: {fileID: 8200002}
   photonView: {fileID: 11400088}
   animator: {fileID: 9500000}
-  timeLabel: {fileID: 0}
+  timeLabel: {fileID: 100172}
   hairHat: {fileID: 0}
   allytext: {fileID: 100000, guid: 26b1b09240bba7c4380f37e478491862, type: 2}
   teleportPrefab: {fileID: 100002, guid: e3ede9d2e72b68a44952a86696ab35ac, type: 2}
-  chatArea: {fileID: 0}
-  textList: {fileID: 0}
+  chatArea: {fileID: 100180}
+  textList: {fileID: 11400072}
   conversationGUI: {fileID: 0}
   localHandle: 
   localPing: 0
@@ -4858,7 +4843,7 @@ MonoBehaviour:
   textAdded: 0
   isAssigned: 0
   isOut: 0
-  stunsUI: {fileID: 0}
+  stunsUI: {fileID: 11400058}
   percentComplete: 0
   doingObjective: 0
   objectiveType: 
