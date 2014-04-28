@@ -215,6 +215,7 @@ public class MainMenu : MonoBehaviour {
 	void getUserHandle(){
 		UILabel playerName = GameObject.Find ("playerName").GetComponent<UILabel> ();
 		player.Handle = playerName.text;
+		PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
 	}
 
 	void connect(){
