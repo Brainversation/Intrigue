@@ -33,7 +33,7 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector] public bool doneLoading = false;
 	[HideInInspector] public float loadedGuests = 0;
 	[HideInInspector] public float totalGuests;
-	[HideInInspector] public bool wantGameOver;
+	public static bool wantGameOver;
 	public static int numSpiesLeft;
 	public static int numGuardsLeft;
 	public static GameObject playerGO = null;
@@ -47,7 +47,7 @@ public class Intrigue : MonoBehaviour {
 
 	void Start () {
 		//CHANGE GAMEOVER HERE ~~~~~~~~~~~~~~~~~~~~~~~
-		wantGameOver = true;
+		wantGameOver = false;
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~
 		photonView = PhotonView.Get(this);
