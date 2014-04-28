@@ -38,9 +38,9 @@ public class NetworkConnection : Photon.MonoBehaviour {
 				PhotonNetwork.networkingPeer.Disconnect();
 			}
 
-			if(GUILayout.Button("GameOver")){
-				Intrigue.wantGameOver = true;
-			}
+			// if(GUILayout.Button("GameOver")){
+			// 	Intrigue.wantGameOver = true;
+			// }
 		}
 	}
 
