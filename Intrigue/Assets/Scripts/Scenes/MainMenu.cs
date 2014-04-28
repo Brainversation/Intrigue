@@ -16,6 +16,7 @@ public class MainMenu : MonoBehaviour {
 	public GameObject serverNameLabel;
 	public GameObject uiCamera;
 	public GameObject bg_texture;
+	public GameObject quickMatchFailed;
 	public UILabel connectionStatus;
 	public UISprite serverCreator;
 	[HideInInspector] public GameObject createServerButton;
@@ -146,6 +147,7 @@ public class MainMenu : MonoBehaviour {
 		NGUITools.SetActive(retryConnect, false);
 		NGUITools.SetActive(optionsButtons, false);
 		NGUITools.SetActive(createRoomFailed, false);
+		NGUITools.SetActive(quickMatchFailed, false);
 	}
 
 	void noInternet(){
@@ -161,6 +163,7 @@ public class MainMenu : MonoBehaviour {
 		NGUITools.SetActiveChildren(gameObject, true);
 		NGUITools.SetActive(reconnectWindow,false);
 		NGUITools.SetActive(createRoomFailed, false);
+		NGUITools.SetActive(quickMatchFailed, false);
 		NGUITools.SetActive(optionsButtons, false);
 		optionsButtons.SetActive(false);
 		createServerButton.GetComponent<UIButton>().enabled = true;
@@ -224,6 +227,16 @@ public class MainMenu : MonoBehaviour {
 		PhotonNetwork.ConnectUsingSettings("0.1");
 	}
 
+	void quickMatch(){
+		PhotonNetwork.JoinRandomRoom();
+	}
+
+	void OnPhotonRandomJoinFailed(){
+		NGUITools.SetActive(quickMatchFailed, true);
+		CancelInvoke();
+		Invoke("deactiveErrorMessages", 5);
+	}
+
 	void OnJoinedRoom(){
 		if(PlayerPrefs.GetString(playerPrefsPrefix + "Name") != string.Empty)
 			PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
@@ -239,11 +252,12 @@ public class MainMenu : MonoBehaviour {
 
 	void OnPhotonCreateRoomFailed(){
 		NGUITools.SetActive(createRoomFailed, true);
-		StartCoroutine(wait());
+		CancelInvoke();
+		Invoke("deactiveErrorMessages", 5);
 	}
 
-	IEnumerator wait(){
-		yield return new WaitForSeconds(5);
+	void deactiveErrorMessages(){
 		NGUITools.SetActive(createRoomFailed, false);
+		NGUITools.SetActive(quickMatchFailed, false);
 	}
 }
