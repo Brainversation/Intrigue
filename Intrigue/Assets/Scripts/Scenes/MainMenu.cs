@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour {
 	public GameObject uiCamera;
 	public GameObject bg_texture;
 	public UILabel connectionStatus;
+	public UISprite serverCreator;
 	[HideInInspector] public GameObject createServerButton;
 	[HideInInspector] public GameObject findServerButton;
 	[HideInInspector] public GameObject optionsButtons;
@@ -201,14 +202,14 @@ public class MainMenu : MonoBehaviour {
 
 	void createTheServer(){
 		UILabel serverName = GameObject.Find("serverName").GetComponent<UILabel>();
-		player.RoomName = serverName.text;
-		RoomOptions roomOp = new RoomOptions();
-		roomOp.isVisible = true;
-	    roomOp.isOpen = true;
-	    roomOp.maxPlayers = 10;
-	    // public Hashtable customRoomProperties;
-	    // public string[] customRoomPropertiesForLobby = new string[0];
-		PhotonNetwork.CreateRoom(player.RoomName, roomOp, null);
+		if(serverName!= null && serverCreator.alpha == 1){
+			player.RoomName = serverName.text;
+			RoomOptions roomOp = new RoomOptions();
+			roomOp.isVisible = true;
+			roomOp.isOpen = true;
+			PhotonNetwork.CreateRoom(player.RoomName, roomOp, null);
+		}
+		
 	}
 
 	void getUserHandle(){

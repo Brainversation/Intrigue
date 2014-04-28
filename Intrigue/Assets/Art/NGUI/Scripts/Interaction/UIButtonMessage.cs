@@ -20,6 +20,7 @@ public class UIButtonMessage : MonoBehaviour
 		OnPress,
 		OnRelease,
 		OnDoubleClick,
+		OnButtonPress,
 	}
 
 	public GameObject target;
@@ -32,6 +33,12 @@ public class UIButtonMessage : MonoBehaviour
 	void Start () { mStarted = true; }
 
 	void OnEnable () { if (mStarted) OnHover(UICamera.IsHighlighted(gameObject)); }
+
+	void Update(){
+		if(Input.GetKeyUp(KeyCode.Return)){
+			Send();
+		}
+	}
 
 	void OnHover (bool isOver)
 	{

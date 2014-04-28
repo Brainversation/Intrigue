@@ -3823,6 +3823,7 @@ MonoBehaviour:
   uiCamera: {fileID: 1605207863}
   bg_texture: {fileID: 997944122}
   connectionStatus: {fileID: 1346740867}
+  serverCreator: {fileID: 195172670}
   createServerButton: {fileID: 0}
   findServerButton: {fileID: 0}
   optionsButtons: {fileID: 0}
@@ -3840,6 +3841,7 @@ GameObject:
   - 114: {fileID: 1724040724}
   - 114: {fileID: 1724040722}
   - 114: {fileID: 1724040723}
+  - 114: {fileID: 1724040727}
   m_Layer: 8
   m_Name: Create
   m_TagString: Untagged
@@ -3980,6 +3982,21 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!114 &1724040727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1724040720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c4ff40739c7904ca26c14ffbdc4176, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1628887035}
+  functionName: createTheServer
+  trigger: 6
+  includeChildren: 0
 --- !u!1 &1755919778
 GameObject:
   m_ObjectHideFlags: 0
