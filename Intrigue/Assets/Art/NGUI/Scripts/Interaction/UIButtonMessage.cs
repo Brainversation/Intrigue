@@ -35,7 +35,7 @@ public class UIButtonMessage : MonoBehaviour
 	void OnEnable () { if (mStarted) OnHover(UICamera.IsHighlighted(gameObject)); }
 
 	void Update(){
-		if(Input.GetKeyUp(KeyCode.Return)){
+		if(trigger == Trigger.OnButtonPress && Input.GetKeyUp(KeyCode.Return)){
 			Send();
 		}
 	}
