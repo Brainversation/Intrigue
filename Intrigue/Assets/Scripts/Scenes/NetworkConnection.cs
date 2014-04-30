@@ -2,16 +2,16 @@
 using System.Collections;
 
 public class NetworkConnection : Photon.MonoBehaviour {
+	
+	public GameObject gui;
 
 	private Player player;
 	private bool showRetry = false;
-	private GameObject loading;
 	private Vector3 lastPos = Vector3.zero;
 
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find("Player").GetComponent<Player>();
-		loading = GameObject.Find("LoadingScreen");
 	}
 
 	void OnGUI(){
@@ -30,6 +30,7 @@ public class NetworkConnection : Photon.MonoBehaviour {
 				}
 			}
 			if(GUILayout.Button("Exit")){
+				gui.SetActive(false);
 				showRetry = false;
 				PhotonNetwork.LoadLevel(0);
 			}
@@ -81,6 +82,7 @@ public class NetworkConnection : Photon.MonoBehaviour {
 
 	void OnJoinedRoom(){
 		Debug.Log("OnJoinedRoom");
+		gui.SetActive(false);
 		showRetry = false;
 		Intrigue.playerGO = PhotonNetwork.Instantiate(
 						"Robot_"+ player.Team+"1"/*type.ToString()*/,
@@ -91,6 +93,7 @@ public class NetworkConnection : Photon.MonoBehaviour {
 	void OnDisconnectedFromPhoton(){
 		Debug.Log("OnDisconnect");
 		lastPos = Intrigue.playerGO.transform.position;
+		gui.SetActive(true);
 		showRetry = true;
 	}
 
