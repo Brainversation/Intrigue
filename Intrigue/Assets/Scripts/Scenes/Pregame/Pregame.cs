@@ -25,6 +25,8 @@ public class Pregame : MonoBehaviour {
 	private List<int> guards = new List<int>();
 	private int prevGuestCount = 0;
 
+	private static bool isTesting = false;
+
 	void Start(){
 		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -52,9 +54,6 @@ public class Pregame : MonoBehaviour {
 
 		//Updates the Slider for Guest Count
 		updateGuestSlider();
-
-		//Sync Player Team
-		//syncPlayerTeam();
 	}
 
 
@@ -122,7 +121,7 @@ public class Pregame : MonoBehaviour {
 	void readyStatus(){
 		//Ready Button
 		if(PhotonNetwork.isMasterClient){
-			if(readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
+			if( (PhotonNetwork.playerList.Length >= 2 || isTesting) && readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
 				readyLabel.text = "START GAME";
 				readyLabel.fontSize = 28;
 				readyCheckToggle.value = true;
