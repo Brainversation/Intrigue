@@ -83,6 +83,10 @@ public class Pregame : MonoBehaviour {
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ping", PhotonNetwork.GetPing()}});
 	}
 
+	void OnPhotonPlayerConnected(PhotonPlayer newPlayer){
+		if(PhotonNetwork.isMasterClient)
+			photonView.RPC("guestCount", PhotonTargets.Others, player.Guests);
+	}
 
 	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
 		photonView.RPC("reloadScoreboard", PhotonTargets.All);
