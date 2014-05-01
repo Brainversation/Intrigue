@@ -158,13 +158,16 @@ public class Spy : BasePlayer{
 		RaycastHit hit;
 		if( Physics.Raycast(ray, out hit, 10f) ){
 			if(hit.transform.tag == "Guard" || hit.transform.tag == "Guest"){
-
 				if(stuns>=1){
 					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
-					if(hit.transform.tag == "Guard")
+					if(hit.transform.tag == "Guard"){
 						photonView.RPC("addPlayerScore", PhotonTargets.All, 50);
-					else
+						base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned [-][FF2B2B]" + hit.transform.gameObject.GetComponent<Guard>().localHandle + "[-][FFCC00]![-]");
+					}
+					else{
 						photonView.RPC("addPlayerScore", PhotonTargets.All, -50);
+						base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned a guest!");
+					}
 					stuns--;
 					stunsUI.text = "Stun Charges:\n[FF00FF]"+stuns+"[-]";
 				}
