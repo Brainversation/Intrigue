@@ -257,13 +257,15 @@ public class Guard : BasePlayer{
 				accused.GetComponent<Spy>().isOut = true;
 				spyCaughtLabel.active = true;
 				Invoke("removeSpyCaughtLabel", 2);
+				base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + accused.GetComponent<Spy>().localHandle + "[-][FF2B2B]![-]");
 				accused = null;
 			}
 		}else{
-			photonView.RPC("invokeGuardFailed", PhotonTargets.MasterClient);
+			photonView.RPC("invokeGuardFailed", PhotonTargets.MasterClient );
 			isOut = true;
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
 			accused = null;
+			base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has accused a guest![-]");
 		}
 	}
 

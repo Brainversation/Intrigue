@@ -170,6 +170,10 @@ public class BasePlayer : MonoBehaviour {
 		photonView.RPC("givePing", PhotonTargets.All, localPing);
 	}
 
+	public void newEvent(string eventMessage){
+		photonView.RPC("receiveMessage", PhotonTargets.All, eventMessage);
+	}
+
 	void playFootsteps(){
 		//Left foot position
 		Vector3 leftFootT = animator.GetIKPosition(AvatarIKGoal.LeftFoot);
