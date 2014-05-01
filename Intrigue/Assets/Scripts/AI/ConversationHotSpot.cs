@@ -7,6 +7,7 @@ public class ConversationHotSpot : MonoBehaviour {
 
 	private int population = 0;
 	private List<GameObject> queue = new List<GameObject>();
+	private List<GameObject> players = new List<GameObject>();
 	private Vector3[] spots = null;
 	private float radius;
 	private Vector3 center;
@@ -72,6 +73,7 @@ public class ConversationHotSpot : MonoBehaviour {
 		//Activate GUI that says enter conversation hotspot for player
 		if(other.tag == "Guard" || other.tag == "Spy"){
 			other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 1;
+			players.Add(other.gameObject);
 		}
 	}
 
@@ -95,9 +97,17 @@ public class ConversationHotSpot : MonoBehaviour {
 			other.GetComponent<BaseAI>().inConvo = false;
 		} else if (other.tag == "Guard" || other.tag == "Spy"){
 			other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
+			Debug.Log("Ontrigger exit");
 			if(queue.Contains(other.gameObject)){
 				queue.Remove(other.gameObject);
 			}
+		}
+	}
+
+	// Destroy the conversation GUI if the convo hot spot is destroyed
+	void OnDestroy(){
+		foreach(GameObject g in players){
+			g.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
 		}
 	}
 
