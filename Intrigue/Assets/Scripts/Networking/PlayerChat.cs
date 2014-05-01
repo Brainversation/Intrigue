@@ -43,7 +43,7 @@ public class PlayerChat : MonoBehaviour
 			if (!string.IsNullOrEmpty(text)){
 				if(player.Team == "Spy"){
 					foreach(GameObject gu in team){
-						gu.GetComponent<Spy>().photonView.RPC("receiveMessage", PhotonTargets.All, "[FF2B2B]"+player.Handle+": [-]"+text);
+						gu.GetComponent<Spy>().photonView.RPC("receiveMessage", PhotonTargets.All, "[00CCFF]"+player.Handle+": [-]"+text);
 					}
 
 				} else if(player.Team == "Guard") {
