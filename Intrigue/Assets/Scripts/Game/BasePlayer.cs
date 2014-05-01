@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BasePlayer : MonoBehaviour {
 	
@@ -30,6 +31,9 @@ public class BasePlayer : MonoBehaviour {
 
 
 	private bool roundStarted = false;
+	private GameObject[] guardsList;
+	private GameObject[] spiesList;
+	private List<GameObject> allPlayers = new List<GameObject>();
 
 	//Yield function that waits specified amount of seconds
 	IEnumerator Yielder(int seconds){
@@ -46,6 +50,10 @@ public class BasePlayer : MonoBehaviour {
 			}
 		}
 		
+
+
+		Invoke("getAllPlayers", 3);
+
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
@@ -76,6 +84,19 @@ public class BasePlayer : MonoBehaviour {
 		textList.Add("[FF2B2B]Press [-]Shift [FF2B2B]+[-] Enter[FF2B2B] to chat![-]");
 	}
 	
+	void getAllPlayers(){
+		spiesList = GameObject.FindGameObjectsWithTag("Spy");
+		guardsList = GameObject.FindGameObjectsWithTag("Guard");
+
+		foreach(GameObject spIn in spiesList){
+			allPlayers.Add(spIn);
+		}
+
+		foreach(GameObject guIn in guardsList){
+			allPlayers.Add(guIn);
+		}
+	}
+
 	protected virtual void Update () {
 		if(photonView.isMine){
 			if(!intrigue.gameStart && !roundStarted){
@@ -171,7 +192,11 @@ public class BasePlayer : MonoBehaviour {
 	}
 
 	public void newEvent(string eventMessage){
-		photonView.RPC("receiveMessage", PhotonTargets.All, eventMessage);
+		Debug.Log("Allplayers: " + allPlayers.Count);
+		foreach(GameObject playerInstance in allPlayers){
+			Debug.Log("sending");
+			playerInstance.GetComponent<BasePlayer>().GetComponent<PhotonView>().RPC("receiveMessage", PhotonTargets.All, eventMessage);
+		}
 	}
 
 	void playFootsteps(){
