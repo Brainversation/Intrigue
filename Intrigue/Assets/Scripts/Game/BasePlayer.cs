@@ -52,7 +52,7 @@ public class BasePlayer : MonoBehaviour {
 		
 
 
-		Invoke("getAllPlayers", 3);
+		Invoke("getAllPlayers", 4);
 
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -192,9 +192,7 @@ public class BasePlayer : MonoBehaviour {
 	}
 
 	public void newEvent(string eventMessage){
-		Debug.Log("Allplayers: " + allPlayers.Count);
 		foreach(GameObject playerInstance in allPlayers){
-			Debug.Log("sending");
 			playerInstance.GetComponent<BasePlayer>().GetComponent<PhotonView>().RPC("receiveMessage", PhotonTargets.All, eventMessage);
 		}
 	}
