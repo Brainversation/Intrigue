@@ -52,6 +52,7 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 				finished = true;
 				user.GetComponent<Spy>().doingObjective = false;
 				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 200);
+				user.GetComponent<BasePlayer>().newEvent("[00CCFF]"+user.GetComponent<Spy>().localHandle +"[-] [FFCC00]has downloaded [-][33CCCC]Objective " + objectiveName + "[-][00CCFF]![-]");
 				isActive = false;
 			}
 		}
@@ -84,6 +85,7 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 			timeLeft = 0;
 			intrigue.objectivesCompleted++;
 			intrigue.mainObjectives[objectiveName-1] = true;
+
 		}	
 	}
 
