@@ -43,12 +43,12 @@ public class PlayerChat : MonoBehaviour
 			if (!string.IsNullOrEmpty(text)){
 				if(player.Team == "Spy"){
 					foreach(GameObject gu in team){
-						gu.GetComponent<Spy>().photonView.RPC("recieveMessage", PhotonTargets.All, "[FF2B2B]"+player.Handle+": [-]"+text);
+						gu.GetComponent<Spy>().photonView.RPC("receiveMessage", PhotonTargets.All, "[FF2B2B]"+player.Handle+": [-]"+text);
 					}
 
 				} else if(player.Team == "Guard") {
 					foreach(GameObject gu in team){
-						gu.GetComponent<Guard>().photonView.RPC("recieveMessage", PhotonTargets.All, "[FF2B2B]"+player.Handle+": [-]"+text);
+						gu.GetComponent<Guard>().photonView.RPC("receiveMessage", PhotonTargets.All, "[FF2B2B]"+player.Handle+": [-]"+text);
 					}
 				} 
 				mInput.value = "";
@@ -57,7 +57,7 @@ public class PlayerChat : MonoBehaviour
 	}
 
 	[RPC]
-	public void recieveMessage(string s){
+	public void receiveMessage(string s){
 		textList.Add(s);
 	}
 }

@@ -243,7 +243,7 @@ public class Spy : BasePlayer{
 	}
 	
 	[RPC]
-	public void recieveMessage(string s){
+	public void receiveMessage(string s){
 		toggleChatOn();
 		textList.Add(s);
 		CancelInvoke("toggleChatOff");

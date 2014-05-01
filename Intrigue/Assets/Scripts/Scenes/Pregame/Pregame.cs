@@ -25,7 +25,7 @@ public class Pregame : MonoBehaviour {
 	private List<int> guards = new List<int>();
 	private int prevGuestCount = 0;
 
-	private static bool isTesting = false;
+	private static bool isTesting = true;
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
@@ -66,13 +66,13 @@ public class Pregame : MonoBehaviour {
 			if (!string.IsNullOrEmpty(text)){
 				if(player.Team == "Spy"){
 					textList.Add("[8169FF]"+player.Handle+": [-]"+text);
-					photonView.RPC("recieveMessage", PhotonTargets.Others, "[8169FF]"+player.Handle+": [-]"+text);
+					photonView.RPC("receiveMessage", PhotonTargets.Others, "[8169FF]"+player.Handle+": [-]"+text);
 				} else if(player.Team == "Guard") {
 					textList.Add("[FF2B2B]"+player.Handle+": [-]"+text);
-					photonView.RPC("recieveMessage", PhotonTargets.Others, "[FF2B2B]"+player.Handle+": [-]"+text);
+					photonView.RPC("receiveMessage", PhotonTargets.Others, "[FF2B2B]"+player.Handle+": [-]"+text);
 				} else {
 					textList.Add(player.Handle+": [-]"+text);
-					photonView.RPC("recieveMessage", PhotonTargets.Others, player.Handle+": [-]"+text);
+					photonView.RPC("receiveMessage", PhotonTargets.Others, player.Handle+": [-]"+text);
 				}
 				mInput.value = "";
 			}
@@ -291,7 +291,7 @@ public class Pregame : MonoBehaviour {
 	}
 
 	[RPC]
-	public void recieveMessage(string s){
+	public void receiveMessage(string s){
 		textList.Add(s);
 	}
 
