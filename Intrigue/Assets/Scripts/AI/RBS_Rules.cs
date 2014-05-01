@@ -168,7 +168,8 @@ namespace RBS{
 			script.bored -= 10;
 			if(conversers.Count == 0 || conversers.Count >= offset){
 				script.destination = gameObject.transform.position;
-				UnityEngine.Object.Instantiate(Resources.Load<GameObject>("ConversationHotSpot"), gameObject.transform.position, Quaternion.identity);
+				//UnityEngine.Object.Instantiate(Resources.Load<GameObject>("ConversationHotSpot"), gameObject.transform.position, Quaternion.identity);
+				PhotonNetwork.Instantiate("ConversationHotSpot", gameObject.transform.position, Quaternion.identity, 0);
 				script.tree = new IdleSelector();
 				conversers.Clear();
 				returnStat = Status.Tree;
