@@ -116,6 +116,15 @@ public class BasePlayer : MonoBehaviour {
 			allyUsernames();
 			/*------------------------------------------------------*/
 
+			//Adding toggle to chat with Z
+			/*------------------------------------------------------*/
+			if(Input.GetKeyUp(KeyCode.Z)){
+				if(chatArea.GetComponentInChildren<UILabel>().alpha == 1)
+					chatArea.GetComponentInChildren<UILabel>().alpha = 0;
+				else
+					chatArea.GetComponentInChildren<UILabel>().alpha = 1;
+			}
+			/*------------------------------------------------------*/
 
 			//Code to update time/round label
 			/*------------------------------------------------------*/
