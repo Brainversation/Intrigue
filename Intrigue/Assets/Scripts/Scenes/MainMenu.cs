@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class MainMenu : MonoBehaviour {
 
@@ -50,6 +51,7 @@ public class MainMenu : MonoBehaviour {
 		if( PlayerPrefs.HasKey( playerPrefsPrefix + "Name" ) &&
 				PlayerPrefs.GetString(playerPrefsPrefix + "Name") != string.Empty ){
 			player.Handle = PlayerPrefs.GetString(playerPrefsPrefix + "Name");
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Handle", player.Handle}});		
 			handleSet = true;
 		}
 
@@ -218,6 +220,7 @@ public class MainMenu : MonoBehaviour {
 	void getUserHandle(){
 		UILabel playerName = GameObject.Find ("playerName").GetComponent<UILabel> ();
 		player.Handle = playerName.text;
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Handle", player.Handle}});		
 		PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
 	}
 
