@@ -254,7 +254,7 @@ public class Intrigue : MonoBehaviour {
 						rotation, 0);
 
 		player.TeamID = (int)PhotonNetwork.player.customProperties["TeamID"];
-		photonView.RPC("ready", PhotonTargets.MasterClient);
+		photonView.RPC("ready", PhotonTargets.All);
 	}
 
 	[RPC]
