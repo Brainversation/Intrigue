@@ -22,6 +22,7 @@ public class BasePlayer : MonoBehaviour {
 	public GameObject chatArea;
 	public UITextList textList;
 	public UIPanel conversationGUI;
+	public UISprite chatWindow;
 	[HideInInspector] public string localHandle = "";
 	[HideInInspector] public int localPing = 0;
 	[HideInInspector] public int remoteScore = 0;
@@ -116,13 +117,17 @@ public class BasePlayer : MonoBehaviour {
 			allyUsernames();
 			/*------------------------------------------------------*/
 
-			//Adding toggle to chat with Z
+			//Adding toggle to chat with Z and making chat visible
 			/*------------------------------------------------------*/
 			if(Input.GetKeyUp(KeyCode.Z)){
 				if(chatArea.GetComponentInChildren<UILabel>().alpha == 1)
 					chatArea.GetComponentInChildren<UILabel>().alpha = 0;
 				else
 					chatArea.GetComponentInChildren<UILabel>().alpha = 1;
+			}
+
+			if(chatWindow.alpha == 1){
+				chatArea.GetComponentInChildren<UILabel>().alpha = 1;
 			}
 			/*------------------------------------------------------*/
 
