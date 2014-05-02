@@ -116,17 +116,13 @@ public class MainMenu : MonoBehaviour {
 						break;	
 					case PeerState.ConnectedToGameserver: connectionStatus.text = "[00FF00]Connected to Server";
 						break;	
-					default: connectionStatus.text = "[800000]Connection Unknown :O";
+					default: connectionStatus.text = "[800000]Connection : " + PhotonNetwork.connectionStateDetailed.ToString();
 						break;
 
             	}
 			//connectionStatus.text = PhotonNetwork.connectionStateDetailed.ToString();
 		}
 		checkInternet();
-	}
-
-	void OnGUI(){
-		//GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
 	}
 
 	void checkInternet(){

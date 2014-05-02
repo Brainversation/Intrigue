@@ -25,7 +25,7 @@ public class Pregame : MonoBehaviour {
 	private List<int> guards = new List<int>();
 	private int prevGuestCount = 0;
 
-	private static bool isTesting = true;
+	private static bool isTesting = false;
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
