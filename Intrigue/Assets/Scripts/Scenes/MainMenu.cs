@@ -214,6 +214,7 @@ public class MainMenu : MonoBehaviour {
 			RoomOptions roomOp = new RoomOptions();
 			roomOp.isVisible = true;
 			roomOp.isOpen = true;
+			roomOp.maxPlayers = 10;
 			PhotonNetwork.CreateRoom(player.RoomName, roomOp, null);
 		}
 		

@@ -250,19 +250,17 @@ public class Guard : BasePlayer{
 	}
 
 	void testAccusation(){
-		if(accused != null && accused.CompareTag("Spy")){
-			if(!accused.GetComponent<BasePlayer>().isOut){
-				photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, player.TeamID, 100);
-				photonView.RPC("invokeSpyCaught", PhotonTargets.MasterClient);
-				accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
-				accused.GetComponent<BasePlayer>().isOut = true;
-				spyCaughtLabel.active = true;
-				Invoke("removeSpyCaughtLabel", 2);
-				base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + accused.GetComponent<BasePlayer>().localHandle + "[-][FF2B2B]![-]");
-				accused = null;
-			}
+		if(accused != null && accused.CompareTag("Spy") && !accused.GetComponent<BasePlayer>().isOut){
+			photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, player.TeamID, 100);
+			photonView.RPC("invokeSpyCaught", PhotonTargets.All);
+			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
+			accused.GetComponent<BasePlayer>().isOut = true;
+			spyCaughtLabel.active = true;
+			Invoke("removeSpyCaughtLabel", 2);
+			base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + accused.GetComponent<BasePlayer>().localHandle + "[-][FF2B2B]![-]");
+			accused = null;
 		}else{
-			photonView.RPC("invokeGuardFailed", PhotonTargets.MasterClient );
+			photonView.RPC("invokeGuardFailed", PhotonTargets.All );
 			isOut = true;
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
 			accused = null;

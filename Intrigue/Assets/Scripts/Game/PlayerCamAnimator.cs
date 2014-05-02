@@ -17,7 +17,6 @@ public class PlayerCamAnimator : MonoBehaviour {
   	private bool started = false;
     
     void Start() {
-       
         playerObj = gameObject.transform.parent.gameObject;
     }
     void Update() {
