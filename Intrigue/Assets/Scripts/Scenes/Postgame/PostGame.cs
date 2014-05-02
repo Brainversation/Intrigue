@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PostGame : MonoBehaviour {
-
 
 	public GameObject playerPrefab;
 	public GameObject guardTable;
@@ -23,13 +23,20 @@ public class PostGame : MonoBehaviour {
 		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 
-		InvokeRepeating("syncPingAndScore", 0, 2F);
-
 		if(player.TeamID==1){
 			photonView.RPC("addTeam1", PhotonTargets.AllBuffered, player.Handle, player.Score, PhotonNetwork.player.ID);
 		}
 		else{
 			photonView.RPC("addTeam2", PhotonTargets.AllBuffered, player.Handle, player.Score, PhotonNetwork.player.ID);
+		}
+
+		foreach(PhotonPlayer play in PhotonNetwork.playerList){
+			if((int)play.customProperties["TeamID"] == 1){
+				addTeam1((string)play.customProperties["Handle"], (int)play.customProperties["Score"], play.ID);
+			}
+			else{
+				addTeam2((string)play.customProperties["Handle"], (int)play.customProperties["Score"], play.ID);
+			}
 		}
 
 		team1s = GameObject.FindGameObjectWithTag("Team1Score");
@@ -57,10 +64,7 @@ public class PostGame : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update(){
-	}
 
-	void syncPingAndScore(){
-		photonView.RPC("editPing", PhotonTargets.All, player.Handle, player.TeamID, PhotonNetwork.player.ID, player.Score, PhotonNetwork.GetPing());
 	}
 
 	void leaveLobby(){
@@ -68,33 +72,6 @@ public class PostGame : MonoBehaviour {
 		PhotonNetwork.LoadLevel( "MainMenu" );
 	}
 
-	[RPC]
-	void editPing(string handle, int TeamID, int playerID, int score, int ping){
-		string pingColor = "[000000]";
-		if (ping<50)
-			pingColor = "[00FF00]";
-		else if(ping<100)
-			pingColor = "[FF9D00]";
-		else
-			pingColor = "[FF0000]";
-
-		if(TeamID==1){
-			foreach(Transform child in spyTable.transform){
-				if(child.gameObject.GetComponent<UILabel>().user == playerID){
-					child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + " : [FFFFFF]" + score + "     [FFFFFF]("+ pingColor+ping+"[-]" + ") ms";
-				}
-			}
-		}
-		else{
-			foreach(Transform child in guardTable.transform){
-				if(child.gameObject.GetComponent<UILabel>().user == playerID){
-					child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + handle + " : [FFFFFF]" + score + "     [FFFFFF]("+ pingColor+ping+"[-]"  + ") ms";
-				}
-			}
-		}
-	}
-
-	[RPC]
 	void addTeam1(string handle, int score, int playerID){
 		team1.Add(handle);
 		GameObject playerInfo = NGUITools.AddChild(spyTable, playerPrefab);
@@ -102,11 +79,9 @@ public class PostGame : MonoBehaviour {
 		playerInfo.transform.localPosition-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = playerID;
-		label.text = handle + " : " + score;
-		syncPingAndScore();
+		label.text = "[00CCFF]" + handle + "[-] - " + score;
 	}
 
-	[RPC]
 	void addTeam2(string handle, int score, int playerID){
 		team2.Add(handle);
 		GameObject playerInfo = NGUITools.AddChild(guardTable, playerPrefab);
@@ -114,7 +89,6 @@ public class PostGame : MonoBehaviour {
 		playerInfo.transform.position-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = playerID;
-		label.text = handle + " : " + score;
-		syncPingAndScore();
+		label.text = "[FF2B2B]" + handle + "[-] - " + score;
 	}
 }

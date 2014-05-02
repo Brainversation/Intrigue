@@ -307,6 +307,10 @@ public class Pregame : MonoBehaviour {
 	[RPC]
 	public void go(){
 		CancelInvoke();
+		if(player.Team == "Spy")
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"TeamID", 1}});
+		else
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"TeamID", 2}});
 		PhotonNetwork.LoadLevel("Intrigue");
 	}
 

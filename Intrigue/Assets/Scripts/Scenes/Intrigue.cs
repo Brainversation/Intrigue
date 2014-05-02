@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Intrigue : MonoBehaviour {
 
@@ -252,12 +253,7 @@ public class Intrigue : MonoBehaviour {
 						position,
 						rotation, 0);
 
-		if (roundsLeft == rounds){
-			if(player.Team == "Spy")
-				player.TeamID = 1;
-			else
-				player.TeamID = 2;
-		}
+		player.TeamID = (int)PhotonNetwork.player.customProperties["TeamID"];
 		photonView.RPC("ready", PhotonTargets.MasterClient);
 	}
 
