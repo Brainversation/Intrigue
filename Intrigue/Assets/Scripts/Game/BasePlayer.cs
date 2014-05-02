@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class BasePlayer : MonoBehaviour {
 	
@@ -58,12 +59,10 @@ public class BasePlayer : MonoBehaviour {
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
-		InvokeRepeating("syncPingAndScore", 1, 1F);
+		InvokeRepeating("syncPing", 1, 2F);
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ping", PhotonNetwork.GetPing()}});
+
 		if(photonView.isMine){
-			localHandle = player.Handle;
-			remoteScore = player.Score;
-			photonView.RPC("giveHandle", PhotonTargets.OthersBuffered, player.Handle);
-			photonView.RPC("giveScore", PhotonTargets.Others, player.Score);
 			if(hairHat!=null)
 				hairHat.GetComponent<Renderer>().enabled = false;
 		} else {
@@ -200,9 +199,8 @@ public class BasePlayer : MonoBehaviour {
 		}
 	}
 
-	void syncPingAndScore(){
-		localPing = PhotonNetwork.GetPing();
-		photonView.RPC("givePing", PhotonTargets.All, localPing);
+	void syncPing(){
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ping", PhotonNetwork.GetPing()}});
 	}
 
 	public void newEvent(string eventMessage){

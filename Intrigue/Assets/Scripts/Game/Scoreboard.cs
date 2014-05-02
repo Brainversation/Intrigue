@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Scoreboard : MonoBehaviour {
 	
@@ -13,8 +14,8 @@ public class Scoreboard : MonoBehaviour {
 	public GameObject spyTeam;
 	public GameObject guardTeam;
 	public GameObject serverStats;
-	private GameObject [] spies;
-	private GameObject [] guards;
+	private List<int> spies = new List<int>();
+	private List<int> guards = new List<int>();
 	private GameObject [] servers;
 	private int [] serverCompletions = new int [] {0,0,0};
 
@@ -24,22 +25,29 @@ public class Scoreboard : MonoBehaviour {
 		//this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
+		int i = 0;
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Score", player.Score}});
 
-		for(int i=0; i<5; i++){
-			GameObject playerScoreInstance= NGUITools.AddChild(guardTable, playerPrefab);
-			Vector3 temp = new Vector3(0f,(i)*30f,0f);
-			playerScoreInstance.transform.localPosition -= temp;
-			UILabel label = playerScoreInstance.GetComponent<UILabel>();
-			label.user = -1;
-			label.text = "";
-
-			GameObject playerScoreInstance2= NGUITools.AddChild(spyTable, playerPrefab);
-			playerScoreInstance2.transform.localPosition -= temp;
-			UILabel label2 = playerScoreInstance2.GetComponent<UILabel>();
-			label2.user = -1;
-			label2.text = "";
+		foreach(PhotonPlayer play in PhotonNetwork.playerList){
+			if((string)play.customProperties["Team"] == "Guard"){
+				GameObject playerScoreInstance= NGUITools.AddChild(guardTable, playerPrefab);
+				Vector3 temp = new Vector3(0f,(i)*30f,0f);
+				playerScoreInstance.transform.localPosition -= temp;
+				UILabel label = playerScoreInstance.GetComponent<UILabel>();
+				label.user = play.ID;
+				label.text = "";
+			}else{
+				GameObject playerScoreInstance= NGUITools.AddChild(spyTable, playerPrefab);
+				Vector3 temp = new Vector3(0f,(i)*30f,0f);
+				playerScoreInstance.transform.localPosition -= temp;
+				UILabel label = playerScoreInstance.GetComponent<UILabel>();
+				label.user = play.ID;
+				label.text = "";
+			}
+			++i;
 		}
-	
+		InvokeRepeating("reloadScoreboard", 1, 1);
+		reloadScoreboard();
 	}
 	
 	// Update is called once per frame
@@ -59,8 +67,7 @@ public class Scoreboard : MonoBehaviour {
 			guardTeam.GetComponent<UILabel>().text = "Guards : " + player.TeamScore;
 		}
 
-		spies = GameObject.FindGameObjectsWithTag("Spy");
-		guards = GameObject.FindGameObjectsWithTag("Guard");
+
 		
 		//SERVER STATS
 		foreach(GameObject serv in servers){
@@ -70,86 +77,46 @@ public class Scoreboard : MonoBehaviour {
 
 		serverStats.GetComponent<UILabel>().text = "SERVERS:\n1: [FF0000]" + serverCompletions[0] + "%[-] 2: [FF0000]" + serverCompletions[1] + "%[-] 3:[FF0000] " + serverCompletions[2] + "%[-]";
 
-
-
-
-
-
-		foreach(GameObject sp in spies){
-			Spy spI = sp.GetComponent<Spy>();
-			if(spI.localHandle!=""){
-				foreach(Transform child in spyTable.transform){
-					if(child.gameObject.GetComponent<UILabel>().labelHandle == spI.localHandle){
-							int ping = spI.localPing;
-							string pingColor = "[000000]";
-								if (ping<50)
-									pingColor = "[00FF00]";
-								else if(ping<100)
-									pingColor = "[FF9D00]";
-								else
-									pingColor = "[FF0000]";		
-						child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + spI.localHandle + "[-] - " + spI.remoteScore + "pts - ping("+ pingColor+ping+"[-]" + ")";	
-					}
-					else if(child.gameObject.GetComponent<UILabel>().labelHandle == "" && !spI.isAssigned){
-						child.gameObject.GetComponent<UILabel>().labelHandle = spI.localHandle;
-						spI.isAssigned = true;
-					}
-				}
-			}
-		}
-
-		foreach(GameObject gu in guards){
-			Guard guI = gu.GetComponent<Guard>();
-			if(guI.localHandle!="" && guI.localHandle!="No Handle"){
-				foreach(Transform child in guardTable.transform){
-					if(child.gameObject.GetComponent<UILabel>().labelHandle == guI.localHandle){
-							int ping = guI.localPing;
-							string pingColor = "[000000]";
-								if (ping<50)
-									pingColor = "[00FF00]";
-								else if(ping<100)
-									pingColor = "[FF9D00]";
-								else
-									pingColor = "[FF0000]";		
-						child.gameObject.GetComponent<UILabel>().text = "[FFFFFF]" + guI.localHandle + "[-] - " + guI.remoteScore + "pts - ping ("+ pingColor+ping+"[-]" + ") ms";	
-					}
-					else if(child.gameObject.GetComponent<UILabel>().labelHandle == "" && !guI.isAssigned){
-						child.gameObject.GetComponent<UILabel>().labelHandle = guI.localHandle;
-						guI.isAssigned = true;
-					}
-				}
-			}
-		}
-
 	}
 
-	[RPC]
-	void removeName(string handle, string team, int playerID){
-		// Debug.Log("Removing: " + handle);
-		bool removed = false;
-		float removedHeight=0;
-		GameObject curTable;
-		if(team=="Spy")
-			curTable = spyTable;
+	void reloadScoreboard(){
+		foreach(PhotonPlayer play in PhotonNetwork.playerList){
+			string pingColor;
+			if(play.customProperties["Ping"] != null)
+				pingColor = calculatePingColor((int)play.customProperties["Ping"]);
+			else
+				pingColor = "[00FF00]";
+
+			if((string)play.customProperties["Team"] == "Guard"){
+				foreach(Transform gC in guardTable.transform){
+					if(gC.gameObject.GetComponent<UILabel>().user == play.ID){
+						UILabel label = gC.gameObject.GetComponent<UILabel>();
+						label.user = play.ID;
+						label.text = "[FF2B2B]" + (string)play.customProperties["Handle"] + "[-] - "+ (int)play.customProperties["Score"] + " ("+ pingColor + (int)play.customProperties["Ping"]+"[-]" + ") ms";
+					}
+				}
+			}
+			else if((string)play.customProperties["Team"] == "Spy"){
+				foreach(Transform sC in spyTable.transform){
+					if(sC.gameObject.GetComponent<UILabel>().user == play.ID){
+						UILabel label = sC.gameObject.GetComponent<UILabel>();
+						label.user = play.ID;
+						label.text = "[00CCFF]" + (string)play.customProperties["Handle"] + "[-] - "+ (int)play.customProperties["Score"] + " ("+ pingColor + (int)play.customProperties["Ping"]+"[-]" + ") ms";
+					}
+				}
+			}
+		}
+	}
+
+	string calculatePingColor(int ping){
+		string pingColor;
+		if (ping<50)
+			pingColor = "[00FF00]";
+		else if(ping<100)
+			pingColor = "[FF9D00]";
 		else
-			curTable = guardTable;
-
-		foreach(Transform child in curTable.transform){
-			if(child.gameObject.GetComponent<UILabel>().user == playerID){
-				removedHeight = child.localPosition.y;
-				NGUITools.Destroy(child.gameObject);
-				removed = true;
-			}
-		}
-		if(removed){
-			foreach(Transform child in curTable.transform){
-				Vector3 temp = new Vector3(0f, 0.1f,0);
-				if(Mathf.RoundToInt(child.gameObject.transform.localPosition.y)<Mathf.RoundToInt(removedHeight)){
-					child.gameObject.transform.position+=temp;
-				}
-			}
-		}
+			pingColor = "[FF0000]";
+		return pingColor;
 	}
-
 
 }

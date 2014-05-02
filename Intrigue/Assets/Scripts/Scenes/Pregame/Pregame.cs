@@ -25,7 +25,7 @@ public class Pregame : MonoBehaviour {
 	private List<int> guards = new List<int>();
 	private int prevGuestCount = 0;
 
-	private static bool isTesting = false;
+	private static bool isTesting = true;
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
@@ -44,7 +44,8 @@ public class Pregame : MonoBehaviour {
 
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Handle", player.Handle},
 																{"Ready", PhotonNetwork.isMasterClient},
-																{"Ping", 100}});
+																{"Ping", 100},
+																{"Score", 0}});
 		reloadScoreboard();
 	}
 

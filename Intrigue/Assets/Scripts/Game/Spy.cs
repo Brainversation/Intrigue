@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Spy : BasePlayer{
 	
@@ -210,25 +211,10 @@ public class Spy : BasePlayer{
 	}
 
 	[RPC]
-	void giveHandle(string handle){
-		localHandle = handle;
-	}
-
-	[RPC]
-	void giveScore(int score){
-		remoteScore = score;
-	}
-
-	[RPC]
-	void givePing(int ping){
-		localPing = ping;
-	}
-
-	[RPC]
 	void addPlayerScore(int scoreToAdd){
 		if(photonView.isMine){
 			player.Score += scoreToAdd;
-			photonView.RPC("giveScore", PhotonTargets.All, player.Score);
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Score", player.Score}});
 		}
 		//Adding to team scores
 		if(player.TeamID == 1)
