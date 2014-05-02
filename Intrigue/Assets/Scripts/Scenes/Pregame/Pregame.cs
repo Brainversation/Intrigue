@@ -172,7 +172,7 @@ public class Pregame : MonoBehaviour {
 
 	void readyClick(){
 		if(PhotonNetwork.isMasterClient){
-			if(readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
+			if((PhotonNetwork.playerList.Length >= 2 || isTesting) && readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
 				PhotonNetwork.room.visible = false;
 				photonView.RPC("go", PhotonTargets.All);
 			}
