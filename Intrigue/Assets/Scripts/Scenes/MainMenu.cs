@@ -37,10 +37,16 @@ public class MainMenu : MonoBehaviour {
 		Screen.lockCursor = false;
 		player = GameObject.Find("Player").GetComponent<Player>();
 		connect();
+
+		//Resetting Variables
 		player.Score = 0;
 		player.TeamID = 0;
 		player.TeamScore = 0;
 		player.EnemyScore = 0;
+		player.Team = null;
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", null},
+																{"Score", 0},
+																{"Ready", false}});		
 
 		//Player Prefs
 		if (Application.isEditor)
