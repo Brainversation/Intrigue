@@ -96,6 +96,13 @@ public class Pregame : MonoBehaviour {
 		textList.Add((string)photonPlayer.customProperties["Handle"] + " [FFCC00]has disconnected.[-]");
 	}
 
+	void OnMasterClientSwitched(PhotonPlayer newMasterClient){
+		textList.Add((string)newMasterClient.customProperties["Handle"] + "[FFCC00] is now the host.[-]");
+		if(PhotonNetwork.player.ID == newMasterClient.ID){
+			slider.enabled = true;
+		}
+	}
+
 	void updateGuestSlider(){
 		if(PhotonNetwork.isMasterClient){
 			player.Guests = Mathf.RoundToInt(slider.value*80);
