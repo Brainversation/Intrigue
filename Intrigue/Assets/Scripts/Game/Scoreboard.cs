@@ -14,8 +14,6 @@ public class Scoreboard : MonoBehaviour {
 	public GameObject spyTeam;
 	public GameObject guardTeam;
 	public GameObject serverStats;
-	private List<int> spies = new List<int>();
-	private List<int> guards = new List<int>();
 	private GameObject [] servers;
 	private int [] serverCompletions = new int [] {0,0,0};
 
@@ -25,26 +23,28 @@ public class Scoreboard : MonoBehaviour {
 		//this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
-		int i = 0;
+		int s = 0;
+		int g = 0;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Score", player.Score}});
 
 		foreach(PhotonPlayer play in PhotonNetwork.playerList){
 			if((string)play.customProperties["Team"] == "Guard"){
 				GameObject playerScoreInstance= NGUITools.AddChild(guardTable, playerPrefab);
-				Vector3 temp = new Vector3(0f,(i)*30f,0f);
+				Vector3 temp = new Vector3(0f,(g)*30f,0f);
 				playerScoreInstance.transform.localPosition -= temp;
 				UILabel label = playerScoreInstance.GetComponent<UILabel>();
 				label.user = play.ID;
 				label.text = "";
+				++g;
 			}else{
 				GameObject playerScoreInstance= NGUITools.AddChild(spyTable, playerPrefab);
-				Vector3 temp = new Vector3(0f,(i)*30f,0f);
+				Vector3 temp = new Vector3(0f,(s)*30f,0f);
 				playerScoreInstance.transform.localPosition -= temp;
 				UILabel label = playerScoreInstance.GetComponent<UILabel>();
 				label.user = play.ID;
 				label.text = "";
+				++s;
 			}
-			++i;
 		}
 		InvokeRepeating("reloadScoreboard", 1, 1);
 		reloadScoreboard();
