@@ -251,14 +251,14 @@ public class Guard : BasePlayer{
 
 	void testAccusation(){
 		if(accused != null && accused.CompareTag("Spy")){
-			if(!accused.GetComponent<Spy>().isOut){
+			if(!accused.GetComponent<BasePlayer>().isOut){
 				photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 				photonView.RPC("invokeSpyCaught", PhotonTargets.MasterClient);
 				accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
-				accused.GetComponent<Spy>().isOut = true;
+				accused.GetComponent<BasePlayer>().isOut = true;
 				spyCaughtLabel.active = true;
 				Invoke("removeSpyCaughtLabel", 2);
-				base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + accused.GetComponent<Spy>().localHandle + "[-][FF2B2B]![-]");
+				base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + accused.GetComponent<BasePlayer>().localHandle + "[-][FF2B2B]![-]");
 				accused = null;
 			}
 		}else{
@@ -397,5 +397,10 @@ public class Guard : BasePlayer{
 		textList.Add(s);
 		CancelInvoke("toggleChatOff");
 		Invoke("toggleChatOff", 5);
+	}
+
+	[RPC]
+	void setLocalHandle(string handle){
+		localHandle = handle;
 	}
 }

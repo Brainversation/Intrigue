@@ -20,6 +20,7 @@ public class Pregame : MonoBehaviour {
 	private PhotonView photonView = null;
 	private Player player;
 	private bool isReady = false;
+	private bool allReady = false;
 	private int readyCount = 0;
 	private List<int> spies = new List<int>();
 	private List<int> guards = new List<int>();
@@ -137,7 +138,15 @@ public class Pregame : MonoBehaviour {
 	void readyStatus(){
 		//Ready Button
 		if(PhotonNetwork.isMasterClient){
-			if( (PhotonNetwork.playerList.Length >= 2 || isTesting) && readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
+			allReady = true;
+			foreach(PhotonPlayer playy in PhotonNetwork.playerList){
+				if((bool)playy.customProperties["Ready"] == false){
+					allReady = false;
+					break;
+				}
+			}
+
+			if( (PhotonNetwork.playerList.Length >= 2 || isTesting) && allReady && player.Team!=""){
 				readyLabel.text = "START GAME";
 				readyLabel.fontSize = 28;
 				readyCheckToggle.value = true;

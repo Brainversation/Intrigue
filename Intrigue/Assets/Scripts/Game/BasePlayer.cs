@@ -51,10 +51,11 @@ public class BasePlayer : MonoBehaviour {
 				conversationGUI.alpha = 0;
 			}
 		}
-		
-
+	
+		photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
 
 		Invoke("getAllPlayers", 4);
+
 
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -169,31 +170,18 @@ public class BasePlayer : MonoBehaviour {
 	void allyUsernames(){
 		//Puts ally usernames above their head
 		GameObject[] allies = GameObject.FindGameObjectsWithTag(player.Team);
+
 		foreach(GameObject ally in allies){
 			if(ally!=gameObject){
-				if(player.Team=="Spy"){
-					if(!ally.GetComponent<Spy>().textAdded){
-						ally.GetComponent<Spy>().textAdded = true;
+					if(!ally.GetComponent<BasePlayer>().textAdded){
+						ally.GetComponent<BasePlayer>().textAdded = true;
 						GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
 						textInstance.GetComponent<AllyText>().target = ally.transform;
 						textInstance.transform.parent = ally.transform;
-						textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
+						textInstance.GetComponent<TextMesh>().text = ally.GetComponent<BasePlayer>().localHandle;
 					}
-					if((ally.GetComponentInChildren<TextMesh>().text == ""|| ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Spy>().textAdded){
-						ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Spy>().localHandle;
-					}
-				}
-				else{
-					if(!ally.GetComponent<Guard>().textAdded){
-						ally.GetComponent<Guard>().textAdded = true;
-						GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
-						textInstance.GetComponent<AllyText>().target = ally.transform;
-						textInstance.transform.parent = ally.transform;
-						textInstance.GetComponent<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
-					}
-					if((ally.GetComponentInChildren<TextMesh>().text == "" || ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Guard>().textAdded){
-						ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<Guard>().localHandle;
-					}
+					if((ally.GetComponentInChildren<TextMesh>().text == "" || ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Spy>().textAdded){
+						ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<BasePlayer>().localHandle;
 				}
 			}
 		}

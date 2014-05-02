@@ -161,7 +161,7 @@ public class Spy : BasePlayer{
 					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
 					if(hit.transform.tag == "Guard"){
 						photonView.RPC("addPlayerScore", PhotonTargets.All, 50);
-						base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned [-][FF2B2B]" + hit.transform.gameObject.GetComponent<Guard>().localHandle + "[-][FFCC00]![-]");
+						base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned [-][FF2B2B]" + hit.transform.gameObject.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
 					}
 					else{
 						photonView.RPC("addPlayerScore", PhotonTargets.All, -50);
@@ -235,5 +235,10 @@ public class Spy : BasePlayer{
 		textList.Add(s);
 		CancelInvoke("toggleChatOff");
 		Invoke("toggleChatOff", 5);
+	}
+
+	[RPC]
+	void setLocalHandle(string handle){
+		localHandle = handle;
 	}
 }
