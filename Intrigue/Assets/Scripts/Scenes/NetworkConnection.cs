@@ -49,9 +49,9 @@ public class NetworkConnection : Photon.MonoBehaviour {
 		if(PhotonNetwork.player.ID == newPlayer.ID){
 			Debug.Log("Reconnected");
 			if(player.Team == "Guard")
-				photonView.RPC("addGuard", PhotonTargets.All);
+				photonView.RPC("reAddGuard", PhotonTargets.All);
 			else
-				photonView.RPC("addSpy", PhotonTargets.All);
+				photonView.RPC("reAddSpy", PhotonTargets.All);
 		}
 		if((string)newPlayer.customProperties["Team"] == "Guard"){
 			player.GetComponent<BasePlayer>().newEvent("[FF2B2B]" + (string)newPlayer.customProperties["Handle"]  + "[-][FFCC00] has reconnected![-]");
@@ -120,12 +120,12 @@ public class NetworkConnection : Photon.MonoBehaviour {
 	}
 
 	[RPC]
-	void addSpy(){
+	void reAddSpy(){
 		++Intrigue.numSpiesLeft;
 	}
 
 	[RPC]
-	void addGuard(){
+	void reAddGuard(){
 		++Intrigue.numGuardsLeft;
 	}
 }
