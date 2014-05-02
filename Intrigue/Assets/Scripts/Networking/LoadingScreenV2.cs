@@ -13,6 +13,8 @@ public class LoadingScreenV2 : MonoBehaviour {
 	public GameObject loadNextRound;
 	private AsyncOperation async;
 	private Player player;
+	private GameObject[] guards;
+	private GameObject[] spies;
 	private float countdownDuration = 5.0f;
 	private float countdownCur = 0;
 	private Intrigue intrigue;
@@ -28,6 +30,19 @@ public class LoadingScreenV2 : MonoBehaviour {
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		loadTimer.GetComponent<UILabel>().text = totalCountdownWithLoading+"s";
 
+		guards = GameObject.FindGameObjectsWithTag("Guard");
+		spies = GameObject.FindGameObjectsWithTag("Spy");
+		
+		foreach (GameObject guard in guards){
+			guard.GetComponentInChildren<Camera>().GetComponentInChildren<MouseLook>().enabled = false;
+			guard.GetComponentInChildren<MouseLook>().enabled = false;
+		}
+
+		foreach (GameObject spy in spies){
+			spy.GetComponentInChildren<Camera>().GetComponentInChildren<MouseLook>().enabled = false;
+			spy.GetComponentInChildren<MouseLook>().enabled = false;
+		}
+
 		if(intrigue.GetRoundsLeft == intrigue.GetRounds){
 			loadTitle.GetComponent<UILabel>().text = "MATCH STARTING";
 			loadResult.GetComponent<UILabel>().text = "";
@@ -41,6 +56,17 @@ public class LoadingScreenV2 : MonoBehaviour {
 	void Update(){
 		if(intrigue.gameStart){
 			transform.parent.gameObject.SetActive(false);
+
+			foreach (GameObject guard in guards){
+				Debug.Log("Game is starting");
+				guard.GetComponentInChildren<Camera>().GetComponentInChildren<MouseLook>().enabled = true;
+				guard.GetComponentInChildren<MouseLook>().enabled = true;
+			}
+
+			foreach (GameObject spy in spies){
+				spy.GetComponentInChildren<Camera>().GetComponentInChildren<MouseLook>().enabled = true;
+				spy.GetComponentInChildren<MouseLook>().enabled = true;
+			}
 		}
 
 		if(PhotonNetwork.isMasterClient){
