@@ -11,6 +11,7 @@ public class BasePlayer : MonoBehaviour {
 	protected UIPanel[] guiPanels;
 	protected UILabel[] guiLabels;
 	protected GameObject outLabel;
+	protected int photonID = -1;
 
 	public AudioSource footstepL;
 	public AudioSource footstepR;
@@ -37,11 +38,6 @@ public class BasePlayer : MonoBehaviour {
 	private GameObject[] spiesList;
 	private List<GameObject> allPlayers = new List<GameObject>();
 
-	//Yield function that waits specified amount of seconds
-	IEnumerator Yielder(int seconds){
-		yield return new WaitForSeconds(seconds);
-	}
-
 	void Start () {
 		// Set conversationGUI so spy and guard can use
 		guiPanels = GetComponentsInChildren<UIPanel>(true);
@@ -51,8 +47,6 @@ public class BasePlayer : MonoBehaviour {
 				conversationGUI.alpha = 0;
 			}
 		}
-	
-		photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
 
 		Invoke("getAllPlayers", 4);
 
@@ -62,6 +56,8 @@ public class BasePlayer : MonoBehaviour {
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		InvokeRepeating("syncPing", 1, 2F);
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ping", PhotonNetwork.GetPing()}});
+		photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
+		photonView.RPC("sendID", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
 
 		if(photonView.isMine){
 			if(hairHat!=null)
@@ -192,8 +188,10 @@ public class BasePlayer : MonoBehaviour {
 	}
 
 	public void newEvent(string eventMessage){
+		BasePlayer bp;
 		foreach(GameObject playerInstance in allPlayers){
-			playerInstance.GetComponent<BasePlayer>().GetComponent<PhotonView>().RPC("receiveMessage", PhotonTargets.All, eventMessage);
+			bp = playerInstance.GetComponent<BasePlayer>();
+			bp.GetComponent<PhotonView>().RPC("receiveMessage", PhotonNetwork.playerList[bp.photonID], eventMessage);
 		}
 	}
 

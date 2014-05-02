@@ -241,4 +241,9 @@ public class Spy : BasePlayer{
 	void setLocalHandle(string handle){
 		localHandle = handle;
 	}
+
+	[RPC]
+	void sendID(int ID){
+		this.photonID = ID;
+	}
 }
