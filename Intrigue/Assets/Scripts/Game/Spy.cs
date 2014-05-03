@@ -239,7 +239,8 @@ public class Spy : BasePlayer{
 
 	[RPC]
 	void setLocalHandle(string handle){
-		localHandle = handle;
+		this.localHandle = handle;
+		Debug.Log("LocalHandle set to : " + handle);
 	}
 
 	[RPC]

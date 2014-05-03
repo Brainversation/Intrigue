@@ -172,11 +172,12 @@ public class BasePlayer : MonoBehaviour {
 					GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
 					textInstance.GetComponent<AllyText>().target = ally.transform;
 					textInstance.transform.parent = ally.transform;
-					textInstance.GetComponent<TextMesh>().text = ally.GetComponent<BasePlayer>().localHandle;
+					Debug.Log("Adding name of ID: " + ally.GetComponent<BasePlayer>().photonID);
+					textInstance.GetComponent<TextMesh>().text = (string)PhotonPlayer.Find(ally.GetComponent<BasePlayer>().photonID).customProperties["Handle"];
 				}
 
 				if((ally.GetComponentInChildren<TextMesh>().text == "" || ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Spy>().textAdded){
-					ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<BasePlayer>().localHandle;
+					ally.GetComponentInChildren<TextMesh>().text = (string)PhotonPlayer.Find(ally.GetComponent<BasePlayer>().photonID).customProperties["Handle"];
 				}
 			}
 		}
