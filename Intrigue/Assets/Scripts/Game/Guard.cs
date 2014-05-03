@@ -31,9 +31,9 @@ public class Guard : BasePlayer{
 	private static List<int> markedGuests = new List<int>();
 
 	protected override void Update () {
-			base.Update();
-			
-			if(photonView.isMine){
+		base.Update();
+		
+		if(photonView.isMine){
 			guests = GameObject.FindGameObjectsWithTag("Guest");
 			spies = GameObject.FindGameObjectsWithTag("Spy");
 			
@@ -117,8 +117,6 @@ public class Guard : BasePlayer{
 				highlightTargeted();
 			}
 			/*------------------------------------------------------*/
-
-
 		}
 	}
 

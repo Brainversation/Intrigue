@@ -23,9 +23,8 @@ public class Spy : BasePlayer{
 
 
 	protected override void Update () {
-			base.Update();
-			if(photonView.isMine){
-
+		base.Update();
+		if(photonView.isMine){
 			//Locate the necessary NGUI objects
 			/*------------------------------------------------------*/
 			locateNGUIObjects();

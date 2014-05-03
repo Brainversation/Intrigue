@@ -169,15 +169,16 @@ public class BasePlayer : MonoBehaviour {
 
 		foreach(GameObject ally in allies){
 			if(ally!=gameObject){
-					if(!ally.GetComponent<BasePlayer>().textAdded){
-						ally.GetComponent<BasePlayer>().textAdded = true;
-						GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
-						textInstance.GetComponent<AllyText>().target = ally.transform;
-						textInstance.transform.parent = ally.transform;
-						textInstance.GetComponent<TextMesh>().text = ally.GetComponent<BasePlayer>().localHandle;
-					}
-					if((ally.GetComponentInChildren<TextMesh>().text == "" || ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Spy>().textAdded){
-						ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<BasePlayer>().localHandle;
+				if(!ally.GetComponent<BasePlayer>().textAdded){
+					ally.GetComponent<BasePlayer>().textAdded = true;
+					GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
+					textInstance.GetComponent<AllyText>().target = ally.transform;
+					textInstance.transform.parent = ally.transform;
+					textInstance.GetComponent<TextMesh>().text = ally.GetComponent<BasePlayer>().localHandle;
+				}
+
+				if((ally.GetComponentInChildren<TextMesh>().text == "" || ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Spy>().textAdded){
+					ally.GetComponentInChildren<TextMesh>().text = ally.GetComponent<BasePlayer>().localHandle;
 				}
 			}
 		}
