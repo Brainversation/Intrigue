@@ -192,7 +192,7 @@ public class BasePlayer : MonoBehaviour {
 		BasePlayer bp;
 		foreach(GameObject playerInstance in allPlayers){
 			bp = playerInstance.GetComponent<BasePlayer>();
-			bp.GetComponent<PhotonView>().RPC("receiveMessage", PhotonNetwork.player.Find(bp.photonID), eventMessage);
+			bp.GetComponent<PhotonView>().RPC("receiveMessage", PhotonPlayer.Find(bp.photonID), eventMessage);
 		}
 	}
 
