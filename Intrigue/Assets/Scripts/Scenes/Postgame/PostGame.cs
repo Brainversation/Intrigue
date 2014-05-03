@@ -23,18 +23,14 @@ public class PostGame : MonoBehaviour {
 		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 
-		if(player.TeamID==1){
-			photonView.RPC("addTeam1", PhotonTargets.AllBuffered, player.Handle, player.Score, PhotonNetwork.player.ID);
-		}
-		else{
-			photonView.RPC("addTeam2", PhotonTargets.AllBuffered, player.Handle, player.Score, PhotonNetwork.player.ID);
-		}
 
 		foreach(PhotonPlayer play in PhotonNetwork.playerList){
 			if((int)play.customProperties["TeamID"] == 1){
+				Debug.Log("Added team 1");
 				addTeam1((string)play.customProperties["Handle"], (int)play.customProperties["Score"], play.ID);
 			}
 			else{
+				Debug.Log("Added team 1");
 				addTeam2((string)play.customProperties["Handle"], (int)play.customProperties["Score"], play.ID);
 			}
 		}
