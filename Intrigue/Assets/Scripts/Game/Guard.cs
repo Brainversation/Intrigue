@@ -389,6 +389,7 @@ public class Guard : BasePlayer{
 
 	[RPC]
 	public void receiveMessage(string s){
+		Debug.Log(PhotonNetwork.player.customProperties["Handle"] + s);
 		toggleChatOn();
 		textList.Add(s);
 		CancelInvoke("toggleChatOff");

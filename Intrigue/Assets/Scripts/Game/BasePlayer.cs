@@ -48,9 +48,6 @@ public class BasePlayer : MonoBehaviour {
 			}
 		}
 
-		Invoke("getAllPlayers", 4);
-
-
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
@@ -105,6 +102,7 @@ public class BasePlayer : MonoBehaviour {
 				GetComponentInChildren<Camera>().enabled = true;
 				GetComponentInChildren<AudioListener>().enabled = true;
 				GetComponentInChildren<Crosshair>().enabled = true;
+				getAllPlayers();
 				roundStarted = true;
 			}
 
