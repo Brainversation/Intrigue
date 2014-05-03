@@ -51,12 +51,15 @@ public class BasePlayer : MonoBehaviour {
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
-		InvokeRepeating("syncPing", 1, 2F);
-		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ping", PhotonNetwork.GetPing()}});
-		photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
-		photonView.RPC("sendID", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
+
+
 
 		if(photonView.isMine){
+			photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
+			photonView.RPC("sendID", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
+			InvokeRepeating("syncPing", 1, 2F);
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ping", PhotonNetwork.GetPing()}});	
+			textList.Add("[FF2B2B]Press [-]Shift [FF2B2B]+[-] Enter[FF2B2B] to chat![-]");
 			if(hairHat!=null)
 				hairHat.GetComponent<Renderer>().enabled = false;
 		} else {
@@ -75,7 +78,6 @@ public class BasePlayer : MonoBehaviour {
 				NGUITools.SetActive(uiP.gameObject, false);
 			}
 		}
-		textList.Add("[FF2B2B]Press [-]Shift [FF2B2B]+[-] Enter[FF2B2B] to chat![-]");
 	}
 	
 	void getAllPlayers(){
@@ -172,7 +174,6 @@ public class BasePlayer : MonoBehaviour {
 					GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
 					textInstance.GetComponent<AllyText>().target = ally.transform;
 					textInstance.transform.parent = ally.transform;
-					Debug.Log("Adding name of ID: " + ally.GetComponent<BasePlayer>().photonID);
 					textInstance.GetComponent<TextMesh>().text = (string)PhotonPlayer.Find(ally.GetComponent<BasePlayer>().photonID).customProperties["Handle"];
 				}
 
