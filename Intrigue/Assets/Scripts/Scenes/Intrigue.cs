@@ -12,7 +12,7 @@ public class Intrigue : MonoBehaviour {
 	private int numSpies = 0;
 	private int numGuards = 0;
 	private static float timeLimit = 420;
-	private float timeLeft = timeLimit;
+	private static float timeLeft = timeLimit;
 	private PhotonView photonView = null;
 	private GameObject[] spawnObjects;
 	private List<Transform> spawns = new List<Transform>();
@@ -212,7 +212,7 @@ public class Intrigue : MonoBehaviour {
 
 	public float GetTimeLeft{
 		get{
-			return this.timeLeft;
+			return timeLeft;
 		}
 	}
 
@@ -226,6 +226,11 @@ public class Intrigue : MonoBehaviour {
 		get{
 			return rounds;
 		}
+	}
+
+	public static void resetVariables(){
+		roundsLeft = rounds;
+		timeLeft = timeLimit;	
 	}
 
 	[RPC]
@@ -279,7 +284,7 @@ public class Intrigue : MonoBehaviour {
 
 	[RPC]
 	void syncTime(float time){
-		this.timeLeft = time;
+		timeLeft = time;
 	}
 
 	[RPC]

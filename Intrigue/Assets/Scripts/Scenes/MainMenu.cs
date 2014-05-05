@@ -44,6 +44,7 @@ public class MainMenu : MonoBehaviour {
 		player.TeamScore = 0;
 		player.EnemyScore = 0;
 		player.Team = null;
+		Intrigue.resetVariables();
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", null},
 																{"Score", 0},
 																{"Ready", false}});		
