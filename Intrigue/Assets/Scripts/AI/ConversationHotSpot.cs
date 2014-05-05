@@ -18,6 +18,12 @@ public class ConversationHotSpot : MonoBehaviour {
 	public static int max = 5;
 
 	void Start(){
+
+		if(!PhotonNetwork.isMasterClient){
+			enabled = false;
+			return;
+		}
+
 		radius = GetComponent<NavMeshObstacle>().radius = max/2;
 		GetComponent<SphereCollider>().radius = max*1.5f;
 		center = transform.TransformPoint(GetComponent<SphereCollider>().center);
@@ -30,7 +36,7 @@ public class ConversationHotSpot : MonoBehaviour {
 
 	void Update () {
 		if(population == 0){
-			Destroy(gameObject);
+			PhotonNetwork.Destroy(gameObject);
 		} else {
 			int i = 0;
 			foreach(GameObject g in queue){
@@ -117,5 +123,11 @@ public class ConversationHotSpot : MonoBehaviour {
 
 	float findZ(int index){
 		return center.z + radius*Mathf.Sin(slice * index);
+	}
+
+	void OnMasterClientSwitched(PhotonPlayer newMasterClient){
+		if(PhotonNetwork.player.ID == newMasterClient.ID){
+			enabled = true;
+		}
 	}
 }
