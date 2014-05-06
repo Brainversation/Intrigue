@@ -40,6 +40,10 @@ public class BasePlayer : MonoBehaviour {
 	private List<GameObject> allPlayers = new List<GameObject>();
 
 	void Start () {
+		// Set conversationGUI so spy and guard can use
+		guiPanels = GetComponentsInChildren<UIPanel>(true);
+		conversationGUI.alpha = 0;
+		
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
@@ -63,9 +67,6 @@ public class BasePlayer : MonoBehaviour {
 				NGUITools.SetActive(uiP.gameObject, false);
 			}
 		}
-		// Set conversationGUI so spy and guard can use
-		guiPanels = GetComponentsInChildren<UIPanel>(true);
-		conversationGUI.alpha = 0;
 	}
 	
 	void getAllPlayers(){
