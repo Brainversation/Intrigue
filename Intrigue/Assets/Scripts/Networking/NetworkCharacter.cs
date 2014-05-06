@@ -5,7 +5,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	
 
 	public UIPanel sprintPanel;
-	public UISlider sprintSlider;
+	public UISprite sprintSprite;
 	public Camera cam;
 	[HideInInspector] public bool isOut;
 	[HideInInspector] public bool isChatting = false;
@@ -90,7 +90,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		if(sprintPanel != null){
 			if(stamina<100){
 				NGUITools.SetActive(sprintPanel.gameObject, true);
-				sprintSlider.value = stamina/100;
+				sprintSprite.fillAmount = stamina/100;
 			}else{
 				NGUITools.SetActive(sprintPanel.gameObject, false);
 			}
