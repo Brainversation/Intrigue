@@ -231,7 +231,6 @@ public class Guard : BasePlayer{
 	}
 
 	void locateNGUIObjects(){
-		guiPanels = GetComponentsInChildren<UIPanel>();
 		guiLabels = GetComponentsInChildren<UILabel>();
 		if(outLabel == null){
 			foreach(UILabel lab in guiLabels){

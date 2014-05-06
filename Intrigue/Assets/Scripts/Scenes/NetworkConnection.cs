@@ -9,7 +9,6 @@ public class NetworkConnection : Photon.MonoBehaviour {
 	private bool showRetry = false;
 	private Vector3 lastPos = Vector3.zero;
 
-	// Use this for initialization
 	void Start () {
 		player = GameObject.Find("Player").GetComponent<Player>();
 	}
@@ -34,14 +33,6 @@ public class NetworkConnection : Photon.MonoBehaviour {
 				showRetry = false;
 				PhotonNetwork.LoadLevel(0);
 			}
-		} else {
-			if(GUILayout.Button("Disconnect")){
-				PhotonNetwork.networkingPeer.Disconnect();
-			}
-
-			// if(GUILayout.Button("GameOver")){
-			// 	Intrigue.wantGameOver = true;
-			// }
 		}
 	}
 
@@ -53,6 +44,7 @@ public class NetworkConnection : Photon.MonoBehaviour {
 			else
 				photonView.RPC("reAddSpy", PhotonTargets.All);
 		}
+
 		if((string)newPlayer.customProperties["Team"] == "Guard"){
 			player.GetComponent<BasePlayer>().newEvent("[FF2B2B]" + (string)newPlayer.customProperties["Handle"]  + "[-][FFCC00] has reconnected![-]");
 		}
@@ -63,10 +55,6 @@ public class NetworkConnection : Photon.MonoBehaviour {
 	}
 
 	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
-		Debug.Log("OnPhotonPlayerDisconnected: " +
-					(string)photonPlayer.customProperties["Handle"] + " " +
-					(string)photonPlayer.customProperties["Team"] );
-
 		if( (string)photonPlayer.customProperties["Team"] == "Guard" ){
 			photonView.RPC("removeGuard", PhotonTargets.All);
 			player.GetComponent<BasePlayer>().newEvent("[FF2B2B]" + (string)photonPlayer.customProperties["Handle"]  + "[-][FFCC00] has disconnected.[-]");
@@ -77,11 +65,6 @@ public class NetworkConnection : Photon.MonoBehaviour {
 	}
 
 	void OnMasterClientSwitched(PhotonPlayer newMasterClient){
-		// call master switched stuff
-		Debug.Log("OnMasterClientDisconnected: " +
-					(string)newMasterClient.customProperties["Handle"] + " " +
-					(string)newMasterClient.customProperties["Team"] );
-
 		if(PhotonNetwork.player.ID == newMasterClient.ID){
 			Debug.Log("Master Switch");
 			GameObject.FindWithTag("Scripts").GetComponent<Intrigue>().enabled = true;
@@ -92,6 +75,9 @@ public class NetworkConnection : Photon.MonoBehaviour {
 		Debug.Log("OnJoinedRoom");
 		gui.SetActive(false);
 		showRetry = false;
+
+		//Check if game over or same round or something, then add it
+
 		Intrigue.playerGO = PhotonNetwork.Instantiate(
 						"Robot_"+ player.Team+"1"/*type.ToString()*/,
 						lastPos,

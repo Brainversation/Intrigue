@@ -8,8 +8,8 @@ public class BasePlayer : MonoBehaviour {
 	protected Player player;
 	protected Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
 	protected Intrigue intrigue;
-	protected UIPanel[] guiPanels;
 	protected UILabel[] guiLabels;
+	protected UIPanel[] guiPanels;
 	protected GameObject outLabel;
 	protected int photonID = -1;
 
@@ -25,6 +25,7 @@ public class BasePlayer : MonoBehaviour {
 	public UITextList textList;
 	public UIPanel conversationGUI;
 	public UISprite chatWindow;
+
 	[HideInInspector] public string localHandle = "";
 	[HideInInspector] public int localPing = 0;
 	[HideInInspector] public int remoteScore = 0;
@@ -39,20 +40,9 @@ public class BasePlayer : MonoBehaviour {
 	private List<GameObject> allPlayers = new List<GameObject>();
 
 	void Start () {
-		// Set conversationGUI so spy and guard can use
-		guiPanels = GetComponentsInChildren<UIPanel>(true);
-		foreach(UIPanel uiP in guiPanels){
-			if(uiP.gameObject.CompareTag("ConversationUI")){
-				conversationGUI = uiP;
-				conversationGUI.alpha = 0;
-			}
-		}
-
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
-
-
 
 		if(photonView.isMine){
 			photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
@@ -69,15 +59,13 @@ public class BasePlayer : MonoBehaviour {
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<Crosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
-			guiPanels = GetComponentsInChildren<UIPanel>(true);
 			foreach(UIPanel uiP in guiPanels){
-				if(uiP.gameObject.CompareTag("ConversationUI")){
-					conversationGUI = uiP;
-					conversationGUI.alpha = 0;
-				}
 				NGUITools.SetActive(uiP.gameObject, false);
 			}
 		}
+		// Set conversationGUI so spy and guard can use
+		guiPanels = GetComponentsInChildren<UIPanel>(true);
+		conversationGUI.alpha = 0;
 	}
 	
 	void getAllPlayers(){

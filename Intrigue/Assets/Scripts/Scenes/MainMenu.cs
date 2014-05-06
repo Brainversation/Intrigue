@@ -20,10 +20,12 @@ public class MainMenu : MonoBehaviour {
 	public GameObject quickMatchFailed;
 	public UILabel connectionStatus;
 	public UISprite serverCreator;
+
 	[HideInInspector] public GameObject createServerButton;
 	[HideInInspector] public GameObject findServerButton;
 	[HideInInspector] public GameObject optionsButtons;
 	[HideInInspector] public bool connected = false;
+	
 	private bool handleSet = false;
 	private bool serverSet = false;
 	private Player player;
@@ -39,15 +41,7 @@ public class MainMenu : MonoBehaviour {
 		connect();
 
 		//Resetting Variables
-		player.Score = 0;
-		player.TeamID = 0;
-		player.TeamScore = 0;
-		player.EnemyScore = 0;
-		player.Team = null;
-		Intrigue.resetVariables();
-		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", null},
-																{"Score", 0},
-																{"Ready", false}});		
+		resetVariables();	
 
 		//Player Prefs
 		if (Application.isEditor)
@@ -130,6 +124,18 @@ public class MainMenu : MonoBehaviour {
 			//connectionStatus.text = PhotonNetwork.connectionStateDetailed.ToString();
 		}
 		checkInternet();
+	}
+
+	void resetVariables(){
+		player.Score = 0;
+		player.TeamID = 0;
+		player.TeamScore = 0;
+		player.EnemyScore = 0;
+		player.Team = null;
+		Intrigue.resetVariables();
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", null},
+																{"Score", 0},
+																{"Ready", false}});
 	}
 
 	void checkInternet(){

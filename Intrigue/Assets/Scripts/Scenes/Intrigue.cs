@@ -5,25 +5,30 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Intrigue : MonoBehaviour {
 
+	private const float TIMELIMIT = 420;
+	private const int MAXROUNDS = 3;
 
-	private float totalObjActive;
-	private Player player;
-	private int winningTeamThisRound;
+	private static int roundsLeft = MAXROUNDS;
+	private static float timeLeft = TIMELIMIT;
+
 	private int numSpies = 0;
 	private int numGuards = 0;
-	private static float timeLimit = 420;
-	private static float timeLeft = timeLimit;
+	private int spawnIndex;
+	private int readyCount = 0;
+	private int winningTeamThisRound;
+	private float totalObjActive;
+	private Player player;
 	private PhotonView photonView = null;
-	private GameObject[] spawnObjects;
+	private Transform spawnTrans;
 	private List<Transform> spawns = new List<Transform>();
 	private List<Transform> availableSpawns = new List<Transform>();
+	private GameObject[] spawnObjects;
 	private GameObject[] objArray;
-	private int spawnIndex;
-	private Transform spawnTrans;
-	private int readyCount = 0;
 
-	private static int rounds = 3;
-	private static int roundsLeft = rounds;
+	public static int numSpiesLeft;
+	public static int numGuardsLeft;
+	public static bool wantGameOver;
+	public static GameObject playerGO = null;
 
 	[HideInInspector] public string roundResult;
 	[HideInInspector] public float objectivesCompleted = 0;
@@ -34,10 +39,6 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector] public bool doneLoading = false;
 	[HideInInspector] public float loadedGuests = 0;
 	[HideInInspector] public float totalGuests;
-	public static bool wantGameOver;
-	public static int numSpiesLeft;
-	public static int numGuardsLeft;
-	public static GameObject playerGO = null;
 
 	void Awake(){
 		GameObject menuMusic = GameObject.Find("MenuMusic");
@@ -48,7 +49,7 @@ public class Intrigue : MonoBehaviour {
 
 	void Start () {
 		//CHANGE GAMEOVER HERE ~~~~~~~~~~~~~~~~~~~~~~~
-		wantGameOver = true;
+		wantGameOver = false;
 		//~~~~~~~~~~~~~~~~~~~~~~~~
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -205,7 +206,6 @@ public class Intrigue : MonoBehaviour {
 			PhotonNetwork.LoadLevel("Intrigue");
 		} else {
 			Debug.Log( "Game Over" );
-			roundsLeft = rounds;
 			PhotonNetwork.LoadLevel("PostGame");
 		}
 	}
@@ -224,13 +224,13 @@ public class Intrigue : MonoBehaviour {
 
 	public int GetRounds{
 		get{
-			return rounds;
+			return MAXROUNDS;
 		}
 	}
 
 	public static void resetVariables(){
-		roundsLeft = rounds;
-		timeLeft = timeLimit;	
+		roundsLeft = MAXROUNDS;
+		timeLeft = TIMELIMIT;	
 	}
 
 	[RPC]
@@ -245,9 +245,7 @@ public class Intrigue : MonoBehaviour {
 
 	[RPC]
 	void sendSpawnPoint(PhotonMessageInfo info){
-		spawnIndex = Random.Range(0,availableSpawns.Count-1);
-		spawnTrans = availableSpawns[spawnIndex];
-		availableSpawns.RemoveAt(spawnIndex);
+		nextSpawnPoint();
 		photonView.RPC("getSpawnPoint", info.sender, spawnTrans.position, spawnTrans.rotation);
 	}
 
