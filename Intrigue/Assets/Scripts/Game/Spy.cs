@@ -4,16 +4,15 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Spy : BasePlayer{
 	
+	[HideInInspector] public float percentComplete = 0;
+	[HideInInspector] public bool doingObjective = false;
+	[HideInInspector] public string objectiveType;
+	
 	public UILabel stunsUI;
-	[HideInInspector]
-	public float percentComplete = 0;
-	[HideInInspector]
-	public bool doingObjective = false;
-	[HideInInspector]
-	public string objectiveType;
+	public UIPanel objPanel;
+	public UISlider objSlider;
+	
 	private int stuns = 3;
-	private UIPanel objPanel;
-	private UISlider objSlider;
 	private GameObject [] servers; 
 
 	void Awake(){
@@ -25,12 +24,6 @@ public class Spy : BasePlayer{
 	protected override void Update () {
 		base.Update();
 		if(photonView.isMine){
-			//Locate the necessary NGUI objects
-			/*------------------------------------------------------*/
-			locateNGUIObjects();
-			/*------------------------------------------------------*/
-
-
 			//NGUI code for doing Objectives
 			/*------------------------------------------------------*/
 			NGUITools.SetActive(objPanel.gameObject, doingObjective);
@@ -55,7 +48,7 @@ public class Spy : BasePlayer{
 
 			//Code for interacting
 			/*------------------------------------------------------*/
-			if ( Input.GetKey(KeyCode.E) ){
+			if( Input.GetKey(KeyCode.E) ){
 				if(Camera.main!=null)
 					attemptInteract();
 			}
@@ -86,25 +79,6 @@ public class Spy : BasePlayer{
 
 			// Objective Animations
 			objAnimations();
-		}
-	}
-
-	void locateNGUIObjects(){
-		guiLabels = GetComponentsInChildren<UILabel>();
-		guiPanels = GetComponentsInChildren<UIPanel>(true);
-		if(objPanel == null){
-			foreach(UIPanel uiP in guiPanels){
-				if(uiP.gameObject.CompareTag("ObjectivePanel")){
-					objPanel = uiP;
-				}
-			}
-		}
-		if(outLabel == null){
-			foreach(UILabel lab in guiLabels){
-				if(lab.gameObject.CompareTag("OutLabel")){
-					outLabel = lab.gameObject;
-				}
-			}
 		}
 	}
 

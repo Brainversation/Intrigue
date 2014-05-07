@@ -6,7 +6,9 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class Guard : BasePlayer{
 	
 	[HideInInspector] public bool stunned = false;
+	
 	public UIPanel stunUI;
+	public UIPanel accusationGUI;
 	public AudioSource heartbeat;
 	public AudioSource server1;
 	public AudioSource server2;
@@ -24,7 +26,6 @@ public class Guard : BasePlayer{
 	private GameObject[] spies = null;
 	private GameObject[] servers = null;
 	private bool accusing = false;
-	private UIPanel accusationGUI;
 	private Renderer[] renders;
 	private bool nearSpy = false;
 	private static List<int> markedSpies = new List<int>();
@@ -36,11 +37,6 @@ public class Guard : BasePlayer{
 		if(photonView.isMine){
 			guests = GameObject.FindGameObjectsWithTag("Guest");
 			spies = GameObject.FindGameObjectsWithTag("Spy");
-			
-			//Code to get references to necessary NGUI Objects
-			/*------------------------------------------------------*/
-			locateNGUIObjects();
-			/*------------------------------------------------------*/
 
 			//Check if any servers under attack
 			/*------------------------------------------------------*/
@@ -134,52 +130,36 @@ public class Guard : BasePlayer{
 
 	void highlightTargeted(){
 		RaycastHit hit;
-			Ray ray = Camera.main.ScreenPointToRay( screenPoint );
-			if (Physics.Raycast (ray, out hit, 15)) {
-				if(accused==null)
-					if(hit.transform.gameObject.CompareTag("Guest")||hit.transform.gameObject.CompareTag("Spy")){
-							renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
-							foreach(Renderer rend in renders){
-								if(rend.gameObject.CompareTag("highLight"))
-								rend.material.shader = Shader.Find("Reflect_Bump_Spec_Lightmap");
-							}
-					}
+		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
+		if (Physics.Raycast (ray, out hit, 15)) {
+			if(accused==null && hit.transform.gameObject.CompareTag("Guest") ||
+									hit.transform.gameObject.CompareTag("Spy")){
+				renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
+				foreach(Renderer rend in renders){
+					if(rend.gameObject.CompareTag("highLight"))
+					rend.material.shader = Shader.Find("Reflect_Bump_Spec_Lightmap");
+				}
 			}
+		}
 			
-			if(accusing && accused!=null){
-
-				if(accused.CompareTag("Spy") && !accused.GetComponent<Spy>().isOut){
-					accusationGUI.alpha = 1;
-					if(Input.GetKeyUp(KeyCode.E)){
-						accusing = false;
-						testAccusation();
-					}
-				}
-				else if(accused.CompareTag("Guest")){
-					accusationGUI.alpha = 1;
-					if(Input.GetKeyUp(KeyCode.E)){
-						accusing = false;
-						testAccusation();
-					}
-				}
-			} else if ( Input.GetKeyUp(KeyCode.E) ){
-				if ( Physics.Raycast(ray, out hit, 15) ) {
-					if(hit.transform.gameObject.CompareTag("Guest") || hit.transform.gameObject.CompareTag("Spy")){
-							accusing = true;
-							accused = hit.transform.gameObject;
-					}
-				}
-			} else if( Input.GetKeyUp(KeyCode.M) ){
-				if ( Physics.Raycast(ray, out hit, 15) ) {
-					if(hit.transform.gameObject.CompareTag("Guest")){
-						photonView.RPC("markGuest", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().viewID);
-					} else if (hit.transform.gameObject.CompareTag("Spy")){
-						photonView.RPC("markSpy", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().owner.ID);
-					}
-				}
-			} else {
-				accusationGUI.alpha = 0;
+		if(accusing && accused!=null){
+			accusationGUI.alpha = 1;
+			if(Input.GetKeyUp(KeyCode.E)){
+				accusing = false;
+				testAccusation();
 			}
+		} else if( Input.GetKeyUp(KeyCode.E) && hit.transform != null ){
+			accusing = true;
+			accused = hit.transform.gameObject;
+		} else if( Input.GetKeyUp(KeyCode.M) ){
+			if(hit.transform.gameObject.CompareTag("Guest")){
+				photonView.RPC("markGuest", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().viewID);
+			} else if (hit.transform.gameObject.CompareTag("Spy")){
+				photonView.RPC("markSpy", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().owner.ID);
+			}
+		} else {
+			accusationGUI.alpha = 0;
+		}
 	}
 
 	void updateHighlighting(){
@@ -218,7 +198,7 @@ public class Guard : BasePlayer{
 					}
 				}
 				if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50 && Mathf.Abs(spy.transform.position.y - gameObject.transform.position.y)<=2){
-						nearSpy = true;
+					nearSpy = true;
 					if(!heartbeat.isPlaying){
 						heartbeat.Play();
 					}
@@ -226,22 +206,6 @@ public class Guard : BasePlayer{
 			}
 			if(!nearSpy){
 				heartbeat.Stop();
-			}
-		}
-	}
-
-	void locateNGUIObjects(){
-		guiLabels = GetComponentsInChildren<UILabel>();
-		if(outLabel == null){
-			foreach(UILabel lab in guiLabels){
-				if(lab.gameObject.CompareTag("OutLabel")){
-					outLabel = lab.gameObject;
-				}
-			}
-		}
-		foreach(UIPanel pan in guiPanels){
-			if(pan.gameObject.CompareTag("Accusations")){
-				accusationGUI = pan;
 			}
 		}
 	}
@@ -304,7 +268,6 @@ public class Guard : BasePlayer{
 	[RPC]
 	void isStunned(){
 		if(photonView.isMine){
-			Debug.Log("I'm stunned");
 			if(!stunInstantiated){
 				photonView.RPC("updateStunPS", PhotonTargets.All, true);
 				stunInstantiated = true;
@@ -314,9 +277,9 @@ public class Guard : BasePlayer{
 			stunned = true;
 			//Have to disable the mouse look on the camera as well
 			Component [] mouseLooks = GetComponentsInChildren<MouseLook>();
-				foreach(MouseLook ml in mouseLooks){
-					ml.enabled = false;
-				}
+			foreach(MouseLook ml in mouseLooks){
+				ml.enabled = false;
+			}
 
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<Crosshair>().enabled = false;

@@ -9,14 +9,13 @@ public class BasePlayer : MonoBehaviour {
 	protected Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
 	protected Intrigue intrigue;
 	protected UILabel[] guiLabels;
-	protected UIPanel[] guiPanels;
-	protected GameObject outLabel;
 	protected int photonID = -1;
 
 	public AudioSource footstepL;
 	public AudioSource footstepR;
 	public PhotonView photonView = null;
 	public Animator animator;
+	public GameObject outLabel;
 	public GameObject timeLabel;
 	public GameObject hairHat;
 	public GameObject allytext;
@@ -39,9 +38,8 @@ public class BasePlayer : MonoBehaviour {
 	private GameObject[] spiesList;
 	private List<GameObject> allPlayers = new List<GameObject>();
 
-	void Start () {
+	void Start (){
 		// Set conversationGUI so spy and guard can use
-		guiPanels = GetComponentsInChildren<UIPanel>(true);
 		conversationGUI.alpha = 0;
 		
 		photonView = PhotonView.Get(this);
@@ -63,7 +61,7 @@ public class BasePlayer : MonoBehaviour {
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<Crosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
-			foreach(UIPanel uiP in guiPanels){
+			foreach(UIPanel uiP in GetComponentsInChildren<UIPanel>(true)){
 				NGUITools.SetActive(uiP.gameObject, false);
 			}
 		}
