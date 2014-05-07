@@ -41,7 +41,8 @@ public class MainMenu : MonoBehaviour {
 		connect();
 
 		//Resetting Variables
-		resetVariables();	
+		resetVariables();
+		Intrigue.resetVariables();
 
 		//Player Prefs
 		if (Application.isEditor)
