@@ -1106,7 +1106,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100144
 GameObject:
   m_ObjectHideFlags: 0
@@ -1254,7 +1254,7 @@ GameObject:
   - 4: {fileID: 400160}
   - 114: {fileID: 11400040}
   m_Layer: 8
-  m_Name: Label
+  m_Name: Texture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1286,9 +1286,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 400164}
   - 114: {fileID: 11400054}
-  - 114: {fileID: 11400056}
   m_Layer: 8
-  m_Name: Control - Colored Progress Bar
+  m_Name: Sprint_Sprite_BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1301,26 +1300,10 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 400168}
-  - 114: {fileID: 11400060}
-  m_Layer: 8
-  m_Name: Overlay
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &100168
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
   - 4: {fileID: 400166}
-  - 114: {fileID: 11400058}
+  - 114: {fileID: 11400056}
   m_Layer: 8
-  m_Name: Backdrop
+  m_Name: Sprint_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2675,7 +2658,7 @@ Transform:
   m_GameObject: {fileID: 100146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00591715984, y: .00591715984, z: .00591715984}
+  m_LocalScale: {x: .00456620986, y: .00456620986, z: .00456620986}
   m_Children:
   - {fileID: 400210}
   - {fileID: 400206}
@@ -2762,8 +2745,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100160}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -134.255859, y: -72.7675781, z: -45.1655273}
-  m_LocalScale: {x: .5, y: .5, z: 1}
+  m_LocalPosition: {x: -.100000001, y: -.600000024, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400162}
 --- !u!4 &400162
@@ -2773,11 +2756,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100162}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -.0283241272, z: 232.863342}
+  m_LocalPosition: {x: -178.399994, y: -97.1999969, z: 200}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 400164}
   - {fileID: 400160}
+  - {fileID: 400166}
+  - {fileID: 400164}
   m_Father: {fileID: 400146}
 --- !u!4 &400164
 Transform:
@@ -2786,24 +2770,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -133.998047, y: -81.0175781, z: -45.1655273}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 400166}
-  - {fileID: 400168}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: .999954104, y: .999954104, z: .999954104}
+  m_Children: []
   m_Father: {fileID: 400162}
 --- !u!4 &400166
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100168}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 400164}
---- !u!4 &400168
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2813,7 +2784,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 400164}
+  m_Father: {fileID: 400162}
 --- !u!4 &400170
 Transform:
   m_ObjectHideFlags: 1
@@ -3780,7 +3751,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3012
+  startingRenderQueue: 3009
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3882,7 +3853,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3012
+  startingRenderQueue: 3009
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4080,7 +4051,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3009
+  startingRenderQueue: 3007
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4561,7 +4532,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100160}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9d0b5f3bbe925a408bd595c79d0bf63, type: 3}
+  m_Script: {fileID: 11500000, guid: d5c5ca47aa5c01740810b7c66662099f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
@@ -4582,39 +4553,22 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 98
-  mHeight: 20
-  mDepth: 4
+  mWidth: 15
+  mHeight: 15
+  mDepth: 1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 4.9000001
-  user: -1
-  labelHandle: 
-  keepCrispWhenShrunk: 1
-  mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
-  mFont: {fileID: 0}
-  mText: Stamina
-  mFontSize: 50
-  mFontStyle: 0
-  mEncoding: 1
-  mMaxLineCount: 0
-  mEffectStyle: 0
-  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
-  mSymbols: 1
-  mEffectDistance: {x: 1, y: 1}
-  mOverflow: 0
-  mMaterial: {fileID: 0}
-  mApplyGradient: 1
-  mGradientTop: {r: 1, g: 1, b: 1, a: 1}
-  mGradientBottom: {r: .699999988, g: .699999988, b: .699999988, a: 1}
-  mSpacingX: 0
-  mSpacingY: 0
-  mShrinkToFit: 0
-  mMaxLineWidth: 0
-  mMaxLineHeight: 0
-  mLineWidth: 0
-  mMultiline: 1
+  aspectRatio: 1
+  mRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  mTexture: {fileID: 2800000, guid: 0c7e62d4b51c67c4d96627ed6051bf67, type: 3}
+  mMat: {fileID: 0}
+  mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
 --- !u!114 &11400042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4688,7 +4642,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3016
+  startingRenderQueue: 3011
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4724,7 +4678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprintPanel: {fileID: 11400044}
-  sprintSprite: {fileID: 0}
+  sprintSprite: {fileID: 11400056}
   cam: {fileID: 2000000}
   isOut: 0
   isChatting: 0
@@ -4839,16 +4793,16 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 4
-  mWidth: 40
-  mHeight: 12
+  mWidth: 25
+  mHeight: 25
   mDepth: 0
-  autoResizeBoxCollider: 1
+  autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 3.33333325
+  aspectRatio: 1
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
-  mSpriteName: Highlight - Thin
-  mType: 1
+  mSpriteName: Screw
+  mType: 0
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
@@ -4863,76 +4817,6 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c20815eb3063c24290a61b7020a1836, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thumb: {fileID: 0}
-  mBG: {fileID: 11400054}
-  mFG: {fileID: 11400060}
-  mValue: 1
-  mFill: 0
-  numberOfSteps: 0
-  onChange: []
-  foreground: {fileID: 0}
-  rawValue: 1
-  direction: 2
-  mInverted: 0
---- !u!114 &11400058
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b3dc54f924693f41b5cbecb267e647a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftAnchor:
-    target: {fileID: 400164}
-    relative: 0
-    absolute: 4
-  rightAnchor:
-    target: {fileID: 400164}
-    relative: 1
-    absolute: -4
-  bottomAnchor:
-    target: {fileID: 400164}
-    relative: 0
-    absolute: 4
-  topAnchor:
-    target: {fileID: 400164}
-    relative: 1
-    absolute: -4
-  mColor: {r: 0, g: 0, b: 0, a: .149019599}
-  mPivot: 4
-  mWidth: 32
-  mHeight: 4
-  mDepth: 1
-  autoResizeBoxCollider: 0
-  hideIfOffScreen: 0
-  keepAspectRatio: 0
-  aspectRatio: 8
-  mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
-  mSpriteName: Stripes 1
-  mType: 2
-  mFillDirection: 4
-  mFillAmount: 1
-  mInvert: 0
-  mFillCenter: 1
-  centerType: 1
-  leftType: 1
-  rightType: 1
-  bottomType: 1
-  topType: 1
---- !u!114 &11400060
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100166}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -4940,33 +4824,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 400164}
+    target: {fileID: 0}
     relative: 0
-    absolute: 4
+    absolute: 0
   rightAnchor:
-    target: {fileID: 400164}
+    target: {fileID: 0}
     relative: 1
-    absolute: -4
+    absolute: 0
   bottomAnchor:
-    target: {fileID: 400164}
+    target: {fileID: 0}
     relative: 0
-    absolute: 4
+    absolute: 0
   topAnchor:
-    target: {fileID: 400164}
+    target: {fileID: 0}
     relative: 1
-    absolute: -4
+    absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 32
-  mHeight: 4
-  mDepth: 2
+  mWidth: 30
+  mHeight: 30
+  mDepth: 0
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 8
+  aspectRatio: 1
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
-  mSpriteName: Stripes 2
-  mType: 2
+  mSpriteName: Screw
+  mType: 3
   mFillDirection: 4
   mFillAmount: 1
   mInvert: 0
@@ -5282,7 +5166,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3012
+  startingRenderQueue: 3007
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -6379,7 +6263,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3005
+  startingRenderQueue: 3003
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}

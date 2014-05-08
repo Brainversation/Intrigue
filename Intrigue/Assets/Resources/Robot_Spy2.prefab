@@ -2129,6 +2129,7 @@ MonoBehaviour:
   footstepR: {fileID: 0}
   photonView: {fileID: 11400008}
   animator: {fileID: 0}
+  outLabel: {fileID: 0}
   timeLabel: {fileID: 0}
   hairHat: {fileID: 0}
   allytext: {fileID: 100000, guid: 26b1b09240bba7c4380f37e478491862, type: 2}
@@ -2143,10 +2144,12 @@ MonoBehaviour:
   textAdded: 0
   isAssigned: 0
   isOut: 0
-  stunsUI: {fileID: 0}
   percentComplete: 0
   doingObjective: 0
   objectiveType: 
+  stunsUI: {fileID: 0}
+  objPanel: {fileID: 0}
+  objSlider: {fileID: 0}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
