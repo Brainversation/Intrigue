@@ -22,20 +22,21 @@ public class Guard : BasePlayer{
 	private bool recentlyPlayed2 = false;
 	private bool recentlyPlayed3 = false;
 	private bool stunInstantiated = false;
-	private GameObject[] guests = null;
 	private GameObject[] spies = null;
 	private GameObject[] servers = null;
 	private bool accusing = false;
-	private Renderer[] renders;
 	private bool nearSpy = false;
-	private static List<int> markedSpies = new List<int>();
-	private static List<int> markedGuests = new List<int>();
 
-	protected override void Update () {
+	protected override void Start(){
+		// Guest or Spy layer
+		layerMask = (1 << 9) | (1 << 10);
+		base.Start();
+	}
+
+	protected override void Update (){
 		base.Update();
 		
 		if(photonView.isMine){
-			guests = GameObject.FindGameObjectsWithTag("Guest");
 			spies = GameObject.FindGameObjectsWithTag("Spy");
 
 			//Check if any servers under attack
@@ -97,22 +98,6 @@ public class Guard : BasePlayer{
 				accusing = false;
 			}
 			/*------------------------------------------------------*/
-
-
-
-			//Updates guest/spy highlighting/marking
-			/*------------------------------------------------------*/
-			updateHighlighting();
-			/*------------------------------------------------------*/
-			
-
-
-			//Highlights the currently targeted guest
-			/*------------------------------------------------------*/
-			if(Camera.main!=null){
-				highlightTargeted();
-			}
-			/*------------------------------------------------------*/
 		}
 	}
 
@@ -128,87 +113,78 @@ public class Guard : BasePlayer{
 		recentlyPlayed3 = false;
 	}
 
-	void highlightTargeted(){
-		RaycastHit hit;
-		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
-		if (Physics.Raycast (ray, out hit, 15)) {
-			if(accused==null && hit.transform.gameObject.CompareTag("Guest") ||
-									hit.transform.gameObject.CompareTag("Spy")){
-				renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
-				foreach(Renderer rend in renders){
-					if(rend.gameObject.CompareTag("highLight"))
-					rend.material.shader = Shader.Find("Reflect_Bump_Spec_Lightmap");
-				}
-			}
-		}
-			
+	protected override void highlightTargeted(){
+		base.highlightTargeted();
+
 		if(accusing && accused!=null){
 			accusationGUI.alpha = 1;
 			if(Input.GetKeyUp(KeyCode.E)){
 				accusing = false;
 				testAccusation();
 			}
-		} else if( Input.GetKeyUp(KeyCode.E) && hit.transform != null ){
-			accusing = true;
-			accused = hit.transform.gameObject;
-		} else if( Input.GetKeyUp(KeyCode.M) ){
-			if(hit.transform.gameObject.CompareTag("Guest")){
-				photonView.RPC("markGuest", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().viewID);
-			} else if (hit.transform.gameObject.CompareTag("Spy")){
-				photonView.RPC("markSpy", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().owner.ID);
-			}
-		} else {
+		} else if(hit.transform != null){
+			if( Input.GetKeyUp(KeyCode.E)){
+				accusing = true;
+				accused = hit.transform.gameObject;
+			} else if( Input.GetKeyUp(KeyCode.M) ){
+				if(hit.transform.gameObject.CompareTag("Guest")){
+					photonView.RPC("markGuest", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().viewID);
+				} else if (hit.transform.gameObject.CompareTag("Spy")){
+					photonView.RPC("markSpy", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().viewID);
+				}
+			} 
+		}else {
 			accusationGUI.alpha = 0;
 		}
 	}
 
-	void updateHighlighting(){
-		if(guests!=null){
-			foreach (GameObject guest in guests){
-				if(guest!=accused){
-					renders = guest.GetComponentsInChildren<Renderer>();
-					foreach(Renderer rend in renders){
-						if(rend.gameObject.CompareTag("highLight")){
-							if(markedGuests.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID)){
-								rend.material.shader = Shader.Find("Reflect_Bump_Spec_Lightmap");
-								rend.material.SetColor("_ReflectColor", Color.yellow);
-							} else {
-								rend.material.color = Color.white;
-								rend.material.shader = Shader.Find("Toon/Basic Outline");
-							}
-						}
-					}
-				}
-			}
-		}
-		if(spies!=null){
-			nearSpy = false;
-			foreach (GameObject spy in spies){
-				if(spy!=accused){
-					renders = spy.GetComponentsInChildren<Renderer>();
-					foreach(Renderer rend in renders){
-						if(rend.gameObject.CompareTag("highLight")){
-							if(markedSpies.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().owner.ID)){
-								rend.material.color = Color.green;
-							} else {
-								rend.material.color = Color.white;
-								rend.material.shader = Shader.Find("Toon/Basic Outline");
-							}
-						}
-					}
-				}
-				if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50 && Mathf.Abs(spy.transform.position.y - gameObject.transform.position.y)<=2){
-					nearSpy = true;
-					if(!heartbeat.isPlaying){
-						heartbeat.Play();
-					}
-				}
-			}
-			if(!nearSpy){
-				heartbeat.Stop();
-			}
-		}
-	}
+	// void updateHighlighting(){
+	// 	if(guests!=null){
+	// 		foreach (GameObject guest in guests){
+	// 			if(guest!=accused){
+	// 				renders = guest.GetComponentsInChildren<Renderer>();
+	// 				foreach(Renderer rend in renders){
+	// 					if(rend.gameObject.CompareTag("highLight")){
+	// 						if(markedGuests.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID)){
+	// 							rend.material.shader = Shader.Find("Reflect_Bump_Spec_Lightmap");
+	// 							rend.material.SetColor("_ReflectColor", Color.yellow);
+	// 						} else {
+	// 							rend.material.color = Color.white;
+	// 							rend.material.shader = Shader.Find("Toon/Basic Outline");
+	// 						}
+	// 					}
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// 	if(spies!=null){
+	// 		nearSpy = false;
+	// 		foreach (GameObject spy in spies){
+	// 			if(spy!=accused){
+	// 				renders = spy.GetComponentsInChildren<Renderer>();
+	// 				foreach(Renderer rend in renders){
+	// 					if(rend.gameObject.CompareTag("highLight")){
+	// 						if(markedOther.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().owner.ID)){
+	// 							rend.material.color = Color.green;
+	// 						} else {
+	// 							rend.material.color = Color.white;
+	// 							rend.material.shader = Shader.Find("Toon/Basic Outline");
+	// 						}
+	// 					}
+	// 				}
+	// 			}
+	// 			if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50 && Mathf.Abs(spy.transform.position.y - gameObject.transform.position.y)<=2){
+	// 				nearSpy = true;
+	// 				if(!heartbeat.isPlaying){
+	// 					heartbeat.Play();
+	// 				}
+	// 			}
+	// 		}
+	// 		if(!nearSpy){
+	// 			heartbeat.Stop();
+	// 		}
+	// 	}
+	// }
 
 	void testAccusation(){
 		if(accused != null && accused.CompareTag("Spy") && !accused.GetComponent<BasePlayer>().isOut){
@@ -327,10 +303,10 @@ public class Guard : BasePlayer{
 
 	[RPC]
 	void markSpy(int ID){
-		if(!markedSpies.Contains(ID)){
-			markedSpies.Add(ID);
+		if(!markedOther.Contains(ID)){
+			markedOther.Add(ID);
 		} else {
-			markedSpies.Remove(ID);
+			markedOther.Remove(ID);
 		}
 	}
 

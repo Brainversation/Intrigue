@@ -9,7 +9,6 @@ public class PostGame : MonoBehaviour {
 	public GameObject guardTable;
 	public GameObject spyTable;
 
-	private PhotonView photonView = null;
 	private Player player;
 	private GameObject team1s;
 	private GameObject team2s;
@@ -20,7 +19,6 @@ public class PostGame : MonoBehaviour {
 	// Use this for initialization 
 	void Start(){
 		Screen.lockCursor = false;
-		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 
 

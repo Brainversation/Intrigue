@@ -90,7 +90,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		if(sprintPanel != null){
 			if(stamina<100){
 				NGUITools.SetActive(sprintPanel.gameObject, true);
-				sprintSprite.fillAmount = stamina/100;
+				if(sprintSprite != null)
+					sprintSprite.fillAmount = stamina/100;
 			}else{
 				NGUITools.SetActive(sprintPanel.gameObject, false);
 			}

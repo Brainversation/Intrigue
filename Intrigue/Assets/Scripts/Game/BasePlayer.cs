@@ -10,6 +10,14 @@ public class BasePlayer : MonoBehaviour {
 	protected Intrigue intrigue;
 	protected UILabel[] guiLabels;
 	protected int photonID = -1;
+	protected int layerMask;
+	protected Renderer[] renders;
+	protected RaycastHit hit;
+	protected Shader staticShader;
+	protected Shader toonShader;
+	
+	protected static List<int> markedOther = new List<int>();
+	protected static List<int> markedGuests = new List<int>();
 
 	public AudioSource footstepL;
 	public AudioSource footstepR;
@@ -38,9 +46,12 @@ public class BasePlayer : MonoBehaviour {
 	private GameObject[] spiesList;
 	private List<GameObject> allPlayers = new List<GameObject>();
 
-	void Start (){
+	protected virtual void Start (){
 		// Set conversationGUI so spy and guard can use
 		conversationGUI.alpha = 0;
+
+		staticShader = Shader.Find("Reflect_Bump_Spec_Lightmap");
+		toonShader = Shader.Find("Toon/Basic Outline");
 		
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -119,8 +130,13 @@ public class BasePlayer : MonoBehaviour {
 			if(timeLabel!=null)
 				updateTimeLabel();
 			/*------------------------------------------------------*/
-
-
+			
+			//Highlights the currently targeted guest
+			/*------------------------------------------------------*/
+			if(Camera.main!=null){
+				highlightTargeted();
+			}
+			/*------------------------------------------------------*/
 		}
 
 		playFootsteps();
@@ -231,6 +247,34 @@ public class BasePlayer : MonoBehaviour {
 		}
 
 		PhotonNetwork.Destroy(gameObject);
+	}
+
+	protected virtual void highlightTargeted(){
+		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
+		if(hit.transform != null){
+			renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
+			foreach(Renderer rend in renders){
+				if(rend.gameObject.CompareTag("highLight")){
+					if(markedGuests.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID) ||
+						markedOther.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID)){
+						rend.material.shader = staticShader;
+						rend.material.SetColor("_ReflectColor", Color.yellow);
+					} else {
+						rend.material.color = Color.white;	
+						rend.material.SetColor("_ReflectColor", Color.red);
+						rend.material.shader = toonShader;
+					}
+				}
+			}
+		}
+
+		if (Physics.Raycast(ray, out hit, 15, layerMask)) {
+			renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
+			foreach(Renderer rend in renders){
+				if(rend.gameObject.CompareTag("highLight"))
+					rend.material.shader = staticShader;
+			}
+		}
 	}
 
 }

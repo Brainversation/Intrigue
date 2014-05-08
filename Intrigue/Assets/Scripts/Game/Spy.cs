@@ -20,6 +20,11 @@ public class Spy : BasePlayer{
 		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 	}
 
+	protected override void Start(){
+		// Guest or Guard layer
+		layerMask = (1 << 9) | (1 << 8);
+		base.Start();
+	}
 
 	protected override void Update () {
 		base.Update();
