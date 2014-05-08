@@ -10,10 +10,11 @@ GameObject:
   - 4: {fileID: 400000}
   - 33: {fileID: 3300000}
   - 23: {fileID: 2300000}
-  - 136: {fileID: 13600000}
+  - 65: {fileID: 6500000}
+  - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: repair_capsule
-  m_TagString: Untagged
+  m_TagString: RestRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -24,8 +25,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: -.5, y: .5, z: .5, w: .5}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -.353553504, y: -.612372518, z: -.61237222, w: .353553683}
+  m_LocalPosition: {x: -45, y: 5, z: 75}
   m_LocalScale: {x: 1.44733036, y: 1.44733036, z: 3.09321523}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,7 +42,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 7f3c39e3e3166bb4b96ee3fdb59d6c21, type: 2}
+  - {fileID: 2100000, guid: 94b076aa1a4e0c14ba2e6daaad1d3e05, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -57,8 +58,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Mesh: {fileID: 4300000, guid: 58b824dfb28479b4a83fd5afba502d65, type: 3}
---- !u!136 &13600000
-CapsuleCollider:
+--- !u!65 &6500000
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -66,10 +67,22 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .680000007
-  m_Height: 9.35000038
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 2
+  m_Size: {x: 9.44999981, y: 10.7399998, z: 3.250525}
+  m_Center: {x: 1.63960145e-09, y: 1.79109941e-06, z: -.00379419513}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d423028ca8849d45a4b2955d66b8d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  queue: []
+  actionDestination: {fileID: 400000}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

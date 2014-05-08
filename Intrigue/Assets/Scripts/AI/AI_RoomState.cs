@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public class AI_RoomState : MonoBehaviour{
 
 	public string roomName = "";
-	public bool hasArt = false;
-
+	
+	[HideInInspector] public bool hasArt = false;
 	[HideInInspector] public List<GameObject> conversers;
 	[HideInInspector] public int population;
 	[HideInInspector] public List<Vector3> artLocations;
@@ -41,7 +41,7 @@ public class AI_RoomState : MonoBehaviour{
 
 		if(other.tag == "RestRoom"){
 			restroomLocation = other.transform.position;
-			//Debug.Log("bathroomLocation: " + restroomLocation);
+			// Debug.Log("bathroomLocation: " + restroomLocation);
 		}
 
 		if(other.tag == "poetry"){

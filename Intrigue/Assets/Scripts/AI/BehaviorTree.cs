@@ -207,7 +207,7 @@ namespace BehaviorTree{
 															UnityEngine.Random.Range(gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.min.z,
 															gameObject.GetComponent<BaseAI>().room.me.GetComponent<BoxCollider>().bounds.max.z));
 			gameObject.GetComponent<BaseAI>().destination = newDest;
-			gameObject.GetComponent<BaseAI>().distFromDest = 10f;
+			gameObject.GetComponent<BaseAI>().distFromDest = 1f;
 			gameObject.GetComponent<Animator>().SetBool("Speed", true);
 			gameObject.GetComponent<BaseAI>().status = Status.Waiting;
 			gameObject.GetComponent<NavMeshAgent>().SetDestination(newDest);
@@ -277,6 +277,15 @@ namespace BehaviorTree{
 		public DrinkingTree(GameObject go){
 			addChild(new Inverter( new WaitInLine() ));
 			addChild(new SemaphoreGuard(new MakeDrink(), new HasDrink(go)));
+			addChild(new Sequence());
+			children[children.Count-1].addChild(new Wait(5));
+			children[children.Count-1].addChild(new WalkAway());
+		}
+	}
+
+	class RepairingTree : Sequence {
+		public RepairingTree(GameObject go){
+			addChild(new Inverter( new WaitInLine() ));
 			addChild(new Sequence());
 			children[children.Count-1].addChild(new Wait(5));
 			children[children.Count-1].addChild(new WalkAway());

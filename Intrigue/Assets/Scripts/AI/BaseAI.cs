@@ -53,20 +53,20 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool hasDrink = false;
 	[HideInInspector] public bool inConvo = false;
 
-	private bool aiTesting = false;
+	private bool aiTesting = true;
 
 	void Start(){
 		anim = GetComponent<Animator>();
 		anim.speed = 1f;
 		initAI();
 		if(aiTesting){
-			thirst = 51;
-			bored = 60;
+			thirst = 0;
+			bored = 0;
 			hunger = 0;
-			lonely = 45;
+			lonely = 0;
 			tired = 0;
 			anxiety = 0;
-			bladder = 0;
+			bladder = 51;
 		} else {
 			thirst = Random.Range(0, 100);
 			bored = Random.Range(0, 100);
@@ -227,13 +227,13 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void initAI(){
 		rules = new List<Rule>();
-		rules.Add( new WantToGetDrink(gameObject) );
-		rules.Add( new WantToConverse(gameObject) );
-		rules.Add( new FindRoom(gameObject) );
-		rules.Add( new WantToWanderRoom(gameObject) );
-		rules.Add( new WantToMoveRoom(gameObject) );
+		// rules.Add( new WantToGetDrink(gameObject) );
+		// rules.Add( new WantToConverse(gameObject) );
+		// rules.Add( new FindRoom(gameObject) );
+		// rules.Add( new WantToWanderRoom(gameObject) );
+		// rules.Add( new WantToMoveRoom(gameObject) );
+		rules.Add( new NeedToUseRestroom(gameObject) );
 		//<-------- Rules To Add ------->
-		// NeedToUseRestroom
 		// AdmireArt
 		// Relax
 		// LetOffSteam
@@ -243,7 +243,9 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	void backToRule(){
-		photonView.RPC("updateStunPS", PhotonTargets.All, false);
+		if(!aiTesting){
+			photonView.RPC("updateStunPS", PhotonTargets.All, false);
+		}
 		stunInstantiated = false;
 		// Debug.Log("Back to rule");
 		if(currentRule != null && currentRule.antiConsequence != null)

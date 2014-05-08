@@ -189,6 +189,7 @@ namespace RBS{
 		public NeedToUseRestroom(GameObject gameObject){
 			this.addCondition( new IsBursting(gameObject) );
 			this.consequence = setDestRestroom;
+			this.weight = 10;
 		}
 
 		private Status setDestRestroom(GameObject gameObject){
@@ -198,20 +199,18 @@ namespace RBS{
 
 			//Check if room has hotspot
 			if(script.room.restroomLocation != Vector3.zero){
-				script.destination = script.room.restroomLocation; //script.room.restroomLocation.position;
-				script.anim.SetBool("Speed", true);
-				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
-				script.agent.SetDestination(script.destination);
+				script.destination = script.room.restroomLocation;
 			}
 			//Find random hotspot
 			else{
 				GameObject[] bathroomLocations = GameObject.FindGameObjectsWithTag("RestRoom");
 				GameObject bathroomLocation = bathroomLocations[UnityEngine.Random.Range(0, bathroomLocations.Length)];
 				script.destination = bathroomLocation.transform.position; //script.room.restroomLocation.position;
-				script.anim.SetBool("Speed", true);
-				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
-				script.agent.SetDestination(script.destination);
 			}
+			script.distFromDest = 10f;
+			script.anim.SetBool("Speed", true);
+			script.tree = new RepairingTree(gameObject);
+			script.agent.SetDestination(script.destination);
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
 			return Status.Waiting;
 		}
