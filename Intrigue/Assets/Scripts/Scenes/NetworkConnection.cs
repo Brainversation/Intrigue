@@ -86,7 +86,8 @@ public class NetworkConnection : Photon.MonoBehaviour {
 
 	void OnDisconnectedFromPhoton(){
 		Debug.Log("OnDisconnect");
-		lastPos = Intrigue.playerGO.transform.position;
+		if(Intrigue.playerGO != null)
+			lastPos = Intrigue.playerGO.transform.position;
 		gui.SetActive(true);
 		showRetry = true;
 	}
