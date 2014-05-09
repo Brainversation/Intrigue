@@ -33,7 +33,6 @@ public class DoorAnim : MonoBehaviour
 	{
 		if(!animation.isPlaying)
 			{
-				Debug.Log("Triggered. curInside: " + curInside + " State: " + m_State);
 				switch (m_State) 
 				{
 				case eInteractiveState.Active:
@@ -75,7 +74,7 @@ public class DoorAnim : MonoBehaviour
 			if(peopleInside.Contains(other.gameObject)){
 				peopleInside.Remove(other.gameObject);
 				--curInside;
-				
+
 				if(curInside == 0){
 					m_State = eInteractiveState.Inactive;
 					this.TriggerInteraction();
