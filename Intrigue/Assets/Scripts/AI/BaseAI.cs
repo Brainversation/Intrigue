@@ -227,11 +227,11 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void initAI(){
 		rules = new List<Rule>();
-		// rules.Add( new WantToGetDrink(gameObject) );
-		// rules.Add( new WantToConverse(gameObject) );
-		// rules.Add( new FindRoom(gameObject) );
-		// rules.Add( new WantToWanderRoom(gameObject) );
-		// rules.Add( new WantToMoveRoom(gameObject) );
+		rules.Add( new WantToGetDrink(gameObject) );
+		rules.Add( new WantToConverse(gameObject) );
+		rules.Add( new FindRoom(gameObject) );
+		rules.Add( new WantToWanderRoom(gameObject) );
+		rules.Add( new WantToMoveRoom(gameObject) );
 		rules.Add( new NeedToUseRestroom(gameObject) );
 		//<-------- Rules To Add ------->
 		// AdmireArt
