@@ -76,19 +76,19 @@ namespace RBS{
                                   room.GetComponent<BoxCollider>().bounds.max.z));
 
             //Following ensures that chosen random point is on navMesh, currently probably not useful.
-/*            
-            script.agent.CalculatePath(newDest, path);
+           
+            // script.agent.CalculatePath(newDest, path);
 
-            while(path.status ==  NavMeshPathStatus.PathPartial){
-            	newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.x,
-                                      room.GetComponent<BoxCollider>().bounds.max.x),
-                                      gameObject.transform.position.y,
-                                      UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.z,
-                                      room.GetComponent<BoxCollider>().bounds.max.z));
+            // while(path.status ==  NavMeshPathStatus.PathPartial){
+            // 	newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.x,
+            //                           room.GetComponent<BoxCollider>().bounds.max.x),
+            //                           gameObject.transform.position.y,
+            //                           UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.z,
+            //                           room.GetComponent<BoxCollider>().bounds.max.z));
 
-            	script.agent.CalculatePath(newDest, path);
-            }
-*/
+            // 	script.agent.CalculatePath(newDest, path);
+            // }
+
 			script.bored -= 20;
             script.anim.SetBool("Speed", true);
             script.agent.SetDestination(newDest);
@@ -99,7 +99,6 @@ namespace RBS{
 			this.go.GetComponent<BaseAI>().anim.SetBool("Speed", false);
 			return Status.True;
 		}
-
 	}
 
 	class WantToGetDrink : Rule{
@@ -199,8 +198,8 @@ namespace RBS{
 			script.bladder -= 25;
 
 			//Check if room has hotspot
-			if(script.room.restroomLocation != Vector3.zero){
-				script.destination = script.room.restroomLocation;
+			if(script.room.restroomLocations.Count > 0){
+				script.destination = script.room.restroomLocations[UnityEngine.Random.Range(0, script.room.restroomLocations.Count)];
 			}
 			//Find random hotspot
 			else{
@@ -223,6 +222,7 @@ namespace RBS{
 			this.addCondition(new IsBored(gameObject));
 			this.addCondition(new ConversationInRoom(gameObject));
 			this.consequence = goToArt;
+			this.weight = 11;
 		}
 
 		private Status goToArt(GameObject gameObject){
@@ -239,8 +239,10 @@ namespace RBS{
 
 			script.destination = script.room.artLocations[minIndex];
 			script.anim.SetBool("Speed", true);
-			script.distFromDest = 2f;
+			script.distFromDest = 10f;
 			script.agent.SetDestination(script.destination);
+			// Make then add ArtTree handleConverse
+			// script.tree = new ArtTree(gameObject);
 
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
 			return Status.Waiting;
@@ -294,7 +296,7 @@ namespace RBS{
 			if(script.room.relaxLocation != Vector3.zero){
 				script.destination = script.room.relaxLocation;
 				script.anim.SetBool("Speed", true);
-				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+				script.distFromDest = 5f;
 				script.agent.SetDestination(script.destination);
 			}
 			//Find couch hotspot somewhere
@@ -325,7 +327,7 @@ namespace RBS{
 			if(script.room.relaxLocation != Vector3.zero){
 				script.destination = script.room.relaxLocation;
 				script.anim.SetBool("Speed", true);
-				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+				script.distFromDest = 5f;
 				script.agent.SetDestination(script.destination);
 			} else{
 				//Find couch hotspot somewhere
@@ -350,7 +352,7 @@ namespace RBS{
 			if(script.room.relaxLocation != Vector3.zero){
 				script.destination = script.room.relaxLocation;
 				script.anim.SetBool("Speed", true);
-				gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+				script.distFromDest = 5f;
 				script.agent.SetDestination(script.destination);
 			}
 			return Status.Waiting;
@@ -371,7 +373,7 @@ namespace RBS{
 
 			script.destination = script.room.poetLocation;
 			script.anim.SetBool("Speed", true);
-			gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+			script.distFromDest = 5f;
 			script.agent.SetDestination(script.destination);
 
 			return Status.Waiting;

@@ -53,7 +53,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool hasDrink = false;
 	[HideInInspector] public bool inConvo = false;
 
-	private bool aiTesting = true;
+	private bool aiTesting = false;
 
 	void Start(){
 		anim = GetComponent<Animator>();
@@ -61,12 +61,16 @@ public class BaseAI : Photon.MonoBehaviour {
 		initAI();
 		if(aiTesting){
 			thirst = 0;
-			bored = 0;
+			bored = 51;
 			hunger = 0;
 			lonely = 0;
 			tired = 0;
 			anxiety = 0;
 			bladder = 51;
+			anger = 0;
+			happy = 0;
+			sad = 0;
+			toxicity = 0;
 		} else {
 			thirst = Random.Range(0, 100);
 			bored = Random.Range(0, 100);
@@ -98,12 +102,12 @@ public class BaseAI : Photon.MonoBehaviour {
 				case Status.False:
 					//Sort the list in terms of weight
 					rules.Sort();
-
 					for (int i = 0; i < rules.Count; i++){
 						if (rules[i].isFired()){
 							currentRule = rules[i];
 							rules[i].weight -= 15;
 							status = rules[i].consequence(gameObject);
+							// Debug.Log(rules[i].ToString());
 							break;
 						}
 					}

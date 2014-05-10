@@ -174,7 +174,7 @@ namespace RBS{
 		public HasArt(GameObject gameObject):base(gameObject){}
 
 		public override bool test(){
-			return gameObject.GetComponent<BaseAI>().room.hasArt;
+			return gameObject.GetComponent<BaseAI>().room.artLocations.Count > 0;
 		}
 	}
 

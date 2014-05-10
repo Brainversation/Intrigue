@@ -6,14 +6,13 @@ public class AI_RoomState : MonoBehaviour{
 
 	public string roomName = "";
 	
-	[HideInInspector] public bool hasArt = false;
 	[HideInInspector] public List<GameObject> conversers;
 	[HideInInspector] public int population;
-	[HideInInspector] public List<Vector3> artLocations;
+	[HideInInspector] public List<Vector3> artLocations = new List<Vector3>();
 	[HideInInspector] public Vector3 relaxLocation;
 	[HideInInspector] public Vector3 drinkLocation;
 	[HideInInspector] public Vector3 converseLocation;
-	[HideInInspector] public Vector3 restroomLocation;
+	[HideInInspector] public List<Vector3> restroomLocations = new List<Vector3>();
 	[HideInInspector] public Vector3 poetLocation;
 	[HideInInspector] public GameObject me;
 	[HideInInspector] public GameObject poet;
@@ -44,7 +43,7 @@ public class AI_RoomState : MonoBehaviour{
 				break;
 
 			case "RestRoom":
-				restroomLocation = other.transform.position;
+				restroomLocations.Add(other.transform.position);
 				// Debug.Log("bathroomLocation: " + restroomLocation);
 				break;
 
@@ -58,7 +57,12 @@ public class AI_RoomState : MonoBehaviour{
 
 			case "Art":
 				artLocations.Add(other.transform.position);
+				// Debug.Log("artLocations: " + other.transform.position);
 				break;
+
+			// default:
+			// 	Debug.LogError("Collide not in stuff: " + other.tag);
+			// 	break;
 		}
 	}
 
