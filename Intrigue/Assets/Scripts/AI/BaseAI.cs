@@ -233,8 +233,8 @@ public class BaseAI : Photon.MonoBehaviour {
 		rules.Add( new WantToWanderRoom(gameObject) );
 		rules.Add( new WantToMoveRoom(gameObject) );
 		rules.Add( new NeedToUseRestroom(gameObject) );
+		rules.Add( new AdmireArt(gameObject) );
 		//<-------- Rules To Add ------->
-		// AdmireArt
 		// Relax
 		// LetOffSteam
 		// Smoke

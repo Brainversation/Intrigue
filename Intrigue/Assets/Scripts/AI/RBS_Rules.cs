@@ -19,12 +19,12 @@ namespace RBS{
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			GameObject curRoom = script.room.me;
 			GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
-			GameObject room = rooms[UnityEngine.Random.Range(0, rooms.Length)];
+			GameObject room;
 
 			//ensure next room to go to is not the same as the current room
-			while(room == curRoom){
+			do{
 				room = rooms[UnityEngine.Random.Range(0, rooms.Length)];
-			}
+			}while(room == curRoom);
 
 			// Debug.Log("Room: " + room.name);
 
@@ -130,7 +130,7 @@ namespace RBS{
 				script.destination = drinkLocation.transform.position;
 			}
 			script.anim.SetBool("Speed", true);
-			gameObject.GetComponent<BaseAI>().distFromDest = 10f;
+			script.distFromDest = 10f;
 			script.agent.SetDestination(script.destination);
 			script.tree = new DrinkingTree(gameObject);
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 115f, false);
@@ -164,11 +164,12 @@ namespace RBS{
 				conversers = script.room.conversers;
 			else
 				return Status.False;
+
 			script.lonely -= 20;
 			script.bored -= 10;
+
 			if(conversers.Count == 0 || conversers.Count >= offset){
 				script.destination = gameObject.transform.position;
-				//UnityEngine.Object.Instantiate(Resources.Load<GameObject>("ConversationHotSpot"), gameObject.transform.position, Quaternion.identity);
 				PhotonNetwork.InstantiateSceneObject("ConversationHotSpot", gameObject.transform.position, Quaternion.identity, 0, null);
 				script.tree = new IdleSelector();
 				conversers.Clear();
@@ -205,7 +206,7 @@ namespace RBS{
 			else{
 				GameObject[] bathroomLocations = GameObject.FindGameObjectsWithTag("RestRoom");
 				GameObject bathroomLocation = bathroomLocations[UnityEngine.Random.Range(0, bathroomLocations.Length)];
-				script.destination = bathroomLocation.transform.position; //script.room.restroomLocation.position;
+				script.destination = bathroomLocation.transform.position;
 			}
 			script.distFromDest = 10f;
 			script.anim.SetBool("Speed", true);
@@ -238,7 +239,7 @@ namespace RBS{
 
 			script.destination = script.room.artLocations[minIndex];
 			script.anim.SetBool("Speed", true);
-			gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+			script.distFromDest = 2f;
 			script.agent.SetDestination(script.destination);
 
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
@@ -267,7 +268,7 @@ namespace RBS{
 
 			script.destination = rooms[minIndex].transform.position;
 			script.anim.SetBool("Speed", true);
-			gameObject.GetComponent<BaseAI>().distFromDest = 5f;
+			script.distFromDest = 5f;
 			script.agent.SetDestination(script.destination);
 
 			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);

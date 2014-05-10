@@ -26,47 +26,40 @@ public class AI_RoomState : MonoBehaviour{
 	}
 
 	void OnTriggerEnter(Collider other){
-		if(other.tag == "Guest"){
-			other.gameObject.GetComponent<BaseAI>().room = this;
-			other.gameObject.GetComponent<BaseAI>().anxiety += population * 2;
-			population++;
-		}
 
-		if(other.tag == "Guest" || other.tag == "Player") population++;
+		switch(other.tag){
+			case "Guest":
+				other.gameObject.GetComponent<BaseAI>().room = this;
+				other.gameObject.GetComponent<BaseAI>().anxiety += population * 2;
+				population++;
+				break;
 
-		if(other.tag == "Drink"){
-			drinkLocation = other.transform.position;
-			//Debug.Log("drinkLocation: " + drinkLocation);
-		}
+			case "Player":
+				population++;
+				break;
 
-		if(other.tag == "RestRoom"){
-			restroomLocation = other.transform.position;
-			// Debug.Log("bathroomLocation: " + restroomLocation);
-		}
+			case "Drink":
+				drinkLocation = other.transform.position;
+				//Debug.Log("drinkLocation: " + drinkLocation);
+				break;
 
-		if(other.tag == "poetry"){
-			poetLocation = other.transform.position;
-		}
+			case "RestRoom":
+				restroomLocation = other.transform.position;
+				// Debug.Log("bathroomLocation: " + restroomLocation);
+				break;
 
-		if(other.tag == "Relax"){
-			relaxLocation = other.transform.position;
-		}
+			case "poetry":
+				poetLocation = other.transform.position;
+				break;
 
-		if(other.tag == "Drink"){
-			drinkLocation = other.transform.position;
-			//Debug.Log("drinkLocation: " + drinkLocation);
-		}
+			case "Relax":
+				relaxLocation = other.transform.position;
+				break;
 
-		if(other.tag == "RestRoom"){
-			restroomLocation = other.transform.position;
-			//Debug.Log("bathroomLocation: " + restroomLocation);
+			case "Art":
+				artLocations.Add(other.transform.position);
+				break;
 		}
-
-		/*
-		if(other.tag == "Art"){
-			artLocations.Add(other.transform.position);
-		}
-		*/
 	}
 
 
