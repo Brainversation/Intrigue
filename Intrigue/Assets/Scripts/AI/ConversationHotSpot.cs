@@ -100,11 +100,15 @@ public class ConversationHotSpot : MonoBehaviour {
 			--population;
 			queue.Remove(other.gameObject);
 			other.GetComponent<BaseAI>().inConvo = false;
+			if(other.gameObject.GetComponent<Animator>().GetBool("Converse");)
+				other.gameObject.GetComponent<Animator>().SetBool("Converse", false);
 		} else if (other.tag == "Guard" || other.tag == "Spy"){
 			other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
 			Debug.Log("Ontrigger exit");
 			if(queue.Contains(other.gameObject)){
 				queue.Remove(other.gameObject);
+				if(other.gameObject.GetComponent<Animator>().GetBool("Converse");)
+					other.gameObject.GetComponent<Animator>().SetBool("Converse", false);
 			}
 		}
 	}

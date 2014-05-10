@@ -246,7 +246,7 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnPhotonRandomJoinFailed(){
-		if(false){
+		if(true){
 			RoomOptions roomOp = new RoomOptions();
 			roomOp.isVisible = true;
 			roomOp.isOpen = true;
