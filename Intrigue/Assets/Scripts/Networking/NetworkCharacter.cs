@@ -110,6 +110,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			stream.SendNext(anim.GetBool("InteractComp"));
 			stream.SendNext(anim.GetBool("InteractServer"));
 			stream.SendNext(anim.GetBool("Out"));
+			stream.SendNext(anim.GetBool("Converse"));
 
 		}else{
 			// Network player, receive data
@@ -122,6 +123,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetBool("InteractComp", (bool) stream.ReceiveNext());
 			anim.SetBool("InteractServer",(bool) stream.ReceiveNext());
 			anim.SetBool("Out", (bool) stream.ReceiveNext());
+			anim.SetBool("Converse", (bool) stream.ReceiveNext());
 		}
 	}
 

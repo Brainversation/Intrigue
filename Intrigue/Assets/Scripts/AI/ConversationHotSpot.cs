@@ -38,12 +38,11 @@ public class ConversationHotSpot : MonoBehaviour {
 		if(population == 0){
 			PhotonNetwork.Destroy(gameObject);
 		} else {
-			int i = 0;
-			foreach(GameObject g in queue){
-				if(g.tag != "Guard" && g.tag != "Spy"){
-					if(g.GetComponent<BaseAI>().status != Status.Waiting){
+			for(int i = 0; i < queue.Count; ++i){
+				if(queue[i].tag == "Guard" || queue[i].tag == "Spy" ||
+					queue[i].GetComponent<BaseAI>().status != Status.Waiting){
 						if(i == talkerIndex && queue.Count > 1){
-							g.GetComponent<Animator>().SetBool("Converse", true);
+							queue[i].GetComponent<Animator>().SetBool("Converse", true);
 							talkerTime -= Time.deltaTime;
 						}
 
@@ -52,10 +51,10 @@ public class ConversationHotSpot : MonoBehaviour {
 							talkerIndex = Random.Range(0, queue.Count);
 							talkerTime = 5;
 						}
-						g.transform.LookAt(transform.position);
-					}
+
+						if(queue[i].tag == "Guest")
+							queue[i].transform.LookAt(transform.position);
 				}
-				++i;
 			}
 		}
 

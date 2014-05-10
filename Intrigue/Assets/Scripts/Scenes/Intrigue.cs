@@ -49,7 +49,7 @@ public class Intrigue : MonoBehaviour {
 
 	void Start () {
 		//CHANGE GAMEOVER HERE ~~~~~~~~~~~~~~~~~~~~~~~
-		wantGameOver = true;
+		wantGameOver = false;
 		//~~~~~~~~~~~~~~~~~~~~~~~~
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -122,7 +122,7 @@ public class Intrigue : MonoBehaviour {
 					roundResult = "Objectives Completed.\nSpies Win!";
 					winningTeamThisRound = 1;
 				}
-				photonView.RPC("callGameOver", PhotonTargets.All, roundResult, winningTeamThisRound);
+				photonView.RPC("callGameOver", PhotonTargets.AllBuffered, roundResult, winningTeamThisRound);
 			}
 		}
 	}

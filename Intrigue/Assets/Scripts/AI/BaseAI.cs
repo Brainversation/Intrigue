@@ -59,38 +59,6 @@ public class BaseAI : Photon.MonoBehaviour {
 		anim = GetComponent<Animator>();
 		anim.speed = 1f;
 		initAI();
-		if(aiTesting){
-			thirst = 0;
-			bored = 51;
-			hunger = 0;
-			lonely = 0;
-			tired = 0;
-			anxiety = 0;
-			bladder = 51;
-			anger = 0;
-			happy = 0;
-			sad = 0;
-			toxicity = 0;
-		} else {
-			thirst = Random.Range(0, 100);
-			bored = Random.Range(0, 100);
-			hunger = Random.Range(0, 100);
-			lonely = Random.Range(0, 100);
-			tired = Random.Range(0, 100);
-			anxiety = Random.Range(0, 100);
-			bladder = Random.Range(0, 100);
-			anger = Random.Range(0, 100);
-			happy = Random.Range(0, 100);
-			sad = Random.Range(0, 100);
-			toxicity = Random.Range(0, 100);
-		}
-
-		if(Random.Range(0,100) > 50){
-			smoker = true;
-		}
-		else{
-			smoker = false;
-		}
 	}
 
 	public void Update(){
@@ -177,7 +145,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		if(updateWants < 0){
+		if(PhotonNetwork.isMasterClient && updateWants < 0){
 			if( thirst < 100) thirst += 1f;
 			if( bored < 100) bored += 1f;
 			if( hunger < 100) hunger += 1f;
@@ -192,26 +160,6 @@ public class BaseAI : Photon.MonoBehaviour {
 			updateWants = 5f;
 		} else {
 			updateWants -= Time.deltaTime;
-		}
-	}
-
-	void OnTriggerEnter(Collider other){
-		if(other.tag == "Conversation") transform.LookAt(other.transform.position);
-	}
-
-	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
-		if(aiTesting) return;
-		if (stream.isWriting){
-			// We own this player: send the others our data
-			stream.SendNext(transform.position);
-			stream.SendNext(transform.rotation);
-			stream.SendNext(anim.GetBool("Speed"));
-
-		}else{
-			// Network player, receive data
-			this.correctPlayerPos = (Vector3) stream.ReceiveNext();
-			this.correctPlayerRot = (Quaternion) stream.ReceiveNext();
-			anim.SetBool("Speed", (bool) stream.ReceiveNext());
 		}
 	}
 
@@ -231,19 +179,51 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void initAI(){
 		rules = new List<Rule>();
-		rules.Add( new WantToGetDrink(gameObject) );
+		// rules.Add( new WantToGetDrink(gameObject) );
 		rules.Add( new WantToConverse(gameObject) );
-		rules.Add( new FindRoom(gameObject) );
-		rules.Add( new WantToWanderRoom(gameObject) );
-		rules.Add( new WantToMoveRoom(gameObject) );
-		rules.Add( new NeedToUseRestroom(gameObject) );
-		rules.Add( new AdmireArt(gameObject) );
+		// rules.Add( new FindRoom(gameObject) );
+		// rules.Add( new WantToWanderRoom(gameObject) );
+		// rules.Add( new WantToMoveRoom(gameObject) );
+		// rules.Add( new NeedToUseRestroom(gameObject) );
+		// rules.Add( new AdmireArt(gameObject) );
 		//<-------- Rules To Add ------->
 		// Relax
 		// LetOffSteam
 		// Smoke
 		// ReadPoetry
 		// DoIdle
+		if(aiTesting){
+			thirst = 0;
+			bored = 51;
+			hunger = 0;
+			lonely = 0;
+			tired = 0;
+			anxiety = 0;
+			bladder = 51;
+			anger = 0;
+			happy = 0;
+			sad = 0;
+			toxicity = 0;
+		} else {
+			thirst = Random.Range(0, 100);
+			bored = Random.Range(0, 100);
+			hunger = Random.Range(0, 100);
+			lonely = Random.Range(0, 100);
+			tired = Random.Range(0, 100);
+			anxiety = Random.Range(0, 100);
+			bladder = Random.Range(0, 100);
+			anger = Random.Range(0, 100);
+			happy = Random.Range(0, 100);
+			sad = Random.Range(0, 100);
+			toxicity = Random.Range(0, 100);
+		}
+
+		if(Random.Range(0,100) > 50){
+			smoker = true;
+		}
+		else{
+			smoker = false;
+		}
 	}
 
 	void backToRule(){
@@ -289,6 +269,26 @@ public class BaseAI : Photon.MonoBehaviour {
 		}
 		else{
 			Destroy(currentStunEffect);
+		}
+	}
+
+	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
+		if(aiTesting) return;
+		if (stream.isWriting){
+			// We own this player: send the others our data
+			stream.SendNext(transform.position);
+			stream.SendNext(transform.rotation);
+			stream.SendNext(anim.GetBool("Speed"));
+			stream.SendNext(anim.GetBool("Drink"));
+			stream.SendNext(anim.GetBool("Converse"));
+
+		}else{
+			// Network player, receive data
+			this.correctPlayerPos = (Vector3) stream.ReceiveNext();
+			this.correctPlayerRot = (Quaternion) stream.ReceiveNext();
+			anim.SetBool("Speed", (bool) stream.ReceiveNext());
+			anim.SetBool("Drink", (bool) stream.ReceiveNext());
+			anim.SetBool("Converse", (bool) stream.ReceiveNext());
 		}
 	}
 }
