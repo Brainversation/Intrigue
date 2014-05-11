@@ -115,14 +115,6 @@ public class BasePlayer : MonoBehaviour {
 			allyUsernames();
 			/*------------------------------------------------------*/
 
-			//Adding toggle to chat with Z and making chat visible
-			/*------------------------------------------------------*/
-			if(Input.GetKeyUp(KeyCode.Z)){
-				if(chatArea.GetComponentInChildren<UILabel>().alpha == 1)
-					chatArea.GetComponentInChildren<UILabel>().alpha = 0;
-				else
-					chatArea.GetComponentInChildren<UILabel>().alpha = 1;
-			}
 
 			if(chatWindow.alpha == 1){
 				chatArea.GetComponentInChildren<UILabel>().alpha = 1;
@@ -145,6 +137,7 @@ public class BasePlayer : MonoBehaviour {
 			}
 
 		playFootsteps();
+
 		//Updates Server GUI
 		foreach(GameObject serv in servers){
 			int curServ = serv.GetComponent<ObjectiveMain>().objectiveName-1;
@@ -161,7 +154,17 @@ public class BasePlayer : MonoBehaviour {
 				curSprite.fillAmount = (float)serv.GetComponent<ObjectiveMain>().completionPercentage/100f;
 			}
 		}
-	}
+
+		//Adding toggle to chat with Z and making chat visible
+		/*------------------------------------------------------*/
+		if(Input.GetKeyUp(KeyCode.Z)){
+			if(chatArea.GetComponentInChildren<UILabel>().alpha == 1)
+				chatArea.GetComponentInChildren<UILabel>().alpha = 0;
+			else
+				chatArea.GetComponentInChildren<UILabel>().alpha = 1;
+		}	
+		
+		}
 
 	void updateTimeLabel(){
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
