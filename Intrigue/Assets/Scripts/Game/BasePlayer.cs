@@ -141,30 +141,26 @@ public class BasePlayer : MonoBehaviour {
 				highlightTargeted();
 			}
 			/*------------------------------------------------------*/
-
-			//Updates Server GUI
-			foreach(GameObject serv in servers){
-				int curServ = serv.GetComponent<ObjectiveMain>().objectiveName-1;
-				UISprite curSprite = null;
-				switch(curServ){
-					case 0:	curSprite = server1GUI;
-						break;
-					case 1: curSprite = server2GUI;
-						break;
-					case 2: curSprite = server3GUI;
-						break;
-
-				}
-				if(curSprite){
-					curSprite.fillAmount = (float)serv.GetComponent<ObjectiveMain>().completionPercentage/100f;
-				}
-			}
-
-			
+	
 			}
 
 		playFootsteps();
-
+		//Updates Server GUI
+		foreach(GameObject serv in servers){
+			int curServ = serv.GetComponent<ObjectiveMain>().objectiveName-1;
+			UISprite curSprite = null;
+			switch(curServ){
+				case 0:	curSprite = server1GUI;
+					break;
+				case 1: curSprite = server2GUI;
+					break;
+				case 2: curSprite = server3GUI;
+					break;
+			}
+			if(curSprite){
+				curSprite.fillAmount = (float)serv.GetComponent<ObjectiveMain>().completionPercentage/100f;
+			}
+		}
 	}
 
 	void updateTimeLabel(){
@@ -268,9 +264,12 @@ public class BasePlayer : MonoBehaviour {
 		 			foreach(UIPanel uiP in teamMates.GetComponentsInChildren<UIPanel>(true)){
 						if(uiP.gameObject.CompareTag("ChatArea") ||
 						   uiP.gameObject.CompareTag("Scoreboard") ||
-							uiP.gameObject.CompareTag("StunUI") ||
-							uiP.gameObject.CompareTag("TimeLabel")){
+							uiP.gameObject.CompareTag("TimeLabel") ||
+							uiP.gameObject.CompareTag("UIRoot")){
 							NGUITools.SetActive(uiP.gameObject, true);
+							if(uiP.gameObject.CompareTag("Scoreboard")){
+								NGUITools.SetActiveChildren(uiP.gameObject, true);
+							}
 						}
 					}
 					break;
@@ -300,7 +299,7 @@ public class BasePlayer : MonoBehaviour {
 			}
 		}
 
-		if (Physics.Raycast(ray, out hit, 15, layerMask)) {
+		if (Physics.Raycast(ray, out hit, 25, layerMask)) {
 			renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
 			foreach(Renderer rend in renders){
 				if(rend.gameObject.CompareTag("highLight"))

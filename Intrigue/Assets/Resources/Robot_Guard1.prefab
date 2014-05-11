@@ -1715,7 +1715,7 @@ GameObject:
   - 114: {fileID: 11400114}
   m_Layer: 8
   m_Name: UI Root
-  m_TagString: Untagged
+  m_TagString: UIRoot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6569,7 +6569,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startMarker: {fileID: 400218}
-  endMarker: {fileID: 0}
+  endMarker: {fileID: 400124}
   camSpeed: 2
   rotSpeed: .5
   smooth: 5
