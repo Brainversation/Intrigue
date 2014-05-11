@@ -1,0 +1,3247 @@
+commit 5cdee1bcb0ae4ae6283fc2b7a0475ffa9f598e01
+Merge: 329806d abccacd
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 27 17:11:23 2014 -0700
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev and slight fix
+
+commit 329806dd1aeeb15976ddef1f820858430620abbb
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 27 17:05:45 2014 -0700
+
+    Can now press enter to create server
+
+commit abccacd418bd997fc0ee73ec5c12cb148b18e4ca
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Sun Apr 27 16:57:56 2014 -0700
+
+    fixed main menu after rebase
+
+commit 7501c8068af69623631f3e02126a6f7acb81bf8c
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Sun Apr 27 16:51:32 2014 -0700
+
+    Fixed some missing script errors
+
+commit e619d4fa4a3b3ba626a24e9648342c62599d4b4e
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 27 16:36:12 2014 -0700
+
+    Added visuals for connection status in main menu
+
+commit 504517044895de199628e7dd68fa0926b21f1522
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 27 16:00:09 2014 -0700
+
+    Revamped the networking in pregame
+
+commit 245c4260cc9f1720658526903be2df72386d7752
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 27 13:59:59 2014 -0700
+
+    Removed debugs and changed text color for visibility
+
+commit 2ae609793ffc14650939514d6e0b8c8fe3e53354
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 27 09:20:43 2014 -0700
+
+    Removed the loading screen from main menu
+
+commit 9eb436bb3889e6356dde43ad265a0f212942d21c
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 25 17:45:51 2014 -0700
+
+    Added a message for when you catch a spy
+
+commit dbe22f998320d869b88a4e41d23ceb8ce3047d54
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Fri Apr 25 17:36:01 2014 -0700
+
+    cleaned conversationhotspot.cs
+
+commit 4708ff25ea12601ac389652a670e68c10f51ebe6
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 25 17:34:15 2014 -0700
+
+    Fixed loading screen prefab
+
+commit 78bfccdb2e73c924743cb8f844540f69a14aec79
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 25 17:11:52 2014 -0700
+
+    Removed some missing monobehaviours
+
+commit 3392ef636859270bc3143a8ce9cb03900e844003
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Fri Apr 25 17:10:41 2014 -0700
+
+    Fixed loading screen missing script
+
+commit 0b4117490f1bbd6fc8a4ad394d5b0da85b82eefa
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 25 17:10:19 2014 -0700
+
+    Fixed the messed up sprint slider
+
+commit e818417cad22efe50bc987a19f413267cb7036d1
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 25 17:08:48 2014 -0700
+
+    Fixed disabling mouselook in baseplayer
+
+commit 9cc5452fd8f0c1b074fa2233580783d03e688960
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Fri Apr 25 16:53:27 2014 -0700
+
+    Fixed null errror in networkcharater
+
+commit ac90795edb4213947640e29c0c4c5d4e75cb449b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 25 16:49:39 2014 -0700
+
+    Unity being weird with prefab changes
+
+commit bd24896d615e07d7e03e188fa2cfac521c574ebd
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 25 16:46:39 2014 -0700
+
+    Fixed leave lobby in postgame
+
+commit bedea6a86485ce3f4c4563b680bd031d0de61b92
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Fri Apr 25 16:40:15 2014 -0700
+
+    cleaned NetworkCharater.cs
+
+commit 00f03a167d3d88020ff1694f98edae3830153edb
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 25 16:37:20 2014 -0700
+
+    Revamped all UI lists to use ID's instead of handles. Move to using hashtables with custom IDs.
+
+commit f666fc8c769bb22b1348ab2443e99ff1f1923ccd
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 25 15:57:24 2014 -0700
+
+    Moved everything in postgame into one script and renamed to PostGame.cs
+
+commit aead0e2f9fd75d461a9f6ceb83b0ae7660a37475
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 25 15:49:29 2014 -0700
+
+    Moved everything in pregame into one script and deleted others
+
+commit c670aaf737a1155f510c271c26da53ef9bf8d455
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 25 14:49:24 2014 -0700
+
+    Cleaned more unnecessary files
+
+commit 197dd0726e7a9e0d4ac5917ecd4ed9a3977e4b60
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 25 14:44:50 2014 -0700
+
+    Removed MovementController.cs and other unnecessary files
+
+commit bf34b588039e3e2b9c95a80a6dfa8fcb67b81a2b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 24 16:48:44 2014 -0700
+
+    Added code to remove name from pregame just needs the hashtable to be moved to pregame
+
+commit f9f908f2bf7586c4d59a9d85c2c3459248747650
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Thu Apr 24 15:16:41 2014 -0700
+
+    Skeleton for retry is in and subtracts player from team size
+
+commit 1b81aa4668b464d66fa7005b641261000e056f7f
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Wed Apr 23 15:45:29 2014 -0700
+
+    Added skeleton for reconnect and masterclient switch
+
+commit 31e30c14c184c4d5c5a6c3f6739cbb900dcb9fe3
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Wed Apr 23 15:13:17 2014 -0700
+
+    Changed RetryConnection to NetworkConnection, started ondisconnect functionality and started using custom player properties
+
+commit 751e0165ee6d83e657076fb31d6d89da9ba7feb5
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Wed Apr 23 13:33:55 2014 -0700
+
+    Made it so retry goes away after join
+
+commit d3c98fac17ff76359747fab1cf5e0478f85f16a2
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Mon Apr 21 16:14:06 2014 -0700
+
+    starting work on retry
+
+commit f43a66c403e1c28f4eda4241ddfc493ec9219d0b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Apr 23 18:53:23 2014 -0700
+
+    Moved a line
+
+commit 290d0d07e07d288e43f700b8500de22be3acb535
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Wed Apr 23 23:26:50 2014 -0700
+
+    Added in the player conversation system. Doesn't work for spies currently
+    because I don't understand how to add panels and don't care to figure it
+    out right now. Super easy fix for anyone who knows how to add the same
+    conversation panel the guard has to the spy, though.
+
+commit 52683b7a4b35011eef068a0aeac783cd7e27e630
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Wed Apr 23 17:37:38 2014 -0700
+
+    Fixing bar shader stuff
+
+commit ccbae15b7d17623cedcbe382264493b685f8ff06
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Wed Apr 23 17:30:18 2014 -0700
+
+    Fixed up some of the furniture in the bar
+
+commit f48d6e0eb6925a74ea1901173228ec3888fa9358
+Author: baston <baston@ucsc.edu>
+Date:   Wed Apr 23 13:43:26 2014 -0700
+
+    Went through copied mansion and withdrew assets that should be in the "original" mansion. (Added ceiling lamp, book, and a safe).
+
+commit 16c6e288d76251a6812ca3218a06970907c64a8f
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Apr 21 20:24:46 2014 -0700
+
+    Changed the highlight shader to be red and brighter and added shader for marking to yellow static
+
+commit 3431f58c3163c1ebfbfe726dcc800cc491159739
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Mon Apr 21 16:06:55 2014 -0700
+
+    Fixed up skirt and headthingy shader
+
+commit 9b8913a7b9ae0a5b171ef60abab1b562c4493d34
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Mon Apr 21 16:03:23 2014 -0700
+
+    Added in cool new highlighting (neato!)
+
+commit 62bfe29409f8867e0b10ac4230210c70b53f2900
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Apr 21 16:01:15 2014 -0700
+
+    Fixed stupid NGUI blocking raycasts
+
+commit 89982188d1b40fa773442126ddd0660dc4d18a13
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Apr 21 15:25:09 2014 -0700
+
+    Improvements to chat
+
+commit 7156d4469fa40fbc2f4ecbdc4cb423859553e5cc
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Apr 21 15:10:07 2014 -0700
+
+    Slight chat improvement and moved some scripts to correct folders
+
+commit 8d6f5716be5fea5ca7ee732aad835fe8205a42dc
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Mon Apr 21 14:42:03 2014 -0700
+
+    Fixed spy side camera
+
+commit 52fc82267462fbbb905c0228fabed3ab47bb1012
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Mon Apr 21 14:38:33 2014 -0700
+
+    Fixing camera for player
+
+commit b0e54823557a2944aefa020a60d782c976261504
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Mon Apr 21 14:36:19 2014 -0700
+
+    Revert "Fixed character model shader"
+    
+    This reverts commit 812b2540c807f714a7ee1db4e2ef284ea888c1bc.
+
+commit 812b2540c807f714a7ee1db4e2ef284ea888c1bc
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Mon Apr 21 14:30:21 2014 -0700
+
+    Fixed character model shader
+
+commit 2b7ae3f1f79d94b23b5fa4cffcce9d0a95cf54cb
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Apr 21 14:24:03 2014 -0700
+
+    Slight improvements to chat
+
+commit 3f27a1cff815a5aac26e5e39e951cf0b7d4b5e2f
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Mon Apr 21 14:17:14 2014 -0700
+
+    Fixed up shaders on player model and fixed camera so that it won't get
+    covered by weird shader problems.
+
+commit 2bd50ab2163f9c34d976ade9560fc6806c453222
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Tue Apr 15 14:55:58 2014 -0700
+
+    Changed some ambient lighting stuff.
+
+commit f402785cdfd531da82704826ef2c67c507c7403c
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Apr 21 12:16:53 2014 -0700
+
+    Removed debugs
+
+commit d92aae983da3e0944cbc14d29e5636c5e4a3bea2
+Merge: d2c6932 506f7b8
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Apr 21 12:15:21 2014 -0700
+
+    Merge branch 't_TeamChat' into dev
+
+commit d2c6932a62ae5b376ef7b1b9b7331d225f0e8aa0
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Apr 21 12:12:41 2014 -0700
+
+    Fixed Kayvan's errors since he doesn't know how to program.
+
+commit 506f7b8f58f7dc3a7c8841c09eabc0f547556989
+Merge: 6be114d 2d42128
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 20 19:36:30 2014 -0700
+
+    Merge branch 't_TeamChat' of https://github.com/Kboudai/Intrigue into t_TeamChat
+
+commit 6be114d608b8216be58774da857dfd6827901e6b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 20 19:33:41 2014 -0700
+
+    Added chat for spies
+
+commit 981cac2f834aa338b7ca802955d0271d5318337d
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 20 14:06:23 2014 -0700
+
+    Added in team chat for guards so far
+
+commit 2d42128b7dd1c2e0f9277847705666142bf2a421
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 20 19:33:41 2014 -0700
+
+    Added chat for spies
+
+commit e0311e17af760cef3826114ded0e995f70b7ab6c
+Author: Brian Aston <box1290@gmail.com>
+Date:   Sun Apr 20 15:46:23 2014 -0700
+
+    Added antiConsequences to primary movement functions in AI (wanderRoom, MoveToRoom). This should solve the AI walking into walls issue.
+
+commit e1db2e42518fe217d119dd0a180e7569b0ceae0c
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 20 14:06:23 2014 -0700
+
+    Added in team chat for guards so far
+
+commit 4334057dcb1b405171fa7edfca2718820c6dd906
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 20 11:59:46 2014 -0700
+
+    Fixed the loading bar
+
+commit 7995c16b02c5b361d0e48c5b7d966b059cae549f
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 20 11:47:14 2014 -0700
+
+    Missing RPC
+
+commit 92c5f5b983ef7caaf7963b4306691a4e8880171d
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Fri Apr 18 16:44:49 2014 -0700
+
+    unity likes modifying stuff on its own
+
+commit b31897043381319316f86cf383e9efaffe3bf8ed
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 17 18:26:29 2014 -0700
+
+    Added teleport effect when people are removed
+
+commit 76cd3ad2a124232fb32fc7930258fe468bbb05d2
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 17 16:50:49 2014 -0700
+
+    More cleanup in base player. Made the time display red if <1 minute left
+
+commit 37b200efd3972b9c991ae3aa78392117109a56ab
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 17 16:43:21 2014 -0700
+
+    Moved time display into baseplayer for efficiency. Also reduced time limit to 7 minutes from 10.
+
+commit fe60dac12bc1c3c9ead8e2974ae18a741748385f
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 17 16:23:35 2014 -0700
+
+    Improvement to some minor logic in guard and also delayed decrementing spiesleft/guardsleft to match it with when the actual object is destroyed
+
+commit b29ce87822c5bc3de4510ec7959a6861830e593d
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Apr 15 19:11:32 2014 -0700
+
+    Implemented stunning particles on guests as well
+
+commit 7b663a839bf9a5a05211b283ee0928a5e2415027
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Apr 15 19:02:43 2014 -0700
+
+    Got a small special effect pack to mess with and added a particle system to guards when they get stunned to show that they're stunned
+
+commit 2dd6fac3ac2cb0e3bdd69576a5ecc996158706dc
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Tue Apr 15 15:04:36 2014 -0700
+
+    looked over rules and conditions, and reassigned conditions
+
+commit c77cb674a227135d49142e78c7b8125b08323834
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Tue Apr 15 14:50:44 2014 -0700
+
+    Cleaned conditions to be formated correctly and added inConvo flag for ai convo rule so they dont make a new convo in a convo
+
+commit eb4f0262a7240f48a357fa023e1c04922a7209aa
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Tue Apr 15 14:36:05 2014 -0700
+
+    Cleaned warnings and fixed obsolete functions in photon network
+
+commit 31d4012150596b3577604e0f09b9cd4885603723
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Apr 15 12:24:29 2014 -0700
+
+    Added wander and move room
+
+commit 8e3ca02e2b5d3aef15093615b897ec794f892bfb
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Mon Apr 14 17:30:26 2014 -0700
+
+    Added code that got lost and tested it, cleaned repeated code
+
+commit 129dd18eda5de9e22a9a61d7fc5c856ff57781aa
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Mon Apr 14 17:22:59 2014 -0700
+
+    Reverted behaviour tree to things lost in merge
+
+commit 8711689476f63bbe92c20aff0a351d007dca518d
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Mon Apr 14 17:18:32 2014 -0700
+
+    Cleaning AI rules
+
+commit adf349df1e3d061b78ff2cf0a96275a31a22564c
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Mon Apr 14 17:04:36 2014 -0700
+
+    cleaned up RBS file to have separate rules and conditions files
+
+commit 4d6c849120bb51e819c91add611673b716b550bd
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Mon Apr 14 13:47:38 2014 -0700
+
+    fixed bad merge that broke spy and guard....Sorry :(
+
+commit d435a1e8674b90955263a960aca564ce824a7152
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Sun Apr 13 21:37:57 2014 -0700
+
+    fixed some stuff and loading screen and such is broken needs to be fixed
+
+commit f076a0c7819682c8e8910b5f941b103c7fa98e8c
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Sun Apr 13 17:46:46 2014 -0700
+
+    added waiting and fixed drink behave in AI
+
+commit 37d5c55c4627f419a439984fb2a6b39b120ca3a8
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Fri Apr 11 20:44:21 2014 -0700
+
+    is out fixes
+
+commit 994bd5dc5ff49b82cd9eb95e4b2660a36b228d2a
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Fri Apr 11 18:13:13 2014 -0700
+
+    cleaned player
+
+commit 371de4cb25af1121a0b42674684a699853f134a5
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 13 18:42:05 2014 -0700
+
+    Added sound files that the guards hear whenever servers are downloaded
+
+commit 8a956c2cee48d10c825eee81cb371ff56b264019
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 13 17:35:19 2014 -0700
+
+    Deactivated but did not remove the second mansion, delete if you're sure nobody accidentally added stuff to that
+
+commit f858fe52e6fd446c986a5e40659e2fff85c7e7c8
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 13 16:59:35 2014 -0700
+
+    Working with sounds with safes
+
+commit f0c8cac28aad1f0c6a493ec8b89f8695c454b353
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Apr 13 16:43:40 2014 -0700
+
+    More shader playing with walls and stuff.
+
+commit e4d209a84abb5534ea7d4100772c9a267428415b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 13 16:37:48 2014 -0700
+
+    Fixed heartbeat sound and made it only play if on same floor
+
+commit b2a19fc097a07a3e23f126fe5d7b1c8adcf42470
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 13 16:05:19 2014 -0700
+
+    Deleted empty props animation folder and added animation for downloading servers
+
+commit e5f1f162d3370e4973fb479a1bab615d7cb0ce3a
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 13 15:36:00 2014 -0700
+
+    Added in footstep sounds for the guests and fixed the "Two Audio Listeners" error
+
+commit c951836262ddc802dfadbcf463b1cba9eb8eaa0c
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 13 15:29:43 2014 -0700
+
+    Added in footsteps for players
+
+commit 5899713034643d7b08377054640398735f5daa1d
+Merge: ac0a17d 24fabd0
+Author: baston <baston@ucsc.edu>
+Date:   Sun Apr 13 15:13:03 2014 -0700
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+
+commit ac0a17d5ea178758374ecd74e3673171aa652119
+Author: baston <baston@ucsc.edu>
+Date:   Sun Apr 13 15:12:49 2014 -0700
+
+    Added smoking and poetry rules and respective conditionts (notAnxious, isSmoker, etc)
+
+commit 24fabd01be31a3e0d10040339671c5cbda604883
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Apr 13 14:40:22 2014 -0700
+
+    Changed up some of the furnitures shaders/textures/colors. Added in
+    thicker or thinner outlines around the mansions walls.
+
+commit f3fd672f0a47ba6e3c21d7d7ecf6581d1b0d91e2
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 13 13:17:16 2014 -0700
+
+    Error fix
+
+commit 37befe73d60c6caf12a95090761f148b93ff1412
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 13 13:13:25 2014 -0700
+
+    Moved the gameover flag out of inspector and into Intrigue.cs. At the top of Start() just change the variable. Also fixed UI bug with doing objectives
+
+commit 5b827d03321cde706442b9c2b61a2b68cc2df916
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 13 13:05:27 2014 -0700
+
+    Removed the old heartbeat and replaced with much smaller and more consistent one
+
+commit f69400eec8811853dd755fb091910657ce3ce4e1
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sat Apr 12 12:58:58 2014 -0700
+
+    Removed some debugs and added sounds for the loading screen countdown
+
+commit 8a8c1f9aabb9a052e37f95fc7b52d2399752a4ab
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Apr 11 16:10:00 2014 -0700
+
+    Added UI to show how many stun charges
+
+commit 0bb3215a943ae24780fd6586dbaa0610c42ec754
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 10 17:21:19 2014 -0700
+
+    enabled gameover
+
+commit 2f0f420bf1981bc20cf021afade159b59e8e4f5f
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 10 15:59:07 2014 -0700
+
+    Players now have a scoreboard that displays the completion % of all servers.
+
+commit c2a6d5689e0ae9260f9385caec3266d8a9e906f7
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Thu Apr 10 15:52:46 2014 -0700
+
+    some hot fixes to AI
+
+commit 14c13797f03f14b16f2e9fa5763b3a53b4c5c65a
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Thu Apr 10 15:42:07 2014 -0700
+
+    cleaned debugs and fixed null in ai
+
+commit a236ff7da1d1c21ce7a5e2465115a7d86e1690a3
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Thu Apr 10 15:28:07 2014 -0700
+
+    unity is weird again
+
+commit 8b2607985140d301e87a7e5389ba094f1a562917
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Thu Apr 10 15:27:11 2014 -0700
+
+    cleaned debugs and added guest stun
+
+commit 7cfea04fcb88db2bbb9b87c76339fd625573bc9e
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 10 15:03:18 2014 -0700
+
+    Main objectives completion now correctly syncs, fixed some scoring errors
+
+commit 5d8490404f444b0712d27fe12e0309c10d9cbeb1
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 10 14:35:20 2014 -0700
+
+    Fully working guard stunning system with UI (still needs to work with guests.) Fixed up the loading screen as well.
+
+commit 02143e0204b8a6e87a988af2f9bf1b3ca3ed4e7e
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Thu Apr 10 14:00:29 2014 -0700
+
+    Made some changes to shaders around the mansion and on character.
+
+commit 8c94c30e4678d1b320dee9cd7fd3e40a7eeedabd
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 10 12:56:39 2014 -0700
+
+    Loading screen now displays accurate countdown of total loading time + 5s
+
+commit c2a8c14a345f60a44965f27c583bfad926039581
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 10 12:35:49 2014 -0700
+
+    Fixed loading screen loading bar for clients
+
+commit 4e03da4c3bd23f8a6cc91ba2fa1c345acd626692
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 10 12:24:42 2014 -0700
+
+    Initial stun system, has no UI just disables camera. Press "F" to use, also NEED TO ADD GUEST FUNCTIONALITY
+
+commit dcfad7ca564231b4c7007ca6fec47be71d15cbd7
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 10 10:21:50 2014 -0700
+
+    Removed the Interactive Interior duplicate
+
+commit af65f8f1e849e6f31459000cb04e90c6c61478cb
+Merge: 4443f4e ee597db
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Wed Apr 9 21:55:13 2014 -0700
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+    
+    Conflicts:
+    	Intrigue/Assets/Interactive interior/Models/Materials/РјСЏРіРєРёР№ РјР°С‚РµСЂРёР°Р».mat.meta
+
+commit 4443f4e6451300411ef5329d4e79e657b0bf8e0d
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Wed Apr 9 21:24:52 2014 -0700
+
+    Made many changes to visuals, added some more stuff to bar area including
+    a cool little art piece on the wall. Shaders still being messed around
+    with so there may be some weird problems with visuals. Also, camera needs
+    to be pushed forward on character controller so the shader doesn't block
+    vision.
+
+commit ee597db81efa2b7980bc6039a4142aab18a0fc8e
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Wed Apr 9 16:04:11 2014 -0700
+
+    Skeleton for stun guard....and other unity stuff
+
+commit 0f8a81d9939c74469abc5c9fd8a56a12597c42dc
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Wed Apr 9 15:33:46 2014 -0700
+
+    added relax and letoffsteam rules
+
+commit 1f0162867904849bd762d1b2ba84302b6c337863
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Wed Apr 9 15:14:40 2014 -0700
+
+    added conditions for new wants
+
+commit dc060f6d0167306e4f3417bc36ef1af253f6d473
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Wed Apr 9 15:08:42 2014 -0700
+
+    Unity is weird and adds stuff
+
+commit 049b754004cfc66146bf86793c544fa60ff8613d
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Wed Apr 9 15:07:30 2014 -0700
+
+    added admire art rule and new WNF
+
+commit 1cd06d6ea59e023aaa54a03789ed17304806b337
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Wed Apr 9 14:16:01 2014 -0700
+
+    unity is weird
+
+commit 4ca0c94f0dbe0f94a271dd132add95ea62650913
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Wed Apr 9 00:06:25 2014 -0700
+
+    Added in some more music hall stuff
+
+commit e559762d7f9309c040463f81530f7932874bfdae
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Tue Apr 8 23:28:14 2014 -0700
+
+    Added in the shaders
+
+commit c0a229d195a3a3e2e9baa63a2f3d2c781f62a58c
+Author: mscorca <mscorca@ucsc.edu>
+Date:   Tue Apr 8 23:17:01 2014 -0700
+
+    Added in new shader pack and began mansion scene changes. Will be applying
+    shaders once a room is finished.
+
+commit 212c53882584440cfb51604bb565208739a1c4c4
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Apr 8 08:47:38 2014 -0700
+
+    Removed some debugs
+
+commit f90826b2e6bdc3bf71c62c271d87fd526adc367b
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Mon Apr 7 15:50:52 2014 -0700
+
+    fixed crosshair and connection issues
+
+commit ad4e86bbd1f3707ecd2306daad5aed9c1568a83b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 6 20:08:24 2014 -0700
+
+    Now 3 main objectives, have to complete 2 to win.
+
+commit d0cf56698f62c5a28e30114db9d081fceec3e0f5
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Apr 6 19:11:34 2014 -0700
+
+    Added prototype of new objective system. Added sample main objective in art hall.
+
+commit 98ca586d8be8be05268ab5836b3129ece2f0cc8c
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 3 20:17:22 2014 -0700
+
+    Loading screen now displays previous round result
+
+commit 1a3f753baf7462d6fdf0eea5fdaed8174ea2a91a
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Apr 3 18:58:05 2014 -0700
+
+    Added in loading screens for the beginning of rounds
+
+commit b1be0d4d5e0eb108d8ec676572fe312538f687a0
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Apr 3 15:35:34 2014 -0700
+
+    updated photon network
+
+commit e4f890df2e573624adfe629ca6433134181bc0c9
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Mar 25 15:52:43 2014 -0700
+
+    Cleaned up Guard.cs code and commented it, appears to be an NGUI issue with the stamina not appearing on large resolutions
+
+commit 439eaa9bf70c35a0d970cb28b27bbd6e5d43987b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Mar 25 15:34:02 2014 -0700
+
+    Cleaned up the Spy.cs code, and re-enabled the ability to turn off gameover
+
+commit 22a0ed5518fbcf28ce0b471806ef83800af87e01
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Mar 25 10:46:39 2014 -0700
+
+    Forgot to turn on gameover
+
+commit 1f343a52ddb3407c632b2ba982f6f0f41112d7a0
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Mar 25 10:43:00 2014 -0700
+
+    commented out most debug statements, made wantgameover progmantic instead of through gui
+
+commit f9904eb0c3e30dba1bd2c138169145dd28181e5f
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Mar 25 10:30:58 2014 -0700
+
+    New loading that is way smoother and needs testing. Also removed newSceneLoaded, since photonview already does that. Lastly we should always use PhotonNetwork.LoadLevel, no async
+
+commit 3e2262459aedbc1096f36a236ebf2a0d071faa2d
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Mar 17 17:58:57 2014 -0700
+
+    Enabled the camera
+
+commit 9cf23a6e1203ef6fc56e3998823490836e928ec4
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Mar 17 16:17:38 2014 -0700
+
+    Removed auto sync
+
+commit 9d34ff75f2d7999d811f19f87a0019c84eac5d67
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Mon Mar 17 16:02:24 2014 -0700
+
+    Removed wantsprinting and made gameover true
+
+commit dbd98b4cf92a51b99f7d35e5bc5e649cf20a17ce
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Mon Mar 17 15:45:30 2014 -0700
+
+    Removed debugs
+
+commit 6374622faedd2fb41a1f48f57b0d0d3f60ba5736
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Mon Mar 17 15:29:32 2014 -0700
+
+    Marking system
+
+commit 7b17c0247a132d68d5632c91b16d9444b8669e93
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Mar 17 15:00:03 2014 -0700
+
+    Turned off local AI and added auto sync
+
+commit 0432bc4fd7d3fb7b41a7e14726d284a5ea2bf2c7
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Mar 17 12:15:26 2014 -0700
+
+    Improved some visuals with the scoreboard
+
+commit f5b40b40e64ebef1fe05da99ba51986cf11390b6
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 16 19:08:48 2014 -0700
+
+    Unity is stupid and I hate it
+
+commit 524d59e667830393c0ea8bbcf2918508a92176fb
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 16 18:44:42 2014 -0700
+
+    moved spawn that was inside the bar
+
+commit 62fbf1e7850ab83b04beb19cb1c499702e5d6c6b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 16 18:14:59 2014 -0700
+
+    Fixed some files
+
+commit cbeaea4b571788817878c4b2ab4bf888b25ccee5
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 16 18:03:49 2014 -0700
+
+    Added the updated props and virtual interior to repo
+
+commit b161c29473ebc67fc291afd845959dfd4d1470e0
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 16 17:29:18 2014 -0700
+
+    Removed some debugs and put in new floors
+
+commit 86b353ec76b499628efacd75b7fede930420dc2e
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 16 17:00:52 2014 -0700
+
+    Added a heartbeat sound for guards near spies
+
+commit da91974295a87239bddf9c8def9440c6572b347f
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 16 15:27:04 2014 -0700
+
+    Initial system for removing DC'd players, not working currently
+
+commit 26d47d4e37bf914d9690cf7a8083ca36a29e97a4
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 16 14:59:09 2014 -0700
+
+    Fixed issue where stamina would drain when holding shift but not moving
+
+commit 2d392f67fef7155716831bcb7b48b54c418eadc2
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 16 14:50:55 2014 -0700
+
+    Theoretically fixed spectating after game over
+
+commit efa92629079f14aff7c5fa107d55118408d05ef8
+Author: Sean <seanstein88@gmail.com>
+Date:   Sun Mar 16 14:43:45 2014 -0700
+
+    PreGameLobby Updated with working UI
+
+commit b05336bea56bf918986766b49abd8fcc1aa8536a
+Author: Sean <seanstein88@gmail.com>
+Date:   Sun Mar 16 14:27:56 2014 -0700
+
+    Small updates to PreGameLobby
+
+commit 7344ed68445bde144dc23b83b04d2dbe111d7c5f
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 16 14:46:27 2014 -0700
+
+    Display that teams are switching
+
+commit 95b45967221dbd28e453f02ecda319d14d41cac0
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 16 14:39:58 2014 -0700
+
+    Made the camera move when sprinting
+
+commit 2e08fa8c0af4e6d8ebbb0761bfb832b7285b2f6a
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 16 14:28:04 2014 -0700
+
+    Added sprint UI for both sides and reduced the drain rate for guards.
+
+commit 6d5837bf48e708154badee751ee0e453618eff14
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 16 12:49:44 2014 -0700
+
+    Set box colliders on spawn points to IsTrigger, reduced spy objective range to 7f from 15f.
+
+commit 7a8fc5ccc28f5cb5eee3b0bd7cf8a1e360fc02e9
+Author: Brian Aston <box1290@gmail.com>
+Date:   Sun Mar 16 01:36:17 2014 -0700
+
+    Added some changes to RBS to check room for hotspots, otherwise choose random hotspot. AI_StateRoom now checks triggerCollisions to grab hotspots in the room. Needs more testing.
+
+commit b44a14908415424592d6e6c6f43e0bfb6c966330
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Mar 14 15:26:05 2014 -0700
+
+    Added converse animation system, they take turns talking
+
+commit 94e4cb7f38f9a0893a6c42f4894ce5f677c50588
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Mar 14 14:55:29 2014 -0700
+
+    removed animation status
+
+commit 9d6858308a2f0b09a1f3c464f18b1c6cec78bd3d
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Mar 14 14:31:28 2014 -0700
+
+    Added animation status in baseAI
+
+commit f8ab88dd23ba23413e593303174eec0f0d6d5fd3
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Mar 14 13:28:42 2014 -0700
+
+    turned off aitesting
+
+commit 46e030505ec1842cba2ad22f65ce42e831e8e54e
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Mar 14 13:14:10 2014 -0700
+
+    rebaked navmesh and make conversing hotspot more complete
+
+commit 4e25d7de5fd42e46092c82069f449c7434e190b8
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Mar 14 02:39:14 2014 -0700
+
+    Added skeloten for player interation with hotspot
+
+commit 7b27b1427282ae6e2b1f396f1dc99f74e9b36e02
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Mar 14 02:35:54 2014 -0700
+
+    Made conversation hot spot smarter
+
+commit 2e98a09419e9923fb58da0b0cbd8a4b9e4807bec
+Author: Sean <seanstein88@gmail.com>
+Date:   Tue Mar 11 13:23:50 2014 -0700
+
+    Whole PreGame Lobby UI Revamped.
+
+commit deaccf8177d5ad12fa8b2a49b53264eedeaf18b1
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Mar 12 20:40:32 2014 -0700
+
+    Added in initial stamina system. Works correctly but has no UI. To change go into NetworkCharacter.cs and edit the drain rate or regen rate values
+
+commit 6119ce1e1893336c03bc9877f2297e6cba88d6ce
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Mar 12 19:30:01 2014 -0700
+
+    Fixed no handle display in ally usernames
+
+commit d50a2c76d079a4f3f0b796f40e4ce5f1e657dd81
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Mar 12 19:26:39 2014 -0700
+
+    Reduced score for completing objectives to 50, added a bonus of 300 points for winning a round
+
+commit a6a68f1157b9a09027d9fc6bb2a60d189fe5065e
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Wed Mar 12 10:29:40 2014 -0700
+
+    Took out random character causing errors in RBS
+
+commit fdbd404addd08ca2c838f737bd227d0490cde8bd
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Mar 11 22:59:09 2014 -0700
+
+    Added path faiing check and make anim speed into a bool
+
+commit 8b3721d077f3210120d73cf631fadf60604c7e19
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Mar 11 21:03:45 2014 -0700
+
+    removed commented out stuff in intrigue.cs
+
+commit 58f76de9cb3c795a0cfafe11e338a1b0ef11cddb
+Author: Brian Aston <box1290@gmail.com>
+Date:   Tue Mar 11 22:01:45 2014 -0700
+
+    Added WanderInRoom and WantToMoveRoom to  RBS. Added those rules to BaseAI and reenabled randomness.
+
+commit 1369a4660a404ef8367c9bf753b8ff0fbbcf22d2
+Author: Brian Aston <box1290@gmail.com>
+Date:   Tue Mar 11 20:58:00 2014 -0700
+
+    Work in progress AI stuff.
+
+commit 59e651a37122d71a229e31defd6051ddbdd8cc9a
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Mar 11 13:01:31 2014 -0700
+
+    added null check in handleConverse
+
+commit 4bf51472c30f361ae5ce6dee3db6b1d37e1f6fae
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Mar 11 12:47:51 2014 -0700
+
+    Added game over and got rid of jail in intrigue
+
+commit 748b2c9931e95598aa9f95e5916b770ac1371b58
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Mar 11 12:40:47 2014 -0700
+
+    added and fixed AI in intrigue scene and added network...needs testing
+
+commit 41286ef0678820dcb66e032c4fce387452ffa7cb
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 9 21:32:27 2014 -0700
+
+    Working on ai integration
+
+commit 633be3c499db772f96cbb79a7a2d9eee65f7cafc
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 9 18:47:31 2014 -0700
+
+    added names to some rooms and added AI_RoomState to all rooms
+
+commit 3dfc3a2fd2251fb5bd13365d4f4aeb40c12a50cb
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Mar 10 18:17:38 2014 -0700
+
+    Added two more animated doors
+
+commit f3d6fd998436eea32823af71303e31b542635701
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Mar 10 15:50:48 2014 -0700
+
+    Fixed animated doors
+
+commit f54e76bcd1d08740140804e1d129b21c432d74c3
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Mar 10 14:32:51 2014 -0700
+
+    Initial stages of animated doors, mostly working on front entrance
+
+commit 064c2f60be7bcb38972ca046191403d04e0b7862
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Mar 9 19:20:52 2014 -0700
+
+    Changes to the guest prefab for temp character move fix
+
+commit 20973dd1c9abedb203ff7644ac5f7b8f27098bee
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Mar 9 19:09:46 2014 -0700
+
+    Temporary fix for Guest vs Player speeds, brought nav mesh agent speed
+    down to .1 (minimum)
+
+commit b09840f98ed4bf82572efab2d9959bae8aaee2ff
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 9 18:46:49 2014 -0700
+
+    Moved ally names to base player, fixed ally names, fixed objective active UI
+
+commit fa55b6f99bd1c5c9738f8e93fa2c5737b94c74fd
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 9 17:40:22 2014 -0700
+
+    Merged converse into dev and did no other chnages
+
+commit d596694bbf02485a7364289942fb3bb193c0e9eb
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Mon Mar 3 19:00:51 2014 -0800
+
+    Finished base of conversation system
+
+commit 9ea331abe812ee815720824dc7966e399ddc8365
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Mon Mar 3 18:03:37 2014 -0800
+
+    Woops, forgot to add in the prefabs. Silly me!
+
+commit 9c43d3f769368080a019b521d9c541dab5a202ed
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Mon Mar 3 17:59:23 2014 -0800
+
+    Added in dynamic conversation functionality. Messed with conversation
+    hotspot.
+
+commit f6174f2666a3b467dc8aa56b4446a0f5b794729c
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 9 17:20:37 2014 -0700
+
+    Fixed ready button for MS
+
+commit 42e3201759f94df73d6362a069b9b57df60ac1cc
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 9 17:10:32 2014 -0700
+
+    Added in piano and bar
+
+commit 32e05b71ccec77004c126a78d8381ff04cd64d67
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 9 16:19:49 2014 -0700
+
+    Added same name room error
+
+commit c28460165852012b07f81f19f8b4a43faf0ec13f
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Mar 9 15:56:38 2014 -0700
+
+    Fixed accuse GUI, no longer shows up when trying to accuse a spy who is
+    already out
+
+commit fdf83433482452f8b53d1ff4db3cd294d835c628
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 9 15:37:00 2014 -0700
+
+    Fixed playname thing
+
+commit e24ec639b51691f6525c322c0ae6c0b69b1f4e4c
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 9 15:27:02 2014 -0700
+
+    Fixed server list sorting
+
+commit f9ffcd841be138c14ebf214f127eb820778afe0e
+Author: baston <baston@ucsc.edu>
+Date:   Sun Mar 9 15:25:03 2014 -0700
+
+    Commented some debug logs in MainMenu.cs
+
+commit bdc05554b0605f54cf520427aca965aa1a520d5e
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Mar 9 15:21:42 2014 -0700
+
+    Fixed multi-accuse for guards.
+
+commit 23f2e6bf9181527d3488735158f839a1f599b596
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 9 15:11:20 2014 -0700
+
+    Fixed player list sorting in pregame
+
+commit 49132252e6c49304545fb76463e4bad3298e575a
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 9 14:57:49 2014 -0700
+
+    Fixed some inspector errors
+
+commit 37a64f62ffe36afd377e9f6010c92e403243e2a1
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 9 14:50:32 2014 -0700
+
+    Changed crosshair to one script instead of two separate
+
+commit b463230d2c556f3e0b053e3f3c105b155e96098b
+Merge: f9a2d4e 619cfec
+Author: baston <baston@ucsc.edu>
+Date:   Sun Mar 9 14:43:30 2014 -0700
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+    
+    Conflicts:
+    	Intrigue/Assets/Scenes/MainMenu.unity
+    	Intrigue/Assets/Scripts/Networking/LoadingScreen.cs
+
+commit f9a2d4ebc7d6e0ed981960bc2757f0999950b2eb
+Author: baston <baston@ucsc.edu>
+Date:   Sun Mar 9 14:42:07 2014 -0700
+
+    Added code to allow for name change under the options menu. Connecting status now only updates menu once when connection changes.
+
+commit 619cfec945105bc3fede95a15b3b24d784d0d04d
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 9 14:32:08 2014 -0700
+
+    Send out animations over network and removed RPC's in baseplayer
+
+commit cb85c97592a33070dcca41de6d8f6b34f8492acc
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 9 14:16:35 2014 -0700
+
+    Fixed round resetting and removed go to dest debug
+
+commit 2e0c96ff5874203b7b841196a609e416457af1da
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 9 13:52:06 2014 -0700
+
+    Theoretically fixed things
+
+commit 363442a392f65018e4e27598fafd4f16d9a27082
+Author: baston <baston@ucsc.edu>
+Date:   Fri Mar 7 14:57:40 2014 -0800
+
+    Further spawn point improvements.
+
+commit 5e675ac80633aeff3bccf50110793edc5405d9c8
+Author: baston <baston@ucsc.edu>
+Date:   Fri Mar 7 13:31:39 2014 -0800
+
+    Making spawn points less clustered.
+
+commit 1b12356a36dff2766861d8d6ee23a8e37c057521
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Mar 7 11:06:46 2014 -0800
+
+    Small fixes
+
+commit 3be2e4c2b3d17de0ba0acca1983ba41829d2e52a
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Mar 7 10:53:13 2014 -0800
+
+    Got the loading screen to a possible passable level
+
+commit a10648f35d4f0421f1cfd553a6751eaea3e2abf9
+Author: Brian Aston <box1290@gmail.com>
+Date:   Fri Mar 7 06:19:56 2014 -0800
+
+    Added spawn points to prefab mansion.
+
+commit f000992ad51b0d74ce98e5abffe0e29a35492f02
+Author: Brian Aston <box1290@gmail.com>
+Date:   Fri Mar 7 06:19:27 2014 -0800
+
+    Added spawn points and increased pregame Guest Slider value to max 80.
+
+commit 116d4b6754ad24c3f51967a3d341373ac6d7b3d2
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Mar 6 23:40:56 2014 -0800
+
+    Added a shit ton of new objectives/objects, fixed navmesh, general fixes, Kayvan's spelling, turned on GameOver and Off Sprint. Theoretically playtestable build.
+
+commit d89bd84498ce783ac7a20d287c42070088cc2a5a
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Mar 6 22:27:46 2014 -0800
+
+    Fixed display of active objectives, fixed timer for single digits, added a shit ton of lights, general cleanup
+
+commit cc272cbdab9b1811091e4be7700a63994150bb16
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Mar 6 10:36:33 2014 -0800
+
+    Made it also display for going into postgame
+
+commit 294680a83bad48a8120aed39bb1824739453bff7
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Mar 6 10:33:07 2014 -0800
+
+    Now loading screens display the results of the previous round
+
+commit 72f4a004e5f4f05e3db16e1eecac5ce9b4fa8c4f
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Mar 5 13:14:08 2014 -0800
+
+    Added result to loading screen
+
+commit 78dd70059e49d359235cf097f38dea9bf1422749
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Mar 5 13:03:46 2014 -0800
+
+    Another load screen improvement/fix
+
+commit 5a5a2f40ed6009807290aeade07da7b75d7ac368
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Mar 5 12:52:29 2014 -0800
+
+    Improvements and fixes to loading screen
+
+commit 07b9f805ad224d000d2fb9377a0ba0b6531ad629
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Mar 5 12:28:26 2014 -0800
+
+    Added files from new interior assets
+
+commit a42a4d542a5e61e923af8417f7d073b8a32deba7
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Mar 5 12:24:43 2014 -0800
+
+    Added 10 second loading screen to between rounds
+
+commit f18fc5382cbbd277c4bf5727a91dff5f4ec1867b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Mar 5 11:43:19 2014 -0800
+
+    More progress on sitting room
+
+commit 852657ffc0dc0aefa7be5f2d0f3643cd83bf8e7e
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Mar 4 21:14:22 2014 -0800
+
+    Changed quality settings and first room
+
+commit 6813af63eaeb64a6a0866deeb35733641a4c5519
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Mar 4 20:57:40 2014 -0800
+
+    Added the modern interior pack and starting to add to mansion visuals
+
+commit b5f76c4496e2b00a1fcb761d4a2c7eb84a5d3de3
+Author: Brian Aston <box1290@gmail.com>
+Date:   Mon Mar 3 19:50:31 2014 -0800
+
+    Changed name of colliders object.
+
+commit 03a6bd8be2c562b46b9d82de4baa7ef3f24a4fc7
+Author: Brian Aston <box1290@gmail.com>
+Date:   Mon Mar 3 19:42:29 2014 -0800
+
+    Added roomColliders for Guest AI.
+
+commit ec53951ab4b578e2145f65ab9113935ddb125d0b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Mar 3 16:50:01 2014 -0800
+
+    First state of new mansion. Needs guest room colliders to be playable.
+
+commit 16dcdc602336b0032f267b8ab1bd0e727803315e
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Mon Mar 3 18:00:17 2014 -0800
+
+    AI converse system notes added
+
+commit 307fbdc2e57c88c43c2da47e35a751e0ea7e42f2
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 2 22:09:59 2014 -0800
+
+    Added room lock on game start!!
+
+commit 3a06b7c1a0713d59e9635940324195b687809f97
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 2 21:11:29 2014 -0800
+
+    Fixed guard accusation!
+
+commit fb5e7a0a1a114335661a020197a8ab4374faef7b
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 2 20:48:42 2014 -0800
+
+    guard fix for accused needs testing
+
+commit 997da5f21faf132e1ad172cb3aa8990345023d61
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 20:48:40 2014 -0800
+
+    Possible fix to postgame issue.
+
+commit eaa5a6ab47bf80959e4b144b747f93e7877c8d34
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 2 20:25:28 2014 -0800
+
+    made change in guard to hopefully fix remove spy problem
+
+commit 0264e0ad7f1a09835eecb230c37fb35d83be6768
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 20:15:22 2014 -0800
+
+    Fixed score display
+
+commit ec2db960abb95d53e08123d61c4dd9012ca6b870
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 20:07:48 2014 -0800
+
+    Added sprinting and team changing
+
+commit e702f1527eba99da94b068208cb58d568500b153
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 2 20:05:30 2014 -0800
+
+    Added debug statements to test spy getting out
+
+commit 5b700f74fdf7f8bfcb3015520781cad95ffcf3a8
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 19:58:05 2014 -0800
+
+    Added in team changing every round and fixed a null reference.
+
+commit bf597fb30094529898d38d639070417c0563db54
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Mar 2 19:54:13 2014 -0800
+
+    Made sprint for testing only: If you want to use sprint go into either Spy
+    or Guard character in the scene and activate wanttosprint  in the network
+    character script
+
+commit 642792245eea180de19b7ce9339694f150583360
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 19:50:50 2014 -0800
+
+    Fixed music overlaying music in main menu
+
+commit 0e55270eab7d7f20398694ed7c2c6cfb8d22d9d5
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 19:37:13 2014 -0800
+
+    Fixed player formatting in pregame
+
+commit 721eb4b24a25cb0f5f3fb7b17c8e6aa631c75049
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Mar 2 19:16:39 2014 -0800
+
+    Fixed character speed so that they are the same as guests. Took out
+    strafing and added in rotation functionality instead.
+
+commit 8500ec15a8e110dce0454dffd188f0abb19f2ee9
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 19:03:44 2014 -0800
+
+    Fixed the server auto naming
+
+commit 66c7712ade061c4e94ebfd4bebdb285fbdb31d89
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 2 18:44:58 2014 -0800
+
+    Added name and room save with playerprefs instead of files
+
+commit 43ff84cfa7db07a73f876dcff7c5fde1f208e7cf
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 2 17:54:08 2014 -0800
+
+    Fixed interact bool sending and player name value warning
+
+commit d8fa031d7e6fc0f382ec35a27e25f18b62a6e186
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 18:41:51 2014 -0800
+
+    Fixed the scoreboard blinking.
+
+commit 316bc79977d5f157a0d27f58c512dec8e8f565e0
+Author: baston <baston@ucsc.edu>
+Date:   Sun Mar 2 17:32:14 2014 -0800
+
+    dded scripts to roomCollider objects in Intrigue scene.
+
+commit c70970122df290befe3613926689829d635052c1
+Author: baston <baston@ucsc.edu>
+Date:   Sun Mar 2 17:20:15 2014 -0800
+
+    Reverted changes to previously fixed error.
+
+commit e152db78604ec5fec8ee16e58531a1e6bf10bb1c
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 17:15:17 2014 -0800
+
+    Committing Brian's changes
+
+commit 733d3aa3a5ef449731a21e9b04aae5c8db6ed157
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 2 17:12:06 2014 -0800
+
+    cleaning warnings
+
+commit 599f7e86dec63937bef15624baf61c446722ebcb
+Author: baston <baston@ucsc.edu>
+Date:   Sun Mar 2 16:57:18 2014 -0800
+
+    Cleaned up warnings in all problem files.
+
+commit 22c2405a6ee2228b1d2891014b975f27411495f8
+Merge: e4e1b2c 68b0a72
+Author: baston <baston@ucsc.edu>
+Date:   Sun Mar 2 15:57:14 2014 -0800
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+
+commit e4e1b2ce54b440fb95b9930305af75c28a7cf838
+Author: baston <baston@ucsc.edu>
+Date:   Sun Mar 2 15:57:04 2014 -0800
+
+    Fixed issue with player movement being very slow. Cleaning up warnings in all files.
+
+commit 68b0a724289432c00021aa3a5885fec76bfdf854
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 15:49:02 2014 -0800
+
+    Fixed some more null references
+
+commit fd89777d695ec05e2ea75ab91b0e91bafdc2f980
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 15:46:49 2014 -0800
+
+    Fixed some null references
+
+commit 7ca7e913029b04e259c3c03c85a242ce3df179ac
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 15:36:19 2014 -0800
+
+    Fixed small error
+
+commit b39c5f0e9c00212ac02b5ef96bfd8b75d6c86d50
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 15:31:00 2014 -0800
+
+    Fixed loading
+
+commit b3249e74a4faab5ed75cefc940fb7e20ea315c41
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Mar 2 14:35:14 2014 -0800
+
+    Almost working
+
+commit e366eeaa8bac114d6358e069e9a48876fbb5c0fd
+Merge: 664fca9 aba3b19
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 2 15:20:47 2014 -0800
+
+    Merge branch 'ai' into dev
+
+commit aba3b19fb906a941933d14d0108055de9ef03ce7
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Mar 2 14:22:50 2014 -0800
+
+    removed laptop from scene
+
+commit 2ed12f6506b8a4006ecd35ddceab664c180a7452
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 28 22:40:49 2014 -0800
+
+    Slight changes to main menu, still isn't working correctly for when there isn't a correction for no logical reason
+
+commit f7c40ace9c313b317e1cb051e9b8f6c70ed7927a
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 28 13:09:27 2014 -0800
+
+    Added new mansion to models
+
+commit 76ed73306c5ea6b42f66ae8aa5c1dbe464a17bbe
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 27 22:31:22 2014 -0800
+
+    Figured out a better way
+
+commit 8e3017a4cc04e3afbc9b141d2af05757fa0c9b05
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 27 22:01:28 2014 -0800
+
+    Had to revert round loading until figure out better way
+
+commit b8de5ff1ebb20b2712169aa306230ece6ede6397
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 27 21:49:39 2014 -0800
+
+    Added some visuals to the accusations and trying to fix weird main menu
+
+commit db154911d9821f590a33d436ce02ab046c56f394
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 27 17:50:39 2014 -0800
+
+    Added round loading screen for Spy1 and Guard1
+
+commit 796a19e89e565e6b3865593ec15aba03aec90262
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 27 16:50:30 2014 -0800
+
+    Added a loading bar to the loading screen and fixed a minor score issue as well as yellow hair
+
+commit a00481b9f220968b51df0b9768f91b6e860375a9
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 26 13:45:51 2014 -0800
+
+    Added dynamic loading screen between pregame that waits for all others to load before starting game. Also fixed stupid hair on yellow
+
+commit 766d3ea90465c5b3da32ac98dc3d863ae12451d5
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 26 13:16:08 2014 -0800
+
+    Loading Screen added between pregame and intrigue
+
+commit c3244c7fe39607746d334acfc036682a94de8b63
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 26 12:59:42 2014 -0800
+
+    Added a loading screen between main menu and pregame. Unless you're using a toaster you won't really see it though.
+
+commit d1e37b907457b15d5275fa9b39da9c103b39f923
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Feb 25 19:55:38 2014 -0800
+
+    Changed build resolutions and a button in pregame
+
+commit 6da0b9e469ca1ab0489a1a0f7c1e9186fa207fe8
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 24 19:45:54 2014 -0800
+
+    Overhauled post game lobby visuals
+
+commit 3e5aa7c568e18ec994fa85e2c23336893d5b5557
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 24 19:37:35 2014 -0800
+
+    Overhauled pregame lobby visuals. Upgraded some main menu visuals. Added more sounds
+
+commit cc5de646d6cde44f58932598c80252064fda7feb
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 24 16:14:04 2014 -0800
+
+    Added some objective sound effects
+
+commit d83ef6845f9602a7804df47214943f5d1d98616f
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 24 15:15:35 2014 -0800
+
+    Fixed penis on yellow lady, added new type of objective and animations (laptop)
+
+commit b71c34682566b2c37643e75cc50a8067373eb7ad
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 23 16:21:52 2014 -0800
+
+    Fixed speeds to match guests
+
+commit f9cb54c3692d8f24f15c08b0fb4fbefc90aa78db
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 23 16:08:05 2014 -0800
+
+    Same network improvement for post game
+
+commit 6a042a2ed5e303f0281c60b4b79a4d51a1554399
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 23 16:03:24 2014 -0800
+
+    Improved networking in pregame lobby, much more efficient.
+
+commit faee6b81dd09833a0f894ea9449c50189bd31bb1
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 23 15:46:08 2014 -0800
+
+    Added file saving to main menu
+
+commit 41acba0b5a1cafce527c0b43ba1310dbc90652d4
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 23 15:19:58 2014 -0800
+
+    Added network checking and reconnecting functionality
+
+commit 4fc47b9f2c36a8109764a17576346a01f7cc0c31
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 23 14:33:36 2014 -0800
+
+    Added file code needs someone to add it to ngui
+
+commit 6306e24de489055be642b6b59362adab2ac92586
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Mar 2 13:19:46 2014 -0800
+
+    Fixed some minor warnings in RBS and TempRBS, unassigned variables and
+    such.
+
+commit 664fca994c4a142a756b2702ef7b6c9f480668eb
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 28 22:40:49 2014 -0800
+
+    Slight changes to main menu, still isn't working correctly for when there isn't a correction for no logical reason
+
+commit 6930bfe18427d8750bce258cb34246ac6ef518a9
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Feb 28 15:25:01 2014 -0800
+
+    Added status switch statment so ai is easier to understand
+
+commit 8886941723e55b0be622ca927d88202b4c82fae7
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 28 13:09:27 2014 -0800
+
+    Added new mansion to models
+
+commit 9c68046eccf3f5212e070ee7e5078bab3f6008fd
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 27 22:31:22 2014 -0800
+
+    Figured out a better way
+
+commit 2c23289929e0f1898a8e69124623273e1fe02768
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 27 22:01:28 2014 -0800
+
+    Had to revert round loading until figure out better way
+
+commit be80affd8c57078bbe013f5031eeb41f9ce7bb55
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 27 21:49:39 2014 -0800
+
+    Added some visuals to the accusations and trying to fix weird main menu
+
+commit 6f11a821f74f96e7554e0c0fcb04dbb309eb0bc3
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 27 17:50:39 2014 -0800
+
+    Added round loading screen for Spy1 and Guard1
+
+commit 682df199c9938f12cb31a7b5d41d8e860eeb3e13
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 27 16:50:30 2014 -0800
+
+    Added a loading bar to the loading screen and fixed a minor score issue as well as yellow hair
+
+commit 62829dd4df399b2169d31c5a65bd397e3af69d1a
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 26 13:45:51 2014 -0800
+
+    Added dynamic loading screen between pregame that waits for all others to load before starting game. Also fixed stupid hair on yellow
+
+commit d12cbb30dd8df2b5dc9c5a3759e4e814f749c5e6
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Feb 26 13:42:36 2014 -0800
+
+    fixed drink bool anim
+
+commit 80f1ba64d4b0ca7458eaa9347101dc9f14ca420d
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 26 13:16:08 2014 -0800
+
+    Loading Screen added between pregame and intrigue
+
+commit c3af6a78b9c70c346257a23e1f517b7cea56ab7f
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 26 12:59:42 2014 -0800
+
+    Added a loading screen between main menu and pregame. Unless you're using a toaster you won't really see it though.
+
+commit 3acbc8ebdb5eef7058a8849e19d9fd22ee94bf84
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Feb 25 19:55:38 2014 -0800
+
+    Changed build resolutions and a button in pregame
+
+commit 2072cb10902278fbab01f01d2bb649e0eceaa4ca
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 24 19:45:54 2014 -0800
+
+    Overhauled post game lobby visuals
+
+commit f918ab716748f669eed8bca6a5f3a10d2379f636
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 24 19:37:35 2014 -0800
+
+    Overhauled pregame lobby visuals. Upgraded some main menu visuals. Added more sounds
+
+commit 32683b27d4bd83976e8088294b31c15b6c84686a
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 24 16:14:04 2014 -0800
+
+    Added some objective sound effects
+
+commit e423901b0bc0e977b597dc9f331c4b470d5cef30
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 24 15:15:35 2014 -0800
+
+    Fixed penis on yellow lady, added new type of objective and animations (laptop)
+
+commit f0369775b8ff94045c337cade118f03a5ac61536
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 23 22:10:35 2014 -0800
+
+    Made waiting more efficient removed debugs and tested with 12 guests
+
+commit 55c657c9d35298ebc6e4a1256861124512d2ec98
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Feb 23 20:32:59 2014 -0800
+
+    Finished giving drink tree functionality and got AI waiting in line
+    working as well. Fixed up behavior tree class as well.
+
+commit dd93a8e3df5a97911bbf4124b091292c03cfa338
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 23 16:21:52 2014 -0800
+
+    Fixed speeds to match guests
+
+commit 867d464335f260d7964045018e6ead19ab277cec
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Feb 23 16:10:12 2014 -0800
+
+    Building behavior tree for drinking and wait line
+
+commit 83e4b5dd76b9cd5391d2de51f2e3821e12296c31
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 23 16:08:53 2014 -0800
+
+    Added hotspot line functionality
+
+commit d437737e6659333e02b86396ddd7378ca0e231a9
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 23 16:08:05 2014 -0800
+
+    Same network improvement for post game
+
+commit b6a76b77083a38af5c8ba46d4c49d3d7a9c8aee7
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 23 16:03:24 2014 -0800
+
+    Improved networking in pregame lobby, much more efficient.
+
+commit c89f8d3a54afb99d58193b52a6d0342b65c2f536
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 23 15:46:08 2014 -0800
+
+    Added file saving to main menu
+
+commit ad36e122441992aea021c4fecc27b46659e39c40
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 23 15:19:58 2014 -0800
+
+    Added network checking and reconnecting functionality
+
+commit 66463fb9507ae1b459127af2d51e7354d33a4a62
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 23 14:33:36 2014 -0800
+
+    Added file code needs someone to add it to ngui
+
+commit 16f8531346434dbb1cfdf117b8bf777ebf20c9a1
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 23 13:41:03 2014 -0800
+
+    cleaned up directory
+
+commit e7fa1f07f1e62d34e73bf11061f6bb72a7392d43
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Feb 23 13:15:17 2014 -0800
+
+    Removed gotodest rule and fixed movement to be on a rule by rule basis.
+    Can pee in corner in AI scene now.
+
+commit 08e6fd4a8492db3858dfda5a2a2daeb6b121fe24
+Merge: a0bf1fb bf621ce
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 23 13:12:55 2014 -0800
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+
+commit a0bf1fb58ef88e520195d8a152bbe9636c01fb72
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 23 13:12:21 2014 -0800
+
+    Made only yellow spawn, fixed spawn points I think
+
+commit bf621ce18f91c2a258d7fc0c3a92a47db1e06d1c
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Feb 21 22:36:07 2014 -0800
+
+    added pop to hotspot
+
+commit 510b326e2b2b5800d277624d1bdeb7cd30315b0c
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Fri Feb 21 22:30:26 2014 -0800
+
+    Added in bathroom rule and its conditions and consequences as well as its
+    hot spot.
+
+commit 28046e730e693420130bc3671585cca9179a979e
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Feb 21 20:58:16 2014 -0800
+
+    added hot spot script and got base demo AI working, with output and labels to see the wants
+
+commit b9e3e5274eee9e4cb92affab8de85dd1b02aee5e
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Feb 21 16:20:45 2014 -0800
+
+    Made all emotions and such into conditions and started drink behave
+
+commit 6b84f0df482885fb584c43d1d5e0fad7ca73b4e6
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Feb 21 15:38:13 2014 -0800
+
+    Added roomstate from bri's branch
+
+commit 2c102fdb3941a974716fe012b1a122c0dd8e0dad
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Fri Feb 21 12:32:05 2014 -0800
+
+    Unity being weird. Deleted GuestMovement, deleted unnecessary game state
+    code and fixed up some conditions.
+
+commit ffff80cb3d27b4ddc8f5725010e8f5e59b2678ab
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Feb 21 00:27:41 2014 -0800
+
+    rebaked navmesh and moved some items around, not in that order. Also fiddled with some values
+
+commit d07c60791f99d0ca5739ce297aebb1c6e4144384
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Feb 21 00:17:53 2014 -0800
+
+    Added antiConsequence function after testing to see if animations made themselves false. Added some testing rules and conditions. Lastly reformated rbs so all spacings are tabs.
+
+commit 9ae05136511defae4c5be99c7ad48b228b3492be
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Feb 20 13:26:55 2014 -0800
+
+    reimported fireplace and wine bottle, hopefully it works
+
+commit b24edcf64b6bd830013694327f482ae5ba1b115a
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Feb 20 12:50:25 2014 -0800
+
+    small code clean
+
+commit f5b1d6ae9f37bb9cf777aa5e0f0f1d5ac8b9b194
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Thu Feb 20 13:02:31 2014 -0800
+
+    Adding in materials for the new models
+
+commit 5d0e407a5518bb1e87341b27365e45c681df8088
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Thu Feb 20 10:45:30 2014 -0800
+
+    Added in wine bottle on table and fireplace to AI scene. Added in two hot
+    spots. Currently no hot spot script, will add in once implementation is
+    discussed.
+
+commit c4658cef44f003ffbdd46c8cb9ca292b9e29c45b
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Feb 19 14:04:08 2014 -0800
+
+    Added items to the ai scene
+
+commit 39ae2eb223e331646b22ef8590abf5c7baafe158
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Feb 19 12:43:30 2014 -0800
+
+    Changes to guest animator and BaseAI
+
+commit 445635b052a4b70df58a5fa12df60a0aea97a06c
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 16 20:25:22 2014 -0800
+
+    Made move to position more smooth and stop at the position then continue the RBS
+
+commit 1bc645af037196a11e6ad3a5f7aa717dc41800a1
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 16 18:13:36 2014 -0800
+
+    Added jail prefab and tweeked bt and rbs a lot from testing, also added BaseAI class
+
+commit 1f3151588b455288d449d7339610cc70e27f4817
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Feb 16 14:27:29 2014 -0800
+
+    Added in gameobject to run function call to task in behavior tree.
+
+commit 3c926ded74b0f0e518f5a82445e830b0818e48ac
+Author: baston <baston@ucsc.edu>
+Date:   Sat Feb 22 09:22:50 2014 -0800
+
+    Forced Players to spawn as either fembot or unitybot.
+
+commit 19a0119ab47d7cd67dee32e12df4c4a3e9a46d14
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sat Feb 22 08:04:19 2014 -0800
+
+    Small fix
+
+commit a4dba77ea76fd05f575e5f1d99a0a059f4cd6b8b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sat Feb 22 00:11:44 2014 -0800
+
+    Added music to menu and pregame, added hover noise for buttons.
+
+commit 7d0bd8b4a1141942a28119f2558856b2254f9048
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 21 23:48:12 2014 -0800
+
+    Fixed end markers
+
+commit 6a3fec0827e3e7833a2d2eafffb7c16eb3a64282
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 21 23:41:57 2014 -0800
+
+    Some network cleanup
+
+commit 4ce7032022282aeeade9de87c13a2ae5177feff2
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Feb 21 23:32:17 2014 -0800
+
+    unity likes changing things
+
+commit b3d4bad843b7acae6238f8547f2731e006626675
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 21 23:24:00 2014 -0800
+
+    Fixed error in guard and upped speed
+
+commit 5c7465e768fd737ad9ee3c96b4c1acf0fe4a0f42
+Author: baston <baston@ucsc.edu>
+Date:   Fri Feb 21 23:15:02 2014 -0800
+
+    Fixed issue with single quotes.
+
+commit 441ad34f556bf9ec440648568c901f788f847ab8
+Merge: 8a27915 6b82732
+Author: baston <baston@ucsc.edu>
+Date:   Fri Feb 21 23:13:46 2014 -0800
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+
+commit 8a27915608d214a91583545ff1a8e531f3dd42a5
+Author: baston <baston@ucsc.edu>
+Date:   Fri Feb 21 23:13:10 2014 -0800
+
+    Fixed OnTrigger Enters to check only for guests.
+
+commit 6b82732e0591f2c0376b84a32a2ac63880d5e491
+Merge: 3a1852a 244f2b9
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 21 23:11:52 2014 -0800
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+
+commit 3a1852ae30209247e55438c1f7d63cc2c472cc9f
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 21 23:11:33 2014 -0800
+
+    Lot's of network optimization.
+
+commit 244f2b998df148d1e2b843d89b020d7f8c5fb7d3
+Author: baston <baston@ucsc.edu>
+Date:   Fri Feb 21 22:58:52 2014 -0800
+
+    Removed some Debug statements from AI.
+
+commit f3db06d935fca79e739685d154cf381230cd98a5
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 21 22:53:09 2014 -0800
+
+    Enabled game over. Removed some ping buffering.
+
+commit 33d40308592029cd7383f62498c4152cce7d221a
+Author: baston <baston@ucsc.edu>
+Date:   Fri Feb 21 21:30:26 2014 -0800
+
+    Fix to some intrigue AI errors.
+
+commit e69e437db8f647d0830eb2fd84815a4737d7f134
+Merge: 1ed1b1e 5e38707
+Author: baston <baston@ucsc.edu>
+Date:   Fri Feb 21 21:02:09 2014 -0800
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+
+commit 5e3870780e4513842440591d7d3d189dbc696ef5
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 21 20:54:18 2014 -0800
+
+    Re-enabled random selections for model
+
+commit 1ed1b1eccb066cea96be204b66fc0c2575a3772d
+Author: baston <baston@ucsc.edu>
+Date:   Fri Feb 21 20:38:15 2014 -0800
+
+    Moved Room 3 AI collider.
+
+commit 8046c62fb9c5aca9d8ff0b0ad7cd7cf5fb829665
+Author: baston <baston@ucsc.edu>
+Date:   Fri Feb 21 20:19:42 2014 -0800
+
+    Made some more modifications to TempBaseAI so that the AI will wander in chosen places before going to new rooms.
+
+commit ee339f9d1ec024ce87fc9cfc0c9e88fa85315b2f
+Author: baston <baston@ucsc.edu>
+Date:   Fri Feb 21 18:55:10 2014 -0800
+
+    Added some new AI to the guests, now with less corner parties! Moved some AI_RoomColliders to play well with new AI.
+
+commit ed5892f68a5a9ae7bd40802fbb3065521a960074
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 21 18:24:23 2014 -0800
+
+    Fixed spawn point
+
+commit 1bc89e0bb3c436506ef532ad8a5b6b603a2a86fa
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 21 18:20:45 2014 -0800
+
+    Fixed some prefabs
+
+commit 7c527f3581275c7aa0508cfd131d30d1da8106fd
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 21 18:16:45 2014 -0800
+
+    Updated some visuals and fixed highlighting sort of
+
+commit 8f7a23bd96644f7f624dd3b0789f6989caa6b752
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 21 18:00:20 2014 -0800
+
+    General networking fixes
+
+commit bfaee76f45db60e9a4b7fb66969003851f1165b2
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 21 12:46:40 2014 -0800
+
+    Added all 3 robots into the game for all 3 sides. Updated some mansion visuals
+
+commit c181e51671f20890dc936261167192b73640b917
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 20 22:23:58 2014 -0800
+
+    Moved the mansion into intrigue. Needs a lot of visual work though
+
+commit 6b6ae98e917b024765edb8e0f3cfb9a01f1df865
+Author: Brian Aston <box1290@gmail.com>
+Date:   Thu Feb 20 19:55:00 2014 -0800
+
+    Starting from scratch. Added Hard Surfaces Asset from store. Added mansion to new scene called environmentTest. Added AI colliders to mansion prefab. Organized mansion prefab. Added glass materials to window objects on mansion prefab.
+
+commit 838daa1b3f712cc4eb719d6838bd59324c738805
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 20 18:02:58 2014 -0800
+
+    Fixed gameover to detect objectives being completed and fixed scoreboard to show player scores.
+
+commit 91e29265f00023201123ce22a5297231f9026c08
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 20 10:14:36 2014 -0800
+
+    Scoreboard working for both teams, also sped up some animations in the main menu
+
+commit 8309ef79d1d0ab06e99fa8808b0c50cd32b2b283
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 19 22:22:13 2014 -0800
+
+    Initial Part of Scoreboard
+
+commit ee0dad450b7de29b63eaddb3027a11e9e38c06f5
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 19 19:06:52 2014 -0800
+
+    Fixed the unconnected prefabs and made your UI invisible to others
+
+commit 1df39af93061f9cad8767043bb2f33291800ad2f
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 19 13:07:53 2014 -0800
+
+    Switched to PhotonNetwork.LoadLevel which fixed game.
+
+commit b205fa0bd0c93955c845db8f7b28e604ce9993a2
+Merge: 735a9dc 762597e
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Feb 18 11:10:01 2014 -0800
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+
+commit 735a9dc7304e2459b7b9d7c842f7c5bfb67eb4e7
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Feb 18 11:08:39 2014 -0800
+
+    Added in most of the in game gui with NGUI. Still need scoreboard and ticker.
+
+commit 762597e195fd904afb0b234136e452420d6213ac
+Author: Brian Aston <box1290@gmail.com>
+Date:   Tue Feb 18 02:41:19 2014 -0800
+
+    Added first character model and applied to Guest.
+
+commit 462238b7d005455c96d00680fb7a83e3c54f2bc0
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Feb 18 00:15:14 2014 -0800
+
+    Added NGUI out and accusations messages for spies and guards where applicable
+
+commit b02827bdb23d0955a13f909192bbd6bc6f6a38d1
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 17 23:16:46 2014 -0800
+
+    Added NGUI time display for spies and guards
+
+commit 3ee3fd8f9547dec78fc14d513a7e0592447516e7
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 17 18:00:45 2014 -0800
+
+    Changed accuse to keep accused highlighted, not highlight others while accusing, and to cancel if accused moves too far away
+
+commit 605a76ff611d3ed01ff0b7808d4c3ce6515b78f6
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 17 17:50:34 2014 -0800
+
+    Slight QOL changes and removed some debugs
+
+commit 23ea531b10c90105eb48df32ced7bd9fd5ddda75
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Jan 15 22:21:05 2014 -0800
+
+    Fixed Kayvan's grievous spelling errors in README
+
+commit 90a04e95c9937cedae65c3516b2560983c53cf50
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Mon Feb 17 12:49:01 2014 -0800
+
+    updated readme
+
+commit d8568ad19742d640d3bb9c6fa6fb4184bdece536
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 19:54:12 2014 -0800
+
+    Changed some UI and removed pregamelobby old
+
+commit 03cf7159188011d57ee81b082fd14bb8d2f0ce0c
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 16 19:08:54 2014 -0800
+
+    Changed raycast to center of screen instead of mouse pos
+
+commit d36a0eb457fa1502d857bf2054eed67fb52914fe
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 18:47:33 2014 -0800
+
+    Fix in postgame
+
+commit 3e8ddbc7f6dd5a285d02880712522fc758e7f0f6
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 18:45:18 2014 -0800
+
+    Small changes and merge and unlocked cursor
+
+commit 9caab9899265449eaad491d301f55375a306e9fe
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 18:35:35 2014 -0800
+
+    Fixed last bit
+
+commit 574d6201c9ae85a3ecc85b020536b5a34a8f62ce
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 18:15:44 2014 -0800
+
+    Got the main menu working and deleted some ngui model shit
+
+commit befc784c1382f0aa3641f2c19f9962dde5e31edb
+Author: Sean <seanstein88@gmail.com>
+Date:   Fri Feb 14 20:56:05 2014 -0800
+
+    Main menu Updated
+
+commit bfa93a3fa2cfc9be2c147c3d29de0c26d38950ab
+Author: Sean <seanstein88@gmail.com>
+Date:   Fri Feb 14 16:41:47 2014 -0800
+
+    Find Servers layout works.
+
+commit b7d8a16b4883da32f4f981f4b13f7a8fd5a2b4b0
+Author: Sean <seanstein88@gmail.com>
+Date:   Fri Feb 14 15:19:13 2014 -0800
+
+    Small changes
+
+commit d45e84c51f3354ceac1e30d5e28363355c01381c
+Author: Sean <seanstein88@gmail.com>
+Date:   Fri Feb 14 15:09:57 2014 -0800
+
+    Small menu changes
+
+commit c824e12ae9bb2577a73d149b5525308fb82e3c55
+Author: Sean <seanstein88@gmail.com>
+Date:   Fri Feb 14 14:42:25 2014 -0800
+
+    Yes! Ballin! I got it!
+
+commit dee28992ce52a5a09c3ad3f547b117a9a3336d9f
+Author: Sean <seanstein88@gmail.com>
+Date:   Mon Feb 10 20:01:04 2014 -0800
+
+    Modified mainmenu
+
+commit 2bb443e8be4c2536df81d97fbd4c89946d84cf65
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 16:45:55 2014 -0800
+
+    Darkened background
+
+commit 2f91fea5432265d250b86ccf468eae00e28c0dde
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 16:19:09 2014 -0800
+
+    Added dynamic colors based on ping level
+
+commit 162fc104ab63063c16b7a87e2b7963fffce4c860
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 16:08:29 2014 -0800
+
+    Now pregame lobby shows who is ready and their ping dynamically with colorations
+
+commit 08f0a54f6e3f3f7f070e85a1755ee376f74f4ba4
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 15:47:23 2014 -0800
+
+    Reconfigured the ready button setup
+
+commit e01b2c898929a751055c499c564e91fad0848cf9
+Merge: 5b964c9 b3d935a
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 15:25:44 2014 -0800
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+
+commit 5b964c9a97da1fef28c2e8c848f35990070abf41
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 15:25:06 2014 -0800
+
+    Added team colors and ping displays to pre and post game lobbies
+
+commit b3d935ad456a9a9796fdff1858d29a139c6c48c2
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 16 14:06:22 2014 -0800
+
+    added animations to the guest
+
+commit ced2057db842453e3228d6c7905230d544c6d44d
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 13:43:15 2014 -0800
+
+    I think the out animations are currently working, needs more testing probably
+
+commit c39a2098fc4471121d95d481407986bd20b48837
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Feb 16 13:11:36 2014 -0800
+
+    Almost working
+
+commit 7b53643c21a3485320212e566eef0645f3401029
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 16 13:06:06 2014 -0800
+
+    Fixed player file problem
+
+commit 9538cfceed1b80ca167cf64dafbba5af72718826
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 16 11:05:58 2014 -0800
+
+    made gameover on
+
+commit 4092a0f9b9ad1b4d42205adc2bf61772a421be08
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Feb 14 16:10:52 2014 -0800
+
+    Used photons internal load level and newsceneloaded funtions
+
+commit f437adde4d4e70bdf4ab466bb2a4f4232b88682f
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Feb 14 15:10:10 2014 -0800
+
+    Added player and roomname save
+
+commit ac079864b07c4473bafb76b11ffbc2d55006e5e9
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 14 12:14:26 2014 -0800
+
+    Fixed an issue with networked active objectives
+
+commit 9b7f1fa70ddb6063c65ef077012ac49713a52272
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 13 22:40:38 2014 -0800
+
+    Fixed so crosshair doesn't show on inactive objectives.
+
+commit e28ea5ed5dd9e6097f0a6055a4ed4eeb20d04929
+Merge: 431ee0e c66b506
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 13 22:21:46 2014 -0800
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+
+commit 431ee0e5674544d268bd740273c9ff955e4d9134
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 13 22:21:04 2014 -0800
+
+    Fixed the elusive objective activation and added ui to show which are active
+
+commit c66b506d6ab62cf9c8357dc0313855ff28b6c4f7
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Feb 13 22:04:25 2014 -0800
+
+    Made guests instantiate as scene objects so they dont disappear when master client leaves
+
+commit 0abc0125a6f69d1803738b33853ee52d7b2d3f44
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 13 20:54:01 2014 -0800
+
+    Fixed postgame, confirmed that is working.
+
+commit 97e22e10c2b5d998825cd31c9ad61cf73240c45c
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 13 11:04:48 2014 -0800
+
+    I think it has now been connected but haven't tested.
+
+commit f3022634c6050fc3f7e52a4438396b700320225b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 13 11:02:42 2014 -0800
+
+    Created Postgame scene and full lobby. Haven't hooked up to intrigue yet so haven't tested.
+
+commit f078a077dd103bdbde7d8a50aaee702250511362
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 12 22:52:39 2014 -0800
+
+    Fixed issue with not being able to un ready up
+
+commit 073c9afc927aae9a99e8c1d82994006824760121
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 12 20:38:51 2014 -0800
+
+    Added title
+
+commit f1710fda0e526de8db0071ced3e71a4d1e2b809a
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 12 20:35:44 2014 -0800
+
+    Finished all the essential parts of the pregame lobby
+
+commit 2ad5e163d619d890322e4347876b91fc261d87fc
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 12 19:09:16 2014 -0800
+
+    Added team choosing and switching to pregame lobby
+
+commit 5337f27f06fba64524b03035fa9f771af3e1810a
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 12 13:13:19 2014 -0800
+
+    More progress on pregame lobby
+
+commit 01d349d63a2ba99305dae16f0d8787322efd587e
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 12 11:43:06 2014 -0800
+
+    working on pregame lobby
+
+commit 2f3a167f07b6fc0aba0257b3be2d7992fa184369
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Feb 11 22:45:09 2014 -0800
+
+    put game over back on and removed jailspawn thing
+
+commit cc17ed560c0d6a9f6de625c9f6bc7e6fe1a6cc7f
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Feb 11 20:00:22 2014 -0800
+
+    Added jail and hopefully fixed spectate
+
+commit 820b71e6c7d7c35cc9881a71824ecafab8456842
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Mon Feb 10 16:50:59 2014 -0800
+
+    Added debug messages to BT and RBS
+
+commit 850836557d2b71b7360c150486f18571bc2e91ef
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Mon Feb 10 16:33:16 2014 -0800
+
+    Created the Rules Based System framekwork and made it compatibles with
+    KAyvan's Behavior tree system. They now work with each other.
+
+commit 8c519ebaf6c3457361d4717e4f94cec07f3edb9c
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Mon Feb 10 15:37:19 2014 -0800
+
+    Added AI scene and Testing Script for AI, modified behavior tree
+
+commit 7e6cf41f69fce9b1ffb388e68617c8bfe970cd00
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 9 18:40:53 2014 -0800
+
+    Removed cursor lock in pregame and main menu
+
+commit 19ed054b3622b6dbd0c53c56ddb074b3b3608075
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 9 18:27:24 2014 -0800
+
+    Added async level load in pregame
+
+commit e0b5983f62095e4ec781716d7c573c6ba7667c88
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Feb 9 17:15:15 2014 -0800
+
+    removed player destroy on end of round
+
+commit 39def12a7ccc99d1351fb9dbc9ee34638e5671af
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 7 13:41:56 2014 -0800
+
+    Removed score from main GUI and added a rounds remaining display.
+
+commit 60a8b61ab80053bc2b38f1bcc131ddc49e345b18
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Feb 7 13:32:57 2014 -0800
+
+    Removed the always on score, added a synced time left in mins:secs.
+
+commit 69a467f7b2e44a09574bbd0f6c32fc856f4245a7
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Feb 6 20:45:50 2014 -0800
+
+    Score system appears to be working correctly with teams, player and other players. Implemented scoreboard, seems to be working correctly. Fixed Kayvan's spelling error in NetworkingPeer.
+
+commit 88dd351d8ed674b971ab6c09f433c83d7f1d6126
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Feb 6 16:54:21 2014 -0800
+
+    fixed team score and started player score tab thing
+
+commit f5dedd68240540fac19f91459f810de668f6183e
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 5 13:12:17 2014 -0800
+
+    Initial implementation of team scores. So far appears to be working correctly with multiple rounds and over network.
+
+commit 5ff0581bf97df7d4390c2fd99ea56fb22e093d41
+Merge: 4485da8 fee4075
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Feb 5 00:09:15 2014 -0800
+
+    Merge branch 't_visualupdate' into dev
+
+commit fee407520b4b566d6580a8ca4c7f0dc501774cff
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 3 19:43:28 2014 -0800
+
+    Added ally overheard usernames
+
+commit 112390a6a52a6e1f7ae774f4ecc8b2585f21eb66
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 3 17:14:48 2014 -0800
+
+    Added interacting icons and ally username overhead.
+
+commit f83653b161663b9c82b41803f99e4fba5837793e
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 3 14:17:48 2014 -0800
+
+    Added dynamic reticules for spy and guard.
+
+commit ec2b01b98a727a66b87d49b081043aed7152b9a7
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Feb 4 23:11:00 2014 -0800
+
+    Added AINotes and behavior tree
+
+commit 4485da85952dfd3c07da8ac1c603b3e9828baeb1
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Feb 3 14:17:48 2014 -0800
+
+    Added dynamic reticules for spy and guard.
+
+commit 341f00480a89aab9c2961d6a26c8055e0f4d6033
+Author: Brian Aston <box1290@gmail.com>
+Date:   Fri Jan 31 22:49:59 2014 -0800
+
+    Turned on gameOver and increased number of possible guests.
+
+commit cc7552107ca6bd44c70104a07deb8fa445e27ccc
+Author: Brian Aston <box1290@gmail.com>
+Date:   Fri Jan 31 22:37:31 2014 -0800
+
+    Guest Movement stuff again.
+
+commit dcb672e6d808499eb32592e7c6a5ddd135067b7f
+Author: Brian Aston <box1290@gmail.com>
+Date:   Fri Jan 31 22:31:47 2014 -0800
+
+    Fixed some guestMovement stuff, the animations should look OK for now.
+
+commit 4b407eab866dff4ad79ac32552faca236d13ed68
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Jan 31 21:09:17 2014 -0800
+
+    Added spectate debugs
+
+commit db67c4cbfa002f906bad9eae4869b8220056e6b4
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Jan 31 20:00:17 2014 -0800
+
+    Fixed some issues with multiple rooms, removed strafing from guests.
+
+commit ba89c3f7985ece849b4863a703bc75dceba175c3
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Jan 31 14:45:00 2014 -0800
+
+    Added 3 more rooms, changed some colliders and the navmesh.
+
+commit 0e5dc2396e42d6eb7800506a05526494b044d3a6
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Jan 30 22:58:27 2014 -0800
+
+    guard fix 2
+
+commit 97b1086d08d526e8ce9223a3e3b05e60176e5a98
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Jan 30 22:53:32 2014 -0800
+
+    Fixed weird commit of guard.cs
+
+commit b87b9a2f64aa4d24ee353a1a6e2f9299eb6a12db
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Jan 30 20:35:57 2014 -0800
+
+    small change to intrgue scene
+
+commit f99515f5c52093ac2a2edd9fbaef7c2be4223748
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Jan 30 19:57:52 2014 -0800
+
+    Added transistions to strafing animations to make them smoother.
+
+commit c4ac608d1bf2df9bba571456cc0bee480aef8b9b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Jan 30 19:41:24 2014 -0800
+
+    Fixed nav mesh issue.
+
+commit 703ec09d7f817e4417140ec5c87f4d327e7be848
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Jan 30 19:38:26 2014 -0800
+
+    Opened up the room a bit, added in radoslavs couches.
+
+commit 45a121be3b85007be2a4b4fd53af428d50266f53
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Jan 30 14:15:53 2014 -0800
+
+    Hide certain variables in the inspector
+
+commit b8b7e15ce9987bfada970039e9c54f0306c602ae
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Jan 30 14:03:39 2014 -0800
+
+    Added want game over var for intrigue
+
+commit 004701b85a8aea1652555595cea56fad81f4b792
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Jan 30 13:42:02 2014 -0800
+
+    Fixed raycasting for accused and objective stuff
+
+commit 490bdbe7441a2fdc40857001d631b944f74863f4
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Jan 30 13:09:38 2014 -0800
+
+    Fixed warnings and added isSpectating flag for guest and spy, working on raycast
+
+commit e2cc047690fbe86ce07b02e65cced68e812d476b
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Jan 30 12:41:58 2014 -0800
+
+    Fixed guest anim over network and added boc collider to safe
+
+commit a1c0d887c7efe9f07a0f8b931abaa76900e0d7cd
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Jan 29 23:58:12 2014 -0800
+
+    Fixed highlighting of spies and size of collider on spy.
+
+commit 199bfe74628682d2663ba447889115ec08988b70
+Merge: c6d9554 7c7e750
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Jan 29 23:40:44 2014 -0800
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+
+commit c6d955406add8c704b341e37d44ec9b6230aef98
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Jan 29 23:40:18 2014 -0800
+
+    Added in highlighting for guards and fixed colliders on guest and spy
+
+commit 7c7e7502baa620d8c01aa0a16a543f631ea38312
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 29 23:28:35 2014 -0800
+
+    MultiRound and spectator mostly tested and seems to be working. Some minor changes regarding that.
+
+commit bd213408d4fa111f80cd7c6c9aa676ae1a5b1fc2
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 29 23:01:36 2014 -0800
+
+    trying to fix gameover and round system, also added ondisconnect stuff
+
+commit eb2b8c00c51f2c876f6e0a18dadfcc24c99bc24f
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 29 22:38:28 2014 -0800
+
+    Small change to intrigue for multi round bug, and fixed leave room on pregame
+
+commit a0877d4407c72d85926a231948d3226ae8515491
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 29 21:37:08 2014 -0800
+
+    uncommented game over, added crosshair and targetreticule meta files, oh and I got spectator mode working no big deal
+
+commit b6a4c84f2db26a36432c71f3c1f98cb1b18a0f0c
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 29 21:23:22 2014 -0800
+
+    Crosshair fix, and working on spectator
+
+commit 5feb46dbb43d9221189defba27053ca547f5c61c
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 29 20:34:55 2014 -0800
+
+    Deleted robot from mainmenu
+
+commit e43f82d88ba7163a639e6025edecf8f245d54659
+Author: Brian Aston <box1290@gmail.com>
+Date:   Wed Jan 29 19:58:53 2014 -0800
+
+    Changed Colliders of characters to box colliders, since mesh colliders
+    were causing issues with guard accusations. Also increased guard
+    accusation range.
+
+commit 2a3cd5edec4233e99ccb85706eeedeba036a6ce9
+Author: Brian Aston <box1290@gmail.com>
+Date:   Wed Jan 29 18:43:59 2014 -0800
+
+    Fixed an issue where the spy was floating.
+    Please enter the commit message for your changes. Lines starting
+
+commit 42012a2a21f05436092ab66b5aca1deea5e8eebf
+Author: Brian Aston <box1290@gmail.com>
+Date:   Wed Jan 29 17:40:52 2014 -0800
+
+    Added script to place a crosshair on the screen during the Intrigue scene.
+
+commit 965eea45b3a1c8a40bfd29c7911ef9a0d398191e
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 29 16:52:36 2014 -0800
+
+    Removed extra photonview on safe prefab, commented out guest debugs, and working on spectator system
+
+commit d5988fe9e30418f20cf2886621e02d18de443078
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 29 15:31:21 2014 -0800
+
+    Clean objective prefab, added network script to guest, worked on spectator
+
+commit e4eab4e4440f984d4909304217462f2f29b54b1c
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 29 14:29:07 2014 -0800
+
+    Code cleaning, putting private or public, removing unused fields, and whitespace. Added mesh colliders to prefabs.
+
+commit 4802fb83f4a641a58d0ce7eeb676a7cc870d14c0
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 29 13:23:54 2014 -0800
+
+    Fixed animations over network
+
+commit 0a5359c2ffed104775361efa23addfe3d31cce62
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 29 12:26:43 2014 -0800
+
+    Removed guard "cross hairs" and fixed spawn points on intrigue scene
+
+commit a6cbb407b31336b4b619ccecad30880a96f84b62
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Jan 28 17:12:55 2014 -0800
+
+    Working on multiround system, needs testing but is at a solid state
+
+commit 7fb810fcfd48112142657c4c4f8fddb2ab8a4980
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Jan 28 14:25:52 2014 -0800
+
+    Working on multiround
+
+commit 76f9584069de74c52e668500ebf381c782cbe2b9
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Jan 28 03:51:56 2014 -0800
+
+    Working on multi round system and implemented player object
+
+commit 03dbacff34b2414db125907bdf5af469276a7a40
+Merge: d9aa935 d388690
+Author: baston <baston@ucsc.edu>
+Date:   Mon Jan 27 14:57:17 2014 -0800
+
+    Merge branch 't_multiround' into dev
+
+commit d9aa9353a4641db9ddf722edb508a9b1d4968ca6
+Author: baston <baston@ucsc.edu>
+Date:   Mon Jan 27 14:45:15 2014 -0800
+
+    Added component to set timeLeft to 0 upon completion for all clients.
+    Commented Debug lines.
+
+commit 752f17304da8e79f352a28adadf578aab341920b
+Author: baston <baston@ucsc.edu>
+Date:   Mon Jan 27 14:35:46 2014 -0800
+
+    Fixed an error in Intrigue where objectives where only initialized for
+    MAster Client.
+    Please enter the commit message for your changes. Lines starting
+
+commit 8876aff019434fdef285b0c99f8d1c1d5705e8a0
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Mon Jan 27 14:16:42 2014 -0800
+
+    Fixed objective system locally, now testing over network
+
+commit 8944cd85c7497e1403cc8a2d4fd15b0c138950e6
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Mon Jan 27 14:55:36 2014 -0800
+
+    Removed Cubecontroller
+
+commit d38869095680909bd52b0d97bda420325bd08e5b
+Author: baston <baston@ucsc.edu>
+Date:   Mon Jan 27 14:45:15 2014 -0800
+
+    Added component to set timeLeft to 0 upon completion for all clients.
+    Commented Debug lines.
+
+commit 33b6be0979416dc087c0972c786aca91dc0497e0
+Author: baston <baston@ucsc.edu>
+Date:   Mon Jan 27 14:35:46 2014 -0800
+
+    Fixed an error in Intrigue where objectives where only initialized for
+    MAster Client.
+    Please enter the commit message for your changes. Lines starting
+
+commit 91a465c287eb3a6a9ef68bab0c9c5c121b46381f
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Mon Jan 27 14:16:42 2014 -0800
+
+    Fixed objective system locally, now testing over network
+
+commit fa1723a00cc1e47652a446cd8f86ee69faeb210f
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Jan 26 19:14:33 2014 -0800
+
+    Fixed some colliders
+
+commit 3d2384bea2841ddf8a49cba5b7215ba79d74ecaa
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Jan 26 19:08:29 2014 -0800
+
+    Photon Fix
+
+commit 54aa7a8a7dd484736b09c489066a8dd3c54825a5
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Jan 26 18:53:53 2014 -0800
+
+    Added sending player
+
+commit b9bd43d4989086b1d762533ebff553fa74330930
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Jan 26 18:46:07 2014 -0800
+
+    Fixed Kayvan not telling us to send
+
+commit e9e59cd6c1d562042a4ab9568a361b2a37a210da
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Jan 26 18:41:12 2014 -0800
+
+    Changing the intrigue.cs spawner to work over network
+
+commit 6391fbc3757f6e7bb4af91202c7a24c3aa016223
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Jan 26 18:04:56 2014 -0800
+
+    Removed a lot of unnecessary files from Props Animations
+
+commit a7ac24c4f66603b0dba9da704d499731cb99007f
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Sun Jan 26 18:01:14 2014 -0800
+
+    Added RPC function for objective complete across the network. Some
+    commented out code to try and keep from multiple spies completing
+    objectives at once
+
+commit 6dd1095b4ca4e1f7450a8e75589e28efc99a2024
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Jan 26 17:57:05 2014 -0800
+
+    Added navmesh, added guest animations and spawning at spawnpoints for players and guests.
+
+commit d8ee3238d7076d2df6b8cfdcdbb37ad86046b0b9
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Jan 26 16:13:40 2014 -0800
+
+    Fixed character controllers on players. Messed up guest animator needs fixing.
+
+commit 905a7bc6c81e455fea415e72cc7b007484375e96
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Jan 26 14:39:23 2014 -0800
+
+    Added Props Animations. Added strafing to player controller.
+
+commit f2f57bbae9a485ebf89387cbbe375949abfffcba
+Author: baston <baston@ucsc.edu>
+Date:   Sun Jan 26 14:36:02 2014 -0800
+
+    Added script to move guests in current build.
+
+commit 8a08365e77b4f3b48de3d146f04f9e5dcf1e2aef
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Jan 26 13:41:13 2014 -0800
+
+    added spawn points tagged "Respawn"
+
+commit 60210e610887c04cf2ef7f8aff05f2b8473cb404
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Sun Jan 26 12:50:35 2014 -0800
+
+    Added the post processing effect assets and upgraded the visuals of the room some more.
+
+commit 917cf008fc0d5307dd632a9f173223c552820f76
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Jan 24 22:57:32 2014 -0800
+
+    Updated Room Visuals, added animation on safe objective.
+
+commit 24ce2f5314f67fd99318e7840de48ecc8e6175dd
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sat Jan 25 17:01:17 2014 -0800
+
+    Added player robots and guests to respective layers, also added mesh collider to guest
+
+commit 436c96fef01c43d371608680f50bce384049c32a
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sat Jan 25 16:37:16 2014 -0800
+
+    Fixed FPS lag
+
+commit d168d6f5535b6cda18a36a2821747b2990970c14
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Thu Jan 23 22:24:41 2014 -0800
+
+    removed test guest prefabs and made them robots like ians, tried to do dot in middle of screen like before, and straffing is weird because of animation changes. Ian please fix.
+
+commit ff6decf1b678f73f8e7f9099c93b45f669d731a2
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Jan 23 00:58:43 2014 -0800
+
+    Got animations over the network working.
+
+commit 39cba3e13479183085fc3eb5b714b5b6bd147402
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Jan 22 17:27:39 2014 -0800
+
+    Added interact animation.
+
+commit a1907216b417e4a2e540615ce4b43a5d1e9edc6c
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Jan 22 17:19:20 2014 -0800
+
+    Added Fully animated models v1
+
+commit cedc2de45d37da5bee986531d6f02ca92ff672ee
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Jan 22 17:18:48 2014 -0800
+
+    Added in fully animated models v1
+
+commit 805d23563dea4097ae983dee3d41c6362ff30787
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 22 14:24:57 2014 -0800
+
+    Added Guest prefab, accusation needs testing but seems to be working, worked on some of the game settings, added player.cs
+
+commit 2673c5361960a1d271ba69f2494c9f12138a940f
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 22 12:06:57 2014 -0800
+
+    Moved folders and files to their appropriate places
+
+commit 28623d53db57ce71c3ccbd7b74295d90f58b82ef
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Jan 21 23:51:01 2014 -0800
+
+    Moved pregameLobby to scene folder in scripts, added handle and multiple room functionality, lastly move network stuff into network and added intrigue script to intrigue scene...seems to be working.
+
+commit b145f4b38321afdd142eb7d939b2fdd1ac4853d6
+Merge: 8d870a4 9dc6d2b
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Jan 21 20:45:49 2014 -0800
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+
+commit 8d870a414028086492f0dfe2b0e6f2e15ead0b94
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Tue Jan 21 20:44:03 2014 -0800
+
+    Update IP address
+
+commit 9dc6d2b5ee6ffb4a882ede11d78be9f5110bfca5
+Author: baston <baston@ucsc.edu>
+Date:   Tue Jan 21 17:59:17 2014 -0800
+
+    Made modifications to accusations and added team type to photon player.
+    Also added tags to test players.
+
+commit bda5e9387aaa963329dca5f475b1ea2b0921de61
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Jan 21 11:41:01 2014 -0800
+
+    Added Photon settings, hopefully it sticks
+
+commit 81319f0453584e15e4af6cb00e1ea4e2cc0f90a0
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Jan 20 20:18:30 2014 -0800
+
+    FOLLOW THE README
+    
+    Added coffee table. Added basic score settings. Added objective functionality. Added initial accusations.
+    
+    Conflicts:
+    	Intrigue/Assets/Photon Unity Networking/Resources/PhotonServerSettings.asset
+    	Intrigue/Assets/Scripts/Game/Objective.cs
+    	Intrigue/Assets/Scripts/Game/Objective.cs.meta
+
+commit 29e08c9b39f337d3a82cbc5065babb02d76a720f
+Author: baston <baston@ucsc.edu>
+Date:   Mon Jan 20 15:26:08 2014 -0800
+
+    Finished converting Intrigue.js to c sharp. Also converted networking code
+    to new PhotonNetwork. Also got basic main menu to pregame to intrigue scene working with test players
+
+commit d23e80c9e7486040ea89234377b0066fa7b837bf
+Author: baston <baston@ucsc.edu>
+Date:   Mon Jan 20 17:39:54 2014 -0800
+
+    Added objective prefab
+
+commit c0801a1d58af639db664ca65297a74ea7a57eb11
+Author: Matthew Scorca <mscorca@ucsc.edu>
+Date:   Mon Jan 20 17:09:55 2014 -0800
+
+    Translated the Objective script into C#, used photon networking
+
+commit 68333ff98b1e92aefbb15548dd3bedc60c5d8eca
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Jan 20 15:51:31 2014 -0800
+
+    Added Models folder and model
+
+commit 295a6c4185f20391be322230109a568799967acc
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Jan 20 15:38:31 2014 -0800
+
+    Added a new test character, added pregame lobby, added base room, added some new folders, edited network and mainmenu, added new tags
+
+commit 1a4e0d5da4299856735f50ab705dceec8d8b27fd
+Author: baston <baston@ucsc.edu>
+Date:   Mon Jan 20 15:26:08 2014 -0800
+
+    Finished converting Intrigue.js to c sharp. Also converted networking code
+    to new PhotonNetworkPlease enter the commit message for your changes. Lines starting
+
+commit 19b6eb163af8aa34ff5c9742e0808fc0ba7b6570
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Mon Jan 20 15:21:11 2014 -0800
+
+    Changed photon network setting to work with our server
+
+commit 665d3c2590485a2749e439345a8380e8e90d3836
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Mon Jan 20 13:57:54 2014 -0800
+
+    New Folder System
+
+commit a5d75269baeb976cee98d13503cbef01c87eeacb
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Jan 19 19:24:45 2014 -0800
+
+    Added photon plugins library folder ignored by git
+
+commit 6fda19d7ee59e3a8bc27bdc1285fd539e6dae33b
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sun Jan 19 18:29:56 2014 -0800
+
+    Moved all prefabs to resources folder, added a test prefab cube, added some scripts for networking, and got scene changing with networking working
+
+commit 7c58b7f4f86a0c36dad4061c259135ab8ef53ebb
+Author: Sean <seanstein88@gmail.com>
+Date:   Sun Jan 19 16:18:38 2014 -0800
+
+    Fixed README, and tested commits.
+
+commit 0d516ad75f84fb6f49e8c0df2015d3bc8f2e2913
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sat Jan 18 19:14:20 2014 -0800
+
+    fix to readme file
+
+commit 8a22b8d962bb5df1023c657db355ec628d19f2ef
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Sat Jan 18 19:03:02 2014 -0800
+
+    Added photon client files, added some data to gitignore like .exe files and _Data/ file, lastly connected and had network chat working, but to cloud and not our server.
+
+commit b60403460d31de39aec801ce15169bf9ed718a42
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Fri Jan 17 14:04:19 2014 -0800
+
+    Decided to work on photon tutorials in different project then move into here
+
+commit 5f9f2a7b1168e5e6babfbf82675f0a49866f4e25
+Merge: b1f1cdb da996d8
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Jan 17 14:01:39 2014 -0800
+
+    Merge branch 'dev' of https://github.com/Kboudai/Intrigue into dev
+
+commit b1f1cdb2e6fe12b3f6438d3c6b4bd5b43236f208
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Fri Jan 17 14:00:14 2014 -0800
+
+    Commented out or fixed errors in Guard.cs and Spy.cs. Initial variables translated for Intrigue.cs
+
+commit da996d89cd86bf0c84fa5158c8472bbdb17e2353
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Thu Jan 16 22:43:20 2014 -0800
+
+    Added photon plugin folder and files, also added a network folder and testing file to project
+
+commit 8d6ef2522aa73dd238a201858510d55f93ea0589
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Jan 16 21:05:45 2014 -0800
+
+    Fixed some issues with Guard.cs and translated the initial C# version of Spy.cs
+
+commit d7d9be0a818bd39d2aa5c6de7be2dc7edbfc9044
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Jan 16 20:48:09 2014 -0800
+
+    ADDED NGUI. If NGUI isn't showing up in the top toolbar just run one of the example scenes. There are currently errors in Guard.cs (because of references to scripts we haven't translated yet) which prevents that so if necessary just comment out Guard.cs temporarily.
+
+commit ce949d147645cc54a3d2ac99921944488812c0c0
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Thu Jan 16 20:39:45 2014 -0800
+
+    Added initial stage of new simple movement controller
+
+commit eb36988685a5b845a00ff9dac1ee478dd8011e1c
+Author: Ian Winter <iwinter@ucsc.edu>
+Date:   Wed Jan 15 23:29:34 2014 -0800
+
+    Initial translation of Guard.js into Guard.cs
+
+commit f45973f7d74f03a28b94418c42ecf3e717e41faf
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 15 12:33:06 2014 -0800
+
+    Finished git standard in readme file
+
+commit 34679e24bb48eca7ccfe2e862c0789d60b1052fe
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Jan 14 23:26:29 2014 -0800
+
+    Started Git standards in README file
+
+commit fba6ff14edd5f0006c8e2e2bb26822a7c31e7209
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Wed Jan 15 01:18:18 2014 -0800
+
+    Fixed weird endline problem with github Markdown
+
+commit 21af891ca7ca571a139aeccda4859044d9176942
+Author: Kboudai <kboudai@ucsc.edu>
+Date:   Tue Jan 14 16:31:19 2014 -0800
+
+    Updated README again.
+
+commit a559fffdd6778fbfbd1ba2e949cb14929c19836d
+Author: Kayvan Boudai <kboudai@ucsc.edu>
+Date:   Tue Jan 14 15:42:04 2014 -0800
+
+    Modified README file, added UML notation
+
+commit a897c1106dc11452f9514b3c674e08c5c1c6d55f
+Author: baston <baston@ucsc.edu>
+Date:   Fri Jan 10 16:39:38 2014 -0800
+
+    Hey look a commit!
+
+commit 077a0118439a78f528f98bbe00568201814bb60d
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Fri Jan 10 15:12:46 2014 -0800
+
+    Github Test 2
+
+commit c5502c6fd83eb3565178c81c060fe96dbf8bc6a9
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Fri Jan 10 14:57:05 2014 -0800
+
+    Testing github
+
+commit 078d9b62759f09f14466d16cfd3593bf47451045
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Fri Jan 10 00:55:13 2014 -0800
+
+    Initial Unity project with project setting set
+
+commit 318a97990fbac3609f54ccf7e2c4b40104595141
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Fri Jan 10 00:26:58 2014 -0800
+
+    Add git ignore file
+
+commit e122b0c5c1762a3fa5cbf4231c9e4f9da547cf55
+Author: Kayvan Boudai <Kayvan.Boudai@gmail.com>
+Date:   Thu Jan 9 23:20:14 2014 -0800
+
+    Initial commit with readme
