@@ -3737,7 +3737,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100054}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: f5956e8e833394fe79482f398e89e585, type: 3}
+  m_Avatar: {fileID: 9000000, guid: bc4fe877cd3674b40bfdde798b330f5f, type: 3}
   m_Controller: {fileID: 9100000, guid: 40e26dbaec5b2044a820fd8f10b70766, type: 2}
   m_CullingMode: 1
   m_ApplyRootMotion: 1
@@ -4005,7 +4005,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3050
+  startingRenderQueue: 3072
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4563,7 +4563,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3043
+  startingRenderQueue: 3048
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4938,7 +4938,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3078
+  startingRenderQueue: 3098
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -5240,6 +5240,9 @@ MonoBehaviour:
   textList: {fileID: 11400058}
   conversationGUI: {fileID: 11400008}
   chatWindow: {fileID: 11400114}
+  server1GUI: {fileID: 0}
+  server2GUI: {fileID: 0}
+  server3GUI: {fileID: 0}
   localHandle: No Handle
   localPing: 0
   remoteScore: 0
@@ -5320,7 +5323,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3050
+  startingRenderQueue: 3056
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -5423,7 +5426,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3000
+  startingRenderQueue: 3007
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -5823,7 +5826,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3050
+  startingRenderQueue: 3056
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -6305,7 +6308,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3024
+  startingRenderQueue: 3041
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
