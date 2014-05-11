@@ -2813,7 +2813,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -5549,6 +5549,7 @@ GameObject:
   - 33: {fileID: 120218341}
   - 23: {fileID: 120218340}
   - 64: {fileID: 120218342}
+  - 208: {fileID: 120218343}
   m_Layer: 0
   m_Name: pillar_outside_mid_left
   m_TagString: Untagged
@@ -5611,6 +5612,17 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300018, guid: 1827c3ddd8a7fdf4780c012008bcf265, type: 3}
+--- !u!208 &120218343
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 120218338}
+  m_Enabled: 1
+  m_Radius: 4
+  m_Height: 2.77161336
+  m_MoveThreshold: 0
+  m_Carve: 1
 --- !u!1 &121412603
 GameObject:
   m_ObjectHideFlags: 0
@@ -6923,7 +6935,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -7087,7 +7099,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 148788807}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d423028ca8849d45a4b2955d66b8d4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 75afcae36f59345b8a9b4925d5fc1917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   queue: []
@@ -7141,10 +7153,10 @@ BoxCollider:
   m_PrefabInternal: {fileID: 1192036339}
   m_GameObject: {fileID: 148788807}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9.44999981, y: 10.7399998, z: 3.250525}
+  m_Size: {x: 13, y: 13, z: 3.250525}
   m_Center: {x: 1.63960145e-09, y: 1.79109941e-06, z: -.00379419513}
 --- !u!1 &148953644
 GameObject:
@@ -7463,7 +7475,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 150763674}
   poet: {fileID: 0}
@@ -10347,6 +10359,7 @@ MonoBehaviour:
   aspectRatio: 3.5
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -12957,7 +12970,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -13291,7 +13304,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -14056,7 +14069,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -14448,7 +14461,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 325157165}
   poet: {fileID: 0}
@@ -14604,6 +14617,7 @@ MonoBehaviour:
   aspectRatio: 3.5
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -16663,6 +16677,7 @@ MonoBehaviour:
   aspectRatio: 4.71999979
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -18949,7 +18964,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -19086,7 +19101,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -19836,33 +19851,33 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2058780158}
-  - {fileID: 1255258678}
   - {fileID: 1427871770}
+  - {fileID: 1255258678}
   - {fileID: 1512423066}
-  - {fileID: 10299856}
-  - {fileID: 480749170}
-  - {fileID: 694314203}
-  - {fileID: 706827561}
-  - {fileID: 743247693}
   - {fileID: 758889693}
-  - {fileID: 789563002}
-  - {fileID: 1018047278}
-  - {fileID: 1168855906}
-  - {fileID: 1200820676}
-  - {fileID: 1217316601}
-  - {fileID: 1401366509}
-  - {fileID: 1404922044}
-  - {fileID: 1406330886}
+  - {fileID: 706827561}
+  - {fileID: 1454494093}
+  - {fileID: 1590627057}
   - {fileID: 398548002}
   - {fileID: 425307211}
-  - {fileID: 1454494093}
-  - {fileID: 1527089763}
-  - {fileID: 1590627057}
+  - {fileID: 10299856}
+  - {fileID: 1718932976}
+  - {fileID: 789563002}
+  - {fileID: 1404922044}
+  - {fileID: 1217316601}
+  - {fileID: 1018047278}
+  - {fileID: 2124109490}
+  - {fileID: 1401366509}
+  - {fileID: 480749170}
+  - {fileID: 743247693}
+  - {fileID: 1200820676}
+  - {fileID: 1406330886}
+  - {fileID: 1168855906}
+  - {fileID: 694314203}
+  - {fileID: 1903937787}
   - {fileID: 1604665782}
   - {fileID: 1718442443}
-  - {fileID: 1718932976}
-  - {fileID: 1903937787}
-  - {fileID: 2124109490}
+  - {fileID: 1527089763}
   m_Father: {fileID: 0}
 --- !u!1 &477648881
 GameObject:
@@ -22275,6 +22290,7 @@ MonoBehaviour:
   aspectRatio: 6.16666651
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -22810,7 +22826,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -23431,7 +23447,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -26138,7 +26154,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -27347,6 +27363,7 @@ GameObject:
   - 33: {fileID: 657628306}
   - 23: {fileID: 657628305}
   - 64: {fileID: 657628307}
+  - 208: {fileID: 657628308}
   m_Layer: 0
   m_Name: Box261
   m_TagString: Untagged
@@ -27409,6 +27426,17 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300192, guid: 1827c3ddd8a7fdf4780c012008bcf265, type: 3}
+--- !u!208 &657628308
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 657628303}
+  m_Enabled: 1
+  m_Radius: 4
+  m_Height: 20
+  m_MoveThreshold: 0
+  m_Carve: 1
 --- !u!1 &659885820
 GameObject:
   m_ObjectHideFlags: 0
@@ -29936,6 +29964,7 @@ GameObject:
   - 33: {fileID: 729752302}
   - 23: {fileID: 729752301}
   - 64: {fileID: 729752303}
+  - 208: {fileID: 729752304}
   m_Layer: 0
   m_Name: pillar_frontentrance
   m_TagString: Untagged
@@ -29998,6 +30027,17 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300190, guid: 1827c3ddd8a7fdf4780c012008bcf265, type: 3}
+--- !u!208 &729752304
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 729752299}
+  m_Enabled: 1
+  m_Radius: 4
+  m_Height: 2.77172446
+  m_MoveThreshold: 0
+  m_Carve: 1
 --- !u!1 &730956547
 GameObject:
   m_ObjectHideFlags: 0
@@ -33346,6 +33386,7 @@ GameObject:
   - 33: {fileID: 817235116}
   - 23: {fileID: 817235115}
   - 64: {fileID: 817235117}
+  - 208: {fileID: 817235118}
   m_Layer: 0
   m_Name: pillar_inside_ballroom
   m_TagString: Untagged
@@ -33408,6 +33449,17 @@ MeshCollider:
   m_SmoothSphereCollisions: 0
   m_Convex: 0
   m_Mesh: {fileID: 4300232, guid: 1827c3ddd8a7fdf4780c012008bcf265, type: 3}
+--- !u!208 &817235118
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 817235113}
+  m_Enabled: 1
+  m_Radius: 4
+  m_Height: 2.7717092
+  m_MoveThreshold: 0
+  m_Carve: 1
 --- !u!1 &821533276
 GameObject:
   m_ObjectHideFlags: 0
@@ -36147,7 +36199,7 @@ MeshCollider:
   m_GameObject: {fileID: 875909336}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
   m_Convex: 0
@@ -36284,7 +36336,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -39205,7 +39257,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -41404,7 +41456,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -41612,6 +41664,7 @@ MonoBehaviour:
   aspectRatio: 1
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -41726,7 +41779,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -43032,7 +43085,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -44221,7 +44274,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 1104309579}
   poet: {fileID: 0}
@@ -52498,7 +52551,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1338603837}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d423028ca8849d45a4b2955d66b8d4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 75afcae36f59345b8a9b4925d5fc1917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   queue: []
@@ -52552,10 +52605,10 @@ BoxCollider:
   m_PrefabInternal: {fileID: 363663390}
   m_GameObject: {fileID: 1338603837}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9.44999981, y: 10.7399998, z: 3.250525}
+  m_Size: {x: 13, y: 13, z: 3.250525}
   m_Center: {x: 1.63960145e-09, y: 1.79109941e-06, z: -.00379419513}
 --- !u!1 &1339052908
 GameObject:
@@ -54234,7 +54287,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -54958,7 +55011,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -57551,6 +57604,7 @@ MonoBehaviour:
   aspectRatio: 1.66666663
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -59081,7 +59135,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -59305,7 +59359,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -67388,7 +67442,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -68579,7 +68633,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -69511,7 +69565,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -76537,7 +76591,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -80356,7 +80410,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
@@ -82258,7 +82312,7 @@ MonoBehaviour:
   relaxLocation: {x: 0, y: 0, z: 0}
   drinkLocation: {x: 0, y: 0, z: 0}
   converseLocation: {x: 0, y: 0, z: 0}
-  restroomLocation: {x: 0, y: 0, z: 0}
+  restroomLocations: []
   poetLocation: {x: 0, y: 0, z: 0}
   me: {fileID: 0}
   poet: {fileID: 0}
