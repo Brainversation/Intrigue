@@ -53,10 +53,12 @@ public class Crosshair : MonoBehaviour {
 	
 	void OnGUI () {
 		if(OriginalOn == true){
-			if(canInteract==true)
-				GUI.DrawTexture(position, crosshairInteract);
-			else
-				GUI.DrawTexture(position, crosshairNormal);
+			if(!Input.GetKey(KeyCode.Tab)){
+				if(canInteract==true)
+					GUI.DrawTexture(position, crosshairInteract);
+				else
+					GUI.DrawTexture(position, crosshairNormal);
+			}
 		}
 	}
 
