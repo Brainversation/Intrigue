@@ -188,10 +188,11 @@ public class Guard : BasePlayer{
 		GetComponentInChildren<AudioListener>().enabled = true;
 		//Have to disable the mouse look on the camera as well
 		Component [] mouseLooks = GetComponentsInChildren<MouseLook>();
-			foreach(MouseLook ml in mouseLooks){
-				ml.enabled = true;
-			}	
+		foreach(MouseLook ml in mouseLooks){
+			ml.enabled = true;
+		}
 		GetComponentInChildren<Crosshair>().enabled = true;
+		GetComponent<CharaterController>().enabled = true;
 		GetComponent<MouseLook>().enabled = true;
 		Debug.Log("STUN OVER");
 	}
@@ -231,6 +232,7 @@ public class Guard : BasePlayer{
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<Crosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
+			GetComponent<CharaterController>().enabled = false;
 			Invoke("stunCooldown", 5);
 		}
 	}

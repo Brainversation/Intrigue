@@ -205,17 +205,17 @@ public class BaseAI : Photon.MonoBehaviour {
 			sad = 0;
 			toxicity = 0;
 		} else {
-			thirst = Random.Range(0, 100);
-			bored = Random.Range(0, 100);
-			hunger = Random.Range(0, 100);
-			lonely = Random.Range(0, 100);
-			tired = Random.Range(0, 100);
-			anxiety = Random.Range(0, 100);
-			bladder = Random.Range(0, 100);
-			anger = Random.Range(0, 100);
-			happy = Random.Range(0, 100);
-			sad = Random.Range(0, 100);
-			toxicity = Random.Range(0, 100);
+			thirst = Random.Range(20, 100);
+			bored = Random.Range(20, 100);
+			hunger = Random.Range(20, 100);
+			lonely = Random.Range(20, 100);
+			tired = Random.Range(20, 100);
+			anxiety = Random.Range(20, 100);
+			bladder = Random.Range(20, 100);
+			anger = Random.Range(20, 100);
+			happy = Random.Range(20, 100);
+			sad = Random.Range(20, 100);
+			toxicity = Random.Range(20, 100);
 		}
 
 		if(Random.Range(0,100) > 50){
