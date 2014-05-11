@@ -246,18 +246,15 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnPhotonRandomJoinFailed(){
-		if(true){
-			RoomOptions roomOp = new RoomOptions();
-			roomOp.isVisible = true;
-			roomOp.isOpen = true;
-			roomOp.maxPlayers = 10;
-			PhotonNetwork.CreateRoom(player.Handle + "'s Quick Match", roomOp, null);
-			player.RoomName = player.Handle + "'s Quick Match";
-			NGUITools.SetActive(quickMatchFailed, true);
-		}else{
-			CancelInvoke();
-			Invoke("deactiveErrorMessages", 5);
-		}
+		RoomOptions roomOp = new RoomOptions();
+		roomOp.isVisible = true;
+		roomOp.isOpen = true;
+		roomOp.maxPlayers = 10;
+		PhotonNetwork.CreateRoom(player.Handle + "'s Quick Match", roomOp, null);
+		player.RoomName = player.Handle + "'s Quick Match";
+		NGUITools.SetActive(quickMatchFailed, true);
+		CancelInvoke();
+		Invoke("deactiveErrorMessages", 5);
 	}
 
 	void OnJoinedRoom(){
