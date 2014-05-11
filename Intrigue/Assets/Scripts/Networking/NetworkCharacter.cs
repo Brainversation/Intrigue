@@ -65,12 +65,12 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 		if(Input.GetKey(KeyCode.LeftControl)){
 			moveDirection.x += Input.GetAxis("Horizontal") * 10;
+			moveDirection = transform.TransformDirection(moveDirection);
 		} else {
 			transform.Rotate(0, Input.GetAxis("Horizontal") * 90 * Time.deltaTime, 0); 
 		}
 
 		moveDirection.y -= 1000 * Time.deltaTime;
-		moveDirection = transform.TransformDirection(moveDirection);
 		GetComponent<CharacterController>().Move(moveDirection * Time.deltaTime); 
 	}
 
