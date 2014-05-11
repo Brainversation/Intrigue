@@ -192,7 +192,7 @@ public class Guard : BasePlayer{
 			ml.enabled = true;
 		}
 		GetComponentInChildren<Crosshair>().enabled = true;
-		GetComponent<CharaterController>().enabled = true;
+		GetComponent<CharacterController>().enabled = true;
 		GetComponent<MouseLook>().enabled = true;
 		Debug.Log("STUN OVER");
 	}
@@ -232,7 +232,7 @@ public class Guard : BasePlayer{
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<Crosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
-			GetComponent<CharaterController>().enabled = false;
+			GetComponent<CharacterController>().enabled = false;
 			Invoke("stunCooldown", 5);
 		}
 	}
