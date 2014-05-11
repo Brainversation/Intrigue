@@ -12,7 +12,6 @@ public class BaseAI : Photon.MonoBehaviour {
 	private Quaternion correctPlayerRot;
 	private Rule currentRule;
 	private float updateWants = 5f;
-	private bool stunned = false;
 	private bool stunInstantiated = false;
 
 	protected List<Rule> rules;
@@ -34,6 +33,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool isYourTurn = false;
 	[HideInInspector] public Status status = Status.False;
 	[HideInInspector] public float distFromDest = 5f;
+	[HideInInspector] public bool stunned = false;
 
 	// Wants, needs, and feelings 0-100 scale
 	[HideInInspector] public float thirst = 0f;
