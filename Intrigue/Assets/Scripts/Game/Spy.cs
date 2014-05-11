@@ -133,7 +133,7 @@ public class Spy : BasePlayer{
 	void attemptStun(){
 		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 		RaycastHit hit;
-		if( Physics.Raycast(ray, out hit, 10f) ){
+		if( Physics.Raycast(ray, out hit, 20f) ){
 			if(hit.transform.tag == "Guard" || hit.transform.tag == "Guest"){
 				if(stuns>=1){
 					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);

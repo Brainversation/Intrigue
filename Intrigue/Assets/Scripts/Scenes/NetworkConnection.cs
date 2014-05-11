@@ -78,16 +78,30 @@ public class NetworkConnection : Photon.MonoBehaviour {
 
 		//Check if game over or same round or something, then add it
 
-		Intrigue.playerGO = PhotonNetwork.Instantiate(
-						"Robot_"+ player.Team+"1"/*type.ToString()*/,
-						lastPos,
-						Quaternion.identity, 0);
+		if(lastPos == Vector3.zero){
+			GameObject teamMates = GameObject.FindGameObjectsWithTag(player.Team)[0];
+			teamMates.GetComponentInChildren<Camera>().enabled = true;
+ 			foreach(UIPanel uiP in teamMates.GetComponentsInChildren<UIPanel>(true)){
+				if(uiP.gameObject.CompareTag("ChatArea") ||
+				   uiP.gameObject.CompareTag("Scoreboard") ||
+					uiP.gameObject.CompareTag("StunUI") ||
+					uiP.gameObject.CompareTag("TimeLabel")){
+					NGUITools.SetActive(uiP.gameObject, true);
+				}
+			}
+		} else {
+			Intrigue.playerGO = PhotonNetwork.Instantiate(
+							"Robot_"+ player.Team+"1"/*type.ToString()*/,
+							lastPos,
+							Quaternion.identity, 0);
+		}
 	}
 
 	void OnDisconnectedFromPhoton(){
 		Debug.Log("OnDisconnect");
-		if(Intrigue.playerGO != null)
+		if(Intrigue.playerGO != null){
 			lastPos = Intrigue.playerGO.transform.position;
+		}
 		gui.SetActive(true);
 		showRetry = true;
 	}
