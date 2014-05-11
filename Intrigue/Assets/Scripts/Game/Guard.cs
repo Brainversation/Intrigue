@@ -39,6 +39,24 @@ public class Guard : BasePlayer{
 		if(photonView.isMine){
 			spies = GameObject.FindGameObjectsWithTag("Spy");
 
+
+			//Heartbeat
+			if(spies!=null){
+				nearSpy = false;
+				foreach (GameObject spy in spies){
+					if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50 && Mathf.Abs(spy.transform.position.y - gameObject.transform.position.y)<=2){
+						nearSpy = true;
+						if(!heartbeat.isPlaying){
+							heartbeat.Play();
+						}
+					}
+				}
+			}
+			if(!nearSpy){
+				heartbeat.Stop();
+			}
+
+
 			//Check if any serverAlerts under attack
 			/*------------------------------------------------------*/
 			if(serverAlerts == null){
@@ -138,53 +156,6 @@ public class Guard : BasePlayer{
 		}
 	}
 
-	// void updateHighlighting(){
-	// 	if(guests!=null){
-	// 		foreach (GameObject guest in guests){
-	// 			if(guest!=accused){
-	// 				renders = guest.GetComponentsInChildren<Renderer>();
-	// 				foreach(Renderer rend in renders){
-	// 					if(rend.gameObject.CompareTag("highLight")){
-	// 						if(markedGuests.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID)){
-	// 							rend.material.shader = Shader.Find("Reflect_Bump_Spec_Lightmap");
-	// 							rend.material.SetColor("_ReflectColor", Color.yellow);
-	// 						} else {
-	// 							rend.material.color = Color.white;
-	// 							rend.material.shader = Shader.Find("Toon/Basic Outline");
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// 	if(spies!=null){
-	// 		nearSpy = false;
-	// 		foreach (GameObject spy in spies){
-	// 			if(spy!=accused){
-	// 				renders = spy.GetComponentsInChildren<Renderer>();
-	// 				foreach(Renderer rend in renders){
-	// 					if(rend.gameObject.CompareTag("highLight")){
-	// 						if(markedOther.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().owner.ID)){
-	// 							rend.material.color = Color.green;
-	// 						} else {
-	// 							rend.material.color = Color.white;
-	// 							rend.material.shader = Shader.Find("Toon/Basic Outline");
-	// 						}
-	// 					}
-	// 				}
-	// 			}
-	// 			if(Vector3.Distance(spy.transform.position, gameObject.transform.position)<50 && Mathf.Abs(spy.transform.position.y - gameObject.transform.position.y)<=2){
-	// 				nearSpy = true;
-	// 				if(!heartbeat.isPlaying){
-	// 					heartbeat.Play();
-	// 				}
-	// 			}
-	// 		}
-	// 		if(!nearSpy){
-	// 			heartbeat.Stop();
-	// 		}
-	// 	}
-	// }
 
 	void testAccusation(){
 		if(accused != null && accused.CompareTag("Spy") && !accused.GetComponent<BasePlayer>().isOut){
@@ -192,7 +163,7 @@ public class Guard : BasePlayer{
 			photonView.RPC("invokeSpyCaught", PhotonTargets.All);
 			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
 			accused.GetComponent<BasePlayer>().isOut = true;
-			spyCaughtLabel.SetActive(true);
+			spyCaughtLabel.active = true;
 			Invoke("removeSpyCaughtLabel", 2);
 			base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + accused.GetComponent<BasePlayer>().localHandle + "[-][FF2B2B]![-]");
 			accused = null;
@@ -206,7 +177,7 @@ public class Guard : BasePlayer{
 	}
 
 	void removeSpyCaughtLabel(){
-		spyCaughtLabel.SetActive(false);
+		spyCaughtLabel.active = false;
 	}
 
 	void stunCooldown(){
