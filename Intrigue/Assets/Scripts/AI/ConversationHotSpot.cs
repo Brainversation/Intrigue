@@ -88,6 +88,7 @@ public class ConversationHotSpot : MonoBehaviour {
 			if(Input.GetKeyUp(KeyCode.E) && other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha == 1){
 				++population;
 				queue.Add(other.gameObject);
+				other.gameObject.GetComponent<BasePlayer>().inConvoGUI.alpha = 1;
 				other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
 			} else if(Input.GetKeyUp(KeyCode.Space)){
 				other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
@@ -106,7 +107,9 @@ public class ConversationHotSpot : MonoBehaviour {
 			other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
 			Debug.Log("Ontrigger exit");
 			if(queue.Contains(other.gameObject)){
+				--population;
 				queue.Remove(other.gameObject);
+				other.gameObject.GetComponent<BasePlayer>().inConvoGUI.alpha = 0;
 				if(other.gameObject.GetComponent<Animator>().GetBool("Converse"))
 					other.gameObject.GetComponent<Animator>().SetBool("Converse", false);
 			}
@@ -117,6 +120,7 @@ public class ConversationHotSpot : MonoBehaviour {
 	void OnDestroy(){
 		foreach(GameObject g in players){
 			g.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
+			g.GetComponent<BasePlayer>().inConvoGUI.alpha = 0;
 		}
 	}
 

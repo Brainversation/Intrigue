@@ -31,6 +31,7 @@ public class BasePlayer : MonoBehaviour {
 	public GameObject chatArea;
 	public UITextList textList;
 	public UIPanel conversationGUI;
+	public UILabel inConvoGUI;
 	public UISprite chatWindow;
 	public UISprite server1GUI;
 	public UISprite server2GUI;
@@ -53,6 +54,7 @@ public class BasePlayer : MonoBehaviour {
 	protected virtual void Start (){
 		// Set conversationGUI so spy and guard can use
 		conversationGUI.alpha = 0;
+		inConvoGUI.alpha = 0;
 
 		staticShader = Shader.Find("Reflect_Bump_Spec_Lightmap");
 		toonShader = Shader.Find("Toon/Basic Outline");
