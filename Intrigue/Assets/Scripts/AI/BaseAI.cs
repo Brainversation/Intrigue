@@ -231,6 +231,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			photonView.RPC("updateStunPS", PhotonTargets.All, false);
 		}
 		stunInstantiated = false;
+		stunned = false;
 		// Debug.Log("Back to rule");
 		if(currentRule != null && currentRule.antiConsequence != null)
 			currentRule.antiConsequence();
