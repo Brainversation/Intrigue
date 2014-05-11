@@ -251,7 +251,7 @@ public class MainMenu : MonoBehaviour {
 			roomOp.isVisible = true;
 			roomOp.isOpen = true;
 			roomOp.maxPlayers = 10;
-			PhotonNetwork.CreateRoom("Test", roomOp, null);
+			PhotonNetwork.CreateRoom(player.Handle + "'s Quick Match", roomOp, null);
 			NGUITools.SetActive(quickMatchFailed, true);
 		}else{
 			CancelInvoke();
