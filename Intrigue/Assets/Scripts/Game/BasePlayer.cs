@@ -264,7 +264,15 @@ public class BasePlayer : MonoBehaviour {
 		if(!intrigue.gameOverFlag){
 			foreach (GameObject teamMates in GameObject.FindGameObjectsWithTag(player.Team)){
 				if(teamMates.gameObject != gameObject){
-					teamMates.GetComponentInChildren<Camera>().enabled = true; 
+					teamMates.GetComponentInChildren<Camera>().enabled = true;
+		 			foreach(UIPanel uiP in teamMates.GetComponentsInChildren<UIPanel>(true)){
+						if(uiP.gameObject.CompareTag("ChatArea") ||
+						   uiP.gameObject.CompareTag("Scoreboard") ||
+							uiP.gameObject.CompareTag("StunUI") ||
+							uiP.gameObject.CompareTag("TimeLabel")){
+							NGUITools.SetActive(uiP.gameObject, true);
+						}
+					}
 					break;
 				}
 			}

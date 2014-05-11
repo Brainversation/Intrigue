@@ -1392,7 +1392,7 @@ GameObject:
   - 114: {fileID: 11400060}
   m_Layer: 8
   m_Name: TimeBackground
-  m_TagString: Untagged
+  m_TagString: Scoreboard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1679,7 +1679,7 @@ GameObject:
   - 114: {fileID: 11400110}
   m_Layer: 8
   m_Name: Chat Area
-  m_TagString: Untagged
+  m_TagString: ChatArea
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1696,7 +1696,7 @@ GameObject:
   - 54: {fileID: 5400014}
   m_Layer: 8
   m_Name: Scoreboard
-  m_TagString: Untagged
+  m_TagString: Scoreboard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1915,7 +1915,7 @@ GameObject:
   - 54: {fileID: 5400018}
   m_Layer: 8
   m_Name: ServerPanel
-  m_TagString: Untagged
+  m_TagString: Scoreboard
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3213,7 +3213,7 @@ Transform:
   m_GameObject: {fileID: 100216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .0050125313, y: .0050125313, z: .0050125313}
+  m_LocalScale: {x: .00611620815, y: .00611620815, z: .00611620815}
   m_Children:
   - {fileID: 400214}
   - {fileID: 400212}
@@ -3247,7 +3247,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100220}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14, y: 13.5235806, z: 37.879261}
+  m_LocalPosition: {x: 14, y: 13.5235806, z: 40}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 400218}
@@ -6458,7 +6458,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3000
+  startingRenderQueue: 3002
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -6573,6 +6573,7 @@ MonoBehaviour:
   camSpeed: 2
   rotSpeed: .5
   smooth: 5
+  playerObj: {fileID: 100116}
 --- !u!114 &11400128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7102,7 +7103,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3003
+  startingRenderQueue: 3000
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}

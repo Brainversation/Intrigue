@@ -8,17 +8,13 @@ public class PlayerCamAnimator : MonoBehaviour {
 	public float camSpeed = 2.0f;
 	public float rotSpeed = .5f;
 	public float smooth = 5.0F;
+	public GameObject playerObj;
 
 	private float startTime;
 	private float journeyLength;
-	private GameObject playerObj;
 	private Quaternion startRot;
 	private Quaternion endRot;
 	private bool started = false;
-  
-	void Start() {
-	  playerObj = gameObject.transform.parent.gameObject;
-	}
 
 	void Update() {
 		if(playerObj.GetComponent<BasePlayer>().isOut){
