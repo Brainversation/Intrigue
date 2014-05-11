@@ -49,7 +49,7 @@ public class Intrigue : MonoBehaviour {
 
 	void Start () {
 		//CHANGE GAMEOVER HERE ~~~~~~~~~~~~~~~~~~~~~~~
-		wantGameOver = false;
+		wantGameOver = true;
 		//~~~~~~~~~~~~~~~~~~~~~~~~
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -203,6 +203,7 @@ public class Intrigue : MonoBehaviour {
 			} else {
 				player.Team = "Spy";
 			}
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team}});
 			PhotonNetwork.LoadLevel("Intrigue");
 		} else {
 			Debug.Log( "Game Over" );
