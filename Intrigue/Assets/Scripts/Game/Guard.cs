@@ -44,6 +44,7 @@ public class Guard : BasePlayer{
 			if(servers == null){
 				servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 			}
+
 			foreach(GameObject serv in servers){
 				if(serv.GetComponent<ObjectiveMain>().inUse){
 					//Debug.Log(serv.GetComponent<ObjectiveMain>().objectiveName + " in use");
@@ -51,17 +52,17 @@ public class Guard : BasePlayer{
 						case 1: if(!server1.isPlaying && !recentlyPlayed1){
 									server1.Play(); 
 									recentlyPlayed1=true;
-									Invoke("resetRecentlyPlayed1", 5f);} 
+									Invoke("resetRecentlyPlayed1", 10f);} 
 									break;
 						case 2: if(!server2.isPlaying && !recentlyPlayed2){
 									server2.Play(); 
 									recentlyPlayed2=true;
-									Invoke("resetRecentlyPlayed2", 5f);} 
+									Invoke("resetRecentlyPlayed2", 10f);} 
 									break;
 						case 3: if(!server3.isPlaying && !recentlyPlayed3){
 									server3.Play(); 
 									recentlyPlayed3=true;
-									Invoke("resetRecentlyPlayed3", 5f);} 
+									Invoke("resetRecentlyPlayed3", 10f);} 
 									break;
 					}
 				}
