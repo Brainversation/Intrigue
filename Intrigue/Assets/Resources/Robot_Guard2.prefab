@@ -2083,6 +2083,9 @@ MonoBehaviour:
   textList: {fileID: 0}
   conversationGUI: {fileID: 0}
   chatWindow: {fileID: 0}
+  server1GUI: {fileID: 0}
+  server2GUI: {fileID: 0}
+  server3GUI: {fileID: 0}
   localHandle: No Handle
   localPing: 0
   remoteScore: 0
@@ -2341,6 +2344,7 @@ MonoBehaviour:
   aspectRatio: 3
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -2493,6 +2497,7 @@ MonoBehaviour:
   aspectRatio: 4.9000001
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -2603,6 +2608,7 @@ MonoBehaviour:
   aspectRatio: 4.9000001
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -2644,7 +2650,6 @@ MonoBehaviour:
   spyTable: {fileID: 100136}
   spyTeam: {fileID: 100124}
   guardTeam: {fileID: 100132}
-  serverStats: {fileID: 0}
 --- !u!114 &11400036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2771,6 +2776,7 @@ MonoBehaviour:
   aspectRatio: 1
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
@@ -2921,6 +2927,7 @@ MonoBehaviour:
   aspectRatio: 1
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}

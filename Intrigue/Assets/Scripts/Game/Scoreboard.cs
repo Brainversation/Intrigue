@@ -13,7 +13,6 @@ public class Scoreboard : MonoBehaviour {
 	public GameObject spyTable;
 	public GameObject spyTeam;
 	public GameObject guardTeam;
-	//public GameObject serverStats;
 	private GameObject [] servers;
 	private int [] serverCompletions = new int [] {0,0,0};
 
@@ -22,7 +21,6 @@ public class Scoreboard : MonoBehaviour {
 		scoreboard.GetComponent<UIPanel>().alpha = 0;
 		//this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
-		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 		int s = 0;
 		int g = 0;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Score", player.Score}});
@@ -108,14 +106,6 @@ public class Scoreboard : MonoBehaviour {
 
 
 		
-	/*	//SERVER STATS
-		foreach(GameObject serv in servers){
-			int curServ = serv.GetComponent<ObjectiveMain>().objectiveName-1;
-			serverCompletions[curServ] = serv.GetComponent<ObjectiveMain>().completionPercentage;
-		}
-
-		serverStats.GetComponent<UILabel>().text = "SERVERS:\n1: [FF0000]" + serverCompletions[0] + "%[-] 2: [FF0000]" + serverCompletions[1] + "%[-] 3:[FF0000] " + serverCompletions[2] + "%[-]";
-	*/
 	}
 
 	void reloadScoreboard(){

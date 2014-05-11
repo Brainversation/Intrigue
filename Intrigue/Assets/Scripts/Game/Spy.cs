@@ -13,11 +13,11 @@ public class Spy : BasePlayer{
 	public UISlider objSlider;
 	
 	private int stuns = 3;
-	private GameObject [] servers; 
+	private GameObject [] serverInUse; 
 
 	void Awake(){
 		stunsUI.text = "Stun Charges:\n[00FF00]3[-]";
-		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
+		serverInUse = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 	}
 
 	protected override void Start(){
@@ -62,7 +62,7 @@ public class Spy : BasePlayer{
 			}
 
 			if( Input.GetKeyUp(KeyCode.E) ){
-				foreach(GameObject serv in servers){
+				foreach(GameObject serv in serverInUse){
 					serv.GetComponent<PhotonView>().RPC("setInUse",PhotonTargets.All, false);
 				}
 			}

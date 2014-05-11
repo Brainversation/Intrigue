@@ -23,7 +23,7 @@ public class Guard : BasePlayer{
 	private bool recentlyPlayed3 = false;
 	private bool stunInstantiated = false;
 	private GameObject[] spies = null;
-	private GameObject[] servers = null;
+	private GameObject[] serverAlerts = null;
 	private bool accusing = false;
 	private bool nearSpy = false;
 
@@ -39,15 +39,14 @@ public class Guard : BasePlayer{
 		if(photonView.isMine){
 			spies = GameObject.FindGameObjectsWithTag("Spy");
 
-			//Check if any servers under attack
+			//Check if any serverAlerts under attack
 			/*------------------------------------------------------*/
-			if(servers == null){
-				servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
+			if(serverAlerts == null){
+				serverAlerts = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 			}
 
-			foreach(GameObject serv in servers){
+			foreach(GameObject serv in serverAlerts){
 				if(serv.GetComponent<ObjectiveMain>().inUse){
-					//Debug.Log(serv.GetComponent<ObjectiveMain>().objectiveName + " in use");
 					switch (serv.GetComponent<ObjectiveMain>().objectiveName){
 						case 1: if(!server1.isPlaying && !recentlyPlayed1){
 									server1.Play(); 

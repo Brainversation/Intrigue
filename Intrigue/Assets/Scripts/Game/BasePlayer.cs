@@ -32,6 +32,9 @@ public class BasePlayer : MonoBehaviour {
 	public UITextList textList;
 	public UIPanel conversationGUI;
 	public UISprite chatWindow;
+	public UISprite server1GUI;
+	public UISprite server2GUI;
+	public UISprite server3GUI;
 
 	[HideInInspector] public string localHandle = "";
 	[HideInInspector] public int localPing = 0;
@@ -44,6 +47,7 @@ public class BasePlayer : MonoBehaviour {
 	private bool roundStarted = false;
 	private GameObject[] guardsList;
 	private GameObject[] spiesList;
+	private GameObject[] servers;
 	private List<GameObject> allPlayers = new List<GameObject>();
 
 	protected virtual void Start (){
@@ -52,7 +56,7 @@ public class BasePlayer : MonoBehaviour {
 
 		staticShader = Shader.Find("Reflect_Bump_Spec_Lightmap");
 		toonShader = Shader.Find("Toon/Basic Outline");
-		
+		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
@@ -137,7 +141,27 @@ public class BasePlayer : MonoBehaviour {
 				highlightTargeted();
 			}
 			/*------------------------------------------------------*/
-		}
+
+			//Updates Server GUI
+			foreach(GameObject serv in servers){
+				int curServ = serv.GetComponent<ObjectiveMain>().objectiveName-1;
+				UISprite curSprite = null;
+				switch(curServ){
+					case 0:	curSprite = server1GUI;
+						break;
+					case 1: curSprite = server2GUI;
+						break;
+					case 2: curSprite = server3GUI;
+						break;
+
+				}
+				if(curSprite){
+					curSprite.fillAmount = (float)serv.GetComponent<ObjectiveMain>().completionPercentage/100f;
+				}
+			}
+
+			
+			}
 
 		playFootsteps();
 
