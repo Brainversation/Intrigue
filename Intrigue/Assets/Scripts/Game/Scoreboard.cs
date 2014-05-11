@@ -56,7 +56,7 @@ public class Scoreboard : MonoBehaviour {
 			}else{
 
 				GameObject playerHandleInstance = NGUITools.AddChild(spyTable, playerPrefab);
-				Vector3 temp = new Vector3(0f,(g)*30f,0f);
+				Vector3 temp = new Vector3(0f,(s)*30f,0f);
 				playerHandleInstance.transform.localPosition -= temp;
 				UILabel handlelabel = playerHandleInstance.GetComponent<UILabel>();
 				handlelabel.user = play.ID;
@@ -64,7 +64,7 @@ public class Scoreboard : MonoBehaviour {
 				handlelabel.text = "";
 
 				GameObject playerScoreInstance = NGUITools.AddChild(spyTable, playerPrefab);
-				Vector3 temp2 = new Vector3(-75f,(g)*30f,0f);
+				Vector3 temp2 = new Vector3(-75f,(s)*30f,0f);
 				playerScoreInstance.transform.localPosition -= temp2;
 				UILabel scoreLabel = playerScoreInstance.GetComponent<UILabel>();
 				scoreLabel.user = play.ID;
@@ -72,7 +72,7 @@ public class Scoreboard : MonoBehaviour {
 				scoreLabel.text = "";
 
 				GameObject playerPingInstance = NGUITools.AddChild(spyTable, playerPrefab);
-				Vector3 temp3 = new Vector3(-158f,(g)*30f,0f);
+				Vector3 temp3 = new Vector3(-158f,(s)*30f,0f);
 				playerPingInstance.transform.localPosition -= temp3;
 				UILabel pingLabel = playerPingInstance.GetComponent<UILabel>();
 				pingLabel.user = play.ID;
