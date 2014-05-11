@@ -13,7 +13,7 @@ public class Scoreboard : MonoBehaviour {
 	public GameObject spyTable;
 	public GameObject spyTeam;
 	public GameObject guardTeam;
-	public GameObject serverStats;
+	//public GameObject serverStats;
 	private GameObject [] servers;
 	private int [] serverCompletions = new int [] {0,0,0};
 
@@ -29,23 +29,62 @@ public class Scoreboard : MonoBehaviour {
 
 		foreach(PhotonPlayer play in PhotonNetwork.playerList){
 			if((string)play.customProperties["Team"] == "Guard"){
-				GameObject playerScoreInstance= NGUITools.AddChild(guardTable, playerPrefab);
+				
+				GameObject playerHandleInstance = NGUITools.AddChild(guardTable, playerPrefab);
 				Vector3 temp = new Vector3(0f,(g)*30f,0f);
-				playerScoreInstance.transform.localPosition -= temp;
-				UILabel label = playerScoreInstance.GetComponent<UILabel>();
-				label.user = play.ID;
-				label.text = "";
+				playerHandleInstance.transform.localPosition -= temp;
+				UILabel handlelabel = playerHandleInstance.GetComponent<UILabel>();
+				handlelabel.user = play.ID;
+				handlelabel.labelType = "handle";
+				handlelabel.text = "";
+
+				GameObject playerScoreInstance = NGUITools.AddChild(guardTable, playerPrefab);
+				Vector3 temp2 = new Vector3(-75f,(g)*30f,0f);
+				playerScoreInstance.transform.localPosition -= temp2;
+				UILabel scoreLabel = playerScoreInstance.GetComponent<UILabel>();
+				scoreLabel.user = play.ID;
+				scoreLabel.labelType = "score";
+				scoreLabel.text = "";
+
+				GameObject playerPingInstance = NGUITools.AddChild(guardTable, playerPrefab);
+				Vector3 temp3 = new Vector3(-158f,(g)*30f,0f);
+				playerPingInstance.transform.localPosition -= temp3;
+				UILabel pingLabel = playerPingInstance.GetComponent<UILabel>();
+				pingLabel.user = play.ID;
+				pingLabel.labelType = "ping";
+				pingLabel.text = "";
+
 				++g;
 			}else{
-				GameObject playerScoreInstance= NGUITools.AddChild(spyTable, playerPrefab);
-				Vector3 temp = new Vector3(0f,(s)*30f,0f);
-				playerScoreInstance.transform.localPosition -= temp;
-				UILabel label = playerScoreInstance.GetComponent<UILabel>();
-				label.user = play.ID;
-				label.text = "";
+
+				GameObject playerHandleInstance = NGUITools.AddChild(spyTable, playerPrefab);
+				Vector3 temp = new Vector3(0f,(g)*30f,0f);
+				playerHandleInstance.transform.localPosition -= temp;
+				UILabel handlelabel = playerHandleInstance.GetComponent<UILabel>();
+				handlelabel.user = play.ID;
+				handlelabel.labelType = "handle";
+				handlelabel.text = "";
+
+				GameObject playerScoreInstance = NGUITools.AddChild(spyTable, playerPrefab);
+				Vector3 temp2 = new Vector3(-75f,(g)*30f,0f);
+				playerScoreInstance.transform.localPosition -= temp2;
+				UILabel scoreLabel = playerScoreInstance.GetComponent<UILabel>();
+				scoreLabel.user = play.ID;
+				scoreLabel.labelType = "score";
+				scoreLabel.text = "";
+
+				GameObject playerPingInstance = NGUITools.AddChild(spyTable, playerPrefab);
+				Vector3 temp3 = new Vector3(-158f,(g)*30f,0f);
+				playerPingInstance.transform.localPosition -= temp3;
+				UILabel pingLabel = playerPingInstance.GetComponent<UILabel>();
+				pingLabel.user = play.ID;
+				pingLabel.labelType = "ping";
+				pingLabel.text = "";
+
 				++s;
 			}
 		}
+
 		InvokeRepeating("reloadScoreboard", 1, 1);
 		reloadScoreboard();
 	}
@@ -59,24 +98,24 @@ public class Scoreboard : MonoBehaviour {
 			scoreboard.GetComponent<UIPanel>().alpha = 0;
 
 		if(player.Team=="Spy"){
-			spyTeam.GetComponent<UILabel>().text = "Spies : " + player.TeamScore;
-			guardTeam.GetComponent<UILabel>().text = "Guards : " + player.EnemyScore;
+			spyTeam.GetComponent<UILabel>().text = player.TeamScore.ToString();
+			guardTeam.GetComponent<UILabel>().text = player.EnemyScore.ToString();
 		}
 		else{
-			spyTeam.GetComponent<UILabel>().text = "Spies : " + player.EnemyScore;
-			guardTeam.GetComponent<UILabel>().text = "Guards : " + player.TeamScore;
+			spyTeam.GetComponent<UILabel>().text = player.EnemyScore.ToString();
+			guardTeam.GetComponent<UILabel>().text = player.TeamScore.ToString();
 		}
 
 
 		
-		//SERVER STATS
+	/*	//SERVER STATS
 		foreach(GameObject serv in servers){
 			int curServ = serv.GetComponent<ObjectiveMain>().objectiveName-1;
 			serverCompletions[curServ] = serv.GetComponent<ObjectiveMain>().completionPercentage;
 		}
 
 		serverStats.GetComponent<UILabel>().text = "SERVERS:\n1: [FF0000]" + serverCompletions[0] + "%[-] 2: [FF0000]" + serverCompletions[1] + "%[-] 3:[FF0000] " + serverCompletions[2] + "%[-]";
-
+	*/
 	}
 
 	void reloadScoreboard(){
@@ -90,9 +129,20 @@ public class Scoreboard : MonoBehaviour {
 			if((string)play.customProperties["Team"] == "Guard"){
 				foreach(Transform gC in guardTable.transform){
 					if(gC.gameObject.GetComponent<UILabel>().user == play.ID){
+						
 						UILabel label = gC.gameObject.GetComponent<UILabel>();
-						label.user = play.ID;
-						label.text = "[FF2B2B]" + (string)play.customProperties["Handle"] + "[-] - "+ (int)play.customProperties["Score"] + " ("+ pingColor + (int)play.customProperties["Ping"]+"[-]" + ") ms";
+						switch(label.labelType){
+							case "handle":
+								label.text = "[FFFFFF]" + (string)play.customProperties["Handle"];
+								break;
+							case "score":
+								label.text = "[FFFFFF]" + (int)play.customProperties["Score"];
+								break;
+							case "ping":
+								label.text = pingColor + (int)play.customProperties["Ping"]+"[-]";
+								break;
+						}
+
 					}
 				}
 			}
@@ -100,8 +150,18 @@ public class Scoreboard : MonoBehaviour {
 				foreach(Transform sC in spyTable.transform){
 					if(sC.gameObject.GetComponent<UILabel>().user == play.ID){
 						UILabel label = sC.gameObject.GetComponent<UILabel>();
-						label.user = play.ID;
-						label.text = "[00CCFF]" + (string)play.customProperties["Handle"] + "[-] - "+ (int)play.customProperties["Score"] + " ("+ pingColor + (int)play.customProperties["Ping"]+"[-]" + ") ms";
+						
+						switch(label.labelType){
+							case "handle":
+								label.text = "[FFFFFF]" + (string)play.customProperties["Handle"];
+								break;
+							case "score":
+								label.text = "[FFFFFF]" + (int)play.customProperties["Score"];
+								break;
+							case "ping":
+								label.text = pingColor + (int)play.customProperties["Ping"]+"[-]";
+								break;
+						}
 					}
 				}
 			}
