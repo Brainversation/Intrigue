@@ -181,7 +181,7 @@ public class Guard : BasePlayer{
 	}
 
 	void stunCooldown(){
-		stunned = false;
+		GetComponent<NetworkCharacter>().isStunned = stunned = false;
 		stunInstantiated = false;
 		photonView.RPC("updateStunPS", PhotonTargets.All, false);
 		NGUITools.SetActive(stunUI.gameObject, false);
@@ -192,7 +192,6 @@ public class Guard : BasePlayer{
 			ml.enabled = true;
 		}
 		GetComponentInChildren<Crosshair>().enabled = true;
-		GetComponent<CharacterController>().enabled = true;
 		GetComponent<MouseLook>().enabled = true;
 		Debug.Log("STUN OVER");
 	}
@@ -222,7 +221,7 @@ public class Guard : BasePlayer{
 			}
 
 			NGUITools.SetActive(stunUI.gameObject, true);
-			stunned = true;
+			stunned = GetComponent<NetworkCharacter>().isStunned = true;
 			//Have to disable the mouse look on the camera as well
 			Component [] mouseLooks = GetComponentsInChildren<MouseLook>();
 			foreach(MouseLook ml in mouseLooks){
@@ -232,7 +231,6 @@ public class Guard : BasePlayer{
 			GetComponentInChildren<AudioListener>().enabled = false;
 			GetComponentInChildren<Crosshair>().enabled = false;
 			GetComponent<MouseLook>().enabled = false;
-			GetComponent<CharacterController>().enabled = false;
 			Invoke("stunCooldown", 5);
 		}
 	}

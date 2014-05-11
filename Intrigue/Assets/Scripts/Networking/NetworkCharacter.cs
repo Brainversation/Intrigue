@@ -7,7 +7,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	public UIPanel sprintPanel;
 	public UISprite sprintSprite;
 	public Camera cam;
-	[HideInInspector] public bool isOut;
+	[HideInInspector] public bool isOut = false;
+	[HideInInspector] public bool isStunned = false;
 	[HideInInspector] public bool isChatting = false;
 
 	private Vector3 correctPlayerPos;
@@ -44,7 +45,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	}
 
 	public void FixedUpdate(){
-		if(photonView.isMine && !isOut && !isChatting){
+		if(photonView.isMine && !isOut && !isChatting && !isStunned){
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
 			//Rotating Character and Gravity
 			charControl();
