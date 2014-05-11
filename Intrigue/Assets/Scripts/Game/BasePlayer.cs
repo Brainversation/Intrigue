@@ -65,7 +65,7 @@ public class BasePlayer : MonoBehaviour {
 			photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
 			photonView.RPC("sendID", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
 			InvokeRepeating("syncPing", 1, 2F);
-			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ping", PhotonNetwork.GetPing()}});	
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team},{"Ping", PhotonNetwork.GetPing()}});	
 			textList.Add("[FF2B2B]Press [-]Shift [FF2B2B]+[-] Enter[FF2B2B] to chat![-]");
 			if(hairHat!=null)
 				hairHat.GetComponent<Renderer>().enabled = false;
