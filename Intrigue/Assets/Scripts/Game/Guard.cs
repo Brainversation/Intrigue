@@ -163,7 +163,7 @@ public class Guard : BasePlayer{
 			accused.GetComponent<BasePlayer>().isOut = true;
 			spyCaughtLabel.SetActive(true);
 			Invoke("removeSpyCaughtLabel", 2);
-			base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + accused.GetComponent<BasePlayer>().localHandle + "[-][FF2B2B]![-]");
+			base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + accused.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
 			accused = null;
 		}else{
 			photonView.RPC("invokeGuardFailed", PhotonTargets.All );
