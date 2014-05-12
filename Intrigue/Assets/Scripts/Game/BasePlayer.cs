@@ -123,11 +123,6 @@ public class BasePlayer : MonoBehaviour {
 			}
 			/*------------------------------------------------------*/
 
-			//Code to update time/round label
-			/*------------------------------------------------------*/
-			if(timeLabel!=null)
-				updateTimeLabel();
-			/*------------------------------------------------------*/
 			
 			//Highlights the currently targeted guest
 			/*------------------------------------------------------*/
@@ -156,6 +151,13 @@ public class BasePlayer : MonoBehaviour {
 				curSprite.fillAmount = (float)serv.GetComponent<ObjectiveMain>().completionPercentage/100f;
 			}
 		}
+
+		//Code to update time/round label
+		/*------------------------------------------------------*/
+		if(timeLabel!=null)
+			updateTimeLabel();
+		/*------------------------------------------------------*/
+
 
 		//Adding toggle to chat with Z and making chat visible
 		/*------------------------------------------------------*/
@@ -272,7 +274,8 @@ public class BasePlayer : MonoBehaviour {
 							uiP.gameObject.CompareTag("TimeLabel") ||
 							uiP.gameObject.CompareTag("UIRoot")){
 							NGUITools.SetActive(uiP.gameObject, true);
-							if(uiP.gameObject.CompareTag("Scoreboard")){
+
+							if(uiP.gameObject.CompareTag("Scoreboard") || uiP.gameObject.CompareTag("ChatArea")){
 								NGUITools.SetActiveChildren(uiP.gameObject, true);
 							}
 						}
