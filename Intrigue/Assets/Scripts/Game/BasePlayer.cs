@@ -136,7 +136,7 @@ public class BasePlayer : MonoBehaviour {
 			}
 			/*------------------------------------------------------*/
 	
-			}
+		}
 
 		playFootsteps();
 

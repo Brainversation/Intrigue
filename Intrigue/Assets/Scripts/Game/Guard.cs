@@ -35,11 +35,9 @@ public class Guard : BasePlayer{
 
 	protected override void Update (){
 		base.Update();
-		
 		if(photonView.isMine){
 			spies = GameObject.FindGameObjectsWithTag("Spy");
-
-
+			
 			//Heartbeat
 			if(spies!=null){
 				nearSpy = false;
@@ -193,7 +191,6 @@ public class Guard : BasePlayer{
 		}
 		GetComponentInChildren<Crosshair>().enabled = true;
 		GetComponent<MouseLook>().enabled = true;
-		Debug.Log("STUN OVER");
 	}
 
 	void spyCaught(){

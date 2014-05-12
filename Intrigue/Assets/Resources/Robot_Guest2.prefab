@@ -389,7 +389,7 @@ GameObject:
   - 95: {fileID: 9500000}
   m_Layer: 0
   m_Name: blueRobot
-  m_TagString: Untagged
+  m_TagString: highLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1255,7 +1255,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100054}
-  m_LocalRotation: {x: -.015661817, y: -1.38760855e-17, z: -2.17351374e-19, w: .999877334}
+  m_LocalRotation: {x: -.0156618189, y: -1.38760863e-17, z: -2.17351399e-19, w: .999877393}
   m_LocalPosition: {x: .000239017725, y: .0134034408, z: 2.99026498e-10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1279,7 +1279,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100058}
-  m_LocalRotation: {x: .578674376, y: -.39010796, z: .616687119, w: .364209712}
+  m_LocalRotation: {x: .578674436, y: -.390107989, z: .616687179, w: .364209741}
   m_LocalPosition: {x: -.0358847678, y: .053921666, z: -.00221311394}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1653,7 +1653,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100120}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.6223049, y: 2.80966997, z: 75.3882599}
+  m_LocalPosition: {x: -8.74061012, y: 8.90412712, z: -228.755157}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 400050}
@@ -1899,6 +1899,7 @@ MonoBehaviour:
   isYourTurn: 0
   status: 0
   distFromDest: 5
+  stunned: 0
   thirst: 0
   bored: 0
   hunger: 0

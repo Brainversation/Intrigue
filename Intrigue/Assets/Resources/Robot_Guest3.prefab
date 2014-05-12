@@ -251,7 +251,7 @@ GameObject:
   - 111: {fileID: 11100000}
   m_Layer: 0
   m_Name: LargeFemaleRobot
-  m_TagString: Untagged
+  m_TagString: highLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1127,7 +1127,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
-  m_LocalRotation: {x: .96180433, y: .0368518382, z: .263629645, w: .0638260692}
+  m_LocalRotation: {x: .96180439, y: .036851842, z: .263629675, w: .0638260767}
   m_LocalPosition: {x: -2.70117021, y: 1.61060598e-07, z: 1.83354132e-08}
   m_LocalScale: {x: 1, y: .999999821, z: 1}
   m_Children: []
@@ -1436,7 +1436,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100074}
-  m_LocalRotation: {x: .0051073404, y: -.0531432666, z: -.00714485859, w: .998548269}
+  m_LocalRotation: {x: .00510734087, y: -.0531432703, z: -.00714485906, w: .998548329}
   m_LocalPosition: {x: -.300528228, y: -7.4505806e-09, z: 8.84756446e-08}
   m_LocalScale: {x: 1, y: .999999762, z: .99999994}
   m_Children: []
@@ -1470,7 +1470,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100080}
-  m_LocalRotation: {x: -.00510734972, y: -.0531432554, z: .00714486139, w: .998548269}
+  m_LocalRotation: {x: -.00510735018, y: -.0531432591, z: .00714486185, w: .998548329}
   m_LocalPosition: {x: -.300527304, y: 8.19563866e-08, z: -1.35041773e-07}
   m_LocalScale: {x: .999999821, y: .999999642, z: .999999642}
   m_Children: []
@@ -1529,7 +1529,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100090}
-  m_LocalRotation: {x: .307747155, y: -.493642986, z: -.566493571, w: .583689392}
+  m_LocalRotation: {x: .307747185, y: -.493643016, z: -.56649363, w: .583689451}
   m_LocalPosition: {x: -2.24577332, y: .129670277, z: -.200525627}
   m_LocalScale: {x: 1.00000012, y: .99999994, z: .999999881}
   m_Children:
@@ -1759,7 +1759,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100128}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 46.3757286, y: 3.1654253, z: 75.9156876}
+  m_LocalPosition: {x: -9.91878033, y: 10.489563, z: -227.777115}
   m_LocalScale: {x: .500484347, y: .500484347, z: .500484347}
   m_Children:
   - {fileID: 400032}
@@ -1977,6 +1977,7 @@ MonoBehaviour:
   isYourTurn: 0
   status: 0
   distFromDest: 5
+  stunned: 0
   thirst: 0
   bored: 0
   hunger: 0
