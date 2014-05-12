@@ -139,6 +139,7 @@ public class Spy : BasePlayer{
 						if(hit.transform.tag == "Guard" && !hit.transform.gameObject.GetComponent<Guard>().stunned){
 							photonView.RPC("addPlayerScore", PhotonTargets.All, 50);
 							hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
+							hit.transform.gameObject.GetComponent<Guard>().stunned = true;
 							stuns--;
 							base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned [-][FF2B2B]" + hit.transform.gameObject.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
 						}
