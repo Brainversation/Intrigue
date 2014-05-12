@@ -99,8 +99,13 @@ public class BaseAI : Photon.MonoBehaviour {
 						return;
 
 					if (agent.pathStatus == NavMeshPathStatus.PathPartial ||
-						agent.pathStatus == NavMeshPathStatus.PathPartial){
+						agent.pathStatus == NavMeshPathStatus.PathInvalid){
 						//Debug.Log("Path invalid or can not be reached!");
+						anim.SetBool("Speed", false);
+						agent.ResetPath();
+						tree = null;
+						CancelInvoke();
+						Invoke("backToRule", 5f);
 					}
 
 					if(agent.hasPath && !agent.pathPending && agent.remainingDistance < distFromDest){
@@ -232,7 +237,6 @@ public class BaseAI : Photon.MonoBehaviour {
 		}
 		stunInstantiated = false;
 		stunned = false;
-		// Debug.Log("Back to rule");
 		if(currentRule != null && currentRule.antiConsequence != null)
 			currentRule.antiConsequence();
 		if(!agent.hasPath) status = Status.False;

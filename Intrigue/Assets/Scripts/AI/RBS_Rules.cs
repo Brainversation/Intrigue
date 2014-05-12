@@ -6,12 +6,9 @@ using BehaviorTree;
 
 namespace RBS{
 	class WantToMoveRoom : Rule{
-		private GameObject go;
 		public WantToMoveRoom(GameObject gameObject){
-			this.go = gameObject;
 			this.addCondition(new IsContent(gameObject));
 			this.consequence = goToRoom;
-			this.antiConsequence = stopMoving;
 			this.weight = 7;
 		}
 
@@ -46,20 +43,12 @@ namespace RBS{
             script.anim.SetBool("Speed", true);
             return Status.Waiting;
 		}
-
-		private Status stopMoving(){
-			this.go.GetComponent<BaseAI>().anim.SetBool("Speed", false);
-			return Status.True;
-		}
 	}
 
 	class WantToWanderRoom : Rule{
-		private GameObject go;
 		public WantToWanderRoom(GameObject gameObject){
-			this.go = gameObject;
 			this.addCondition(new IsBored(gameObject));
 			this.consequence = wanderRoom;
-			this.antiConsequence = stopMoving;
 			this.weight = 7;
 		}
 
@@ -93,11 +82,6 @@ namespace RBS{
             script.anim.SetBool("Speed", true);
             script.agent.SetDestination(newDest);
             return Status.Waiting;
-		}
-
-		private Status stopMoving(){
-			this.go.GetComponent<BaseAI>().anim.SetBool("Speed", false);
-			return Status.True;
 		}
 	}
 

@@ -14,7 +14,6 @@ public class Scoreboard : MonoBehaviour {
 	public GameObject spyTeam;
 	public GameObject guardTeam;
 	private GameObject [] servers;
-	private int [] serverCompletions = new int [] {0,0,0};
 
 	// Use this for initialization
 	void Start () {

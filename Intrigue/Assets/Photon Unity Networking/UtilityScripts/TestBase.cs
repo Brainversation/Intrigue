@@ -30,6 +30,6 @@ public class TestBase : Photon.MonoBehaviour
 
     public virtual void OnPhotonRandomJoinFailed()
     {
-        PhotonNetwork.CreateRoom(null, true, true, 4);
+        PhotonNetwork.CreateRoom("null");
     }
 }
