@@ -57,7 +57,6 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void Start(){
 		anim = GetComponent<Animator>();
-		anim.speed = 1f;
 		initAI();
 	}
 

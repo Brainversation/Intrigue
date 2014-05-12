@@ -11,6 +11,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	[HideInInspector] public bool isStunned = false;
 	[HideInInspector] public bool isChatting = false;
 
+	private float charSpeed = 10;
+	private float speedMult = 1;
 	private Vector3 correctPlayerPos;
 	private Quaternion correctPlayerRot;
 	private Animator anim;
@@ -46,12 +48,11 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	public void FixedUpdate(){
 		if(photonView.isMine && !isOut && !isChatting && !isStunned){
-			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
-			//Rotating Character and Gravity
-			charControl();
-
 			// Stamina functionality
 			doStamina();
+
+			//Rotating Character and Gravity
+			charControl();
 		}
 		else if(photonView.isMine && isOut){
 			anim.SetFloat("Speed", 0f);
@@ -65,12 +66,16 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		Vector3 moveDirection = Vector3.zero;
 
 		if(Input.GetKey(KeyCode.LeftControl)){
-			moveDirection.x += Input.GetAxis("Horizontal") * 10;
-			moveDirection = transform.TransformDirection(moveDirection);
+			moveDirection.x += Input.GetAxis("Horizontal") * charSpeed * speedMult;
 		} else {
-			transform.Rotate(0, Input.GetAxis("Horizontal") * 90 * Time.deltaTime, 0); 
+			transform.Rotate(0, Input.GetAxis("Horizontal") * 90 * Time.deltaTime, 0);
+			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
+			moveDirection.z += Input.GetAxis("Vertical") * charSpeed * speedMult;
 		}
 
+		moveDirection = transform.TransformDirection(moveDirection);
+
+		// For gravity
 		moveDirection.y -= 1000 * Time.deltaTime;
 		GetComponent<CharacterController>().Move(moveDirection * Time.deltaTime); 
 	}
@@ -81,8 +86,9 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			canRegen = false;
 			cam.transform.localPosition = camStart + new Vector3(0f,0f,2f);
 			anim.SetBool("Run", Input.GetKey("left shift"));
-		}
-		else{
+			speedMult = Mathf.PI;
+		} else {
+			speedMult = 1;
 			cam.transform.localPosition = camStart;
 			if(!canRegen){
 				Invoke("StartRegen", 3);
