@@ -11,6 +11,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 	public GameObject loadTitle;
 	public GameObject loadResult;
 	public GameObject loadNextRound;
+	public GameObject loadTip;
 	private AsyncOperation async;
 	private Player player;
 	private GameObject[] guards;
@@ -30,6 +31,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		loadTimer.GetComponent<UILabel>().text = totalCountdownWithLoading+"s";
 
+		loadTip.GetComponent<UILabel>().text = getNewTip();
 		guards = GameObject.FindGameObjectsWithTag("Guard");
 		spies = GameObject.FindGameObjectsWithTag("Spy");
 		
@@ -114,6 +116,26 @@ public class LoadingScreenV2 : MonoBehaviour {
 	void beepHigh(){
 		audio.pitch = 0.65f;
 		audio.Play();
+	}
+
+	string getNewTip(){
+		int rand = Random.Range(1,5);
+		string tip;
+
+		switch(rand){
+			case 1: tip = "Tip: Use the 'A' and 'D' keys to rotate smoothly!";
+				break;
+			case 2: tip = "Tip: When you start downloading a server, it alerts the guards!\nUse this to your advantage.";
+				break;
+			case 3: tip = "Tip: As a Spy, use 'F' to stun Guards!";
+				break;
+			case 4: tip = "Tip: As a Guard, use 'M' to mark suspicious guests!";
+				break;
+			default: tip = "Tip: Kayvan rarely showers, avoid getting to near!";
+				break;
+		}
+
+		return tip;
 	}
 
 	[RPC]
