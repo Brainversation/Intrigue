@@ -3,6 +3,7 @@ using System.Collections;
 
 public class NetworkCharacter : Photon.MonoBehaviour {
 	
+	public const float CHARSPEED = 10;
 
 	public UIPanel sprintPanel;
 	public UISprite sprintSprite;
@@ -10,8 +11,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	[HideInInspector] public bool isOut = false;
 	[HideInInspector] public bool isStunned = false;
 	[HideInInspector] public bool isChatting = false;
+	
 
-	private float charSpeed = 10;
 	private float speedMult = 1;
 	private Vector3 correctPlayerPos;
 	private Quaternion correctPlayerRot;
@@ -66,11 +67,11 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		Vector3 moveDirection = Vector3.zero;
 
 		if(Input.GetKey(KeyCode.LeftControl)){
-			moveDirection.x += Input.GetAxis("Horizontal") * charSpeed * speedMult;
+			moveDirection.x += Input.GetAxis("Horizontal") * CHARSPEED * speedMult;
 		} else {
 			transform.Rotate(0, Input.GetAxis("Horizontal") * 90 * Time.deltaTime, 0);
 			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
-			moveDirection.z += Input.GetAxis("Vertical") * charSpeed * speedMult;
+			moveDirection.z += Input.GetAxis("Vertical") * CHARSPEED * speedMult;
 		}
 
 		moveDirection = transform.TransformDirection(moveDirection);

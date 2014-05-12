@@ -57,6 +57,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void Start(){
 		anim = GetComponent<Animator>();
+		GetComponent<NavMeshAgent>().speed = NetworkCharacter.CHARSPEED;
 		initAI();
 	}
 
@@ -178,13 +179,13 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void initAI(){
 		rules = new List<Rule>();
-		// rules.Add( new WantToGetDrink(gameObject) );
+		rules.Add( new WantToGetDrink(gameObject) );
 		rules.Add( new WantToConverse(gameObject) );
-		// rules.Add( new FindRoom(gameObject) );
-		// rules.Add( new WantToWanderRoom(gameObject) );
-		// rules.Add( new WantToMoveRoom(gameObject) );
-		// rules.Add( new NeedToUseRestroom(gameObject) );
-		// rules.Add( new AdmireArt(gameObject) );
+		rules.Add( new FindRoom(gameObject) );
+		rules.Add( new WantToWanderRoom(gameObject) );
+		rules.Add( new WantToMoveRoom(gameObject) );
+		rules.Add( new NeedToUseRestroom(gameObject) );
+		rules.Add( new AdmireArt(gameObject) );
 		//<-------- Rules To Add ------->
 		// Relax
 		// LetOffSteam
