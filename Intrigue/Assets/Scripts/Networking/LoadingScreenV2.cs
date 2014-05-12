@@ -34,10 +34,12 @@ public class LoadingScreenV2 : MonoBehaviour {
 		spies = GameObject.FindGameObjectsWithTag("Spy");
 		
 		foreach (GameObject guard in guards){
+			guard.GetComponentInChildren<Camera>().GetComponentInChildren<MouseLook>().enabled = false;
 			guard.GetComponentInChildren<MouseLook>().enabled = false;
 		}
 
 		foreach (GameObject spy in spies){
+			spy.GetComponentInChildren<Camera>().GetComponentInChildren<MouseLook>().enabled = false;
 			spy.GetComponentInChildren<MouseLook>().enabled = false;
 		}
 
@@ -56,10 +58,13 @@ public class LoadingScreenV2 : MonoBehaviour {
 			transform.parent.gameObject.SetActive(false);
 
 			foreach (GameObject guard in guards){
+				Debug.Log("Game is starting");
+				guard.GetComponentInChildren<Camera>().GetComponentInChildren<MouseLook>().enabled = true;
 				guard.GetComponentInChildren<MouseLook>().enabled = true;
 			}
 
 			foreach (GameObject spy in spies){
+				spy.GetComponentInChildren<Camera>().GetComponentInChildren<MouseLook>().enabled = true;
 				spy.GetComponentInChildren<MouseLook>().enabled = true;
 			}
 		}

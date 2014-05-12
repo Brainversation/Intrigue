@@ -4360,7 +4360,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e51523429444e88418804b8bb5ec0b5b, type: 3}
   m_Name: 
@@ -5210,7 +5210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51523429444e88418804b8bb5ec0b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axes: 0
+  axes: 1
   sensitivityX: 15
   sensitivityY: 15
   minimumX: -360
@@ -5429,7 +5429,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3012
+  startingRenderQueue: 3010
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
