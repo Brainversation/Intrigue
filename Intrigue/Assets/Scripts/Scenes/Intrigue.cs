@@ -55,6 +55,7 @@ public class Intrigue : MonoBehaviour {
 		player = GameObject.Find("Player").GetComponent<Player>();
 		totalGuests = player.Guests;
 		if(PhotonNetwork.isMasterClient){
+			timeLeft = TIMELIMIT;
 			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
 			for(int i=0; i < spawnObjects.Length; i++){
 				spawns.Add(spawnObjects[i].transform);
