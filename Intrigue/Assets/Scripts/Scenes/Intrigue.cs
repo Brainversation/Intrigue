@@ -204,6 +204,7 @@ public class Intrigue : MonoBehaviour {
 			} else {
 				player.Team = "Spy";
 			}
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team}});			
 			PhotonNetwork.LoadLevel("Intrigue");
 		} else {
 			Debug.Log( "Game Over" );
