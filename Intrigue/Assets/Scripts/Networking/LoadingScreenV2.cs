@@ -131,7 +131,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 				break;
 			case 4: tip = "Tip: As a Guard, use 'M' to mark suspicious guests!";
 				break;
-			default: tip = "Tip: Kayvan rarely showers, avoid getting to near!";
+			default: tip = "Tip: Kayvan rarely showers, avoid getting too near!";
 				break;
 		}
 
