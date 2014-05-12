@@ -220,8 +220,8 @@ public class Guard : BasePlayer{
 				stunInstantiated = true;
 			}
 
-			NGUITools.SetActive(stunUI.gameObject, true);
 			stunned = GetComponent<NetworkCharacter>().isStunned = true;
+			NGUITools.SetActive(stunUI.gameObject, true);
 			//Have to disable the mouse look on the camera as well
 			Component [] mouseLooks = GetComponentsInChildren<MouseLook>();
 			foreach(MouseLook ml in mouseLooks){
@@ -237,6 +237,7 @@ public class Guard : BasePlayer{
 
 	[RPC]
 	void updateStunPS(bool creating){
+		stunned = creating;
 		if(creating){
 			currentStunEffect = Instantiate(stunPrefab, transform.position, transform.rotation) as GameObject;
 			currentStunEffect.transform.parent = transform;
