@@ -15,6 +15,8 @@ public class PostGame : MonoBehaviour {
 	private GameObject wins;
 	private List<string> team1= new List<string>();
 	private List<string> team2 = new List<string>();
+	private int curSpy = 0;
+	private int curGuard = 0;
 
 	// Use this for initialization 
 	void Start(){
@@ -28,7 +30,7 @@ public class PostGame : MonoBehaviour {
 				addTeam1((string)play.customProperties["Handle"], (int)play.customProperties["Score"], play.ID);
 			}
 			else{
-				Debug.Log("Added team 1");
+				Debug.Log("Added team 2");
 				addTeam2((string)play.customProperties["Handle"], (int)play.customProperties["Score"], play.ID);
 			}
 		}
@@ -69,20 +71,22 @@ public class PostGame : MonoBehaviour {
 	void addTeam1(string handle, int score, int playerID){
 		team1.Add(handle);
 		GameObject playerInfo = NGUITools.AddChild(spyTable, playerPrefab);
-		Vector3 temp = new Vector3(0f,(team1.Count-1)*0.1f,0);
+		Vector3 temp = new Vector3(0f,(curSpy)*0.1f,0);
 		playerInfo.transform.localPosition-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = playerID;
 		label.text = "[00CCFF]" + handle + "[-] - " + score;
+		++curSpy;
 	}
 
 	void addTeam2(string handle, int score, int playerID){
 		team2.Add(handle);
 		GameObject playerInfo = NGUITools.AddChild(guardTable, playerPrefab);
-		Vector3 temp = new Vector3(0f,(team2.Count-1)*0.1f,0);
+		Vector3 temp = new Vector3(0f,(curGuard)*0.1f,0);
 		playerInfo.transform.position-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = playerID;
 		label.text = "[FF2B2B]" + handle + "[-] - " + score;
+		++curGuard;
 	}
 }

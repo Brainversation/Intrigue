@@ -307,7 +307,7 @@ public class BasePlayer : MonoBehaviour {
 			}
 		}
 
-		if (Physics.Raycast(ray, out hit, 25, layerMask)) {
+		if (Physics.Raycast(ray, out hit, 15, layerMask)) {
 			renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
 			foreach(Renderer rend in renders){
 				if(rend.gameObject.CompareTag("highLight"))
