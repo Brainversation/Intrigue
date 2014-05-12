@@ -70,23 +70,45 @@ public class PostGame : MonoBehaviour {
 
 	void addTeam1(string handle, int score, int playerID){
 		team1.Add(handle);
+
+		//Name
 		GameObject playerInfo = NGUITools.AddChild(spyTable, playerPrefab);
-		Vector3 temp = new Vector3(0f,(curSpy)*0.1f,0);
+		Vector3 temp = new Vector3(0,(curSpy)*30f,0);
 		playerInfo.transform.localPosition-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = playerID;
-		label.text = "[00CCFF]" + handle + "[-] - " + score;
+		label.text = "[00CCFF]" + handle;
+
+		//Score
+		GameObject playerInfo2 = NGUITools.AddChild(spyTable, playerPrefab);
+		Vector3 temp2 = new Vector3(-250,(curSpy)*30f,0);
+		playerInfo2.transform.localPosition-=temp;
+		UILabel label2 = playerInfo2.GetComponent<UILabel>();
+		label2.user = playerID;
+		label2.text = "[FFFFFF]" + score;
+
 		++curSpy;
 	}
 
 	void addTeam2(string handle, int score, int playerID){
 		team2.Add(handle);
+
+		//Name
 		GameObject playerInfo = NGUITools.AddChild(guardTable, playerPrefab);
-		Vector3 temp = new Vector3(0f,(curGuard)*0.1f,0);
-		playerInfo.transform.position-=temp;
+		Vector3 temp = new Vector3(0,(curGuard)*30f,0);
+		playerInfo.transform.localPosition-=temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = playerID;
-		label.text = "[FF2B2B]" + handle + "[-] - " + score;
+		label.text = "[FF2B2B]" + handle;
+
+		//Score
+		GameObject playerInfo2 = NGUITools.AddChild(guardTable, playerPrefab);
+		Vector3 temp2 = new Vector3(-250,(curGuard)*30f,0);
+		playerInfo2.transform.localPosition-=temp;
+		UILabel label2 = playerInfo2.GetComponent<UILabel>();
+		label2.user = playerID;
+		label2.text = "[FFFFFF]" + score;
+
 		++curGuard;
 	}
 }
