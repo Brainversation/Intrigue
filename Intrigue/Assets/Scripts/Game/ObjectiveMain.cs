@@ -26,8 +26,8 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 	}
 
 	void Update(){
-		completionPercent.text = Mathf.RoundToInt(100-((timeLeft/completionTime)*100)).ToString() + "%";
 		completionPercentage = Mathf.RoundToInt(100-((timeLeft/completionTime)*100));
+		completionPercent.text = completionPercentage.ToString() + "%";
 	}
 
 	public void useObjective(GameObject user){

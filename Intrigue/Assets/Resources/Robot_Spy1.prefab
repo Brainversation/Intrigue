@@ -2563,8 +2563,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100176}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 58, y: -.268493652, z: 0}
-  m_LocalScale: {x: .999973834, y: .999973834, z: .999973834}
+  m_LocalPosition: {x: 58.1899986, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400204}
 --- !u!4 &400148
@@ -2574,8 +2574,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100178}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30, y: 0, z: 0}
-  m_LocalScale: {x: .999973834, y: .999973834, z: .999973834}
+  m_LocalPosition: {x: 29.3700008, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400204}
 --- !u!4 &400150
@@ -2901,7 +2901,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100202}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .00193786621, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400204}
@@ -2916,14 +2916,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400206}
+  - {fileID: 400202}
+  - {fileID: 400148}
   - {fileID: 400208}
+  - {fileID: 400146}
   - {fileID: 400210}
   - {fileID: 400200}
   - {fileID: 400198}
-  - {fileID: 400202}
   - {fileID: 400144}
-  - {fileID: 400148}
-  - {fileID: 400146}
   m_Father: {fileID: 400194}
 --- !u!4 &400206
 Transform:
@@ -3337,7 +3337,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3009
+  startingRenderQueue: 3012
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -3377,7 +3377,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3009
+  startingRenderQueue: 3012
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4204,6 +4204,7 @@ MonoBehaviour:
   textAdded: 0
   isAssigned: 0
   isOut: 0
+  isChatting: 0
   percentComplete: 0
   doingObjective: 0
   objectiveType: 
@@ -4244,7 +4245,6 @@ MonoBehaviour:
   cam: {fileID: 2000000}
   isOut: 0
   isStunned: 0
-  isChatting: 0
 --- !u!114 &11400050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4369,7 +4369,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3007
+  startingRenderQueue: 3009
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4638,15 +4638,15 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 0, g: 1, b: .0896551609, a: 1}
   mPivot: 4
-  mWidth: 35
-  mHeight: 35
+  mWidth: 20
+  mHeight: 18
   mDepth: -1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: 1.11111116
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
-  mSpriteName: Window
+  mSpriteName: Wooden Background
   mType: 3
   mFillDirection: 1
   mFillAmount: 1
@@ -4686,15 +4686,15 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 0, g: 1, b: .0896551609, a: 1}
   mPivot: 4
-  mWidth: 35
-  mHeight: 35
+  mWidth: 20
+  mHeight: 18
   mDepth: -1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: 1.11111116
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
-  mSpriteName: Window
+  mSpriteName: Wooden Background
   mType: 3
   mFillDirection: 1
   mFillAmount: 1
@@ -4739,7 +4739,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3009
+  startingRenderQueue: 3012
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -4779,7 +4779,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3010
+  startingRenderQueue: 3013
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -5034,7 +5034,7 @@ MonoBehaviour:
   alwaysOnScreen: 0
   anchorOffset: 0
   renderQueue: 0
-  startingRenderQueue: 3008
+  startingRenderQueue: 3010
   mAlpha: 1
   mClipping: 0
   mClipRange: {x: 0, y: 0, z: 300, w: 200}
@@ -5380,15 +5380,15 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 0, g: 1, b: .0896551609, a: 1}
   mPivot: 4
-  mWidth: 35
-  mHeight: 35
+  mWidth: 20
+  mHeight: 18
   mDepth: -1
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1
+  aspectRatio: 1.11111116
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
-  mSpriteName: Window
+  mSpriteName: Wooden Background
   mType: 3
   mFillDirection: 1
   mFillAmount: 1
