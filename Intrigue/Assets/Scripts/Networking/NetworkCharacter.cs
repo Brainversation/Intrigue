@@ -65,24 +65,25 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	void charControl(){
 		Vector3 moveDirection = Vector3.zero;
+		if(!Intrigue.playerGO.GetComponent<Spy>().doingObjective){
+			if(Input.GetKey(KeyCode.LeftControl)){
+				moveDirection.x += Input.GetAxis("Horizontal") * CHARSPEED * speedMult;
+			} else {
+				transform.Rotate(0, Input.GetAxis("Horizontal") * 90 * Time.deltaTime, 0);
+				anim.SetFloat("Speed", Input.GetAxis("Vertical"));
+				moveDirection.z += Input.GetAxis("Vertical") * CHARSPEED * speedMult;
+			}
 
-		if(Input.GetKey(KeyCode.LeftControl)){
-			moveDirection.x += Input.GetAxis("Horizontal") * CHARSPEED * speedMult;
-		} else {
-			transform.Rotate(0, Input.GetAxis("Horizontal") * 90 * Time.deltaTime, 0);
-			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
-			moveDirection.z += Input.GetAxis("Vertical") * CHARSPEED * speedMult;
+			moveDirection = transform.TransformDirection(moveDirection);
+
+			// For gravity
+			moveDirection.y -= 1000 * Time.deltaTime;
+			GetComponent<CharacterController>().Move(moveDirection * Time.deltaTime); 
 		}
-
-		moveDirection = transform.TransformDirection(moveDirection);
-
-		// For gravity
-		moveDirection.y -= 1000 * Time.deltaTime;
-		GetComponent<CharacterController>().Move(moveDirection * Time.deltaTime); 
 	}
 
 	void doStamina(){
-		if(stamina>=1 && Input.GetKey("left shift") && Input.GetAxis("Vertical")!=0){
+		if(stamina>=1 && Input.GetKey("left shift") && Input.GetAxis("Vertical")!=0 && !Intrigue.playerGO.GetComponent<Spy>().doingObjective){
 			stamina-=staminaDrainSpeed*Time.deltaTime;
 			canRegen = false;
 			cam.transform.localPosition = camStart + new Vector3(0f,0f,2f);
