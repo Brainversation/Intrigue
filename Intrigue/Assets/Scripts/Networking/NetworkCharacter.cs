@@ -87,13 +87,18 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	}
 
 	void doStamina(){
-		if(stamina>=1 && Input.GetKey("left shift") && Input.GetAxis("Vertical")!=0 && !Intrigue.playerGO.GetComponent<Spy>().doingObjective){
+		bool canMove = true;
+		if(player.Team == "Spy" && Intrigue.playerGO.GetComponent<Spy>().doingObjective)
+			canMove = false;
+			
+		if(canMove && stamina>=1 && Input.GetKey("left shift") && Input.GetAxis("Vertical")!=0){
 			stamina-=staminaDrainSpeed*Time.deltaTime;
 			canRegen = false;
 			cam.transform.localPosition = camStart + new Vector3(0f,0f,2f);
 			anim.SetBool("Run", Input.GetKey("left shift"));
 			speedMult = Mathf.PI;
-		} else {
+		} 
+		else {
 			speedMult = 1;
 			cam.transform.localPosition = camStart;
 			if(!canRegen){
