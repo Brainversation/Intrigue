@@ -39,23 +39,13 @@ public class PostGame : MonoBehaviour {
 		team2s = GameObject.FindGameObjectWithTag("Team2Score");
 		wins = GameObject.FindGameObjectWithTag("Winner");
 
-		if(player.TeamID==1){
-			team1s.GetComponent<UILabel>().text = "TEAM 1: " + "[FFFFFF]"+player.TeamScore;
-			team2s.GetComponent<UILabel>().text = "TEAM 2: " + "[FFFFFF]"+player.EnemyScore;
-			if(player.TeamScore>player.EnemyScore)
-				wins.GetComponent<UILabel>().text = "TEAM 1 WINS";
-			else
-				wins.GetComponent<UILabel>().text = "TEAM 2 WINS";				
-		}
-		else{
-			team1s.GetComponent<UILabel>().text = "TEAM 1: " + "[FFFFFF]"+player.EnemyScore;
-			team2s.GetComponent<UILabel>().text = "TEAM 2: " + "[FFFFFF]"+player.TeamScore;
-			if(player.TeamScore<player.EnemyScore)
-				wins.GetComponent<UILabel>().text = "TEAM 1 WINS";
-			else
-				wins.GetComponent<UILabel>().text = "TEAM 2 WINS";	
-		}
-
+		PhotonPlayer playRef = PhotonNetwork.player;
+		team1s.GetComponent<UILabel>().text = "TEAM 1: " + "[FFFFFF]"+  (int)playRef.customProperties["Team1Score"];
+		team2s.GetComponent<UILabel>().text = "TEAM 2: " + "[FFFFFF]"+ (int)playRef.customProperties["Team2Score"];
+		if((int)playRef.customProperties["Team1Score"] > (int)playRef.customProperties["Team2Score"])
+			wins.GetComponent<UILabel>().text = "TEAM 1 WINS";
+		else
+			wins.GetComponent<UILabel>().text = "TEAM 2 WINS";				
 	}
 	
 	// Update is called once per frame
@@ -73,16 +63,16 @@ public class PostGame : MonoBehaviour {
 
 		//Name
 		GameObject playerInfo = NGUITools.AddChild(spyTable, playerPrefab);
-		Vector3 temp = new Vector3(0,(curSpy)*30f,0);
-		playerInfo.transform.localPosition-=temp;
+		Vector3 temp = new Vector3(0,-(curSpy)*30f,0);
+		playerInfo.transform.localPosition = temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = playerID;
 		label.text = "[00CCFF]" + handle;
 
 		//Score
 		GameObject playerInfo2 = NGUITools.AddChild(spyTable, playerPrefab);
-		Vector3 temp2 = new Vector3(-250,(curSpy)*30f,0);
-		playerInfo2.transform.localPosition-=temp;
+		Vector3 temp2 = new Vector3(330,-(curSpy)*30f,0);
+		playerInfo2.transform.localPosition = temp2;
 		UILabel label2 = playerInfo2.GetComponent<UILabel>();
 		label2.user = playerID;
 		label2.text = "[FFFFFF]" + score;
@@ -95,20 +85,20 @@ public class PostGame : MonoBehaviour {
 
 		//Name
 		GameObject playerInfo = NGUITools.AddChild(guardTable, playerPrefab);
-		Vector3 temp = new Vector3(0,(curGuard)*30f,0);
-		playerInfo.transform.localPosition-=temp;
+		Vector3 temp = new Vector3(0,-(curGuard)*30f,0);
+		playerInfo.transform.localPosition = temp;
 		UILabel label = playerInfo.GetComponent<UILabel>();
 		label.user = playerID;
 		label.text = "[FF2B2B]" + handle;
 
 		//Score
 		GameObject playerInfo2 = NGUITools.AddChild(guardTable, playerPrefab);
-		Vector3 temp2 = new Vector3(-250,(curGuard)*30f,0);
-		playerInfo2.transform.localPosition-=temp;
+		Vector3 temp2 = new Vector3(330,-(curGuard)*30f,0);
+		playerInfo2.transform.localPosition = temp2;
 		UILabel label2 = playerInfo2.GetComponent<UILabel>();
 		label2.user = playerID;
 		label2.text = "[FFFFFF]" + score;
-
+		
 		++curGuard;
 	}
 }

@@ -262,11 +262,13 @@ public class Guard : BasePlayer{
 			player.Score += scoreToAdd;
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Score", player.Score}});
 		}
-		if(teamID == this.player.TeamID){
-			player.TeamScore += scoreToAdd;
+		if(teamID == 1){
+			player.Team1Score += scoreToAdd;
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team1Score", player.Team1Score}});
 		}
 		else{
-			player.EnemyScore += scoreToAdd;
+			player.Team2Score += scoreToAdd;
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team2Score", player.Team2Score}});
 		}
 	}
 

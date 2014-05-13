@@ -509,7 +509,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 160989930}
-  - 114: {fileID: 160989931}
   - 114: {fileID: 160989932}
   m_Layer: 8
   m_Name: Table
@@ -529,23 +528,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 816084423}
---- !u!114 &160989931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 160989929}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ca9c6e5cbd4544ab22016a27d817a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  columns: 2
-  direction: 0
-  sorted: 1
-  hideInactive: 0
-  keepWithinPanel: 1
-  padding: {x: 0, y: 4}
 --- !u!114 &160989932
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1192,7 +1174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 074dab78330ce694d8c7d2f655128d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 100000, guid: c914a61a29b970b4c94662746e99546c, type: 2}
+  playerPrefab: {fileID: 100000, guid: b5517186f98a3bc4ca0debdbe0dcfbde, type: 2}
   guardTable: {fileID: 401356202}
   spyTable: {fileID: 160989929}
 --- !u!1 &401356202
@@ -1203,7 +1185,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 401356203}
-  - 114: {fileID: 401356205}
   - 114: {fileID: 401356204}
   m_Layer: 8
   m_Name: Table
@@ -1243,23 +1224,6 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   instantiationId: 0
---- !u!114 &401356205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 401356202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ca9c6e5cbd4544ab22016a27d817a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  columns: 2
-  direction: 0
-  sorted: 1
-  hideInactive: 0
-  keepWithinPanel: 1
-  padding: {x: 0, y: 4}
 --- !u!1 &436878783
 GameObject:
   m_ObjectHideFlags: 0

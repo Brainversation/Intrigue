@@ -94,17 +94,28 @@ public class Scoreboard : MonoBehaviour {
 		else
 			scoreboard.GetComponent<UIPanel>().alpha = 0;
 
+		//Set's the Team Scores
+		PhotonPlayer play = PhotonNetwork.player;
 		if(player.Team=="Spy"){
-			spyTeam.GetComponent<UILabel>().text = player.TeamScore.ToString();
-			guardTeam.GetComponent<UILabel>().text = player.EnemyScore.ToString();
+			if(player.TeamID == 1){
+				spyTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team1Score"]).ToString();
+				guardTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team2Score"]).ToString();
+			}
+			else{
+				spyTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team2Score"]).ToString();
+				guardTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team1Score"]).ToString();			
+			}
 		}
 		else{
-			spyTeam.GetComponent<UILabel>().text = player.EnemyScore.ToString();
-			guardTeam.GetComponent<UILabel>().text = player.TeamScore.ToString();
-		}
-
-
-		
+			if(player.TeamID == 1){
+				spyTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team2Score"]).ToString();
+				guardTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team1Score"]).ToString();
+			}
+			else{
+				spyTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team1Score"]).ToString();
+				guardTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team2Score"]).ToString();			
+			}
+		}	
 	}
 
 	void reloadScoreboard(){

@@ -130,13 +130,15 @@ public class MainMenu : MonoBehaviour {
 	void resetVariables(){
 		player.Score = 0;
 		player.TeamID = 0;
-		player.TeamScore = 0;
-		player.EnemyScore = 0;
+		player.Team1Score = 0;
+		player.Team2Score = 0;
 		player.Team = "";
 		Intrigue.resetVariables();
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", null},
 																{"Score", 0},
-																{"Ready", false}});
+																{"Ready", false},
+																{"Team1Score", 0},
+																{"Team2Score", 0}});
 	}
 
 	void checkInternet(){

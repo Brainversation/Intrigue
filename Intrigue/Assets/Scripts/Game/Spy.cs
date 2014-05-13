@@ -198,10 +198,14 @@ public class Spy : BasePlayer{
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Score", player.Score}});
 		}
 		//Adding to team scores
-		if(player.TeamID == 1)
-			player.TeamScore +=scoreToAdd;
-		else
-			player.EnemyScore += scoreToAdd;
+		if(player.TeamID == 1){
+			player.Team1Score +=scoreToAdd;
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team1Score", player.Team1Score}});
+		}
+		else{
+			player.Team2Score += scoreToAdd;
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team2Score", player.Team2Score}});
+		}
 	}
 
 	[RPC]

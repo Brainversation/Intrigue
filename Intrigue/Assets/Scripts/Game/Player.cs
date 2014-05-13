@@ -10,8 +10,8 @@ public class Player : MonoBehaviour {
 	private int teamID = 0;
 	private int numberOfGuests = 0;
 	private int score = 0;
-	private int teamScore = 0;
-	private int enemyScore = 0;
+	private int team1Score = 0;
+	private int team2Score = 0;
 	private bool ready = false;
 
 	void Awake(){
@@ -27,21 +27,21 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	public int TeamScore {
+	public int Team1Score {
 		get{
-			return this.teamScore;
+			return this.team1Score;
 		}
 		set{
-			this.teamScore = value;
+			this.team1Score = value;
 		}
 	}
 
-	public int EnemyScore {
+	public int Team2Score {
 		get{
-			return this.enemyScore;
+			return this.team2Score;
 		}
 		set{
-			this.enemyScore = value;
+			this.team2Score = value;
 		}
 	}
 

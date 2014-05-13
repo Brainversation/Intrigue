@@ -107,6 +107,7 @@ public class Intrigue : MonoBehaviour {
 		photonView.RPC("syncTime", PhotonTargets.Others, timeLeft);
 		if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || objectivesCompleted == 2){
 			if(wantGameOver){
+
 				if(timeLeft<=0){
 					roundResult = "Time Limit Reached.\nGuards Win!";
 					winningTeamThisRound = 2;
@@ -123,6 +124,27 @@ public class Intrigue : MonoBehaviour {
 					roundResult = "Objectives Completed.\nSpies Win!";
 					winningTeamThisRound = 1;
 				}
+
+				//Converts winningTeamThisRound from Spies/Guard to Team1/Team2
+				if(player.Team == "Spy" && winningTeamThisRound == 1){
+					winningTeamThisRound = player.TeamID;
+				}
+				else if(player.Team == "Spy" && winningTeamThisRound == 2){
+					if(player.TeamID == 1)
+						winningTeamThisRound = 2;
+					else
+						winningTeamThisRound = 1;
+				}
+				else if(player.Team == "Guard" && winningTeamThisRound == 2){
+					winningTeamThisRound = player.TeamID;
+				}
+				else if(player.Team == "Guard" && winningTeamThisRound == 1){
+					if(player.TeamID == 1)
+						winningTeamThisRound = 2;
+					else
+						winningTeamThisRound = 1;
+				}
+
 				photonView.RPC("callGameOver", PhotonTargets.AllBuffered, roundResult, winningTeamThisRound);
 			}
 		}
@@ -178,20 +200,12 @@ public class Intrigue : MonoBehaviour {
 
 		//Add bonus points for winning round
 		if(winningTeamThisRound==1){
-			if(player.Team == "Spy"){
-				player.TeamScore += 300;
-			}
-			else{
-				player.EnemyScore += 300;
-			}
+			player.Team1Score += 300;
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team1Score", player.Team1Score}});
 		}
 		else{
-			if(player.Team == "Spy"){
-				player.EnemyScore += 300;
-			}
-			else{
-				player.TeamScore += 300;
-			}
+			player.Team2Score += 300;
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team2Score", player.Team2Score}});
 		}
 
 		if(roundsLeft > 0){
@@ -199,11 +213,14 @@ public class Intrigue : MonoBehaviour {
 			enabled = false;
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
+
+			//Swaps Teams
 			if(player.Team == "Spy"){
 				player.Team = "Guard";
 			} else {
 				player.Team = "Spy";
 			}
+
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team}});			
 			PhotonNetwork.LoadLevel("Intrigue");
 		} else {
