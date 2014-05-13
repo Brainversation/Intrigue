@@ -15,10 +15,8 @@ public class Objective : Photon.MonoBehaviour {
 	private float timeLeft;
 	private bool finished = false;
 	private Animator anim;
-	private Player player;
 
 	void Start () {
-		player = GameObject.Find("Player").GetComponent<Player>();
 		timeLeft = completionTime;
 		anim = GetComponent<Animator>();
 		anim.SetBool("Complete",false);

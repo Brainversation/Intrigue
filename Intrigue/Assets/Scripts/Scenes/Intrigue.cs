@@ -22,6 +22,7 @@ public class Intrigue : MonoBehaviour {
 	private Transform spawnTrans;
 	private List<Transform> spawns = new List<Transform>();
 	private List<Transform> availableSpawns = new List<Transform>();
+	private Dictionary<int, bool> spawnedPlayers = new Dictionary<int, bool>();
 	private GameObject[] spawnObjects;
 	private GameObject[] objArray;
 
@@ -49,11 +50,12 @@ public class Intrigue : MonoBehaviour {
 
 	void Start () {
 		//CHANGE GAMEOVER HERE ~~~~~~~~~~~~~~~~~~~~~~~
-		wantGameOver = true;
+		wantGameOver = false;
 		//~~~~~~~~~~~~~~~~~~~~~~~~
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		totalGuests = player.Guests;
+		objArray = GameObject.FindGameObjectsWithTag("Objective");
 		if(PhotonNetwork.isMasterClient){
 			timeLeft = TIMELIMIT;
 			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
@@ -63,39 +65,30 @@ public class Intrigue : MonoBehaviour {
 			availableSpawns = spawns;
 			StartCoroutine(spawnGuests());
 
-			objArray = GameObject.FindGameObjectsWithTag("Objective");
-			totalObjActive = Mathf.RoundToInt(GameObject.FindGameObjectsWithTag("Objective").Length*.67f);
+			totalObjActive = Mathf.RoundToInt(objArray.Length*.67f);
 			int totalCurActive = 0;
 			bool activationComplete = false;
 			Objective objscriptref;
 
 			while (!activationComplete){
-	
 				foreach(GameObject obj in objArray){
-
 					objscriptref = obj.GetComponent<Objective>();
-
-						if(totalCurActive<totalObjActive){
-							
-							if((Random.Range(0f,1f)>0.50f) && !objscriptref.isActive ){
-								objscriptref.activate();
-								totalCurActive++;
-							}
-						
-						}
-						else{
-							activationComplete = true;
-							break;
-						}
-				
+					if(totalCurActive<totalObjActive){
+						if((Random.Range(0f,1f)>0.50f) && !objscriptref.isActive ){
+							objscriptref.activate();
+							totalCurActive++;
+						}	
+					}else{
+						activationComplete = true;
+						break;
+					}
 				}
-
 			}
 		} else {
 			enabled = false;
 		}
 		
-		objectives = new bool[GameObject.FindGameObjectsWithTag("Objective").Length];
+		objectives = new bool[objArray.Length];
 		mainObjectives = new bool[GameObject.FindGameObjectsWithTag("ObjectiveMain").Length];
 
 		joinGame();
@@ -107,20 +100,16 @@ public class Intrigue : MonoBehaviour {
 		photonView.RPC("syncTime", PhotonTargets.Others, timeLeft);
 		if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || objectivesCompleted == 2){
 			if(wantGameOver){
-				Debug.Log("Gameover! numSpiesLeft " + numSpiesLeft + " numGuardsLeft " + numGuardsLeft);
 				if(timeLeft<=0){
 					roundResult = "Time Limit Reached.\nGuards Win!";
 					winningTeamThisRound = 2;
-				}
-				else if(numSpiesLeft<=0){
+				} else if(numSpiesLeft<=0){
 					roundResult = "All Spies Caught.\nGuards Win!";
 					winningTeamThisRound = 2;
-				}
-				else if(numGuardsLeft<=0){
+				} else if(numGuardsLeft<=0){
 					roundResult = "All Guards Out.\nSpies Win!";
 					winningTeamThisRound = 1;
-				}
-				else{
+				} else{
 					roundResult = "Objectives Completed.\nSpies Win!";
 					winningTeamThisRound = 1;
 				}
@@ -128,23 +117,19 @@ public class Intrigue : MonoBehaviour {
 				//Converts winningTeamThisRound from Spies/Guard to Team1/Team2
 				if(player.Team == "Spy" && winningTeamThisRound == 1){
 					winningTeamThisRound = player.TeamID;
-				}
-				else if(player.Team == "Spy" && winningTeamThisRound == 2){
+				} else if(player.Team == "Spy" && winningTeamThisRound == 2){
 					if(player.TeamID == 1)
 						winningTeamThisRound = 2;
 					else
 						winningTeamThisRound = 1;
-				}
-				else if(player.Team == "Guard" && winningTeamThisRound == 2){
+				} else if(player.Team == "Guard" && winningTeamThisRound == 2){
 					winningTeamThisRound = player.TeamID;
-				}
-				else if(player.Team == "Guard" && winningTeamThisRound == 1){
+				} else if(player.Team == "Guard" && winningTeamThisRound == 1){
 					if(player.TeamID == 1)
 						winningTeamThisRound = 2;
 					else
 						winningTeamThisRound = 1;
 				}
-
 				photonView.RPC("callGameOver", PhotonTargets.AllBuffered, roundResult, winningTeamThisRound);
 			}
 		}
@@ -175,7 +160,7 @@ public class Intrigue : MonoBehaviour {
 		{	
 			nextSpawnPoint();
 			loadedGuests = x;
-			int type = Mathf.RoundToInt(Random.Range(1,5));
+			// int type = Mathf.RoundToInt(Random.Range(1,5));
 			//Debug.Log("Guest type: " + type);
 			PhotonNetwork.InstantiateSceneObject("Robot_Guest1"/*+type.ToString()*/, spawnTrans.position, spawnTrans.rotation, 0, null);
 			yield return new WaitForSeconds(.1f);
@@ -268,13 +253,18 @@ public class Intrigue : MonoBehaviour {
 
 	[RPC]
 	void sendSpawnPoint(PhotonMessageInfo info){
+		if(spawnedPlayers.ContainsKey(info.sender.ID)){
+			return;
+		} else {
+			spawnedPlayers.Add(info.sender.ID, true);
+		}
 		nextSpawnPoint();
 		photonView.RPC("getSpawnPoint", info.sender, spawnTrans.position, spawnTrans.rotation);
 	}
 
 	[RPC]
 	void getSpawnPoint(Vector3 position, Quaternion rotation){
-		int type = Mathf.RoundToInt(Random.Range(1,5));
+		// int type = Mathf.RoundToInt(Random.Range(1,5));
 		Intrigue.playerGO = PhotonNetwork.Instantiate(
 						"Robot_"+ (string)PhotonNetwork.player.customProperties["Team"] +"1"/*type.ToString()*/,
 						position,

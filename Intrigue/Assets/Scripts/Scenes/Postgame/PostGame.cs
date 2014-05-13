@@ -9,7 +9,6 @@ public class PostGame : MonoBehaviour {
 	public GameObject guardTable;
 	public GameObject spyTable;
 
-	private Player player;
 	private GameObject team1s;
 	private GameObject team2s;
 	private GameObject wins;
@@ -21,8 +20,6 @@ public class PostGame : MonoBehaviour {
 	// Use this for initialization 
 	void Start(){
 		Screen.lockCursor = false;
-		player = GameObject.Find("Player").GetComponent<Player>();
-
 
 		foreach(PhotonPlayer play in PhotonNetwork.playerList){
 			if((int)play.customProperties["TeamID"] == 1){

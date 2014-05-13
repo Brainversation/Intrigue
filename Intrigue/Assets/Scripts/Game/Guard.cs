@@ -274,8 +274,8 @@ public class Guard : BasePlayer{
 
 	[RPC]
 	void markSpy(int ID){
-		if(!markedOther.Contains(ID)){
-			markedOther.Add(ID);
+		if(!markedOther.ContainsKey(ID)){
+			markedOther.Add(ID, true);
 		} else {
 			markedOther.Remove(ID);
 		}
@@ -283,8 +283,8 @@ public class Guard : BasePlayer{
 
 	[RPC]
 	void markGuest(int ID){
-		if(!markedGuests.Contains(ID)){
-			markedGuests.Add(ID);
+		if(!markedGuests.ContainsKey(ID)){
+			markedGuests.Add(ID, true);
 		} else {
 			markedGuests.Remove(ID);
 		}

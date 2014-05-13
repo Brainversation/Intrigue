@@ -16,8 +16,8 @@ public class BasePlayer : MonoBehaviour {
 	protected Shader staticShader;
 	protected Shader toonShader;
 	
-	protected static List<int> markedOther = new List<int>();
-	protected static List<int> markedGuests = new List<int>();
+	protected static Dictionary<int, bool> markedOther = new Dictionary<int, bool>();
+	protected static Dictionary<int, bool> markedGuests = new Dictionary<int, bool>();
 
 	public AudioSource footstepL;
 	public AudioSource footstepR;
@@ -294,8 +294,8 @@ public class BasePlayer : MonoBehaviour {
 			renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
 			foreach(Renderer rend in renders){
 				if(rend.gameObject.CompareTag("highLight")){
-					if(markedGuests.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID) ||
-						markedOther.Contains(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID)){
+					if(markedGuests.ContainsKey(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID) ||
+						markedOther.ContainsKey(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID)){
 						rend.material.shader = staticShader;
 						rend.material.SetColor("_ReflectColor", Color.yellow);
 					} else {
