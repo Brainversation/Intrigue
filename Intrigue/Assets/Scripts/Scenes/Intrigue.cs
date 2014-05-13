@@ -107,7 +107,7 @@ public class Intrigue : MonoBehaviour {
 		photonView.RPC("syncTime", PhotonTargets.Others, timeLeft);
 		if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || objectivesCompleted == 2){
 			if(wantGameOver){
-
+				Debug.Log("Gameover! numSpiesLeft " + numSpiesLeft + " numGuardsLeft " + numGuardsLeft);
 				if(timeLeft<=0){
 					roundResult = "Time Limit Reached.\nGuards Win!";
 					winningTeamThisRound = 2;
@@ -151,7 +151,7 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void joinGame(){
-		if( player.Team == "Guard")
+		if( (string)PhotonNetwork.player.customProperties["Team"] == "Guard")
 			spawnGuard();
 		else
 			spawnSpy();
@@ -214,14 +214,18 @@ public class Intrigue : MonoBehaviour {
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
 
+			Debug.Log("Round Over, ended as " + (string)PhotonNetwork.player.customProperties["Team"]);
 			//Swaps Teams
-			if(player.Team == "Spy"){
+			if((string)PhotonNetwork.player.customProperties["Team"] == "Spy"){
 				player.Team = "Guard";
 			} else {
 				player.Team = "Spy";
 			}
 
-			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team}});			
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team}});	
+			
+			Debug.Log("Round Over, swapped to " + (string)PhotonNetwork.player.customProperties["Team"]);
+			Debug.Log("Roundsleft: " + roundsLeft);
 			PhotonNetwork.LoadLevel("Intrigue");
 		} else {
 			Debug.Log( "Game Over" );
@@ -272,7 +276,7 @@ public class Intrigue : MonoBehaviour {
 	void getSpawnPoint(Vector3 position, Quaternion rotation){
 		int type = Mathf.RoundToInt(Random.Range(1,5));
 		Intrigue.playerGO = PhotonNetwork.Instantiate(
-						"Robot_"+ player.Team+"1"/*type.ToString()*/,
+						"Robot_"+ (string)PhotonNetwork.player.customProperties["Team"] +"1"/*type.ToString()*/,
 						position,
 						rotation, 0);
 
@@ -284,12 +288,14 @@ public class Intrigue : MonoBehaviour {
 	void addSpy(){
 		++this.numSpies;
 		++Intrigue.numSpiesLeft;
+		Debug.Log("Add Spy");
 	}
 
 	[RPC]
 	void addGuard(){
 		++this.numGuards;
 		++Intrigue.numGuardsLeft;
+		Debug.Log("Add Guard");
 	}
 
 	[RPC]
