@@ -65,7 +65,11 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	void charControl(){
 		Vector3 moveDirection = Vector3.zero;
-		if(!Intrigue.playerGO.GetComponent<Spy>().doingObjective){
+		bool canMove = true;
+		if(player.Team == "Spy" && Intrigue.playerGO.GetComponent<Spy>().doingObjective)
+			canMove = false;
+
+		if(canMove){
 			if(Input.GetKey(KeyCode.LeftControl)){
 				moveDirection.x += Input.GetAxis("Horizontal") * CHARSPEED * speedMult;
 			} else {
