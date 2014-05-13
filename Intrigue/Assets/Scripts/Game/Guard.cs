@@ -107,6 +107,7 @@ public class Guard : BasePlayer{
 			if(Input.GetKeyUp(KeyCode.Space)){
 				accusing = false;
 				accused = null;
+				accusationGUI.alpha = 0;
 			}
 
 			if(accused!=null && Vector3.Distance(accused.transform.position, gameObject.transform.position)>60){
@@ -134,12 +135,12 @@ public class Guard : BasePlayer{
 
 		if(accusing && accused!=null){
 			accusationGUI.alpha = 1;
-			if(Input.GetKeyUp(KeyCode.E)){
+			if(Input.GetKeyUp(KeyCode.E) && !isChatting){
 				accusing = false;
 				testAccusation();
 			}
 		} else if(hit.transform != null){
-			if( Input.GetKeyUp(KeyCode.E)){
+			if( Input.GetKeyUp(KeyCode.E) && !isChatting){
 				accusing = true;
 				accused = hit.transform.gameObject;
 			} else if( Input.GetKeyUp(KeyCode.M) ){

@@ -151,7 +151,6 @@ public class UIKeyBinding : MonoBehaviour
 			{					
 				UICamera.inputHasFocus = false;
 				UICamera.selectedObject = null;
-				networkController.isChatting = false;
 				toggleDisappear();
 			}
 		}
@@ -163,13 +162,11 @@ public class UIKeyBinding : MonoBehaviour
 				{
 					Window.GetComponent<UISprite>().alpha = 1;
 					gameObject.GetComponentInChildren<UIInput>().enabled = true;
-					networkController.isChatting = true;
 				}
 				else
 				{	
 					gameObject.GetComponentInChildren<UIInput>().enabled = false;
 					Window.GetComponent<UISprite>().alpha = 0;
-					networkController.isChatting = false;
 				}
 			}
 		}

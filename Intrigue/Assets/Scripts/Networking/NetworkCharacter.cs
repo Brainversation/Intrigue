@@ -10,7 +10,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	public Camera cam;
 	[HideInInspector] public bool isOut = false;
 	[HideInInspector] public bool isStunned = false;
-	[HideInInspector] public bool isChatting = false;
 	
 
 	private float speedMult = 1;
@@ -48,7 +47,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	}
 
 	public void FixedUpdate(){
-		if(photonView.isMine && !isOut && !isChatting && !isStunned){
+		if(photonView.isMine && !isOut && !gameObject.GetComponent<BasePlayer>().isChatting && !isStunned){
 			// Stamina functionality
 			doStamina();
 
@@ -90,7 +89,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		bool canMove = true;
 		if(player.Team == "Spy" && Intrigue.playerGO.GetComponent<Spy>().doingObjective)
 			canMove = false;
-			
+
 		if(canMove && stamina>=1 && Input.GetKey("left shift") && Input.GetAxis("Vertical")!=0){
 			stamina-=staminaDrainSpeed*Time.deltaTime;
 			canRegen = false;

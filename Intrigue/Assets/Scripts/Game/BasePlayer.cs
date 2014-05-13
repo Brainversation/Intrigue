@@ -43,7 +43,7 @@ public class BasePlayer : MonoBehaviour {
 	[HideInInspector] public bool textAdded = false;
 	[HideInInspector] public bool isAssigned = false;
 	[HideInInspector] public bool isOut = false;
-
+	[HideInInspector] public bool isChatting = false;
 
 	private bool roundStarted = false;
 	private GameObject[] guardsList;
@@ -119,7 +119,11 @@ public class BasePlayer : MonoBehaviour {
 
 
 			if(chatWindow.alpha == 1){
+				isChatting = true;
 				chatArea.GetComponentInChildren<UILabel>().alpha = 1;
+			}
+			else{ 
+				isChatting = false;
 			}
 			/*------------------------------------------------------*/
 

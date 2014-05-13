@@ -54,7 +54,7 @@ public class Spy : BasePlayer{
 			//Code for interacting
 			/*------------------------------------------------------*/
 			if( Input.GetKey(KeyCode.E) ){
-				if(Camera.main!=null)
+				if(Camera.main!=null && !isChatting)
 					attemptInteract();
 			}
 			else{
