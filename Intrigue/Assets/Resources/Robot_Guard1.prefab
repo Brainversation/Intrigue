@@ -2537,7 +2537,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100116}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.0540867, y: -3.71384012e-05, z: -355.384918}
+  m_LocalPosition: {x: -33.3688164, y: .0419297516, z: -135.651306}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 400092}
@@ -3101,7 +3101,7 @@ Transform:
   m_GameObject: {fileID: 100216}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .00434782589, y: .00434782589, z: .00434782589}
+  m_LocalScale: {x: .00438596494, y: .00438596494, z: .00438596494}
   m_Children:
   - {fileID: 400214}
   - {fileID: 400212}
@@ -4850,6 +4850,8 @@ MonoBehaviour:
   server1GUI: {fileID: 11400072}
   server2GUI: {fileID: 11400146}
   server3GUI: {fileID: 11400074}
+  staticShader: {fileID: 4800000, guid: 858890bd90aefd0418ad8c1c27e25fc3, type: 3}
+  toonShader: {fileID: 4800000, guid: 9ce107479d11178d11005b9844295342, type: 3}
   localHandle: No Handle
   localPing: 0
   remoteScore: 0

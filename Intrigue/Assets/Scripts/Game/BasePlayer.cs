@@ -13,8 +13,8 @@ public class BasePlayer : MonoBehaviour {
 	protected int layerMask;
 	protected Renderer[] renders;
 	protected RaycastHit hit;
-	protected Shader staticShader;
-	protected Shader toonShader;
+	//protected Shader staticShader;
+	//protected Shader toonShader;
 	
 	protected static Dictionary<int, bool> markedOther = new Dictionary<int, bool>();
 	protected static Dictionary<int, bool> markedGuests = new Dictionary<int, bool>();
@@ -36,6 +36,8 @@ public class BasePlayer : MonoBehaviour {
 	public UISprite server1GUI;
 	public UISprite server2GUI;
 	public UISprite server3GUI;
+	public Shader staticShader;
+	public Shader toonShader;
 
 	[HideInInspector] public string localHandle = "";
 	[HideInInspector] public int localPing = 0;
@@ -56,8 +58,10 @@ public class BasePlayer : MonoBehaviour {
 		conversationGUI.alpha = 0;
 		inConvoGUI.alpha = 0;
 
-		staticShader = Shader.Find("Reflect_Bump_Spec_Lightmap");
-		toonShader = Shader.Find("Toon/Basic Outline");
+		//staticShader = Shader.Find("Reflect_Bump_Spec_Lightmap");
+		Debug.Log("Static Shader = " + staticShader);
+		Debug.Log("Shader trying to store = " + Shader.Find("Reflect_Bump_Spec_Lightmap"));
+		//toonShader = Shader.Find("Toon/Basic Outline");
 		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
