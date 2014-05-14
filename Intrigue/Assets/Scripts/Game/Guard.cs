@@ -30,6 +30,7 @@ public class Guard : BasePlayer{
 	protected override void Start(){
 		// Guest or Spy layer
 		layerMask = (1 << 9) | (1 << 10);
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Guard"},{"Ping", PhotonNetwork.GetPing()}});	
 		base.Start();
 	}
 

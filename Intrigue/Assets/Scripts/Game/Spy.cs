@@ -23,6 +23,7 @@ public class Spy : BasePlayer{
 	protected override void Start(){
 		// Guest or Guard layer
 		layerMask = (1 << 9) | (1 << 8);
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Spy"},{"Ping", PhotonNetwork.GetPing()}});	
 		base.Start();
 	}
 
@@ -133,24 +134,22 @@ public class Spy : BasePlayer{
 	void attemptStun(){
 		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 		RaycastHit hit;
-		if( Physics.Raycast(ray, out hit, 20f) ){
-			if(hit.transform.tag == "Guard" || hit.transform.tag == "Guest"){
-				if(stuns>=1){
-						if(hit.transform.tag == "Guard" && !hit.transform.gameObject.GetComponent<Guard>().stunned){
-							photonView.RPC("addPlayerScore", PhotonTargets.All, 50);
-							hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
-							hit.transform.gameObject.GetComponent<Guard>().stunned = true;
-							stuns--;
-							base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned [-][FF2B2B]" + hit.transform.gameObject.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
-						}
-						else if(!hit.transform.gameObject.GetComponent<BaseAI>().stunned){
-							photonView.RPC("addPlayerScore", PhotonTargets.All, -50);
-							hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
-							stuns--;
-							base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned a guest!");
-						}
-						stunsUI.text = "Stun Charges:\n[FF00FF]"+stuns+"[-]";
+		if( Physics.Raycast(ray, out hit, 20f, layerMask) ){
+			if(stuns>=1){
+				if(hit.transform.tag == "Guard" && !hit.transform.gameObject.GetComponent<Guard>().stunned){
+					photonView.RPC("addPlayerScore", PhotonTargets.All, 50);
+					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
+					hit.transform.gameObject.GetComponent<Guard>().stunned = true;
+					stuns--;
+					base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned [-][FF2B2B]" + hit.transform.gameObject.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
 				}
+				else if(!hit.transform.gameObject.GetComponent<BaseAI>().stunned){
+					photonView.RPC("addPlayerScore", PhotonTargets.All, -50);
+					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
+					stuns--;
+					base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned a guest!");
+				}
+				stunsUI.text = "Stun Charges:\n[FF00FF]"+stuns+"[-]";
 			}
 
 		}

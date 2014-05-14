@@ -147,62 +147,62 @@ public class Pregame : MonoBehaviour {
 				}
 			}
 
-			if( (PhotonNetwork.playerList.Length >= 2 || isTesting) && allReady && player.Team!=""){
+			if( ((spies.Count > 0 && guards.Count > 0) || isTesting) &&
+					allReady && !string.IsNullOrEmpty(player.Team)){
 				readyLabel.text = "START GAME";
 				readyLabel.fontSize = 28;
 				readyCheckToggle.value = true;
-			}
-			else
-			{	
-				if(player.Team==""){
+			} else {	
+				if(string.IsNullOrEmpty(player.Team)){
 					readyLabel.text = "CHOOSE TEAM";
 					readyLabel.fontSize = 28;
 					readyCheckToggle.value = false;
 
-				}
-				else{
+				} else {
 					readyLabel.text = "WAITING FOR OTHERS";
 					readyLabel.fontSize = 24;
 					readyCheckToggle.value = false;
 				}
 			}
-		}
-		else{
-			if(player.Team!=""){
+		} else {
+			if(!string.IsNullOrEmpty(player.Team)){
 				readyLabel.text = "READY";
 				readyLabel.fontSize = 40;
-			}
-			else{
-				if(player.Team==""){
-					readyLabel.text = "CHOOSE TEAM";
-					readyLabel.fontSize = 28;
-				}
+			} else {
+				readyLabel.text = "CHOOSE TEAM";
+				readyLabel.fontSize = 28;
 			}
 		}
 	}
 
 	void readyClick(){
 		if(PhotonNetwork.isMasterClient){
-			if((PhotonNetwork.playerList.Length >= 2 || isTesting) && readyCount == PhotonNetwork.playerList.Length-1 && player.Team!=""){
+			if( ((spies.Count > 0 && guards.Count > 0) || isTesting) &&
+				readyCount == PhotonNetwork.playerList.Length-1 &&
+				!string.IsNullOrEmpty(player.Team)){
 				PhotonNetwork.room.visible = false;
 				photonView.RPC("go", PhotonTargets.All);
+			} else if(string.IsNullOrEmpty(player.Team)){
+				textList.Add("[FF0000]Error:[-][FFCC00] Please choose a team.");
+			} else {
+				textList.Add("[FF0000]Error:[-][FFCC00] Each team must have at least one player!");
 			}
-		}
-		else{
+		} else {
 			if(isReady){
 				isReady = false;
 				readyCheckToggle.value = false;
 				PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ready", false}});
 				photonView.RPC("ready", PhotonTargets.MasterClient, -1);
 				photonView.RPC("reloadScoreboard", PhotonTargets.All);
-			}
-			else if(!isReady){
-				if(player.Team!=""){
+			} else {
+				if(!string.IsNullOrEmpty(player.Team)){
 					isReady = true;
 					readyCheckToggle.value = true;
 					PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ready", true}});
 					photonView.RPC("ready", PhotonTargets.MasterClient, 1);
 					photonView.RPC("reloadScoreboard", PhotonTargets.All);
+				} else {
+					textList.Add("[FF0000]Error:[-][FFCC00] Please choose a team.");
 				}
 			}
 

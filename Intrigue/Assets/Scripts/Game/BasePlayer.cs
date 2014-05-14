@@ -10,7 +10,6 @@ public class BasePlayer : MonoBehaviour {
 	protected Intrigue intrigue;
 	protected UILabel[] guiLabels;
 	protected int photonID = -1;
-	protected int layerMask;
 	protected Renderer[] renders;
 	protected RaycastHit hit;
 	//protected Shader staticShader;
@@ -39,6 +38,7 @@ public class BasePlayer : MonoBehaviour {
 	public Shader staticShader;
 	public Shader toonShader;
 
+	[HideInInspector] public int layerMask;
 	[HideInInspector] public string localHandle = "";
 	[HideInInspector] public int localPing = 0;
 	[HideInInspector] public int remoteScore = 0;
@@ -71,7 +71,6 @@ public class BasePlayer : MonoBehaviour {
 			photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
 			photonView.RPC("sendID", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
 			InvokeRepeating("syncPing", 1, 2F);
-			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team},{"Ping", PhotonNetwork.GetPing()}});	
 			textList.Add("[FF2B2B]Press [-]Shift [FF2B2B]+[-] Enter[FF2B2B] to chat![-]");
 			if(hairHat!=null)
 				hairHat.GetComponent<Renderer>().enabled = false;

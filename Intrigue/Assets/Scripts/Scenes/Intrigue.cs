@@ -26,11 +26,6 @@ public class Intrigue : MonoBehaviour {
 	private GameObject[] spawnObjects;
 	private GameObject[] objArray;
 
-	public static int numSpiesLeft;
-	public static int numGuardsLeft;
-	public static bool wantGameOver;
-	public static GameObject playerGO = null;
-
 	[HideInInspector] public string roundResult;
 	[HideInInspector] public float objectivesCompleted = 0;
 	[HideInInspector] public bool[] objectives;
@@ -40,6 +35,13 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector] public bool doneLoading = false;
 	[HideInInspector] public float loadedGuests = 0;
 	[HideInInspector] public float totalGuests;
+	
+	public static int numSpiesLeft;
+	public static int numGuardsLeft;
+	public static GameObject playerGO = null;
+	
+	// CHANGE GAMEOVER HERE
+	public static bool wantGameOver = false;
 
 	void Awake(){
 		GameObject menuMusic = GameObject.Find("MenuMusic");
@@ -49,9 +51,6 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void Start () {
-		//CHANGE GAMEOVER HERE ~~~~~~~~~~~~~~~~~~~~~~~
-		wantGameOver = true;
-		//~~~~~~~~~~~~~~~~~~~~~~~~
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		totalGuests = player.Guests;
@@ -199,9 +198,8 @@ public class Intrigue : MonoBehaviour {
 			this.numSpies = Intrigue.numSpiesLeft = 0;
 			this.numGuards = Intrigue.numGuardsLeft = 0;
 
-			Debug.Log("Round Over, ended as " + (string)PhotonNetwork.player.customProperties["Team"]);
 			//Swaps Teams
-			if((string)PhotonNetwork.player.customProperties["Team"] == "Spy"){
+			if(player.Team == "Spy"){
 				player.Team = "Guard";
 			} else {
 				player.Team = "Spy";
@@ -209,8 +207,6 @@ public class Intrigue : MonoBehaviour {
 
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team}});	
 			
-			Debug.Log("Round Over, swapped to " + (string)PhotonNetwork.player.customProperties["Team"]);
-			Debug.Log("Roundsleft: " + roundsLeft);
 			PhotonNetwork.LoadLevel("Intrigue");
 		} else {
 			Debug.Log( "Game Over" );
@@ -278,14 +274,12 @@ public class Intrigue : MonoBehaviour {
 	void addSpy(){
 		++this.numSpies;
 		++Intrigue.numSpiesLeft;
-		Debug.Log("Add Spy");
 	}
 
 	[RPC]
 	void addGuard(){
 		++this.numGuards;
 		++Intrigue.numGuardsLeft;
-		Debug.Log("Add Guard");
 	}
 
 	[RPC]
