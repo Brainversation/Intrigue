@@ -30,7 +30,7 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 		completionPercent.text = completionPercentage.ToString() + "%";
 	}
 
-	public void useObjective(GameObject user){
+	public void useObjective(GameObject user, int teamID){
 		if(isActive){
 			if(Vector3.Distance(user.transform.position, transform.position)>=60)
 				distMultiplier = 1;
@@ -51,7 +51,7 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 				photonView.RPC("setInUse", PhotonTargets.Others, false);
 				finished = true;
 				user.GetComponent<Spy>().doingObjective = false;
-				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 200);
+				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 200, teamID);
 				user.GetComponent<BasePlayer>().newEvent("[00CCFF]"+user.GetComponent<BasePlayer>().localHandle +"[-] [FFCC00]has downloaded [-][33CCCC]Objective " + objectiveName + "[-][00CCFF]![-]");
 				isActive = false;
 			}

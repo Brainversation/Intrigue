@@ -116,12 +116,12 @@ public class Spy : BasePlayer{
 		if( Physics.Raycast(ray, out hit, 1000f) ){
 			if( hit.transform.tag == "ObjectiveMain" ){
 				ObjectiveMain hitObjective = hit.transform.GetComponent<ObjectiveMain>();
-				hitObjective.useObjective(gameObject);
+				hitObjective.useObjective(gameObject, player.TeamID);
 				objectiveType = hitObjective.objectiveType;
 			}
 			else if((Vector3.Distance(hit.transform.position, transform.position)<10 && hit.transform.tag == "Objective")){
 				Objective hitObjective = hit.transform.GetComponent<Objective>();
-				hitObjective.useObjective(gameObject);
+				hitObjective.useObjective(gameObject, player.TeamID);
 				objectiveType = hitObjective.objectiveType;				
 			}
 			else
@@ -137,14 +137,14 @@ public class Spy : BasePlayer{
 		if( Physics.Raycast(ray, out hit, 15f, layerMask) ){
 			if(stuns>=1){
 				if(hit.transform.tag == "Guard" && !hit.transform.gameObject.GetComponent<Guard>().stunned){
-					photonView.RPC("addPlayerScore", PhotonTargets.All, 50);
+					photonView.RPC("addPlayerScore", PhotonTargets.All, 50, player.TeamID);
 					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
 					hit.transform.gameObject.GetComponent<Guard>().stunned = true;
 					stuns--;
 					base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned [-][FF2B2B]" + hit.transform.gameObject.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
 				}
 				else if(!hit.transform.gameObject.GetComponent<BaseAI>().stunned){
-					photonView.RPC("addPlayerScore", PhotonTargets.All, -50);
+					photonView.RPC("addPlayerScore", PhotonTargets.All, -50, player.TeamID);
 					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
 					stuns--;
 					base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned a guest!");
@@ -191,13 +191,13 @@ public class Spy : BasePlayer{
 	}
 
 	[RPC]
-	void addPlayerScore(int scoreToAdd){
+	void addPlayerScore(int scoreToAdd, int teamID){
 		if(photonView.isMine){
 			player.Score += scoreToAdd;
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Score", player.Score}});
 		}
 		//Adding to team scores
-		if(player.TeamID == 1){
+		if(teamID == 1){
 			player.Team1Score +=scoreToAdd;
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team1Score", player.Team1Score}});
 		}

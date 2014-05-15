@@ -26,7 +26,7 @@ public class Objective : Photon.MonoBehaviour {
 
 	}
 
-	public void useObjective(GameObject user){
+	public void useObjective(GameObject user, int teamID){
 		if(isActive){
 			if(timeLeft > 0){
 				if(!tumbler.isPlaying){
@@ -44,7 +44,7 @@ public class Objective : Photon.MonoBehaviour {
 				timeLeft = 0;
 				finished = true;
 				user.GetComponent<Spy>().doingObjective = false;
-				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 50);
+				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 50, teamID);
 				anim.SetBool("Complete",true);
 				isActive = false;
 				photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", true);
