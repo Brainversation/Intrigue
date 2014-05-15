@@ -140,10 +140,14 @@ public class Guard : BasePlayer{
 				accusing = false;
 				testAccusation();
 			}
-		} else if(hit.transform != null){
+		} else if(hit.transform != null ){
 			if( Input.GetKeyUp(KeyCode.E) && !isChatting){
-				accusing = true;
-				accused = hit.transform.gameObject;
+				if(hit.transform.gameObject.tag == "Spy" && !(hit.transform.gameObject.GetComponent<BasePlayer>().isOut)||
+					(hit.transform.gameObject.tag == "Guest")){
+					accusing = true;
+					accused = hit.transform.gameObject;
+				}
+
 			} else if( Input.GetKeyUp(KeyCode.M) ){
 				if(hit.transform.gameObject.CompareTag("Guest")){
 					photonView.RPC("markGuest", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().viewID);

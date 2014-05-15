@@ -317,10 +317,17 @@ public class BasePlayer : MonoBehaviour {
 		}
 
 		if (Physics.Raycast(ray, out hit, 15, layerMask)) {
-			renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
-			foreach(Renderer rend in renders){
-				if(rend.gameObject.CompareTag("highLight"))
-					rend.material.shader = staticShader;
+			string tag = hit.transform.gameObject.tag;
+			if((tag == "Spy" && !hit.transform.GetComponent<BasePlayer>().isOut) || 
+				(tag == "Guard" && !hit.transform.GetComponent<BasePlayer>().isOut && !hit.transform.GetComponent<Guard>().stunned) ||
+				(tag == "Guest" && !hit.transform.GetComponent<BaseAI>().stunned)){
+
+				renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
+				foreach(Renderer rend in renders){
+					if(rend.gameObject.CompareTag("highLight"))
+						rend.material.shader = staticShader;
+				}
+
 			}
 		}
 	}

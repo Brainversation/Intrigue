@@ -119,7 +119,7 @@ public class Spy : BasePlayer{
 				hitObjective.useObjective(gameObject);
 				objectiveType = hitObjective.objectiveType;
 			}
-			else if((Vector3.Distance(hit.transform.position, transform.position)<7 && hit.transform.tag == "Objective")){
+			else if((Vector3.Distance(hit.transform.position, transform.position)<10 && hit.transform.tag == "Objective")){
 				Objective hitObjective = hit.transform.GetComponent<Objective>();
 				hitObjective.useObjective(gameObject);
 				objectiveType = hitObjective.objectiveType;				
@@ -134,7 +134,7 @@ public class Spy : BasePlayer{
 	void attemptStun(){
 		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 		RaycastHit hit;
-		if( Physics.Raycast(ray, out hit, 20f, layerMask) ){
+		if( Physics.Raycast(ray, out hit, 15f, layerMask) ){
 			if(stuns>=1){
 				if(hit.transform.tag == "Guard" && !hit.transform.gameObject.GetComponent<Guard>().stunned){
 					photonView.RPC("addPlayerScore", PhotonTargets.All, 50);

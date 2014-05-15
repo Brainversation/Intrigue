@@ -29,12 +29,17 @@ public class Crosshair : MonoBehaviour {
 					if( hit.transform.tag == "ObjectiveMain" || hit.transform.tag =="Objective"){
 						if(hit.transform.tag == "ObjectiveMain" && hit.transform.gameObject.GetComponent<ObjectiveMain>().isActive ){
 							canInteract = true;
-						} else if(hit.transform.tag == "Objective" && hit.transform.gameObject.GetComponent<Objective>().isActive && (Vector3.Distance(hit.transform.position, transform.position) )<=7){
+						} else if(hit.transform.tag == "Objective" && hit.transform.gameObject.GetComponent<Objective>().isActive && (Vector3.Distance(hit.transform.position, transform.position) )<=10){
 							canInteract = true;
 						}
 					}
-					else if( (hit.transform.tag == "Guard" || hit.transform.tag == "Guest") && Vector3.Distance(hit.transform.position, transform.position)<10){
-							canInteract = true;
+					else if( (hit.transform.tag == "Guard" || hit.transform.tag == "Guest") && Vector3.Distance(hit.transform.position, transform.position)<15){
+							if(hit.transform.tag == "Guard" && !hit.transform.gameObject.GetComponent<Guard>().stunned){
+								canInteract = true;
+							}
+							if(hit.transform.tag == "Guest" && !hit.transform.gameObject.GetComponent<BaseAI>().stunned){
+								canInteract = true;
+							}
 					}
 				}
 			}
@@ -43,7 +48,8 @@ public class Crosshair : MonoBehaviour {
 				Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 				RaycastHit hit;
 				if( Physics.Raycast(ray, out hit, 15.0f, bp.layerMask) ){
-					canInteract = true;
+					if(!hit.transform.gameObject.GetComponent<BasePlayer>().isOut)
+						canInteract = true;
 				}
 			}
 		}
