@@ -93,7 +93,7 @@ public class Intrigue : MonoBehaviour {
 		
 		objectives = new bool[objArray.Length];
 		mainObjectives = new bool[GameObject.FindGameObjectsWithTag("ObjectiveMain").Length];
-
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team}});	
 		joinGame();
 	}
 

@@ -130,7 +130,6 @@ public class Pregame : MonoBehaviour {
 		player.TeamID = 1;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Spy"}});
 		photonView.RPC("reloadScoreboard", PhotonTargets.All);
-		Debug.Log("Swapped to " + (string)PhotonNetwork.player.customProperties["Team"]);
 	}
 
 	void swapToGuard(){
@@ -139,7 +138,6 @@ public class Pregame : MonoBehaviour {
 		player.TeamID = 2;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Guard"}});
 		photonView.RPC("reloadScoreboard", PhotonTargets.All);
-		Debug.Log("Swapped to " + (string)PhotonNetwork.player.customProperties["Team"]);
 	}
 
 	void readyStatus(){
@@ -318,7 +316,6 @@ public class Pregame : MonoBehaviour {
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"TeamID", 1}});
 		else
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"TeamID", 2}});
-		Debug.Log("Go Called! Team: " + (string)PhotonNetwork.player.customProperties["Team"]);
 		PhotonNetwork.LoadLevel("Intrigue");
 	}
 

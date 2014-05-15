@@ -58,10 +58,6 @@ public class BasePlayer : MonoBehaviour {
 		conversationGUI.alpha = 0;
 		inConvoGUI.alpha = 0;
 
-		//staticShader = Shader.Find("Reflect_Bump_Spec_Lightmap");
-		//Debug.Log("Static Shader = " + staticShader);
-		//Debug.Log("Shader trying to store = " + Shader.Find("Reflect_Bump_Spec_Lightmap"));
-		//toonShader = Shader.Find("Toon/Basic Outline");
 		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
@@ -85,8 +81,14 @@ public class BasePlayer : MonoBehaviour {
 				NGUITools.SetActive(uiP.gameObject, false);
 			}
 		}
+
+		Invoke("setTeamWhyTheFuckShouldWeHaveToDoThis", 2);
 	}
 	
+	void setTeamWhyTheFuckShouldWeHaveToDoThis(){
+		PhotonNetwork.player.SetCustomProperties(new Hashtable{{"Team", player.Team}});
+	}
+
 	void getAllPlayers(){
 		spiesList = GameObject.FindGameObjectsWithTag("Spy");
 		guardsList = GameObject.FindGameObjectsWithTag("Guard");
