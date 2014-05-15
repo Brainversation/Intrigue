@@ -26,7 +26,7 @@ public class Pregame : MonoBehaviour {
 	private List<int> guards = new List<int>();
 	private int prevGuestCount = 0;
 
-	private static bool isTesting = false;
+	private static bool isTesting = true;
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
@@ -46,7 +46,9 @@ public class Pregame : MonoBehaviour {
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Handle", player.Handle},
 																{"Ready", PhotonNetwork.isMasterClient},
 																{"Ping", 100},
-																{"Score", 0}});
+																{"Score", 0},
+																{"Team", ""},
+																{"TeamID", -1}});
 		reloadScoreboard();
 	}
 
@@ -102,6 +104,8 @@ public class Pregame : MonoBehaviour {
 	void OnMasterClientSwitched(PhotonPlayer newMasterClient){
 		textList.Add((string)newMasterClient.customProperties["Handle"] + "[FFCC00] is now the host.[-]");
 		if(PhotonNetwork.player.ID == newMasterClient.ID){
+			isReady = true;
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ready", true}});
 			slider.enabled = true;
 		}
 	}
@@ -126,6 +130,7 @@ public class Pregame : MonoBehaviour {
 		player.TeamID = 1;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Spy"}});
 		photonView.RPC("reloadScoreboard", PhotonTargets.All);
+		Debug.Log("Swapped to " + (string)PhotonNetwork.player.customProperties["Team"]);
 	}
 
 	void swapToGuard(){
@@ -134,6 +139,7 @@ public class Pregame : MonoBehaviour {
 		player.TeamID = 2;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Guard"}});
 		photonView.RPC("reloadScoreboard", PhotonTargets.All);
+		Debug.Log("Swapped to " + (string)PhotonNetwork.player.customProperties["Team"]);
 	}
 
 	void readyStatus(){
@@ -312,6 +318,7 @@ public class Pregame : MonoBehaviour {
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"TeamID", 1}});
 		else
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"TeamID", 2}});
+		Debug.Log("Go Called! Team: " + (string)PhotonNetwork.player.customProperties["Team"]);
 		PhotonNetwork.LoadLevel("Intrigue");
 	}
 

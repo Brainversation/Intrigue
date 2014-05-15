@@ -59,8 +59,8 @@ public class BasePlayer : MonoBehaviour {
 		inConvoGUI.alpha = 0;
 
 		//staticShader = Shader.Find("Reflect_Bump_Spec_Lightmap");
-		Debug.Log("Static Shader = " + staticShader);
-		Debug.Log("Shader trying to store = " + Shader.Find("Reflect_Bump_Spec_Lightmap"));
+		//Debug.Log("Static Shader = " + staticShader);
+		//Debug.Log("Shader trying to store = " + Shader.Find("Reflect_Bump_Spec_Lightmap"));
 		//toonShader = Shader.Find("Toon/Basic Outline");
 		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 		photonView = PhotonView.Get(this);

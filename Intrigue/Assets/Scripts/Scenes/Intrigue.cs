@@ -55,6 +55,9 @@ public class Intrigue : MonoBehaviour {
 		player = GameObject.Find("Player").GetComponent<Player>();
 		totalGuests = player.Guests;
 		objArray = GameObject.FindGameObjectsWithTag("Objective");
+
+
+		//Master Client Stuff
 		if(PhotonNetwork.isMasterClient){
 			timeLeft = TIMELIMIT;
 			spawnObjects = GameObject.FindGameObjectsWithTag("Respawn");
@@ -86,6 +89,7 @@ public class Intrigue : MonoBehaviour {
 		} else {
 			enabled = false;
 		}
+
 		
 		objectives = new bool[objArray.Length];
 		mainObjectives = new bool[GameObject.FindGameObjectsWithTag("ObjectiveMain").Length];
@@ -137,7 +141,7 @@ public class Intrigue : MonoBehaviour {
 	void joinGame(){
 		if( (string)PhotonNetwork.player.customProperties["Team"] == "Guard")
 			spawnGuard();
-		else
+		else 
 			spawnSpy();
 	}
 
@@ -261,6 +265,9 @@ public class Intrigue : MonoBehaviour {
 	[RPC]
 	void getSpawnPoint(Vector3 position, Quaternion rotation){
 		// int type = Mathf.RoundToInt(Random.Range(1,5));
+
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team}});
+
 		Intrigue.playerGO = PhotonNetwork.Instantiate(
 						"Robot_"+ (string)PhotonNetwork.player.customProperties["Team"] +"1"/*type.ToString()*/,
 						position,

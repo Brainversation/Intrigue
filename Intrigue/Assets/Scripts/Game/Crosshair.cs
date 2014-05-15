@@ -8,7 +8,6 @@ public class Crosshair : MonoBehaviour {
 	public bool teamSpy;
 	[HideInInspector] public bool canInteract = false;
 	private Rect position;
-	private static bool OriginalOn = true;
 	private Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
     private BasePlayer bp;
 

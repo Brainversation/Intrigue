@@ -20,10 +20,47 @@ public class Scoreboard : MonoBehaviour {
 		scoreboard.GetComponent<UIPanel>().alpha = 0;
 		//this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
-		int s = 0;
-		int g = 0;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Score", player.Score}});
 
+		Invoke("createScoreboard",1);
+		InvokeRepeating("reloadScoreboard", 3, 1);
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		if( Input.GetKey(KeyCode.Tab) ){
+			scoreboard.GetComponent<UIPanel>().alpha = 1;
+		}
+		else
+			scoreboard.GetComponent<UIPanel>().alpha = 0;
+
+		//Set's the Team Scores
+		PhotonPlayer play = PhotonNetwork.player;
+		if(player.Team=="Spy"){
+			if(player.TeamID == 1){
+				spyTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team1Score"]).ToString();
+				guardTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team2Score"]).ToString();
+			}
+			else{
+				spyTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team2Score"]).ToString();
+				guardTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team1Score"]).ToString();			
+			}
+		}
+		else{
+			if(player.TeamID == 1){
+				spyTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team2Score"]).ToString();
+				guardTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team1Score"]).ToString();
+			}
+			else{
+				spyTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team1Score"]).ToString();
+				guardTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team2Score"]).ToString();			
+			}
+		}	
+	}
+
+	void createScoreboard(){
+		int s = 0;
+		int g = 0;
 		foreach(PhotonPlayer play in PhotonNetwork.playerList){
 			if((string)play.customProperties["Team"] == "Guard"){
 				
@@ -82,40 +119,7 @@ public class Scoreboard : MonoBehaviour {
 			}
 		}
 
-		InvokeRepeating("reloadScoreboard", 1, 1);
 		reloadScoreboard();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if( Input.GetKey(KeyCode.Tab) ){
-			scoreboard.GetComponent<UIPanel>().alpha = 1;
-		}
-		else
-			scoreboard.GetComponent<UIPanel>().alpha = 0;
-
-		//Set's the Team Scores
-		PhotonPlayer play = PhotonNetwork.player;
-		if(player.Team=="Spy"){
-			if(player.TeamID == 1){
-				spyTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team1Score"]).ToString();
-				guardTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team2Score"]).ToString();
-			}
-			else{
-				spyTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team2Score"]).ToString();
-				guardTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team1Score"]).ToString();			
-			}
-		}
-		else{
-			if(player.TeamID == 1){
-				spyTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team2Score"]).ToString();
-				guardTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team1Score"]).ToString();
-			}
-			else{
-				spyTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team1Score"]).ToString();
-				guardTeam.GetComponent<UILabel>().text = ((int)play.customProperties["Team2Score"]).ToString();			
-			}
-		}	
 	}
 
 	void reloadScoreboard(){
