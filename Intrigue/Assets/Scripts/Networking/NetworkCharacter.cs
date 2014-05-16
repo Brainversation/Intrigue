@@ -47,7 +47,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	}
 
 	public void FixedUpdate(){
-		if(photonView.isMine && !isOut && !gameObject.GetComponent<BasePlayer>().isChatting && !isStunned){
+		if((player.Team != "Spy" || (player.Team == "Spy" && !Intrigue.playerGO.GetComponent<Spy>().doingObjective)) && !photonView.isMine && !isOut && !gameObject.GetComponent<BasePlayer>().isChatting && !isStunned){
 			// Stamina functionality
 			doStamina();
 
@@ -64,25 +64,22 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	void charControl(){
 		Vector3 moveDirection = Vector3.zero;
-		bool canMove = true;
-		if(player.Team == "Spy" && Intrigue.playerGO.GetComponent<Spy>().doingObjective)
-			canMove = false;
 
-		if(canMove){
-			if(Input.GetKey(KeyCode.LeftControl)){
-				moveDirection.x += Input.GetAxis("Horizontal") * CHARSPEED * speedMult;
-			} else {
-				transform.Rotate(0, Input.GetAxis("Horizontal") * 90 * Time.deltaTime, 0);
-				anim.SetFloat("Speed", Input.GetAxis("Vertical"));
-				moveDirection.z += Input.GetAxis("Vertical") * CHARSPEED * speedMult;
-			}
-
-			moveDirection = transform.TransformDirection(moveDirection);
-
-			// For gravity
-			moveDirection.y -= 1000 * Time.deltaTime;
-			GetComponent<CharacterController>().Move(moveDirection * Time.deltaTime); 
+		//Strafe
+		if(!Input.GetKey(KeyCode.LeftControl)){
+			moveDirection.x += Input.GetAxis("Horizontal") * CHARSPEED * speedMult;
+		} //Rotate
+		else {
+			transform.Rotate(0, Input.GetAxis("Horizontal") * 90 * Time.deltaTime, 0);
+			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
+			moveDirection.z += Input.GetAxis("Vertical") * CHARSPEED * speedMult;
 		}
+
+		moveDirection = transform.TransformDirection(moveDirection);
+
+		// For gravity
+		moveDirection.y -= 1000 * Time.deltaTime;
+		GetComponent<CharacterController>().Move(moveDirection * Time.deltaTime); 
 	}
 
 	void doStamina(){
