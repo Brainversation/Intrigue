@@ -218,37 +218,6 @@ public class Pregame : MonoBehaviour {
 		PhotonNetwork.LoadLevel( "MainMenu" );
 	}
 
-	[RPC]
-	void refreshPing(){
-		foreach(PhotonPlayer play in PhotonNetwork.playerList){
-			string pingColor = calculatePingColor((int)play.customProperties["Ping"]);
-			string readyColor;
-			UILabel theLabel = null;
-
-			if((bool)play.customProperties["Ready"])
-				readyColor = "[00FF00]";
-			else
-				readyColor = "[FF0000]";
-
-			if((string)play.customProperties["Team"] == "Guard"){
-				foreach(Transform child in guardTable.transform){
-					if(child.gameObject.GetComponent<UILabel>().user == play.ID){
-						theLabel = child.gameObject.GetComponent<UILabel>();
-					}
-				}
-			}
-			else if((string)play.customProperties["Team"] == "Spy"){
-				foreach(Transform child in spyTable.transform){
-					if(child.gameObject.GetComponent<UILabel>().user == play.ID){
-						theLabel = child.gameObject.GetComponent<UILabel>();
-					}
-				}			
-			}
-
-			theLabel.text = "[FFFFFF]" + (string)play.customProperties["Handle"] + "   " + readyColor + "[READY][-]   ("+ pingColor+ (int)play.customProperties["Ping"]+"[-]" + ") ms";
-		}
-	}
-
 
 	[RPC]
 	void reloadScoreboard(){
@@ -278,9 +247,9 @@ public class Pregame : MonoBehaviour {
 				UILabel label = playerInfo.GetComponent<UILabel>();
 				label.user = play.ID;
 				if((bool)play.customProperties["Ready"])
-					label.text = "[FFFFFF]" + (string)play.customProperties["Handle"] + "   [00FF00][READY][FFFFFF]   ("+ pingColor + (int)play.customProperties["Ping"]+"[-]" + ") ms";
+					label.text = "[FFFFFF]" + (string)play.customProperties["Handle"] + "   [[00FF00]READY[-]]   ("+ pingColor + (int)play.customProperties["Ping"]+"[-]" + ") ms";
 				else
-					label.text = "[FFFFFF]" + (string)play.customProperties["Handle"] + "   [FF0000][READY][FFFFFF]   ("+ pingColor + (int)play.customProperties["Ping"]+"[-]" + ") ms";			
+					label.text = "[FFFFFF]" + (string)play.customProperties["Handle"] + "   [[FF0000]READY[-]]   ("+ pingColor + (int)play.customProperties["Ping"]+"[-]" + ") ms";			
 			}
 			else if((string)play.customProperties["Team"] == "Spy"){
 				spies.Add(play.ID);
@@ -291,9 +260,9 @@ public class Pregame : MonoBehaviour {
 				UILabel label = playerInfo.GetComponent<UILabel>();
 				label.user = play.ID;
 				if((bool)play.customProperties["Ready"])
-					label.text = "[FFFFFF]" + (string)play.customProperties["Handle"] + "   [00FF00][READY][FFFFFF]   ("+ pingColor + (int)play.customProperties["Ping"]+"[-]" + ") ms";
+					label.text = "[FFFFFF]" + (string)play.customProperties["Handle"] + "   [[00FF00]READY[-]]   ("+ pingColor + (int)play.customProperties["Ping"]+"[-]" + ") ms";
 				else
-					label.text = "[FFFFFF]" + (string)play.customProperties["Handle"] + "   [FF0000][READY][FFFFFF]   ("+ pingColor + (int)play.customProperties["Ping"]+"[-]" + ") ms";
+					label.text = "[FFFFFF]" + (string)play.customProperties["Handle"] + "   [[FF0000]READY[-]]   ("+ pingColor + (int)play.customProperties["Ping"]+"[-]" + ") ms";
 			}
 		}
 	}

@@ -11,7 +11,8 @@ public class Spy : BasePlayer{
 	public UILabel stunsUI;
 	public UIPanel objPanel;
 	public UISlider objSlider;
-	
+	public AudioSource stunAudio;
+
 	private int stuns = 3;
 	private GameObject [] serverInUse; 
 
@@ -137,6 +138,12 @@ public class Spy : BasePlayer{
 		if( Physics.Raycast(ray, out hit, 15f, layerMask) ){
 			if(stuns>=1){
 				if(hit.transform.tag == "Guard" && !hit.transform.gameObject.GetComponent<Guard>().stunned){
+					//Audio for stun
+					if(!stunAudio.isPlaying){
+						stunAudio.Play();
+						photonView.RPC("playStunAudio", PhotonTargets.Others);
+					}
+
 					photonView.RPC("addPlayerScore", PhotonTargets.All, 50, player.TeamID);
 					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
 					hit.transform.gameObject.GetComponent<Guard>().stunned = true;
@@ -144,6 +151,12 @@ public class Spy : BasePlayer{
 					base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned [-][FF2B2B]" + hit.transform.gameObject.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
 				}
 				else if(!hit.transform.gameObject.GetComponent<BaseAI>().stunned){
+					//Audio for stun
+					if(!stunAudio.isPlaying){
+						stunAudio.Play();
+						photonView.RPC("playStunAudio", PhotonTargets.Others);
+					}
+					
 					photonView.RPC("addPlayerScore", PhotonTargets.All, -50, player.TeamID);
 					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
 					stuns--;
@@ -180,6 +193,12 @@ public class Spy : BasePlayer{
 			animator.SetBool("InteractComp",false);
 			animator.SetBool("InteractServer",false);
 		}
+	}
+
+	[RPC]
+	void playStunAudio(){
+		if(!stunAudio.isPlaying)
+			stunAudio.Play();
 	}
 
 	[RPC]

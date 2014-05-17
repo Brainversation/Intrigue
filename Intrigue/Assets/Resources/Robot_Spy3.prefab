@@ -4393,6 +4393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textList: {fileID: 11400064}
+  window: {fileID: 0}
 --- !u!114 &11400044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4407,7 +4408,6 @@ MonoBehaviour:
   keyCode: 13
   modifier: 0
   action: 3
-  networkController: {fileID: 0}
   Window: {fileID: 100174}
 --- !u!114 &11400046
 MonoBehaviour:
@@ -4443,7 +4443,6 @@ MonoBehaviour:
   keyCode: 13
   modifier: 1
   action: 1
-  networkController: {fileID: 0}
   Window: {fileID: 100174}
 --- !u!114 &11400050
 MonoBehaviour:
@@ -4534,7 +4533,6 @@ MonoBehaviour:
   keyCode: 13
   modifier: 1
   action: 2
-  networkController: {fileID: 0}
   Window: {fileID: 100174}
 --- !u!114 &11400056
 MonoBehaviour:
@@ -5296,6 +5294,7 @@ MonoBehaviour:
   stunsUI: {fileID: 11400000}
   objPanel: {fileID: 11400028}
   objSlider: {fileID: 11400024}
+  stunAudio: {fileID: 0}
 --- !u!114 &11400098
 MonoBehaviour:
   m_ObjectHideFlags: 1

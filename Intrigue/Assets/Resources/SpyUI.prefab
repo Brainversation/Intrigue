@@ -1809,6 +1809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textList: {fileID: 11400074}
+  window: {fileID: 0}
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1823,7 +1824,6 @@ MonoBehaviour:
   keyCode: 13
   modifier: 0
   action: 3
-  networkController: {fileID: 0}
   Window: {fileID: 100058}
 --- !u!114 &11400020
 MonoBehaviour:
@@ -1859,7 +1859,6 @@ MonoBehaviour:
   keyCode: 13
   modifier: 1
   action: 1
-  networkController: {fileID: 0}
   Window: {fileID: 100058}
 --- !u!114 &11400024
 MonoBehaviour:
@@ -2846,7 +2845,6 @@ MonoBehaviour:
   keyCode: 13
   modifier: 1
   action: 2
-  networkController: {fileID: 0}
   Window: {fileID: 100058}
 --- !u!114 &11400066
 MonoBehaviour:
