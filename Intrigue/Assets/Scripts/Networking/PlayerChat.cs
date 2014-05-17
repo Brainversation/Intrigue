@@ -9,9 +9,11 @@
 public class PlayerChat : MonoBehaviour
 {
 	public UITextList textList;
+	public GameObject window;
 	// private PhotonView photonView = null;
 	private Player player;
 	private GameObject[] team;
+	private bool mIgnoreUp = false;
 
 	UIInput mInput;
 
@@ -27,8 +29,32 @@ public class PlayerChat : MonoBehaviour
 	/// Submit notification is sent by UIInput when 'enter' is pressed or iOS/Android keyboard finalizes input.
 	/// </summary>
 
+	void Update(){
+		if (window.GetComponent<UISprite>().alpha == 1){
+			mInput.enabled = true;
+			if (mInput){
+				if (!mIgnoreUp && !UICamera.inputHasFocus){
+					UICamera.selectedObject = gameObject;
+				}
+				mIgnoreUp = false;
+			}
+			else{
+				UICamera.selectedObject = gameObject;
+			}
+		}
+		else if(window.GetComponent<UISprite>().alpha == 0){					
+			UICamera.inputHasFocus = false;
+			UICamera.selectedObject = null;
+			mInput.enabled = false;			
+		}
+	}
+
 	public void OnSubmit ()
 	{
+
+		if (UICamera.currentKey == KeyCode.Return);
+			mIgnoreUp = true;
+
 		if (textList != null)
 		{	
 			if(player.Team == "Spy"){
