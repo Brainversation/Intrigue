@@ -22,7 +22,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private float staminaDrainSpeed;
 	private float staminaRegenSpeed;
 	private bool canRegen;
-	private bool strafeToggle = true;
+	private bool strafeToggle;
 
 	void Start() {
 		//Get References to Animator and Collider
@@ -38,6 +38,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			staminaRegenSpeed = 10;
 		}
 		camStart = cam.transform.localPosition;
+		strafeToggle = true;
+		anim.SetBool("StrafeToggle", strafeToggle);
 	}
 
 	public void Update(){
@@ -48,7 +50,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		else{
 			if(Input.GetKeyUp(KeyCode.LeftControl)){
 				strafeToggle = !strafeToggle;
-				anim.SetBool("strafeToggle", strafeToggle);
+				anim.SetBool("StrafeToggle", strafeToggle);
 			}
 		}
 	}
@@ -86,6 +88,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		}
 
 		anim.SetFloat("Speed", Input.GetAxis("Vertical"));
+		anim.SetFloat("Direction", Input.GetAxis("Horizontal"));
 		moveDirection.z += Input.GetAxis("Vertical") * CHARSPEED * speedMult;
 
 		moveDirection = transform.TransformDirection(moveDirection);
