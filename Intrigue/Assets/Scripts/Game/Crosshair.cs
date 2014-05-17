@@ -16,12 +16,13 @@ public class Crosshair : MonoBehaviour {
 		position = new Rect((Screen.width - crosshairNormal.width) / 2, (Screen.height - 
 		crosshairNormal.height) /2, crosshairNormal.width, crosshairNormal.height);
 		bp = GetComponent<BasePlayer>();
+		teamSpy = GetComponent<Spy>() != null;
 	}
 
 	void Update(){
 		//Spy
 		if(Camera.main!=null){
-		canInteract = false;
+			canInteract = false;
 			if(teamSpy){
 				Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 				RaycastHit hit;
@@ -42,13 +43,12 @@ public class Crosshair : MonoBehaviour {
 							}
 					}
 				}
-			}
-			else{
+			} else {
 				//Guard
 				Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 				RaycastHit hit;
 				if( Physics.Raycast(ray, out hit, 15.0f, bp.layerMask) ){
-					if(!hit.transform.gameObject.GetComponent<BasePlayer>().isOut)
+					if(hit.transform.gameObject.layer == 10 && !hit.transform.gameObject.GetComponent<BasePlayer>().isOut)
 						canInteract = true;
 				}
 			}

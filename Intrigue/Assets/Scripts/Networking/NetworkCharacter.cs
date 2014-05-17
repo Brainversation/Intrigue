@@ -47,14 +47,14 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	}
 
 	public void FixedUpdate(){
-		if((player.Team != "Spy" || (player.Team == "Spy" && !Intrigue.playerGO.GetComponent<Spy>().doingObjective)) && !photonView.isMine && !isOut && !gameObject.GetComponent<BasePlayer>().isChatting && !isStunned){
+		if((player.Team != "Spy" || !Intrigue.playerGO.GetComponent<Spy>().doingObjective) &&
+			photonView.isMine && !isOut && !gameObject.GetComponent<BasePlayer>().isChatting && !isStunned){
 			// Stamina functionality
 			doStamina();
 
 			//Rotating Character and Gravity
 			charControl();
-		}
-		else if(photonView.isMine && isOut){
+		} else if(photonView.isMine && isOut){
 			anim.SetFloat("Speed", 0f);
 			anim.SetFloat("Direction", 0f);
 			anim.SetBool("Run", false);
@@ -71,9 +71,10 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		} //Rotate
 		else {
 			transform.Rotate(0, Input.GetAxis("Horizontal") * 90 * Time.deltaTime, 0);
-			anim.SetFloat("Speed", Input.GetAxis("Vertical"));
-			moveDirection.z += Input.GetAxis("Vertical") * CHARSPEED * speedMult;
 		}
+
+		anim.SetFloat("Speed", Input.GetAxis("Vertical"));
+		moveDirection.z += Input.GetAxis("Vertical") * CHARSPEED * speedMult;
 
 		moveDirection = transform.TransformDirection(moveDirection);
 
