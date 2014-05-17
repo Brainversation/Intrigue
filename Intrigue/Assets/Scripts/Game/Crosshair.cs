@@ -48,7 +48,7 @@ public class Crosshair : MonoBehaviour {
 				Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 				RaycastHit hit;
 				if( Physics.Raycast(ray, out hit, 15.0f, bp.layerMask) ){
-					if(hit.transform.gameObject.layer == 10 && !hit.transform.gameObject.GetComponent<BasePlayer>().isOut)
+					if(hit.transform.gameObject.layer == 9 || (hit.transform.gameObject.layer == 10 && !hit.transform.gameObject.GetComponent<BasePlayer>().isOut))
 						canInteract = true;
 				}
 			}
