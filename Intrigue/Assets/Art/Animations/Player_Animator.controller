@@ -56,6 +56,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: StrafeToggle
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 3
     m_Name: Base Layer
@@ -663,10 +669,6 @@ StateMachine:
   m_ChildStateMachinePosition: []
   m_OrderedTransitions:
     data:
-      first: {fileID: 110298304}
-      second:
-      - {fileID: 110116251}
-    data:
       first: {fileID: 0}
       second: []
     data:
@@ -699,12 +701,6 @@ StateMachine:
       second:
       - {fileID: 110152186}
     data:
-      first: {fileID: 110243689}
-      second: []
-    data:
-      first: {fileID: 110232777}
-      second: []
-    data:
       first: {fileID: 110253725}
       second: []
     data:
@@ -715,6 +711,16 @@ StateMachine:
       first: {fileID: 110217992}
       second:
       - {fileID: 110185922}
+    data:
+      first: {fileID: 110298304}
+      second:
+      - {fileID: 110116251}
+    data:
+      first: {fileID: 110232777}
+      second: []
+    data:
+      first: {fileID: 110243689}
+      second: []
   m_MotionSetCount: 1
   m_AnyStatePosition: {x: 84, y: 252, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}

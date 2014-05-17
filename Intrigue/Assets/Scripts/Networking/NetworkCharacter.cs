@@ -22,6 +22,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private float staminaDrainSpeed;
 	private float staminaRegenSpeed;
 	private bool canRegen;
+	private bool strafeToggle = true;
 
 	void Start() {
 		//Get References to Animator and Collider
@@ -43,7 +44,13 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		if(!photonView.isMine){
 			transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
 			transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
-		}	
+		}
+		else{
+			if(Input.GetKeyUp(KeyCode.LeftControl)){
+				strafeToggle = !strafeToggle;
+				anim.SetBool("strafeToggle", strafeToggle);
+			}
+		}
 	}
 
 	public void FixedUpdate(){
@@ -60,13 +67,18 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetBool("Run", false);
 			anim.SetBool("Out", true);
 		}
+		else if(photonView.isMine && player.Team == "Spy" && Intrigue.playerGO.GetComponent<Spy>().doingObjective){
+			anim.SetFloat("Speed", 0f);
+			anim.SetFloat("Direction", 0f);
+			anim.SetBool("Run", false);
+		}
 	}
 
 	void charControl(){
 		Vector3 moveDirection = Vector3.zero;
-
+		Vector3 strafeDirection = Vector3.zero;
 		//Strafe
-		if(!Input.GetKey(KeyCode.LeftControl)){
+		if(strafeToggle){
 			moveDirection.x += Input.GetAxis("Horizontal") * CHARSPEED * speedMult;
 		} //Rotate
 		else {
@@ -77,7 +89,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		moveDirection.z += Input.GetAxis("Vertical") * CHARSPEED * speedMult;
 
 		moveDirection = transform.TransformDirection(moveDirection);
-
 		// For gravity
 		moveDirection.y -= 1000 * Time.deltaTime;
 		GetComponent<CharacterController>().Move(moveDirection * Time.deltaTime); 
@@ -132,6 +143,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			stream.SendNext(anim.GetBool("InteractServer"));
 			stream.SendNext(anim.GetBool("Out"));
 			stream.SendNext(anim.GetBool("Converse"));
+			stream.SendNext(anim.GetBool("strafeToggle"));
 
 		}else{
 			// Network player, receive data
@@ -145,6 +157,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetBool("InteractServer",(bool) stream.ReceiveNext());
 			anim.SetBool("Out", (bool) stream.ReceiveNext());
 			anim.SetBool("Converse", (bool) stream.ReceiveNext());
+			anim.SetBool("StrafeToggle", (bool) stream.ReceiveNext());
 		}
 	}
 
