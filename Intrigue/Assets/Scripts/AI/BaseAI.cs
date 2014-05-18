@@ -167,7 +167,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			if( sad < 100) sad += 2f;
 			if( toxicity < 100) toxicity += 2f;
 			if(timeInRoom <= 10){
-				timeInRoom +=1f;
+				timeInRoom +=5f;
 			}
 			updateWants = 5f;
 		} else {

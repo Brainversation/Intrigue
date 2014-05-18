@@ -11,7 +11,7 @@ namespace RBS{
 			this.addCondition(new TimeToMove(gameObject));
 			this.consequence = goToRoom;
 			this.antiConsequence = atRoom;
-			this.weight = 7;
+			this.weight = 10;
 			this.go = gameObject;
 		}
 
