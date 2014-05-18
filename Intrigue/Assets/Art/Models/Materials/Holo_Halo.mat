@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: bar_01_bois_06_mat
-  m_Shader: {fileID: 4800000, guid: 054a31a99d11e49d110086ba44295342, type: 3}
+  m_Name: Holo_Halo
+  m_Shader: {fileID: 4800000, guid: 963484209d11fd7f110076aa44295342, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -17,34 +17,42 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: ee12934326ed28148ba3ecddd9ee7591, type: 3}
+          m_Texture: {fileID: 2800000, guid: af05d8506d0066b428411e5c0df9f717, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _Ramp
+          name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: 948e1b7327c293a4081ba3c18eaab19f, type: 3}
+          m_Texture: {fileID: 2800000, guid: b4f6a8b25a878a3489053c4753096f7d, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _ToonShade
+          name: _Cube
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 8900000, guid: 65a7d442f1932344384c29c6fecc89c6, type: 2}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
-          name: _Outline
-        second: .00499999989
+          name: _Shininess
+        second: .00999999978
+      data:
+        first:
+          name: _BumpAmt
+        second: 10
     m_Colors:
       data:
         first:
           name: _Color
+        second: {r: .23589997, g: .589921474, b: .800000012, a: 1}
+      data:
+        first:
+          name: _SpecColor
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _OutlineColor
-        second: {r: 0, g: 0, b: 0, a: 1}
+          name: _ReflectColor
+        second: {r: 1, g: 1, b: 1, a: .5}

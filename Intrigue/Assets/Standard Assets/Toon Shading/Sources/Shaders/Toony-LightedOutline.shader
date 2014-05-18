@@ -11,6 +11,25 @@ Shader "Toon/Lighted Outline" {
 		Tags { "RenderType"="Opaque" }
 		UsePass "Toon/Lighted/FORWARD"
 		UsePass "Toon/Basic Outline/OUTLINE"
+		Pass{
+			Cull Off
+			Material {
+
+                Diffuse [_Color]
+
+                Ambient [_Color]
+
+            }
+
+            Lighting On
+
+            SetTexture [_MainTex] {
+
+                Combine texture * primary DOUBLE, texture * primary
+
+            }
+
+		}
 	} 
 	
 	Fallback "Toon/Lighted"
