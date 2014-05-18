@@ -80,7 +80,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	void charControl(){
 		Vector3 moveDirection = Vector3.zero;
-		Vector3 strafeDirection = Vector3.zero;
 		//Strafe
 		if(strafeToggle){
 			moveDirection.x += Input.GetAxis("Horizontal") * CHARSPEED * speedMult;

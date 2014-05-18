@@ -65,8 +65,9 @@ public class PlayerChat : MonoBehaviour
 			}
 			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
 			string text = NGUIText.StripSymbols(mInput.value);
+			text = StringCleaner.CleanString(text);
 
-			if (!string.IsNullOrEmpty(text)){
+			if (!string.IsNullOrEmpty(text) && text.Length>=1){
 				if(player.Team == "Spy"){
 					foreach(GameObject gu in team){
 						gu.GetComponent<Spy>().photonView.RPC("receiveMessage", PhotonTargets.All, "[00CCFF]"+player.Handle+": [-]"+text);

@@ -141,6 +141,19 @@ public class UIKeyBinding : MonoBehaviour
 				}
 			}
 		}
+		else if (action == Action.Select){
+			if (Input.GetKeyUp(keyCode) && IsModifierActive()){
+					if (mIsInput){
+						if (!mIgnoreUp && !UICamera.inputHasFocus){
+							UICamera.selectedObject = gameObject;
+						}
+						mIgnoreUp = false;
+					}
+					else{
+						UICamera.selectedObject = gameObject;
+					}
+				}
+		}
 		else if(action == Action.SelectAndDeselect){
 				if (Input.GetKeyUp(keyCode) && IsModifierActive() && Window.GetComponent<UISprite>().alpha == 1){
 					if (mIsInput){
