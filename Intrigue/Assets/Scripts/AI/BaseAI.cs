@@ -47,6 +47,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public float happy = 0f;
 	[HideInInspector] public float sad = 0f;
 	[HideInInspector] public float toxicity = 0f;
+	[HideInInspector] public float timeInRoom = 0f;
 
 	//Other AI Characteristics
 	[HideInInspector] public bool smoker = false;
@@ -62,6 +63,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	public void Update(){
+		//Debug.Log(status);
 		if(!PhotonNetwork.isMasterClient && !aiTesting){
 			transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
 			transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
@@ -118,6 +120,7 @@ public class BaseAI : Photon.MonoBehaviour {
 					}
 				break;
 			}
+			Debug.Log(status);
 		}
 
 		if(!aiTesting){
@@ -162,6 +165,9 @@ public class BaseAI : Photon.MonoBehaviour {
 			if( happy < 100) happy += 2f;
 			if( sad < 100) sad += 2f;
 			if( toxicity < 100) toxicity += 2f;
+			if(timeInRoom <= 10){
+				timeInRoom +=1f;
+			}
 			updateWants = 5f;
 		} else {
 			updateWants -= Time.deltaTime;
@@ -184,13 +190,13 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void initAI(){
 		rules = new List<Rule>();
-		rules.Add( new WantToGetDrink(gameObject) );
-		rules.Add( new WantToConverse(gameObject) );
+		//rules.Add( new WantToGetDrink(gameObject) );
+		//rules.Add( new WantToConverse(gameObject) );
 		rules.Add( new FindRoom(gameObject) );
-		rules.Add( new WantToWanderRoom(gameObject) );
+		//rules.Add( new WantToWanderRoom(gameObject) );
 		rules.Add( new WantToMoveRoom(gameObject) );
-		rules.Add( new NeedToUseRestroom(gameObject) );
-		rules.Add( new AdmireArt(gameObject) );
+		//rules.Add( new NeedToUseRestroom(gameObject) );
+		//rules.Add( new AdmireArt(gameObject) );
 		//<-------- Rules To Add ------->
 		// Relax
 		// LetOffSteam

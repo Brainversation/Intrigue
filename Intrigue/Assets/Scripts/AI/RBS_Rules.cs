@@ -6,10 +6,13 @@ using BehaviorTree;
 
 namespace RBS{
 	class WantToMoveRoom : Rule{
+		private GameObject go;
 		public WantToMoveRoom(GameObject gameObject){
-			this.addCondition(new IsContent(gameObject));
+			this.addCondition(new TimeToMove(gameObject));
 			this.consequence = goToRoom;
+			this.antiConsequence = atRoom;
 			this.weight = 7;
+			this.go = gameObject;
 		}
 
 		private Status goToRoom(GameObject gameObject){
@@ -17,6 +20,8 @@ namespace RBS{
 			GameObject curRoom = script.room.me;
 			GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
 			GameObject room;
+
+			Debug.Log("Number of rooms: " + rooms.Length);
 
 			//ensure next room to go to is not the same as the current room
 			do{
@@ -33,15 +38,22 @@ namespace RBS{
                                   UnityEngine.Random.Range(room.GetComponent<BoxCollider>().bounds.min.z,
                                   room.GetComponent<BoxCollider>().bounds.max.z));
 
-			script.bored -= 20;
-			script.lonely -= 20;
-			script.anxiety -= 20;
+			//script.bored -= 20;
+			//script.lonely -= 20;
+			//script.anxiety -= 20;
 
             //Set BaseAI variables and run
             script.distFromDest = 5f;
             script.agent.SetDestination(newDest);
             script.anim.SetBool("Speed", true);
             return Status.Waiting;
+		}
+
+		private Status atRoom(){
+			Debug.Log("In antiConsequence of roomMove");
+			go.GetComponent<BaseAI>().timeInRoom = 0f;
+			Debug.Log(go.GetComponent<BaseAI>().timeInRoom);
+			return Status.True;
 		}
 	}
 

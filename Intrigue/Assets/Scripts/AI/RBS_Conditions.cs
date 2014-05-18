@@ -227,4 +227,32 @@ namespace RBS{
 			return !gameObject.GetComponent<BaseAI>().inConvo;
 		}
 	}
+
+	class TimeToMove: Condition{
+		public TimeToMove(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			BaseAI script = gameObject.GetComponent<BaseAI>();
+			if(script.timeInRoom >= 10){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	class alwaysTrue : Condition{
+		public alwaysTrue(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			return true;
+		}
+	}
+
+	class alwaysFalse : Condition{
+		public alwaysFalse(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			return false;
+		}
+	}
 }
