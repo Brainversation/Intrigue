@@ -49,6 +49,7 @@ public class BasePlayer : MonoBehaviour {
 	[HideInInspector] public bool isAssigned = false;
 	[HideInInspector] public bool isOut = false;
 	[HideInInspector] public bool isChatting = false;
+	[HideInInspector] public bool isSpectated = false;
 
 	public static bool isSpectating = false;
 	public static GameObject[] spectators;
@@ -173,6 +174,10 @@ public class BasePlayer : MonoBehaviour {
 				highlightTargeted();
 			}
 			/*------------------------------------------------------*/
+
+			if(BasePlayer.isSpectating && isSpectated && Input.GetKeyUp(KeyCode.Space)){
+				switchSpectate();
+			}
 	
 		}
 
@@ -317,6 +322,8 @@ public class BasePlayer : MonoBehaviour {
 		foreach (GameObject teamMate in spectators){
 			if(teamMate != gameObject){
 				BasePlayer bp = teamMate.GetComponent<BasePlayer>();
+				isSpectated = false;
+				bp.isSpectated = true;
 				teamMate.GetComponentInChildren<Camera>().enabled = true;
 				NGUITools.SetActive(bp.chatArea, true);
 				NGUITools.SetActiveChildren(bp.chatArea, true);
