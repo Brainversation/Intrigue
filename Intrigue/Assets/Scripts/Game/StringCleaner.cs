@@ -30,13 +30,12 @@ public class StringCleaner : MonoBehaviour {
             // LOOP THROUGH PROFANITY WORDS
             for (int i = 0; i < naughtyWords.Count; i++)
             {
-                if( inStrArray[x] == naughtyWords[i] || inStrArray[x] == naughtyWords[i] +"s" || inStrArray[x] == naughtyWords[i] +"es")
-                {	
-                	if(inStrArray[x] == naughtyWords[i] +"s" || inStrArray[x] == naughtyWords[i] +"es")
-						inStrArray[x] = goodWords[i] + "s";
-					else
-						inStrArray[x] = goodWords[i];
+                if( inStrArray[x] == naughtyWords[i] ||  inStrArray[x] == naughtyWords[i].ToUpper()){
+					inStrArray[x] = goodWords[i];
                 }
+                else if(inStrArray[x] == naughtyWords[i] +"s" || inStrArray[x] == naughtyWords[i] +"es" || inStrArray[x] == naughtyWords[i].ToUpper() +"S" || inStrArray[x] == naughtyWords[i].ToUpper() +"ES"){	
+					inStrArray[x] = goodWords[i] + "s";
+				}
             }
 
         }
