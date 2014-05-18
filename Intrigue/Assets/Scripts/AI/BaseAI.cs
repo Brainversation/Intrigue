@@ -42,7 +42,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public float lonely = 0f;
 	[HideInInspector] public float tired = 0f;
 	[HideInInspector] public float anxiety = 0f;
-	[HideInInspector] public float bladder = 0f;
+	[HideInInspector] public float bladder = 51f;
 	[HideInInspector] public float anger = 0f;
 	[HideInInspector] public float happy = 0f;
 	[HideInInspector] public float sad = 0f;
@@ -196,7 +196,7 @@ public class BaseAI : Photon.MonoBehaviour {
 		rules.Add( new FindRoom(gameObject) );
 		//rules.Add( new WantToWanderRoom(gameObject) );
 		rules.Add( new WantToMoveRoom(gameObject) );
-		//rules.Add( new NeedToUseRestroom(gameObject) );
+		rules.Add( new NeedToUseRestroom(gameObject) );
 		//rules.Add( new AdmireArt(gameObject) );
 		//<-------- Rules To Add ------->
 		// Relax
