@@ -174,10 +174,6 @@ public class BasePlayer : MonoBehaviour {
 				highlightTargeted();
 			}
 			/*------------------------------------------------------*/
-
-			if(BasePlayer.isSpectating && isSpectated && Input.GetKeyUp(KeyCode.Space)){
-				switchSpectate();
-			}
 	
 		}
 
@@ -214,9 +210,13 @@ public class BasePlayer : MonoBehaviour {
 				chatArea.GetComponentInChildren<UILabel>().alpha = 0;
 			else
 				chatArea.GetComponentInChildren<UILabel>().alpha = 1;
-		}	
-		
 		}
+
+		if(BasePlayer.isSpectating && isSpectated && Input.GetKeyUp(KeyCode.Space)){
+			switchSpectate();
+		}
+		
+	}
 
 	void updateTimeLabel(){
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
@@ -253,7 +253,7 @@ public class BasePlayer : MonoBehaviour {
 					textInstance.GetComponent<TextMesh>().text = (string)PhotonPlayer.Find(ally.GetComponent<BasePlayer>().photonID).customProperties["Handle"];
 				}
 
-				if((ally.GetComponentInChildren<TextMesh>().text == "" || ally.GetComponentInChildren<TextMesh>().text == "No Handle") && ally.GetComponent<Spy>().textAdded){
+				if((ally.GetComponentInChildren<TextMesh>().text == "") && ally.GetComponent<BasePlayer>().textAdded){
 					ally.GetComponentInChildren<TextMesh>().text = (string)PhotonPlayer.Find(ally.GetComponent<BasePlayer>().photonID).customProperties["Handle"];
 				}
 			}
