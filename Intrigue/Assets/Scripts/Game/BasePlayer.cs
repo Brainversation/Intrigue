@@ -320,7 +320,7 @@ public class BasePlayer : MonoBehaviour {
 
 	private void switchSpectate(){
 		foreach (GameObject teamMate in spectators){
-			if(teamMate != gameObject){
+			if(teamMate != null && teamMate != gameObject){
 				BasePlayer bp = teamMate.GetComponent<BasePlayer>();
 				isSpectated = false;
 				bp.isSpectated = true;
