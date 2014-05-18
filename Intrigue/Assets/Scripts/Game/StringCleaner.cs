@@ -22,7 +22,7 @@ public class StringCleaner : MonoBehaviour {
 
 	public static string CleanString(string checkStr)
     {
-    	createStringLists();
+    	//createStringLists();
         string[] inStrArray = checkStr.Split(new char[] {' '});
         // LOOP THROUGH WORDS IN MESSAGE
         for (int x = 0; x < inStrArray.Length; x++)
@@ -44,7 +44,7 @@ public class StringCleaner : MonoBehaviour {
         return cleanedString;
     }
 
-   static void createStringLists(){
+   public static void createStringLists(){
 		naughtyWords.Add("Shit");
 		goodWords.Add("Poop");
 		naughtyWords.Add("shit");

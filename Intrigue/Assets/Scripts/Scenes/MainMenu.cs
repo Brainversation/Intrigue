@@ -33,6 +33,7 @@ public class MainMenu : MonoBehaviour {
 	private string playerPrefsPrefix;
 
 	void Start () {
+		StringCleaner.createStringLists();
 		createServerButton = GameObject.Find("CREATE SERVER");
 		findServerButton = GameObject.Find("FIND SERVER");
 		optionsButtons = GameObject.Find("OptionsButtons");
