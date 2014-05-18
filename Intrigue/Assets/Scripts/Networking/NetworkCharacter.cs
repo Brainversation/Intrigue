@@ -56,23 +56,25 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	}
 
 	public void FixedUpdate(){
-		if((player.Team != "Spy" || !Intrigue.playerGO.GetComponent<Spy>().doingObjective) &&
-			photonView.isMine && !isOut && !gameObject.GetComponent<BasePlayer>().isChatting && !isStunned){
-			// Stamina functionality
-			doStamina();
+		if(photonView.isMine){
+			if((player.Team != "Spy" || !Intrigue.playerGO.GetComponent<Spy>().doingObjective) &&
+				!isOut && !gameObject.GetComponent<BasePlayer>().isChatting && !isStunned){
+				// Stamina functionality
+				doStamina();
 
-			//Rotating Character and Gravity
-			charControl();
-		} else if(photonView.isMine && isOut){
-			anim.SetFloat("Speed", 0f);
-			anim.SetFloat("Direction", 0f);
-			anim.SetBool("Run", false);
-			anim.SetBool("Out", true);
-		}
-		else if(photonView.isMine && player.Team == "Spy" && Intrigue.playerGO.GetComponent<Spy>().doingObjective){
-			anim.SetFloat("Speed", 0f);
-			anim.SetFloat("Direction", 0f);
-			anim.SetBool("Run", false);
+				//Rotating Character and Gravity
+				charControl();
+			} else if(isOut){
+				anim.SetFloat("Speed", 0f);
+				anim.SetFloat("Direction", 0f);
+				anim.SetBool("Run", false);
+				anim.SetBool("Out", true);
+			}
+			else if(player.Team == "Spy" && Intrigue.playerGO.GetComponent<Spy>().doingObjective){
+				anim.SetFloat("Speed", 0f);
+				anim.SetFloat("Direction", 0f);
+				anim.SetBool("Run", false);
+			}
 		}
 	}
 

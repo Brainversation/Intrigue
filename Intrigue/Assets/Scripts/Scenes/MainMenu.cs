@@ -231,7 +231,7 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void getUserHandle(){
-		UILabel playerName = GameObject.Find ("playerName").GetComponent<UILabel> ();
+		UILabel playerName = GameObject.Find ("playerName").GetComponent<UILabel>();
 		player.Handle = playerName.text;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Handle", player.Handle}});		
 		PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
