@@ -28,6 +28,9 @@ public class BasePlayer : MonoBehaviour {
 	public GameObject allytext;
 	public GameObject teleportPrefab;
 	public GameObject chatArea;
+	public GameObject RoundGuardsIcon;
+	public GameObject RoundSpiesIcon;
+	public GameObject RoundResultBase;
 	public UITextList textList;
 	public UIPanel conversationGUI;
 	public UILabel inConvoGUI;
@@ -67,9 +70,11 @@ public class BasePlayer : MonoBehaviour {
 			photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
 			photonView.RPC("sendID", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
 			InvokeRepeating("syncPing", 1, 2F);
+			updateRoundResults();
 			textList.Add("[FF2B2B]Press [-]Enter[FF2B2B] to chat![-]");
 			if(hairHat!=null)
 				hairHat.GetComponent<Renderer>().enabled = false;
+
 		} else {
 			Camera cam = GetComponentInChildren<Camera>();
 			cam.enabled = false; 
@@ -83,8 +88,34 @@ public class BasePlayer : MonoBehaviour {
 		}
 
 		Invoke("setTeamWhyTheFuckShouldWeHaveToDoThis", 2);
+
 	}
 	
+	void updateRoundResults(){
+		int cur = 0;
+		GameObject resultInstance;
+		foreach(int result in Intrigue.roundResults){
+			if(result == 1)
+				resultInstance = instantiateRoundResultInstance(RoundResultBase, RoundSpiesIcon);
+			else
+				resultInstance = instantiateRoundResultInstance(RoundResultBase, RoundGuardsIcon);
+			Vector3 temp = new Vector3(cur*0.095f,0f,0f);
+			resultInstance.transform.localPosition += temp;
+			++cur;
+		}
+	}
+
+	GameObject instantiateRoundResultInstance(GameObject parent, GameObject prefab){
+        GameObject go = GameObject.Instantiate(prefab) as GameObject;
+		Transform t = go.transform;
+		t.parent = parent.transform;
+		t.localPosition = Vector3.zero;
+		t.localRotation = Quaternion.identity;
+		t.localScale = new Vector3(0.003487f,0.003487f,0.003487f);
+		go.layer = parent.layer;
+		return go;
+	}
+
 	void setTeamWhyTheFuckShouldWeHaveToDoThis(){
 		PhotonNetwork.player.SetCustomProperties(new Hashtable{{"Team", player.Team}});
 	}
@@ -190,13 +221,11 @@ public class BasePlayer : MonoBehaviour {
 			secondsS = seconds.ToString();
 		if(intrigue.GetTimeLeft>60){
 			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + 
-											secondsS + "\nRound: " + 
-											curRound +"/" + (intrigue.GetRounds+1);
+											secondsS;
+		 //+ "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
 		}
 		else{
-			timeLabel.GetComponent<UILabel>().text = "[FF0000]" + minutesLeft +":" + 
-								secondsS + "[-]\nRound: " + 
-								curRound +"/" + (intrigue.GetRounds+1);
+			timeLabel.GetComponent<UILabel>().text = "[FF0000]" + minutesLeft +":" + secondsS;
 		}
 
 	}

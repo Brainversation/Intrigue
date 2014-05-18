@@ -35,13 +35,14 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector] public bool doneLoading = false;
 	[HideInInspector] public float loadedGuests = 0;
 	[HideInInspector] public float totalGuests;
+	[HideInInspector] public static List<int> roundResults = new List<int>();
 	
 	public static int numSpiesLeft;
 	public static int numGuardsLeft;
 	public static GameObject playerGO = null;
 	
 	// CHANGE GAMEOVER HERE
-	public static bool wantGameOver = false;
+	public static bool wantGameOver = true;
 
 	void Awake(){
 		GameObject menuMusic = GameObject.Find("MenuMusic");
@@ -101,21 +102,29 @@ public class Intrigue : MonoBehaviour {
 		if(!gameStart) return;
 		timeLeft -= Time.deltaTime;
 		photonView.RPC("syncTime", PhotonTargets.Others, timeLeft);
-		if( timeLeft <= 0 ||  numSpiesLeft<=0 || numGuardsLeft <=0 || objectivesCompleted == 2){
+		if( timeLeft <= 0 || numSpiesLeft<=0 || numGuardsLeft <=0 || objectivesCompleted == 2){
 			if(wantGameOver){
+				int roundResultInstance;
 				if(timeLeft<=0){
 					roundResult = "Time Limit Reached.\nGuards Win!";
 					winningTeamThisRound = 2;
+					roundResultInstance = 2;
 				} else if(numSpiesLeft<=0){
 					roundResult = "All Spies Caught.\nGuards Win!";
 					winningTeamThisRound = 2;
+					roundResultInstance = 2;
 				} else if(numGuardsLeft<=0){
 					roundResult = "All Guards Out.\nSpies Win!";
 					winningTeamThisRound = 1;
+					roundResultInstance = 1;
 				} else{
 					roundResult = "Objectives Completed.\nSpies Win!";
 					winningTeamThisRound = 1;
+					roundResultInstance = 1;
 				}
+
+				roundResults.Add(roundResultInstance);
+				photonView.RPC("syncRoundResults", PhotonTargets.OthersBuffered, roundResultInstance);
 
 				//Converts winningTeamThisRound from Spies/Guard to Team1/Team2
 				if(player.Team == "Spy" && winningTeamThisRound == 1){
@@ -305,5 +314,10 @@ public class Intrigue : MonoBehaviour {
 	[RPC]
 	public void ready(){
 		++this.readyCount;
+	}
+
+	[RPC]
+	void syncRoundResults(int winningTeam){
+		roundResults.Add(winningTeam);
 	}
 }
