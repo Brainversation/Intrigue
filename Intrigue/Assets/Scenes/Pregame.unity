@@ -508,6 +508,7 @@ MonoBehaviour:
   aspectRatio: 3.9000001
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
@@ -742,6 +743,7 @@ MonoBehaviour:
   aspectRatio: 4.4375
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
@@ -865,6 +867,7 @@ MonoBehaviour:
   aspectRatio: 4.44444466
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
@@ -1296,7 +1299,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 5e6572697dd4a144e8a2440161ef74b4, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 6.00024414
+      value: -6.63000011
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 5e6572697dd4a144e8a2440161ef74b4, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1836,6 +1839,7 @@ MonoBehaviour:
   aspectRatio: 1.53424656
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -2318,7 +2322,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 718148528}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -.469970703, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 314424099}
@@ -2351,13 +2355,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 4
-  mWidth: 1261
-  mHeight: 720
+  mWidth: 1280
+  mHeight: 719
   mDepth: -3
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.77777779
+  aspectRatio: 1.75138891
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
   mSpriteName: Glow - Inner
   mType: 1
@@ -2510,6 +2514,7 @@ MonoBehaviour:
   aspectRatio: 31.4814816
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 2
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -3173,6 +3178,7 @@ MonoBehaviour:
   aspectRatio: 4.4375
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
@@ -3352,7 +3358,6 @@ MonoBehaviour:
   keyCode: 13
   modifier: 0
   action: 1
-  networkController: {fileID: 0}
   Window: {fileID: 0}
 --- !u!114 &1082388192
 MonoBehaviour:
@@ -3741,6 +3746,7 @@ MonoBehaviour:
   aspectRatio: 6.66666651
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 2
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -4794,6 +4800,7 @@ MonoBehaviour:
   aspectRatio: 4.4375
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
@@ -5273,6 +5280,7 @@ MonoBehaviour:
   aspectRatio: 11.25
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
@@ -5400,7 +5408,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1780133645}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -217, y: 6, z: 0}
+  m_LocalPosition: {x: -217, y: -6.63000011, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 165826648}
@@ -5546,7 +5554,7 @@ Transform:
   m_PrefabInternal: {fileID: 250789854}
   m_GameObject: {fileID: 1798639316}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -207.822845, y: 6.00024414, z: 0}
+  m_LocalPosition: {x: -207.822845, y: -6.63000011, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1055326491}
@@ -6025,6 +6033,7 @@ MonoBehaviour:
   aspectRatio: 2.70000005
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
@@ -6114,6 +6123,7 @@ MonoBehaviour:
   aspectRatio: 2.55384612
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 2
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
@@ -6206,6 +6216,7 @@ MonoBehaviour:
   aspectRatio: 4.4375
   user: -1
   labelHandle: 
+  labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 11400000, guid: 29056518aafb01b49a5b08faf8e30cff, type: 2}
