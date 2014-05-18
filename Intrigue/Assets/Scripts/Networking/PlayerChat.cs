@@ -64,7 +64,7 @@ public class PlayerChat : MonoBehaviour
 			string text = NGUIText.StripSymbols(mInput.value);
 			text = StringCleaner.CleanString(text);
 
-			if (!string.IsNullOrEmpty(text) && text.Length>=1){
+			if (!string.IsNullOrEmpty(text) && text.Length>=2){
 				if(player.Team == "Spy"){
 					foreach(GameObject gu in team){
 						gu.GetComponent<Spy>().photonView.RPC("receiveMessage", PhotonTargets.All, "[00CCFF]"+player.Handle+": [-]"+text);

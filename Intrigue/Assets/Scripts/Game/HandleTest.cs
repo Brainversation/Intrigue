@@ -17,6 +17,7 @@ public class HandleTest : MonoBehaviour {
 	void Update(){
 		if(handleLabel.text.Length>=1 && handleLabel.text.Length<=10){
 			handleLabel.text = CleanString(handleLabel.text);
+			handleLabel.text = StringCleaner.CleanString(handleLabel.text);
 			proceedButton.SetActive(true);
 		}
 		else{

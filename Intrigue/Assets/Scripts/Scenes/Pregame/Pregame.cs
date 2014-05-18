@@ -67,7 +67,7 @@ public class Pregame : MonoBehaviour {
 			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
 			string text = NGUIText.StripSymbols(mInput.value);
 			text = StringCleaner.CleanString(text);
-			if (!string.IsNullOrEmpty(text) && text.Length>=1){
+			if (!string.IsNullOrEmpty(text) && text.Length>=2){
 				if(player.Team == "Spy"){
 					textList.Add("[8169FF]"+player.Handle+": [-]"+text);
 					photonView.RPC("receiveMessage", PhotonTargets.Others, "[8169FF]"+player.Handle+": [-]"+text);

@@ -81,9 +81,37 @@ public class StringCleaner : MonoBehaviour {
 		goodWords.Add("Nerf Herder");
 		naughtyWords.Add("faggot");
 		goodWords.Add("nerf herder");
+		naughtyWords.Add("Fag");
+		goodWords.Add("Cigarette");
+		naughtyWords.Add("fag");
+		goodWords.Add("cigarette");
 		naughtyWords.Add("Dick");
 		goodWords.Add("Doodle");
 		naughtyWords.Add("dick");
 		goodWords.Add("doodle");
+		naughtyWords.Add("Bastard");
+		goodWords.Add("Balloon Head");
+		naughtyWords.Add("bastard");
+		goodWords.Add("balloon head");
+		naughtyWords.Add("Cock");
+		goodWords.Add("Rooster");
+		naughtyWords.Add("cock");
+		goodWords.Add("rooster");
+		naughtyWords.Add("Nigger");
+		goodWords.Add("Nagger");
+		naughtyWords.Add("nigger");
+		goodWords.Add("nagger");
+		naughtyWords.Add("Kike");
+		goodWords.Add("kite");
+		naughtyWords.Add("kike");
+		goodWords.Add("kite");
+		naughtyWords.Add("Chode");
+		goodWords.Add("Dumb Face");
+		naughtyWords.Add("chode");
+		goodWords.Add("dumb face");
+		naughtyWords.Add("Douche");
+		goodWords.Add("Doodad");
+		naughtyWords.Add("douche");
+		goodWords.Add("doodad");
    }
 }
