@@ -21,7 +21,7 @@ namespace RBS{
 			GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
 			GameObject room;
 
-			Debug.Log("Number of rooms: " + rooms.Length);
+		// Debug.Log("Number of rooms: " + rooms.Length);
 
 			//ensure next room to go to is not the same as the current room
 			do{
@@ -50,9 +50,7 @@ namespace RBS{
 		}
 
 		private Status atRoom(){
-			Debug.Log("In antiConsequence of roomMove");
 			go.GetComponent<BaseAI>().timeInRoom = 0f;
-			Debug.Log(go.GetComponent<BaseAI>().timeInRoom);
 			return Status.True;
 		}
 	}

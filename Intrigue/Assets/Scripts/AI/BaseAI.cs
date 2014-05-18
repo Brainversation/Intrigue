@@ -122,7 +122,6 @@ public class BaseAI : Photon.MonoBehaviour {
 					}
 				break;
 			}
-			Debug.Log(status);
 		}
 
 		if(!aiTesting){

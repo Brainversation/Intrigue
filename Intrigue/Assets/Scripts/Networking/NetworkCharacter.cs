@@ -147,7 +147,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			stream.SendNext(anim.GetBool("InteractServer"));
 			stream.SendNext(anim.GetBool("Out"));
 			stream.SendNext(anim.GetBool("Converse"));
-			stream.SendNext(anim.GetBool("strafeToggle"));
+			stream.SendNext(anim.GetBool("StrafeToggle"));
 
 		}else{
 			// Network player, receive data

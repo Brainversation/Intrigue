@@ -244,7 +244,7 @@ public class BasePlayer : MonoBehaviour {
 		GameObject[] allies = GameObject.FindGameObjectsWithTag(player.Team);
 
 		foreach(GameObject ally in allies){
-			if(ally!=gameObject){
+			if(ally != null && ally!=gameObject){
 				if(!ally.GetComponent<BasePlayer>().textAdded){
 					ally.GetComponent<BasePlayer>().textAdded = true;
 					GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
