@@ -113,10 +113,12 @@ public class BaseAI : Photon.MonoBehaviour {
 					if(agent.hasPath && !agent.pathPending && agent.remainingDistance < distFromDest){
 						anim.SetBool("Speed", false);
 						agent.ResetPath();
-						if(tree == null)
+						if(tree == null){
 							status = Status.False;
-						else
+							backToRule();
+						} else {
 							status = Status.Tree;
+						}
 					}
 				break;
 			}
