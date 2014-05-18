@@ -12,8 +12,6 @@ public class BasePlayer : MonoBehaviour {
 	protected int photonID = -1;
 	protected Renderer[] renders;
 	protected RaycastHit hit;
-	//protected Shader staticShader;
-	//protected Shader toonShader;
 	
 	protected static Dictionary<int, bool> markedOther = new Dictionary<int, bool>();
 	protected static Dictionary<int, bool> markedGuests = new Dictionary<int, bool>();
@@ -31,6 +29,8 @@ public class BasePlayer : MonoBehaviour {
 	public GameObject RoundGuardsIcon;
 	public GameObject RoundSpiesIcon;
 	public GameObject RoundResultBase;
+	public GameObject UIRoot;
+	public GameObject scoreboard;
 	public UITextList textList;
 	public UIPanel conversationGUI;
 	public UILabel inConvoGUI;
@@ -49,6 +49,9 @@ public class BasePlayer : MonoBehaviour {
 	[HideInInspector] public bool isAssigned = false;
 	[HideInInspector] public bool isOut = false;
 	[HideInInspector] public bool isChatting = false;
+
+	public static bool isSpectating = false;
+	public static GameObject[] spectators;
 
 	private bool roundStarted = false;
 	private GameObject[] guardsList;
@@ -303,27 +306,34 @@ public class BasePlayer : MonoBehaviour {
 	void spectate(){
 		GetComponentInChildren<Camera>().enabled = false;
 		if(!intrigue.gameOverFlag){
-			foreach (GameObject teamMates in GameObject.FindGameObjectsWithTag(player.Team)){
-				if(teamMates.gameObject != gameObject){
-					teamMates.GetComponentInChildren<Camera>().enabled = true;
-		 			foreach(UIPanel uiP in teamMates.GetComponentsInChildren<UIPanel>(true)){
-						if(uiP.gameObject.CompareTag("ChatArea") ||
-						   uiP.gameObject.CompareTag("Scoreboard") ||
-							uiP.gameObject.CompareTag("TimeLabel") ||
-							uiP.gameObject.CompareTag("UIRoot")){
-							NGUITools.SetActive(uiP.gameObject, true);
+			BasePlayer.isSpectating = true;
+			BasePlayer.spectators = GameObject.FindGameObjectsWithTag(player.Team);
+			switchSpectate();
+			PhotonNetwork.Destroy(gameObject);
+		}
+	}
 
-							if(uiP.gameObject.CompareTag("Scoreboard") || uiP.gameObject.CompareTag("ChatArea")){
-								NGUITools.SetActiveChildren(uiP.gameObject, true);
-							}
-						}
-					}
-					break;
-				}
+	private void switchSpectate(){
+		foreach (GameObject teamMate in spectators){
+			if(teamMate != gameObject){
+				BasePlayer bp = teamMate.GetComponent<BasePlayer>();
+				teamMate.GetComponentInChildren<Camera>().enabled = true;
+				NGUITools.SetActive(bp.chatArea, true);
+				NGUITools.SetActiveChildren(bp.chatArea, true);
+				NGUITools.SetActive(bp.scoreboard, true);
+				NGUITools.SetActiveChildren(bp.scoreboard, true);
+				NGUITools.SetActive(bp.timeLabel, true);
+				NGUITools.SetActive(bp.UIRoot, true);
+
+				NGUITools.SetActive(chatArea, false);
+				NGUITools.SetActiveChildren(chatArea, false);
+				NGUITools.SetActive(scoreboard, false);
+				NGUITools.SetActiveChildren(scoreboard, false);
+				NGUITools.SetActive(timeLabel, false);
+				NGUITools.SetActive(UIRoot, false);
+				break;
 			}
 		}
-
-		PhotonNetwork.Destroy(gameObject);
 	}
 
 	protected virtual void highlightTargeted(){

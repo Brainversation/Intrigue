@@ -41,18 +41,15 @@ public class PlayerChat : MonoBehaviour
 			else{
 				UICamera.selectedObject = gameObject;
 			}
-		}
-		else if(window.GetComponent<UISprite>().alpha == 0){					
+		} else if(window.GetComponent<UISprite>().alpha == 0){					
 			UICamera.inputHasFocus = false;
 			UICamera.selectedObject = null;
 			mInput.enabled = false;			
 		}
 	}
 
-	public void OnSubmit ()
-	{
-
-		if (UICamera.currentKey == KeyCode.Return);
+	public void OnSubmit (){
+		if(UICamera.currentKey == KeyCode.Return);
 			mIgnoreUp = true;
 
 		if (textList != null)
