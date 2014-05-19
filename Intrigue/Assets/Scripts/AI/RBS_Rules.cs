@@ -57,7 +57,7 @@ namespace RBS{
 
 	class WantToWanderRoom : Rule{
 		public WantToWanderRoom(GameObject gameObject){
-			this.addCondition(new IsBored(gameObject));
+			this.addCondition(new HalfRoomTime(gameObject));
 			this.consequence = wanderRoom;
 			this.weight = 6;
 		}
@@ -87,8 +87,6 @@ namespace RBS{
 
             // 	script.agent.CalculatePath(newDest, path);
             // }
-
-			script.bored -= 10;
             script.anim.SetBool("Speed", true);
             script.agent.SetDestination(newDest);
             return Status.Waiting;

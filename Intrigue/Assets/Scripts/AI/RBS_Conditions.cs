@@ -233,6 +233,18 @@ namespace RBS{
 
 		public override bool test(){
 			BaseAI script = gameObject.GetComponent<BaseAI>();
+			if(script.timeInRoom >= 15){
+				return true;
+			}
+			return false;
+		}
+	}
+
+	class HalfRoomTime:Condition{
+		public HalfRoomTime(GameObject gameObject):base(gameObject){}
+		
+		public override bool test(){
+			BaseAI script = gameObject.GetComponent<BaseAI>();
 			if(script.timeInRoom >= 10){
 				return true;
 			}
