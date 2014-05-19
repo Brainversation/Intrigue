@@ -85,12 +85,12 @@ public class ConversationHotSpot : MonoBehaviour {
 	void OnTriggerStay(Collider other){
 		if(other.tag == "Guard" || other.tag == "Spy"){
 			// If player presses E and the GUI element is present, then add to convo
-			if(Input.GetKeyUp(KeyCode.E) && other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha == 1){
+			if(Input.GetKeyUp(Settings.Interact) && other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha == 1){
 				++population;
 				queue.Add(other.gameObject);
 				other.gameObject.GetComponent<BasePlayer>().inConvoGUI.alpha = 1;
 				other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
-			} else if(Input.GetKeyUp(KeyCode.Space)){
+			} else if(Input.GetKeyUp(Settings.Cancel)){
 				other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
 			}
 		}

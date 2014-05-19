@@ -181,7 +181,6 @@ public class MainMenu : MonoBehaviour {
 		NGUITools.SetActive(createRoomFailed, false);
 		NGUITools.SetActive(quickMatchFailed, false);
 		NGUITools.SetActive(optionsButtons, false);
-		optionsButtons.SetActive(false);
 		createServerButton.GetComponent<UIButton>().enabled = true;
 		findServerButton.GetComponent<UIButton>().enabled = true;
 	}
@@ -210,6 +209,10 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void onOptionsClicked(){
+		if(PlayerPrefs.GetString(playerPrefsPrefix + "Name") != string.Empty)
+			PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
+		PlayerPrefs.Save();
+		Application.LoadLevel("Settings");
 	}
 
 	void onCreditsClicked(){

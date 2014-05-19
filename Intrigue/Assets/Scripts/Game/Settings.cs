@@ -11,6 +11,7 @@ public class Settings : MonoBehaviour {
 	[HideInInspector] public static string Interact;
 	[HideInInspector] public static string Mark;
 	[HideInInspector] public static string Stun;
+	[HideInInspector] public static string Cancel;
 
 	[HideInInspector] public static float MasterVolume;
 	[HideInInspector] public static float AmbientVolume;
@@ -18,9 +19,9 @@ public class Settings : MonoBehaviour {
 
 	private static string playerPrefsPrefix;
 
-
 	// Use this for initialization
 	public static void Start () {
+
 		//Player Prefs
 		if (Application.isEditor)
 			playerPrefsPrefix = "PlayerEditor";
@@ -67,6 +68,14 @@ public class Settings : MonoBehaviour {
 			PlayerPrefs.SetString(playerPrefsPrefix + "Stun", Stun);
 		}
 
+		//Cancel Button
+		if( PlayerPrefs.HasKey( playerPrefsPrefix + "Cancel" )){
+			Cancel = PlayerPrefs.GetString(playerPrefsPrefix + "Cancel");
+		}else{
+			Cancel = "space";
+			PlayerPrefs.SetString(playerPrefsPrefix + "Cancel", Cancel);
+		}
+
 	}
 
 	public static void SetKey(string key, string newBinding){
@@ -84,6 +93,11 @@ public class Settings : MonoBehaviour {
 			case "Stun": 
 				Stun = newBinding;
 				PlayerPrefs.SetString(playerPrefsPrefix + "Stun", Stun);
+				break;
+
+			case "Cancel": 
+				Cancel = newBinding;
+				PlayerPrefs.SetString(playerPrefsPrefix + "Cancel", Cancel);
 				break;
 		}
 		PlayerPrefs.Save();

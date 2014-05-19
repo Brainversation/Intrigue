@@ -9,28 +9,43 @@ public class SettingsManager : MonoBehaviour {
 	public UILabel Binding_Interact;
 	public UILabel Binding_Stun;
 	public UILabel Binding_Mark;
+	public UILabel Binding_Cancel;
 	public UILabel Binding_MouseX;
 	public UILabel Binding_MouseY;
+	public UILabel Binding_NewX;
+	public UILabel Binding_NewY;
+	public UILabel Rebind_Handle;
 	public UILabel Rebind_Current;
 	public UILabel Rebind_New;
+	public UILabel Handle_Current;
 	public UISlider Slider_X;
 	public UISlider Slider_Y;
 	public GameObject RebindPanel;
 
 	private string curKey;
-
+	private Player player;
+	private string playerPrefsPrefix;
 
 	// Use this for initialization
 	void Start () {
+		player = GameObject.Find("Player").GetComponent<Player>();
 		Settings.Start();
 		updateKeyBindings();
-		Slider_X.value = Settings.MouseSensitivityX;
+		Slider_X.value = (Settings.MouseSensitivityX + 15)/30;
+		Slider_Y.value = (Settings.MouseSensitivityY + 15)/30;
+
+		if (Application.isEditor)
+			playerPrefsPrefix = "PlayerEditor";
+		else
+			playerPrefsPrefix = "Player";
 	}
 	
 	void Update(){
 		if(RebindPanel.GetComponent<UIPanel>().alpha == 1){
 			if(Input.inputString.Length>=1){
-				char newKey = Input.inputString[0];
+				string newKey = "" + Input.inputString[0];
+				if(newKey == " ")
+					newKey = "space";
 				Rebind_New.text = "New:\n[FFCC00]" + newKey;
 				switch(curKey){
 					case "Interact": 
@@ -47,6 +62,11 @@ public class SettingsManager : MonoBehaviour {
 					Settings.SetKey("Stun", "" + newKey);
 					Invoke("hidePanel", 0.5f);
 					break;
+
+				case "Cancel": 
+					Settings.SetKey("Cancel", "" + newKey);
+					Invoke("hidePanel", 0.5f);
+					break;
 				}
 			}
 		}
@@ -56,6 +76,12 @@ public class SettingsManager : MonoBehaviour {
 		RebindPanel.GetComponent<UIPanel>().alpha = 1;
 		Rebind_Current.text = "[FFCC00]" + Settings.Interact;
 		curKey = "Interact";
+	}
+
+	void changeCancel(){
+		RebindPanel.GetComponent<UIPanel>().alpha = 1;
+		Rebind_Current.text = "[FFCC00]" + Settings.Cancel;
+		curKey = "Cancel";
 	}
 
 	void changeStun(){
@@ -75,21 +101,40 @@ public class SettingsManager : MonoBehaviour {
 		updateKeyBindings();
 	}
 
+	void changeMouseY(){
+		Settings.SetFloat("MouseY", Mathf.RoundToInt((Slider_Y.value*30)-15));
+		updateKeyBindings();
+	}
+
 	void hidePanel(){
 		RebindPanel.GetComponent<UIPanel>().alpha = 0;
 		updateKeyBindings();
 	}
 
 	public void onMouseXChange(){
-		Binding_MouseX.text = "[FFCC00]" + Mathf.RoundToInt((Slider_X.value * 30) - 15);
+		Binding_NewX.text = "[FFCC00]" + Mathf.RoundToInt((Slider_X.value * 30) - 15);
+	}
+
+	public void onMouseYChange(){
+		Binding_NewY.text = "[FFCC00]" + Mathf.RoundToInt((Slider_Y.value * 30) - 15);
+	}
+
+	public void changeHandle(){
+		player.Handle = Rebind_Handle.text;
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Handle", player.Handle}});	
+		PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
+		updateKeyBindings();
 	}
 
 	void updateKeyBindings(){
 		Binding_Interact.text = "Interact: [FFCC00]" + Settings.Interact.ToUpper();
 		Binding_Mark.text = "Mark: [FFCC00]" + Settings.Mark.ToUpper();
 		Binding_Stun.text = "Stun: [FFCC00]" + Settings.Stun.ToUpper();
-		Binding_MouseX.text = "[FFCC00]" + Settings.MouseSensitivityX;
-		Binding_MouseY.text = "[FFCC00]" + Settings.MouseSensitivityY;
+		Binding_Cancel.text = "Cancel: [FFCC00]" + Settings.Cancel.ToUpper();
+		Binding_MouseX.text = "Mouse X: [FFCC00]" + Settings.MouseSensitivityX;
+		Binding_MouseY.text = "Mouse Y: [FFCC00]" + Settings.MouseSensitivityY;
+		Handle_Current.text = "Handle: [FFCC00]" + PlayerPrefs.GetString(playerPrefsPrefix + "Name", player.Handle);
+		PlayerPrefs.Save();
 	}
 
 	void ReturnToMenu(){

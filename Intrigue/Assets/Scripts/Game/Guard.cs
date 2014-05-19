@@ -105,7 +105,7 @@ public class Guard : BasePlayer{
 
 			//Code to cancel accusation state
 			/*------------------------------------------------------*/
-			if(Input.GetKeyUp(KeyCode.Space)){
+			if(Input.GetKeyUp(Settings.Cancel)){
 				accusing = false;
 				accused = null;
 				accusationGUI.alpha = 0;
