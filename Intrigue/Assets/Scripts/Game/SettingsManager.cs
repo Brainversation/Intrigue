@@ -6,6 +6,14 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class SettingsManager : MonoBehaviour {
 
+	//Panels
+	public UIPanel Settings_Controls;
+	public UIPanel Settings_Audio;
+	public UIPanel Settings_Video;
+
+
+
+	//Bindings
 	public UILabel Binding_Interact;
 	public UILabel Binding_Sprint;
 	public UILabel Binding_Stun;
@@ -32,6 +40,13 @@ public class SettingsManager : MonoBehaviour {
 		player = GameObject.Find("Player").GetComponent<Player>();
 		Settings.Start();
 		updateKeyBindings();
+
+		//Set Panels
+		Settings_Controls.alpha = 1;
+		Settings_Video.alpha = 0;
+		Settings_Audio.alpha = 0;
+
+
 		Slider_X.value = (Settings.MouseSensitivityX-1)/14;
 		Slider_Y.value = (Settings.MouseSensitivityY-1)/14;
 
@@ -145,6 +160,30 @@ public class SettingsManager : MonoBehaviour {
 		PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
 		updateKeyBindings();
 	}
+
+	//Activate Different Panels
+
+	public void activateControlsPanel(){
+		Settings_Controls.alpha = 1;
+		Settings_Audio.alpha = 0;
+		Settings_Video.alpha = 0;
+	}
+
+	public void activateAudioPanel(){
+		Settings_Controls.alpha = 0;
+		Settings_Audio.alpha = 1;
+		Settings_Video.alpha = 0;
+	}
+
+	public void activateVideoPanel(){
+		Settings_Controls.alpha = 0;
+		Settings_Audio.alpha = 0;
+		Settings_Video.alpha = 1;
+	}
+
+
+
+
 
 	void updateKeyBindings(){
 		Binding_Sprint.text = "Sprint: [FFCC00]" + Settings.Sprint.ToUpper();
