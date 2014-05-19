@@ -88,5 +88,19 @@ public class Settings : MonoBehaviour {
 		}
 		PlayerPrefs.Save();
 	}
+
+	public static void SetFloat(string key, float newSetting){
+		switch(key){
+			case "MouseX":
+				MouseSensitivityX = newSetting;
+				PlayerPrefs.SetFloat(playerPrefsPrefix + "MouseSensitivityX", MouseSensitivityX);
+				break;
+
+			case "MouseY":
+				MouseSensitivityY = newSetting;
+				PlayerPrefs.SetFloat(playerPrefsPrefix + "MouseSensitivityY", MouseSensitivityY);
+				break;
+		}
+	}
 	
 }
