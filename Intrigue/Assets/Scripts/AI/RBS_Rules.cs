@@ -59,7 +59,7 @@ namespace RBS{
 		public WantToWanderRoom(GameObject gameObject){
 			this.addCondition(new IsBored(gameObject));
 			this.consequence = wanderRoom;
-			this.weight = 7;
+			this.weight = 6;
 		}
 
 		private Status wanderRoom(GameObject gameObject){
@@ -88,7 +88,7 @@ namespace RBS{
             // 	script.agent.CalculatePath(newDest, path);
             // }
 
-			script.bored -= 20;
+			script.bored -= 10;
             script.anim.SetBool("Speed", true);
             script.agent.SetDestination(newDest);
             return Status.Waiting;
@@ -158,8 +158,8 @@ namespace RBS{
 			else
 				return Status.False;
 
-			script.lonely -= 20;
-			script.bored -= 10;
+			script.lonely -= 30;
+			script.bored -= 20;
 
 			if(conversers.Count == 0 || conversers.Count >= offset){
 				script.destination = gameObject.transform.position;
@@ -189,7 +189,7 @@ namespace RBS{
 		private Status setDestRestroom(GameObject gameObject){
 			// Debug.Log("needs to use restroom");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
-			script.bladder -= 25;
+			script.bladder -= 75;
 
 			//Check if room has hotspot
 			if(script.room.restroomLocations.Count > 0){
