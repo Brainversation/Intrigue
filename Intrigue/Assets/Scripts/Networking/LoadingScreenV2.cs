@@ -131,7 +131,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 				break;
 			case 4: tip = "Tip: As a Guard, use [FFCC00]" + Settings.Mark.ToUpper() + "[-] to mark suspicious guests!";
 				break;
-			case 5: tip = "Tip: Use [FFCC00]" + Settings.Interact.ToUpper() + "[-] to do objectives/accuse!"
+			case 5: tip = "Tip: Use [FFCC00]" + Settings.Interact.ToUpper() + "[-] to do objectives/accuse!";
 				break;
 			case 6: tip = "Tip: Guards hear a heartbeat when a Spy is near!";
 				break;
