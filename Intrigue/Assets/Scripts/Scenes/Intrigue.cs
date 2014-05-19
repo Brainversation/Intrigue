@@ -172,9 +172,9 @@ public class Intrigue : MonoBehaviour {
 		{	
 			nextSpawnPoint();
 			loadedGuests = x;
-			// int type = Mathf.RoundToInt(Random.Range(1,5));
+			int type = Mathf.RoundToInt(Random.Range(1,5));
 			//Debug.Log("Guest type: " + type);
-			PhotonNetwork.InstantiateSceneObject("Robot_Guest1"/*+type.ToString()*/, spawnTrans.position, spawnTrans.rotation, 0, null);
+			PhotonNetwork.InstantiateSceneObject("Robot_Guest"+type.ToString(), spawnTrans.position, spawnTrans.rotation, 0, null);
 			yield return new WaitForSeconds(.1f);
 		}
 
@@ -273,12 +273,12 @@ public class Intrigue : MonoBehaviour {
 
 	[RPC]
 	void getSpawnPoint(Vector3 position, Quaternion rotation){
-		// int type = Mathf.RoundToInt(Random.Range(1,5));
+		int type = Mathf.RoundToInt(Random.Range(1,5));
 
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team}});
 
 		Intrigue.playerGO = PhotonNetwork.Instantiate(
-						"Robot_"+ (string)PhotonNetwork.player.customProperties["Team"] +"1"/*type.ToString()*/,
+						"Robot_"+ (string)PhotonNetwork.player.customProperties["Team"] +type.ToString(),
 						position,
 						rotation, 0);
 
