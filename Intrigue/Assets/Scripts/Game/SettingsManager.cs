@@ -7,6 +7,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class SettingsManager : MonoBehaviour {
 
 	public UILabel Binding_Interact;
+	public UILabel Binding_Sprint;
 	public UILabel Binding_Stun;
 	public UILabel Binding_Mark;
 	public UILabel Binding_Cancel;
@@ -41,9 +42,18 @@ public class SettingsManager : MonoBehaviour {
 	}
 	
 	void Update(){
+		bool shift = false;
+		string newKey;
 		if(RebindPanel.GetComponent<UIPanel>().alpha == 1){
-			if(Input.inputString.Length>=1){
-				string newKey = "" + Input.inputString[0];
+			if(Input.GetKeyUp("left shift")){
+				shift = true;
+			}
+			if(Input.inputString.Length>=1 || shift){
+				if(shift)
+					newKey = "left shift";
+				else{
+					newKey = "" + Input.inputString[0];
+				}
 				if(newKey == " ")
 					newKey = "space";
 				Rebind_New.text = "New:\n[FFCC00]" + newKey;
@@ -67,9 +77,19 @@ public class SettingsManager : MonoBehaviour {
 					Settings.SetKey("Cancel", "" + newKey);
 					Invoke("hidePanel", 0.5f);
 					break;
+				case "Sprint":
+					Settings.SetKey("Sprint", "" + newKey);
+					Invoke("hidePanel", 0.5f);
+					break;
 				}
 			}
 		}
+	}
+
+	void changeSprint(){
+		RebindPanel.GetComponent<UIPanel>().alpha = 1;
+		Rebind_Current.text = "[FFCC00]" + Settings.Sprint;
+		curKey = "Sprint";
 	}
 
 	void changeInteract(){
@@ -127,6 +147,7 @@ public class SettingsManager : MonoBehaviour {
 	}
 
 	void updateKeyBindings(){
+		Binding_Sprint.text = "Sprint: [FFCC00]" + Settings.Sprint.ToUpper();
 		Binding_Interact.text = "Interact: [FFCC00]" + Settings.Interact.ToUpper();
 		Binding_Mark.text = "Mark: [FFCC00]" + Settings.Mark.ToUpper();
 		Binding_Stun.text = "Stun: [FFCC00]" + Settings.Stun.ToUpper();

@@ -12,6 +12,7 @@ public class Settings : MonoBehaviour {
 	[HideInInspector] public static string Mark;
 	[HideInInspector] public static string Stun;
 	[HideInInspector] public static string Cancel;
+	[HideInInspector] public static string Sprint;
 
 	[HideInInspector] public static float MasterVolume;
 	[HideInInspector] public static float AmbientVolume;
@@ -42,6 +43,14 @@ public class Settings : MonoBehaviour {
 		}else{
 			MouseSensitivityY = 15;
 			PlayerPrefs.SetFloat(playerPrefsPrefix + "MouseSensitivityY", MouseSensitivityY);
+		}
+
+		//Sprint Button
+		if( PlayerPrefs.HasKey( playerPrefsPrefix + "Sprint" )){
+			Sprint = PlayerPrefs.GetString(playerPrefsPrefix + "Sprint");
+		}else{
+			Sprint = "left shift";
+			PlayerPrefs.SetString(playerPrefsPrefix + "Sprint", Sprint);
 		}
 
 		//Interact Button
@@ -99,7 +108,12 @@ public class Settings : MonoBehaviour {
 				Cancel = newBinding;
 				PlayerPrefs.SetString(playerPrefsPrefix + "Cancel", Cancel);
 				break;
-		}
+
+			case "Sprint":
+				Sprint = newBinding;
+				PlayerPrefs.SetString(playerPrefsPrefix + "Sprint", Sprint);
+				break;		
+			}
 		PlayerPrefs.Save();
 	}
 

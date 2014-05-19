@@ -103,11 +103,11 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		if(player.Team == "Spy" && Intrigue.playerGO.GetComponent<Spy>().doingObjective)
 			canMove = false;
 
-		if(canMove && stamina>=1 && Input.GetKey("left shift") && Input.GetAxis("Vertical")!=0){
+		if(canMove && stamina>=1 && Input.GetKey(Settings.Sprint) && Input.GetAxis("Vertical")!=0){
 			stamina-=staminaDrainSpeed*Time.deltaTime;
 			canRegen = false;
 			cam.transform.localPosition = camStart + new Vector3(0f,0f,2f);
-			anim.SetBool("Run", Input.GetKey("left shift"));
+			anim.SetBool("Run", Input.GetKey(Settings.Sprint));
 			speedMult = Mathf.PI;
 		} 
 		else {
@@ -141,7 +141,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			stream.SendNext(transform.rotation);
 			stream.SendNext(Input.GetAxis("Vertical"));
 			stream.SendNext(Input.GetAxis("Horizontal"));
-			stream.SendNext(Input.GetKey("left shift"));
+			stream.SendNext(Input.GetKey(Settings.Sprint));
 			stream.SendNext(anim.GetBool("InteractSafe"));
 			stream.SendNext(anim.GetBool("InteractComp"));
 			stream.SendNext(anim.GetBool("InteractServer"));
