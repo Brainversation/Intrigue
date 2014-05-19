@@ -34,6 +34,7 @@ public class MainMenu : MonoBehaviour {
 
 	void Start () {
 		StringCleaner.createStringLists();
+		Settings.Start();
 		createServerButton = GameObject.Find("CREATE SERVER");
 		findServerButton = GameObject.Find("FIND SERVER");
 		optionsButtons = GameObject.Find("OptionsButtons");

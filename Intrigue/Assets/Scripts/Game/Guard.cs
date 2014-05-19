@@ -136,19 +136,19 @@ public class Guard : BasePlayer{
 
 		if(accusing && accused!=null){
 			accusationGUI.alpha = 1;
-			if(Input.GetKeyUp(KeyCode.E) && !isChatting){
+			if(Input.GetKeyUp(Settings.Interact) && !isChatting){
 				accusing = false;
 				testAccusation();
 			}
 		} else if(hit.transform != null ){
-			if( Input.GetKeyUp(KeyCode.E) && !isChatting){
+			if( Input.GetKeyUp(Settings.Interact) && !isChatting){
 				if(hit.transform.gameObject.tag == "Spy" && !(hit.transform.gameObject.GetComponent<BasePlayer>().isOut)||
 					(hit.transform.gameObject.tag == "Guest")){
 					accusing = true;
 					accused = hit.transform.gameObject;
 				}
 
-			} else if( Input.GetKeyUp(KeyCode.M) ){
+			} else if( Input.GetKeyUp(Settings.Mark) ){
 				if(hit.transform.gameObject.CompareTag("Guest")){
 					photonView.RPC("markGuest", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().viewID);
 				} else if (hit.transform.gameObject.CompareTag("Spy")){

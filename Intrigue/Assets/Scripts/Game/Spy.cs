@@ -55,7 +55,7 @@ public class Spy : BasePlayer{
 
 			//Code for interacting
 			/*------------------------------------------------------*/
-			if( Input.GetKey(KeyCode.E) ){
+			if( Input.GetKey(Settings.Interact)){
 				if(Camera.main!=null && !isChatting)
 					attemptInteract();
 			}
@@ -63,7 +63,7 @@ public class Spy : BasePlayer{
 				doingObjective = false;
 			}
 
-			if( Input.GetKeyUp(KeyCode.E) ){
+			if( Input.GetKeyUp(Settings.Interact) ){
 				foreach(GameObject serv in serverInUse){
 					serv.GetComponent<PhotonView>().RPC("setInUse",PhotonTargets.All, false);
 				}
@@ -73,7 +73,7 @@ public class Spy : BasePlayer{
 
 			//Code for stunning
 			/*------------------------------------------------------*/
-			if ( Input.GetKeyUp(KeyCode.F) ){
+			if ( Input.GetKeyUp(Settings.Stun) ){
 				if(Camera.main!=null)
 					attemptStun();
 			}
