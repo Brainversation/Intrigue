@@ -31,8 +31,8 @@ public class SettingsManager : MonoBehaviour {
 		player = GameObject.Find("Player").GetComponent<Player>();
 		Settings.Start();
 		updateKeyBindings();
-		Slider_X.value = (Settings.MouseSensitivityX + 15)/30;
-		Slider_Y.value = (Settings.MouseSensitivityY + 15)/30;
+		Slider_X.value = (Settings.MouseSensitivityX-1)/14;
+		Slider_Y.value = (Settings.MouseSensitivityY-1)/14;
 
 		if (Application.isEditor)
 			playerPrefsPrefix = "PlayerEditor";
@@ -97,12 +97,12 @@ public class SettingsManager : MonoBehaviour {
 	}
 
 	void changeMouseX(){
-		Settings.SetFloat("MouseX", Mathf.RoundToInt((Slider_X.value*30)-15));
+		Settings.SetFloat("MouseX", Mathf.RoundToInt((Slider_X.value*14)) + 1);
 		updateKeyBindings();
 	}
 
 	void changeMouseY(){
-		Settings.SetFloat("MouseY", Mathf.RoundToInt((Slider_Y.value*30)-15));
+		Settings.SetFloat("MouseY", Mathf.RoundToInt((Slider_Y.value*14)) + 1);
 		updateKeyBindings();
 	}
 
@@ -112,11 +112,11 @@ public class SettingsManager : MonoBehaviour {
 	}
 
 	public void onMouseXChange(){
-		Binding_NewX.text = "[FFCC00]" + Mathf.RoundToInt((Slider_X.value * 30) - 15);
+		Binding_NewX.text = "[FFCC00]" + Mathf.RoundToInt((Slider_X.value * 14) + 1);
 	}
 
 	public void onMouseYChange(){
-		Binding_NewY.text = "[FFCC00]" + Mathf.RoundToInt((Slider_Y.value * 30) - 15);
+		Binding_NewY.text = "[FFCC00]" + Mathf.RoundToInt((Slider_Y.value *14) + 1);
 	}
 
 	public void changeHandle(){
