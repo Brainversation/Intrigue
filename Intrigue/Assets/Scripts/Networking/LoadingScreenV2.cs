@@ -119,7 +119,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 	}
 
 	string getNewTip(){
-		int rand = Random.Range(1,5);
+		int rand = Random.Range(1,8);
 		string tip;
 
 		switch(rand){
@@ -127,9 +127,15 @@ public class LoadingScreenV2 : MonoBehaviour {
 				break;
 			case 2: tip = "Tip: When you start downloading a server, it alerts the guards!\nUse this to your advantage.";
 				break;
-			case 3: tip = "Tip: As a Spy, use 'F' to stun Guards!";
+			case 3: tip = "Tip: As a Spy, use [FFCC00]" + Settings.Stun.ToUpper() + "[-] to stun Guards!";
 				break;
-			case 4: tip = "Tip: As a Guard, use 'M' to mark suspicious guests!";
+			case 4: tip = "Tip: As a Guard, use [FFCC00]" + Settings.Mark.ToUpper() + "[-] to mark suspicious guests!";
+				break;
+			case 5: tip = "Tip: Use [FFCC00]" + Settings.Interact.ToUpper() + "[-] to do objectives/accuse!"
+				break;
+			case 6: tip = "Tip: Guards hear a heartbeat when a Spy is near!";
+				break;
+			case 7: tip = "Use [FFCC00]CTRL[-] to toggle strafing/smooth rotating!";
 				break;
 			default: tip = "Tip: Kayvan rarely showers, avoid getting too near!";
 				break;
