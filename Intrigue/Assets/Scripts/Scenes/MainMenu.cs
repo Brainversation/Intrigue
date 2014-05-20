@@ -40,7 +40,8 @@ public class MainMenu : MonoBehaviour {
 		optionsButtons = GameObject.Find("OptionsButtons");
 		Screen.lockCursor = false;
 		player = GameObject.Find("Player").GetComponent<Player>();
-		connect();
+		if(PhotonNetwork.connectionStateDetailed != PeerState.JoinedLobby)
+			connect();
 
 		//Resetting Variables
 		resetVariables();

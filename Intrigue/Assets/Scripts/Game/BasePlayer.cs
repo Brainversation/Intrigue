@@ -212,7 +212,7 @@ public class BasePlayer : MonoBehaviour {
 				chatArea.GetComponentInChildren<UILabel>().alpha = 1;
 		}
 
-		if(BasePlayer.isSpectating && isSpectated && Input.GetKeyUp(Settings.Cancel)){
+		if(BasePlayer.isSpectating && isSpectated && Input.GetKeyUp(KeyCode.Space)){
 			switchSpectate();
 		}
 		
@@ -373,6 +373,12 @@ public class BasePlayer : MonoBehaviour {
 				}
 
 			}
+		}
+	}
+
+	void OnDestroy(){
+		if(isSpectated){
+			switchSpectate();
 		}
 	}
 
