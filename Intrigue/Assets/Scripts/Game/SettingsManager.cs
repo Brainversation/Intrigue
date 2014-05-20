@@ -36,6 +36,8 @@ public class SettingsManager : MonoBehaviour {
 	public UIPopupList ResolutionList;
 	public UILabel CurrentResolution;
 	public UIToggle FullScreenToggle;
+	public UIPopupList QualityList;
+	public UILabel CurrentQuality;
 
 
 
@@ -60,15 +62,23 @@ public class SettingsManager : MonoBehaviour {
 
 		FullScreenToggle.startsActive = FullScreenToggle.value = Screen.fullScreen;
 
+		
+		
+		//Resolutions
 		ResolutionList.items.Clear();
 		CurrentResolution.text = Screen.currentResolution.width + "x" + Screen.currentResolution.height;
-		//Resolutions
 		foreach(Resolution res in Screen.resolutions){
 			if(res.width/res.height == (4/3)){
 				ResolutionList.items.Add(res.width + "x" + res.height);
 			}
 		}
 
+		//Quality Settings
+		QualityList.items.Clear();
+		CurrentQuality.text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+		foreach(string name in QualitySettings.names){
+			QualityList.items.Add(name);
+		}
 
 		if (Application.isEditor)
 			playerPrefsPrefix = "PlayerEditor";
@@ -210,6 +220,20 @@ public class SettingsManager : MonoBehaviour {
 		int width = int.Parse(resolution[0]);
 		int height = int.Parse(resolution[1]);
 		Screen.SetResolution(width,height,Screen.fullScreen);
+	}
+
+	public void updateQualitySettings(){
+		int i = 0;
+		string[] names = QualitySettings.names;
+		foreach(string name in names){
+			if(name == QualityList.value){
+				QualitySettings.SetQualityLevel(i,true);
+				break;
+			}else{
+				++i;
+			}
+		}
+		PlayerPrefs.Save();
 	}
 
 
