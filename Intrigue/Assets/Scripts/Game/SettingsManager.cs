@@ -13,7 +13,7 @@ public class SettingsManager : MonoBehaviour {
 
 
 
-	//Bindings
+	//Controls
 	public UILabel Binding_Interact;
 	public UILabel Binding_Sprint;
 	public UILabel Binding_Stun;
@@ -30,8 +30,16 @@ public class SettingsManager : MonoBehaviour {
 	public UISlider Slider_X;
 	public UISlider Slider_Y;
 	public GameObject RebindPanel;
-
 	private string curKey;
+
+	//Video
+	public UIPopupList ResolutionList;
+	public UILabel CurrentResolution;
+	public UIToggle FullScreenToggle;
+
+
+
+
 	private Player player;
 	private string playerPrefsPrefix;
 
@@ -46,9 +54,21 @@ public class SettingsManager : MonoBehaviour {
 		Settings_Video.alpha = 0;
 		Settings_Audio.alpha = 0;
 
-
+		//Set Initial Values to NGUI Objects
 		Slider_X.value = (Settings.MouseSensitivityX-1)/14;
 		Slider_Y.value = (Settings.MouseSensitivityY-1)/14;
+
+		FullScreenToggle.startsActive = FullScreenToggle.value = Screen.fullScreen;
+
+		ResolutionList.items.Clear();
+		CurrentResolution.text = Screen.currentResolution.width + "x" + Screen.currentResolution.height;
+		//Resolutions
+		foreach(Resolution res in Screen.resolutions){
+			if(res.width/res.height == (4/3)){
+				ResolutionList.items.Add(res.width + "x" + res.height);
+			}
+		}
+
 
 		if (Application.isEditor)
 			playerPrefsPrefix = "PlayerEditor";
@@ -163,6 +183,7 @@ public class SettingsManager : MonoBehaviour {
 		updateKeyBindings();
 	}
 
+	//Functions Called Through NGUI
 	public void onMouseXChange(){
 		Binding_NewX.text = "[FFCC00]" + Mathf.RoundToInt((Slider_X.value * 14) + 1);
 	}
@@ -177,6 +198,22 @@ public class SettingsManager : MonoBehaviour {
 		PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
 		updateKeyBindings();
 	}
+
+	public void updateFullScreen(){
+		FullScreenToggle.value = !FullScreenToggle.value;
+		Screen.fullScreen = FullScreenToggle.value;
+	}
+
+	public void updateResolution(){
+		Debug.Log(ResolutionList.value);
+		string[] resolution = ResolutionList.value.Split('x');
+		int width = int.Parse(resolution[0]);
+		int height = int.Parse(resolution[1]);
+		Screen.SetResolution(width,height,Screen.fullScreen);
+	}
+
+
+
 
 	//Activate Different Panels
 
