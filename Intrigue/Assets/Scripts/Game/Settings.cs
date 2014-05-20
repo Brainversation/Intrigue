@@ -6,17 +6,19 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Settings : MonoBehaviour {
 
-	[HideInInspector] public static float MouseSensitivityX;
-	[HideInInspector] public static float MouseSensitivityY;
-	[HideInInspector] public static string Interact;
-	[HideInInspector] public static string Mark;
-	[HideInInspector] public static string Stun;
-	[HideInInspector] public static string Cancel;
-	[HideInInspector] public static string Sprint;
+	public static float MouseSensitivityX;
+	public static float MouseSensitivityY;
+	public static string Interact;
+	public static string Mark;
+	public static string Stun;
+	public static string Cancel;
+	public static string Sprint;
 
-	[HideInInspector] public static float MasterVolume;
-	[HideInInspector] public static float AmbientVolume;
-	[HideInInspector] public static float GameVolume;
+	public static float MasterVolume;
+	public static float AmbientVolume;
+	public static float GameVolume;
+
+	public static List<string> BoundKeys = new List<string>();
 
 	private static string playerPrefsPrefix;
 
@@ -85,6 +87,8 @@ public class Settings : MonoBehaviour {
 			PlayerPrefs.SetString(playerPrefsPrefix + "Cancel", Cancel);
 		}
 
+		UpdateBoundKeys();
+
 	}
 
 	public static void SetKey(string key, string newBinding){
@@ -129,6 +133,16 @@ public class Settings : MonoBehaviour {
 				PlayerPrefs.SetFloat(playerPrefsPrefix + "MouseSensitivityY", MouseSensitivityY);
 				break;
 		}
+	}
+
+	public static void UpdateBoundKeys(){
+		BoundKeys.Clear();
+
+		BoundKeys.Add(Interact);
+		BoundKeys.Add(Mark);
+		BoundKeys.Add(Stun);
+		BoundKeys.Add(Cancel);
+		BoundKeys.Add(Sprint);
 	}
 	
 }

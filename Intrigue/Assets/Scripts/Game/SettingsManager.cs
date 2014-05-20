@@ -60,74 +60,91 @@ public class SettingsManager : MonoBehaviour {
 		bool shift = false;
 		string newKey;
 		if(RebindPanel.GetComponent<UIPanel>().alpha == 1){
+			
+			//Check Shift
 			if(Input.GetKeyUp("left shift")){
 				shift = true;
 			}
+
+			//Check Character Press
 			if(Input.inputString.Length>=1 || shift){
 				if(shift)
 					newKey = "left shift";
 				else{
 					newKey = "" + Input.inputString[0];
 				}
+
+				//Check Space Pressed
 				if(newKey == " ")
 					newKey = "space";
-				Rebind_New.text = "New:\n[FFCC00]" + newKey;
-				switch(curKey){
-					case "Interact": 
-					Settings.SetKey("Interact", "" + newKey);
-					Invoke("hidePanel", 0.5f);
-					break;
 
-				case "Mark": 
-					Settings.SetKey("Mark", "" + newKey);
-					Invoke("hidePanel", 0.5f);
-					break;
+				Settings.UpdateBoundKeys();
+				if(!Settings.BoundKeys.Contains(newKey)){
+					Rebind_New.text = "[FFCC00]" + newKey.ToUpper();
+					switch(curKey){
+						case "Interact": 
+						Settings.SetKey("Interact", "" + newKey);
+						Invoke("hidePanel", 0.5f);
+						break;
 
-				case "Stun": 
-					Settings.SetKey("Stun", "" + newKey);
-					Invoke("hidePanel", 0.5f);
-					break;
+					case "Mark": 
+						Settings.SetKey("Mark", "" + newKey);
+						Invoke("hidePanel", 0.5f);
+						break;
 
-				case "Cancel": 
-					Settings.SetKey("Cancel", "" + newKey);
-					Invoke("hidePanel", 0.5f);
-					break;
-				case "Sprint":
-					Settings.SetKey("Sprint", "" + newKey);
-					Invoke("hidePanel", 0.5f);
-					break;
-				}
+					case "Stun": 
+						Settings.SetKey("Stun", "" + newKey);
+						Invoke("hidePanel", 0.5f);
+						break;
+
+					case "Cancel": 
+						Settings.SetKey("Cancel", "" + newKey);
+						Invoke("hidePanel", 0.5f);
+						break;
+					case "Sprint":
+						Settings.SetKey("Sprint", "" + newKey);
+						Invoke("hidePanel", 0.5f);
+						break;
+					}
+					}else{
+						Rebind_New.text = "[FF2B2B]ALREADY IN USE";
+					}
 			}
 		}
 	}
 
 	void changeSprint(){
 		RebindPanel.GetComponent<UIPanel>().alpha = 1;
-		Rebind_Current.text = "[FFCC00]" + Settings.Sprint;
+		Rebind_Current.text = "[FFCC00]" + Settings.Sprint.ToUpper();
+		Rebind_New.text = "";
 		curKey = "Sprint";
 	}
 
 	void changeInteract(){
 		RebindPanel.GetComponent<UIPanel>().alpha = 1;
-		Rebind_Current.text = "[FFCC00]" + Settings.Interact;
+		Rebind_Current.text = "[FFCC00]" + Settings.Interact.ToUpper();
+		Rebind_New.text = "";
 		curKey = "Interact";
 	}
 
 	void changeCancel(){
 		RebindPanel.GetComponent<UIPanel>().alpha = 1;
-		Rebind_Current.text = "[FFCC00]" + Settings.Cancel;
+		Rebind_Current.text = "[FFCC00]" + Settings.Cancel.ToUpper();
+		Rebind_New.text = "";
 		curKey = "Cancel";
 	}
 
 	void changeStun(){
 		RebindPanel.GetComponent<UIPanel>().alpha = 1;
-		Rebind_Current.text = "[FFCC00]" + Settings.Stun;
+		Rebind_Current.text = "[FFCC00]" + Settings.Stun.ToUpper();
+		Rebind_New.text = "";
 		curKey = "Stun";
 	}
 
 	void changeMark(){
 		RebindPanel.GetComponent<UIPanel>().alpha = 1;
-		Rebind_Current.text = "[FFCC00]" + Settings.Mark;
+		Rebind_Current.text = "[FFCC00]" + Settings.Mark.ToUpper();
+		Rebind_New.text = "";
 		curKey = "Mark";
 	}
 

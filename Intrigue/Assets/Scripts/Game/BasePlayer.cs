@@ -221,7 +221,6 @@ public class BasePlayer : MonoBehaviour {
 	void updateTimeLabel(){
 		int minutesLeft = Mathf.RoundToInt(Mathf.Floor(intrigue.GetTimeLeft/60));
 		int seconds = Mathf.RoundToInt(intrigue.GetTimeLeft%60);
-		int curRound = intrigue.GetRounds - intrigue.GetRoundsLeft +1;
 		string secondsS;
 		if(seconds<10)
 			secondsS = "0"+seconds.ToString();
@@ -230,7 +229,6 @@ public class BasePlayer : MonoBehaviour {
 		if(intrigue.GetTimeLeft>60){
 			timeLabel.GetComponent<UILabel>().text = minutesLeft +":" + 
 											secondsS;
-		 //+ "\nRound: " + curRound +"/" + (intrigue.GetRounds+1);
 		}
 		else{
 			timeLabel.GetComponent<UILabel>().text = "[FF0000]" + minutesLeft +":" + secondsS;
