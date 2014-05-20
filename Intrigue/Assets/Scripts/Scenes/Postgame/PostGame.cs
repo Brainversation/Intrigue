@@ -8,7 +8,8 @@ public class PostGame : MonoBehaviour {
 	public GameObject playerPrefab;
 	public GameObject guardTable;
 	public GameObject spyTable;
-
+	public UITextList textList;
+	public UIInput mInput;
 	private GameObject team1s;
 	private GameObject team2s;
 	private GameObject wins;
@@ -16,10 +17,16 @@ public class PostGame : MonoBehaviour {
 	private List<string> team2 = new List<string>();
 	private int curSpy = 0;
 	private int curGuard = 0;
+	private Player player;
+	private PhotonView photonView = null;
 
 	// Use this for initialization 
 	void Start(){
 		Screen.lockCursor = false;
+		//Sets Chat Max Line Count
+		mInput.label.maxLineCount = 1;
+		player = GameObject.Find("Player").GetComponent<Player>();
+		this.photonView = PhotonView.Get(this);
 
 		foreach(PhotonPlayer play in PhotonNetwork.playerList){
 			if((int)play.customProperties["TeamID"] == 1){
@@ -97,5 +104,27 @@ public class PostGame : MonoBehaviour {
 		label2.text = "[FFFFFF]" + score;
 		
 		++curGuard;
+	}
+
+	public void OnSubmit(){
+		if (textList != null)
+		{
+			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
+			string text = NGUIText.StripSymbols(mInput.value);
+			text = StringCleaner.CleanString(text);
+			if (!string.IsNullOrEmpty(text) && text.Length>=2){
+				if(player.TeamID == 1){
+					textList.Add("[8169FF]"+player.Handle+": [-]"+text);
+					photonView.RPC("receiveMessage", PhotonTargets.Others, "[8169FF]"+player.Handle+": [-]"+text);
+				} else if(player.TeamID == 2) {
+					textList.Add("[FF2B2B]"+player.Handle+": [-]"+text);
+					photonView.RPC("receiveMessage", PhotonTargets.Others, "[FF2B2B]"+player.Handle+": [-]"+text);
+				} else {
+					textList.Add(player.Handle+": [-]"+text);
+					photonView.RPC("receiveMessage", PhotonTargets.Others, player.Handle+": [-]"+text);
+				}
+				mInput.value = "";
+			}
+		}
 	}
 }

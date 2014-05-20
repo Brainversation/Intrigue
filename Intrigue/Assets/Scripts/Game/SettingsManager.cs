@@ -215,7 +215,6 @@ public class SettingsManager : MonoBehaviour {
 	}
 
 	public void updateResolution(){
-		Debug.Log(ResolutionList.value);
 		string[] resolution = ResolutionList.value.Split('x');
 		int width = int.Parse(resolution[0]);
 		int height = int.Parse(resolution[1]);
