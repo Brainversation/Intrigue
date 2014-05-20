@@ -10,9 +10,10 @@ public class PostGame : MonoBehaviour {
 	public GameObject spyTable;
 	public UITextList textList;
 	public UIInput mInput;
-	private GameObject team1s;
-	private GameObject team2s;
-	private GameObject wins;
+
+	public GameObject team1s;
+	public GameObject team2s;
+	public GameObject wins;
 	private List<string> team1= new List<string>();
 	private List<string> team2 = new List<string>();
 	private int curSpy = 0;
@@ -39,17 +40,15 @@ public class PostGame : MonoBehaviour {
 			}
 		}
 
-		team1s = GameObject.FindGameObjectWithTag("Team1Score");
-		team2s = GameObject.FindGameObjectWithTag("Team2Score");
-		wins = GameObject.FindGameObjectWithTag("Winner");
+
 
 		PhotonPlayer playRef = PhotonNetwork.player;
-		team1s.GetComponent<UILabel>().text = "TEAM 1: " + "[FFFFFF]"+  (int)playRef.customProperties["Team1Score"];
-		team2s.GetComponent<UILabel>().text = "TEAM 2: " + "[FFFFFF]"+ (int)playRef.customProperties["Team2Score"];
+		team1s.GetComponent<UILabel>().text = "TEAM 1: " + "[8169FF]"+  (int)playRef.customProperties["Team1Score"];
+		team2s.GetComponent<UILabel>().text = "TEAM 2: " + "[FF2b2b]"+ (int)playRef.customProperties["Team2Score"];
 		if((int)playRef.customProperties["Team1Score"] > (int)playRef.customProperties["Team2Score"])
-			wins.GetComponent<UILabel>().text = "TEAM 1 WINS";
+			wins.GetComponent<UILabel>().text = "[FFCC00]TEAM 1 WINS";
 		else
-			wins.GetComponent<UILabel>().text = "TEAM 2 WINS";				
+			wins.GetComponent<UILabel>().text = "[FFCC00]TEAM 2 WINS";				
 	}
 	
 	// Update is called once per frame
