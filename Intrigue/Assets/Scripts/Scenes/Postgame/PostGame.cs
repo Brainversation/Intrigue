@@ -31,11 +31,9 @@ public class PostGame : MonoBehaviour {
 
 		foreach(PhotonPlayer play in PhotonNetwork.playerList){
 			if((int)play.customProperties["TeamID"] == 1){
-				Debug.Log("Added team 1");
 				addTeam1((string)play.customProperties["Handle"], (int)play.customProperties["Score"], play.ID);
 			}
 			else{
-				Debug.Log("Added team 2");
 				addTeam2((string)play.customProperties["Handle"], (int)play.customProperties["Score"], play.ID);
 			}
 		}
