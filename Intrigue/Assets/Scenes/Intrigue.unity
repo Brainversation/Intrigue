@@ -98579,6 +98579,7 @@ GameObject:
   - 4: {fileID: 1865607660}
   - 33: {fileID: 1865607662}
   - 23: {fileID: 1865607661}
+  - 108: {fileID: 1865607663}
   m_Layer: 0
   m_Name: Lamp_Glow
   m_TagString: Untagged
@@ -98627,6 +98628,41 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1574920895}
   m_GameObject: {fileID: 1865607659}
   m_Mesh: {fileID: 4300004, guid: 6fef4fc82011bfa4898e1c0fe7c5560b, type: 3}
+--- !u!108 &1865607663
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1865607659}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Type: 2
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 20
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 1
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_Softness: 4
+    m_SoftnessFade: 1
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_ActuallyLightmapped: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 1
+  m_ShadowSamples: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_IndirectIntensity: 1
+  m_AreaSize: {x: 1, y: 1}
 --- !u!1 &1866952520
 GameObject:
   m_ObjectHideFlags: 0
