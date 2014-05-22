@@ -10,7 +10,7 @@ public class AI_RoomState : MonoBehaviour{
 	[HideInInspector] public List<Vector3> artLocations;
 	[HideInInspector] public List<Vector3> restroomLocations;
 	[HideInInspector] public int population;
-	[HideInInspector] public Vector3 relaxLocation;
+	[HideInInspector] public List<GameObject> relaxLocations;
 	[HideInInspector] public Vector3 drinkLocation;
 	[HideInInspector] public Vector3 converseLocation;
 	[HideInInspector] public Vector3 poetLocation;
@@ -54,7 +54,8 @@ public class AI_RoomState : MonoBehaviour{
 				break;
 
 			case "Relax":
-				relaxLocation = other.transform.position;
+				Debug.Log("Adding Relax: " + other.gameObject);
+				relaxLocations.Add(other.gameObject);
 				break;
 
 			case "Art":

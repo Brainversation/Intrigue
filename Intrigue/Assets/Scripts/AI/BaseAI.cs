@@ -54,7 +54,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool hasDrink = false;
 	[HideInInspector] public bool inConvo = false;
 
-	private bool aiTesting = false;
+	private bool aiTesting = true;
 
 	void Start(){
 		anim = GetComponent<Animator>();
@@ -206,16 +206,17 @@ public class BaseAI : Photon.MonoBehaviour {
 		// DoIdle
 		if(aiTesting){
 			thirst = 0;
-			bored = 51;
+			bored = 0;
 			hunger = 0;
 			lonely = 0;
 			tired = 0;
 			anxiety = 0;
-			bladder = 51;
+			bladder = 0;
 			anger = 0;
 			happy = 0;
 			sad = 0;
 			toxicity = 0;
+			smoker = true;
 		} else {
 			thirst = Random.Range(20, 100);
 			bored = Random.Range(20, 100);

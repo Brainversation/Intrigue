@@ -270,6 +270,7 @@ namespace RBS{
 		}
 	}
 
+/*
 	class Relax : Rule{
 		public Relax(GameObject gameObject){
 			this.addCondition(new IsAnxious(gameObject));
@@ -300,7 +301,9 @@ namespace RBS{
 			return Status.Waiting;
 		}
 	}
+*/
 
+/*
 	class LetOffSteam : Rule{
 		public LetOffSteam(GameObject gameObject){
 			this.addCondition(new IsAnxious(gameObject));
@@ -330,24 +333,42 @@ namespace RBS{
 			return Status.Waiting;
 		}
 	}
+*/
 
 	class Smoke : Rule{
 		public Smoke(GameObject gameObject){
 			this.addCondition(new IsAnxious(gameObject));
 			this.addCondition(new IsBored(gameObject));
 			this.addCondition(new IsSmoker(gameObject));
+			this.consequence = goSmoke;
 		}
 
 		private Status goSmoke(GameObject gameObject){
+			Debug.Log("Inside SMoke");
+			bool roomPicked = false;
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 
-			if(script.room.relaxLocation != Vector3.zero){
-				script.destination = script.room.relaxLocation;
+			foreach(GameObject relaxLocation in script.room.relaxLocations){
+				if(!relaxLocation.GetComponent<RelaxHotSpot>().occupied){
+					script.destination = relaxLocation.transform.position;
+					roomPicked = true;
+					break;
+				}
+			}
+
+			if(roomPicked){
 				script.anim.SetBool("Speed", true);
 				script.distFromDest = 5f;
 				script.agent.SetDestination(script.destination);
+				script.tree = new SmokeTree(gameObject);
+				script.anxiety -= 20;
+				script.bored -= 10;
+				return Status.Waiting;
 			}
-			return Status.Waiting;
+			else{
+				script.bored += 10;
+				return Status.False;
+			}
 		}
 	}
 

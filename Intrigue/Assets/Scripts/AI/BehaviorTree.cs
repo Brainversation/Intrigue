@@ -243,6 +243,22 @@ namespace BehaviorTree{
 		}
 	}
 
+	class startSmoke : Task{
+		public override Status run(GameObject gameObject){
+			Debug.Log("StartSmoke");
+			gameObject.GetComponent<Animator>().SetBool("Smoking", true);
+			return Status.True;
+		}
+	}
+
+	class endSmoke : Task{
+		public override Status run(GameObject gameObject){
+			Debug.Log("EndSmoke");
+			gameObject.GetComponent<Animator>().SetBool("Smoking", false);
+			return Status.True;
+		}
+	}
+
 
 	// <---------------------- Behave Trees ------------------------>
 	class MakeDrink : Sequence{
@@ -289,6 +305,15 @@ namespace BehaviorTree{
 			addChild(new Sequence());
 			children[children.Count-1].addChild(new Wait(5));
 			children[children.Count-1].addChild(new WalkAway());
+		}
+	}
+
+	class SmokeTree : Sequence {
+		public SmokeTree(GameObject go){
+			addChild(new Sequence());
+			children[children.Count-1].addChild(new startSmoke());
+			children[children.Count-1].addChild(new Wait(10));
+			children[children.Count-1].addChild(new endSmoke());
 		}
 	}
 
