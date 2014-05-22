@@ -225,7 +225,6 @@ namespace BehaviorTree{
 	}
 
 	class Wait : Task{
-
 		private float seconds = 0;
 
 		public Wait(float seconds){

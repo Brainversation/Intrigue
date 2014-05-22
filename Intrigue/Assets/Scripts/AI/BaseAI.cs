@@ -54,7 +54,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool hasDrink = false;
 	[HideInInspector] public bool inConvo = false;
 
-	private bool aiTesting = true;
+	private bool aiTesting = false;
 
 	void Start(){
 		anim = GetComponent<Animator>();
@@ -192,12 +192,12 @@ public class BaseAI : Photon.MonoBehaviour {
 	void initAI(){
 		rules = new List<Rule>();
 		rules.Add( new WantToGetDrink(gameObject) );
-		//rules.Add( new WantToConverse(gameObject) );
+		rules.Add( new WantToConverse(gameObject) );
 		rules.Add( new FindRoom(gameObject) );
 		rules.Add( new WantToWanderRoom(gameObject) );
 		rules.Add( new WantToMoveRoom(gameObject) );
 		rules.Add( new NeedToUseRestroom(gameObject) );
-		//rules.Add( new AdmireArt(gameObject) );
+		rules.Add( new AdmireArt(gameObject) );
 		//<-------- Rules To Add ------->
 		// Relax
 		// LetOffSteam
