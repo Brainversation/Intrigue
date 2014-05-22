@@ -12,10 +12,11 @@ public class TableBobScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		offset = Vector3.down/2;
+		offset = Vector3.down;
+		offset.y += .9f;
 		pos1 = transform.position;
 		pos2 = pos1 + offset;
-		moveSpeed = 0.01f;
+		moveSpeed = 0.001f;
 	}
 	
 	// Update is called once per frame
