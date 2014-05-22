@@ -31,6 +31,30 @@ public class Settings : MonoBehaviour {
 		else
 			playerPrefsPrefix = "Player";
 
+		//Master Volume
+		if( PlayerPrefs.HasKey( playerPrefsPrefix + "MasterVolume" )){
+			MasterVolume = PlayerPrefs.GetFloat(playerPrefsPrefix + "MasterVolume");
+		}else{
+			MasterVolume = 1f;
+			PlayerPrefs.SetFloat(playerPrefsPrefix + "MasterVolume", MasterVolume);
+		}
+		
+		//Game Volume
+		if( PlayerPrefs.HasKey( playerPrefsPrefix + "GameVolume" )){
+			GameVolume = PlayerPrefs.GetFloat(playerPrefsPrefix + "GameVolume");
+		}else{
+			GameVolume = 1f;
+			PlayerPrefs.SetFloat(playerPrefsPrefix + "GameVolume", GameVolume);
+		}
+
+		//Ambient Volume
+		if( PlayerPrefs.HasKey( playerPrefsPrefix + "AmbientVolume" )){
+			AmbientVolume = PlayerPrefs.GetFloat(playerPrefsPrefix + "AmbientVolume");
+		}else{
+			AmbientVolume = 1f;
+			PlayerPrefs.SetFloat(playerPrefsPrefix + "AmbientVolume", AmbientVolume);
+		}
+
 		//Mouse SensitivityX
 		if( PlayerPrefs.HasKey( playerPrefsPrefix + "MouseSensitivityX" )){
 			MouseSensitivityX = PlayerPrefs.GetFloat(playerPrefsPrefix + "MouseSensitivityX");
@@ -88,7 +112,6 @@ public class Settings : MonoBehaviour {
 		}
 
 		UpdateBoundKeys();
-
 	}
 
 	public static void SetKey(string key, string newBinding){
@@ -131,6 +154,21 @@ public class Settings : MonoBehaviour {
 			case "MouseY":
 				MouseSensitivityY = newSetting;
 				PlayerPrefs.SetFloat(playerPrefsPrefix + "MouseSensitivityY", MouseSensitivityY);
+				break;
+
+			case "MasterVolume":
+				MasterVolume = newSetting;
+				PlayerPrefs.SetFloat(playerPrefsPrefix + "MasterVolume", MasterVolume);
+				break;
+
+			case "GameVolume":
+				GameVolume = newSetting;
+				PlayerPrefs.SetFloat(playerPrefsPrefix + "GameVolume", GameVolume);
+				break;
+
+			case "AmbientVolume":
+				AmbientVolume = newSetting;
+				PlayerPrefs.SetFloat(playerPrefsPrefix + "AmbientVolume", AmbientVolume);
 				break;
 		}
 	}

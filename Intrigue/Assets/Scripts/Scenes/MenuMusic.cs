@@ -15,7 +15,7 @@ public class MenuMusic : MonoBehaviour {
 	}
 
 	void Update(){
-		GameObject[] musics = GameObject.FindGameObjectsWithTag("MenuMusic");
+		GameObject[] musics = GameObject.FindGameObjectsWithTag("Music");
 		if(musics.Length>=2){
 			Destroy(musics[1]);
 		}

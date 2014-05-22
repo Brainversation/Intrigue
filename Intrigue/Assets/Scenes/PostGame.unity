@@ -1226,7 +1226,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.19760478
+  aspectRatio: 2.61377239
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
   mSpriteName: Glow - Inner
   mType: 1
@@ -1797,6 +1797,45 @@ MonoBehaviour:
   mMaxLineHeight: 0
   mLineWidth: 0
   mMultiline: 1
+--- !u!1 &912513532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 562f22ec6f4deeb4b9b4f359c74742d3, type: 2}
+  m_PrefabInternal: {fileID: 2030986580}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 912513534}
+  - 114: {fileID: 912513533}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &912513533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400000, guid: 562f22ec6f4deeb4b9b4f359c74742d3,
+    type: 2}
+  m_PrefabInternal: {fileID: 2030986580}
+  m_GameObject: {fileID: 912513532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baa87cfbca2724c4dbd6c8ec927f513f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &912513534
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 562f22ec6f4deeb4b9b4f359c74742d3, type: 2}
+  m_PrefabInternal: {fileID: 2030986580}
+  m_GameObject: {fileID: 912513532}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.5576754, y: 24.0878849, z: -235.846771}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &916609612
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,7 +2097,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 13.666667
+  aspectRatio: 29.4333324
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
   mSpriteName: Highlight - Thin
   mType: 1
@@ -2213,7 +2252,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 13.666667
+  aspectRatio: 29.4333324
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
   mSpriteName: Glow - Inner
   mType: 1
@@ -3704,7 +3743,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.19760478
+  aspectRatio: 2.61377239
   mAtlas: {fileID: 11400000, guid: 62adb30369acbf943a67cee0f69267a3, type: 2}
   mSpriteName: Glow - Inner
   mType: 1
@@ -4239,6 +4278,46 @@ MonoBehaviour:
   disabledColor: {r: .5, g: .5, b: .5, a: 1}
   dragHighlight: 0
   onClick: []
+--- !u!1001 &2030986580
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 562f22ec6f4deeb4b9b4f359c74742d3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -14.5576754
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 562f22ec6f4deeb4b9b4f359c74742d3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 24.0878849
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 562f22ec6f4deeb4b9b4f359c74742d3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -235.846771
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 562f22ec6f4deeb4b9b4f359c74742d3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 562f22ec6f4deeb4b9b4f359c74742d3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 562f22ec6f4deeb4b9b4f359c74742d3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 562f22ec6f4deeb4b9b4f359c74742d3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 562f22ec6f4deeb4b9b4f359c74742d3, type: 2}
+  m_RootGameObject: {fileID: 912513532}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &2113127671
 GameObject:
   m_ObjectHideFlags: 0

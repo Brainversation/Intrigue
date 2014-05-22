@@ -11,6 +11,8 @@ public class SettingsManager : MonoBehaviour {
 	public UIPanel Settings_Audio;
 	public UIPanel Settings_Video;
 
+	//Audio Controller
+	public AudioControl audioControl;
 
 
 	//Controls
@@ -39,9 +41,15 @@ public class SettingsManager : MonoBehaviour {
 	public UIPopupList QualityList;
 	public UILabel CurrentQuality;
 
+	//Audio
+	public UILabel MasterVolumeLabel;
+	public UISlider MasterVolumeSlider;
+	public UILabel AmbientVolumeLabel;
+	public UISlider AmbientVolumeSlider;
+	public UILabel GameVolumeLabel;
+	public UISlider GameVolumeSlider;
 
-
-
+	//Other
 	private Player player;
 	private string playerPrefsPrefix;
 
@@ -57,13 +65,19 @@ public class SettingsManager : MonoBehaviour {
 		Settings_Audio.alpha = 0;
 
 		//Set Initial Values to NGUI Objects
+
+		//Controls
 		Slider_X.value = (Settings.MouseSensitivityX-1)/14;
 		Slider_Y.value = (Settings.MouseSensitivityY-1)/14;
 
+		//Video
 		FullScreenToggle.startsActive = FullScreenToggle.value = Screen.fullScreen;
 
-		
-		
+		//Audio
+		MasterVolumeSlider.value = Mathf.RoundToInt(Settings.MasterVolume * 100);
+		AmbientVolumeSlider.value = Mathf.RoundToInt(Settings.AmbientVolume * 100);
+		GameVolumeSlider.value = Mathf.RoundToInt(Settings.GameVolume * 100);
+
 		//Resolutions
 		ResolutionList.items.Clear();
 		CurrentResolution.text = Screen.currentResolution.width + "x" + Screen.currentResolution.height;
@@ -194,12 +208,32 @@ public class SettingsManager : MonoBehaviour {
 	}
 
 	//Functions Called Through NGUI
+
+	//Mouse Sensitivity Slider Changes
 	public void onMouseXChange(){
 		Binding_NewX.text = "[FFCC00]" + Mathf.RoundToInt((Slider_X.value * 14) + 1);
 	}
 
 	public void onMouseYChange(){
 		Binding_NewY.text = "[FFCC00]" + Mathf.RoundToInt((Slider_Y.value *14) + 1);
+	}
+
+	//Volume Slider Changes
+	public void onMasterVolumeChange(){
+		Settings.SetFloat("MasterVolume", MasterVolumeSlider.value);
+		updateVolumeDisplays();
+	}
+
+	//Volume Slider Changes
+	public void onMusicVolumeChange(){
+		Settings.SetFloat("AmbientVolume", AmbientVolumeSlider.value);
+		updateVolumeDisplays();
+	}
+
+	//Volume Slider Changes
+	public void onGameVolumeChange(){
+		Settings.SetFloat("GameVolume", GameVolumeSlider.value);
+		updateVolumeDisplays();
 	}
 
 	public void changeHandle(){
@@ -271,6 +305,14 @@ public class SettingsManager : MonoBehaviour {
 		Binding_MouseX.text = "Mouse X: [FFCC00]" + Settings.MouseSensitivityX;
 		Binding_MouseY.text = "Mouse Y: [FFCC00]" + Settings.MouseSensitivityY;
 		Handle_Current.text = "Handle: [FFCC00]" + PlayerPrefs.GetString(playerPrefsPrefix + "Name", player.Handle);
+		PlayerPrefs.Save();
+	}
+
+	void updateVolumeDisplays(){
+		audioControl.SetAudio();
+		MasterVolumeLabel.text = "[FFCC00]" + Mathf.RoundToInt(Settings.MasterVolume * 100);
+		AmbientVolumeLabel.text = "[FFCC00]" + Mathf.RoundToInt(Settings.AmbientVolume * 100);
+		GameVolumeLabel.text = "[FFCC00]" + Mathf.RoundToInt(Settings.GameVolume * 100);
 		PlayerPrefs.Save();
 	}
 
