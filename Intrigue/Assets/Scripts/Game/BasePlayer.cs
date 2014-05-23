@@ -214,7 +214,6 @@ public class BasePlayer : MonoBehaviour {
 		}
 
 		if(BasePlayer.isSpectating && isSpectated && Input.GetKeyUp(KeyCode.Space)){
-			Debug.Log("HERE");
 			switchSpectate();
 		}
 		
@@ -309,7 +308,6 @@ public class BasePlayer : MonoBehaviour {
 	}
 
 	void spectate(){
-		GetComponentInChildren<Camera>().enabled = false;
 		if(!intrigue.gameOverFlag){
 			BasePlayer.isSpectating = true;
 			switchSpectate();
@@ -319,18 +317,18 @@ public class BasePlayer : MonoBehaviour {
 
 	private void switchSpectate(){
 		BasePlayer.spectators = GameObject.FindGameObjectsWithTag(player.Team);
-		BasePlayer.spectatingIndex = (++BasePlayer.spectatingIndex) %
+		BasePlayer.spectatingIndex = BasePlayer.spectatingIndex %
 												BasePlayer.spectators.Length;
 		GameObject teamMate;
 		do{
 			teamMate = BasePlayer.spectators[BasePlayer.spectatingIndex];
 			BasePlayer.spectatingIndex = (++BasePlayer.spectatingIndex) %
 												BasePlayer.spectators.Length;
-		}while(teamMate == null && teamMate == gameObject);
+		}while(teamMate == null || teamMate == gameObject);
 
 		BasePlayer bp = teamMate.GetComponent<BasePlayer>();
 		this.isSpectated = false;
-		bp.isSpectated = true;
+		bp.Invoke("flipIsSpectated", 2);
 
 		this.GetComponentInChildren<Camera>().enabled = false;
 		NGUITools.SetActive(this.chatArea, false);
@@ -384,11 +382,8 @@ public class BasePlayer : MonoBehaviour {
 		}
 	}
 
-	void OnDestroy(){
-		Debug.Log(this.isSpectated);
-		if(this.isSpectated){
-			switchSpectate();
-		}
+	public void flipIsSpectated(){
+		this.isSpectated = true;
 	}
 
 }
