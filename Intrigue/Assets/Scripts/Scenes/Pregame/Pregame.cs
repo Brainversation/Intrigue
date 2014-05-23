@@ -112,7 +112,7 @@ public class Pregame : MonoBehaviour {
 
 	void updateGuestSlider(){
 		if(PhotonNetwork.isMasterClient){
-			player.Guests = Mathf.RoundToInt(slider.value*80);
+			player.Guests = Mathf.RoundToInt(slider.value*150);
 			sliderLabel.text = "Guest Count: " + player.Guests;
 			if(player.Guests != prevGuestCount){
 				photonView.RPC("guestCount", PhotonTargets.Others, player.Guests);
