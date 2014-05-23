@@ -44,10 +44,15 @@ public class SettingsManager : MonoBehaviour {
 	//Audio
 	public UILabel MasterVolumeLabel;
 	public UISlider MasterVolumeSlider;
+	public UILabel MasterVolumeSliderLabel;
+
 	public UILabel AmbientVolumeLabel;
 	public UISlider AmbientVolumeSlider;
+	public UILabel AmbientVolumeSliderLabel;
+
 	public UILabel GameVolumeLabel;
 	public UISlider GameVolumeSlider;
+	public UILabel GameVolumeSliderLabel;
 
 	//Other
 	private Player player;
@@ -77,6 +82,7 @@ public class SettingsManager : MonoBehaviour {
 		MasterVolumeSlider.value = Mathf.RoundToInt(Settings.MasterVolume * 100);
 		AmbientVolumeSlider.value = Mathf.RoundToInt(Settings.AmbientVolume * 100);
 		GameVolumeSlider.value = Mathf.RoundToInt(Settings.GameVolume * 100);
+		updateVolumeDisplays();
 
 		//Resolutions
 		ResolutionList.items.Clear();
@@ -220,18 +226,28 @@ public class SettingsManager : MonoBehaviour {
 
 	//Volume Slider Changes
 	public void onMasterVolumeChange(){
+		MasterVolumeSliderLabel.text = "[FFCC00] " + Mathf.RoundToInt(MasterVolumeSlider.value*100);
+	}
+
+	public void setMasterVolume(){
 		Settings.SetFloat("MasterVolume", MasterVolumeSlider.value);
 		updateVolumeDisplays();
 	}
 
-	//Volume Slider Changes
 	public void onMusicVolumeChange(){
+		AmbientVolumeSliderLabel.text = "[FFCC00] " + Mathf.RoundToInt(AmbientVolumeSlider.value*100);
+	}
+
+	public void setMusicVolume(){
 		Settings.SetFloat("AmbientVolume", AmbientVolumeSlider.value);
 		updateVolumeDisplays();
 	}
 
-	//Volume Slider Changes
 	public void onGameVolumeChange(){
+		GameVolumeSliderLabel.text = "[FFCC00] " + Mathf.RoundToInt(GameVolumeSlider.value*100);
+	}
+
+	public void setGameVolume(){
 		Settings.SetFloat("GameVolume", GameVolumeSlider.value);
 		updateVolumeDisplays();
 	}
@@ -310,9 +326,9 @@ public class SettingsManager : MonoBehaviour {
 
 	void updateVolumeDisplays(){
 		audioControl.SetAudio();
-		MasterVolumeLabel.text = "[FFCC00]" + Mathf.RoundToInt(Settings.MasterVolume * 100);
-		AmbientVolumeLabel.text = "[FFCC00]" + Mathf.RoundToInt(Settings.AmbientVolume * 100);
-		GameVolumeLabel.text = "[FFCC00]" + Mathf.RoundToInt(Settings.GameVolume * 100);
+		MasterVolumeLabel.text = "Master Volume: [FFCC00]" + Mathf.RoundToInt(Settings.MasterVolume * 100);
+		AmbientVolumeLabel.text = "Music Volume: [FFCC00]" + Mathf.RoundToInt(Settings.AmbientVolume * 100);
+		GameVolumeLabel.text = "SFX Volume: [FFCC00]" + Mathf.RoundToInt(Settings.GameVolume * 100);
 		PlayerPrefs.Save();
 	}
 
