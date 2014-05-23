@@ -60,6 +60,7 @@ public class BasePlayer : MonoBehaviour {
 	private GameObject[] spiesList;
 	private GameObject[] servers;
 	private List<GameObject> allPlayers = new List<GameObject>();
+	private Rect windowRect = new Rect(Screen.width/4, Screen.height/4, Screen.width/2, Screen.height/2);
 
 	protected virtual void Start (){
 		// Set conversationGUI so spy and guard can use
@@ -216,7 +217,27 @@ public class BasePlayer : MonoBehaviour {
 		if(BasePlayer.isSpectating && isSpectated && Input.GetKeyUp(KeyCode.Space)){
 			switchSpectate();
 		}
+
+		if(Input.GetKeyDown(KeyCode.Escape)){
+			menuFlag = !menuFlag;
+		}
 		
+	}
+
+	private bool menuFlag = false;
+
+	void OnGUI(){
+		if(menuFlag){
+			windowRect = GUILayout.Window(0, windowRect, doWindow, "");
+		}
+	}
+
+	void doWindow(int windowID){
+		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
+		if(GUILayout.Button("Leave Lobby")){
+			PhotonNetwork.LeaveRoom();
+			PhotonNetwork.LoadLevel( "MainMenu" );
+		}
 	}
 
 	void updateTimeLabel(){

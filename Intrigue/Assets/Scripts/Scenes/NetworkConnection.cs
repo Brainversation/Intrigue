@@ -14,8 +14,6 @@ public class NetworkConnection : Photon.MonoBehaviour {
 	}
 
 	void OnGUI(){
-		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
-
 		if(showRetry){
 			if(PhotonNetwork.connectionStateDetailed == PeerState.PeerCreated || PhotonNetwork.connectionStateDetailed == PeerState.Disconnected){
 				GUILayout.Label("Lost connection to room: " + player.RoomName + "\nWaiting for connection...");
