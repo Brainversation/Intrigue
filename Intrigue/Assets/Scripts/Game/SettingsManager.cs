@@ -99,6 +99,8 @@ public class SettingsManager : MonoBehaviour {
 		foreach(string name in QualitySettings.names){
 			QualityList.items.Add(name);
 		}
+		QualityList.value = QualitySettings.names[Settings.QualitySetting];
+		Settings.SetInt("QualitySetting", Settings.QualitySetting);
 
 		if (Application.isEditor)
 			playerPrefsPrefix = "PlayerEditor";
@@ -276,7 +278,7 @@ public class SettingsManager : MonoBehaviour {
 		string[] names = QualitySettings.names;
 		foreach(string name in names){
 			if(name == QualityList.value){
-				QualitySettings.SetQualityLevel(i,true);
+				Settings.SetInt("QualitySetting", i);
 				break;
 			}else{
 				++i;
@@ -333,7 +335,6 @@ public class SettingsManager : MonoBehaviour {
 	}
 
 	void ReturnToMenu(){
-		Debug.Log("Called");
 		Application.LoadLevel("MainMenu");
 	}
 }

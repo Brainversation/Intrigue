@@ -18,6 +18,8 @@ public class Settings : MonoBehaviour {
 	public static float AmbientVolume;
 	public static float GameVolume;
 
+	public static int QualitySetting;
+
 	public static List<string> BoundKeys = new List<string>();
 
 	private static string playerPrefsPrefix;
@@ -30,6 +32,14 @@ public class Settings : MonoBehaviour {
 			playerPrefsPrefix = "PlayerEditor";
 		else
 			playerPrefsPrefix = "Player";
+
+		//QualitySetting
+		if( PlayerPrefs.HasKey( playerPrefsPrefix + "QualitySetting" )){
+			QualitySetting = PlayerPrefs.GetInt(playerPrefsPrefix + "QualitySetting");
+		}else{
+			QualitySetting = 3;
+			PlayerPrefs.SetInt(playerPrefsPrefix + "QualitySetting", QualitySetting);
+		}
 
 		//Master Volume
 		if( PlayerPrefs.HasKey( playerPrefsPrefix + "MasterVolume" )){
@@ -169,6 +179,16 @@ public class Settings : MonoBehaviour {
 			case "AmbientVolume":
 				AmbientVolume = newSetting;
 				PlayerPrefs.SetFloat(playerPrefsPrefix + "AmbientVolume", AmbientVolume);
+				break;
+		}
+	}
+
+	public static void SetInt(string key, int newSetting){
+		switch(key){
+			case "QualitySetting":
+				QualitySetting = newSetting;
+				PlayerPrefs.SetInt(playerPrefsPrefix + "QualitySetting", QualitySetting);
+				QualitySettings.SetQualityLevel(QualitySetting,true);
 				break;
 		}
 	}
