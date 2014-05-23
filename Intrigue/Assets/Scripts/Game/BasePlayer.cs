@@ -52,6 +52,7 @@ public class BasePlayer : MonoBehaviour {
 	[HideInInspector] public bool isSpectated = false;
 
 	public static bool isSpectating = false;
+	public static int spectatingIndex = 0;
 	public static GameObject[] spectators;
 
 	private bool roundStarted = false;
@@ -213,6 +214,7 @@ public class BasePlayer : MonoBehaviour {
 		}
 
 		if(BasePlayer.isSpectating && isSpectated && Input.GetKeyUp(KeyCode.Space)){
+			Debug.Log("HERE");
 			switchSpectate();
 		}
 		
@@ -310,35 +312,41 @@ public class BasePlayer : MonoBehaviour {
 		GetComponentInChildren<Camera>().enabled = false;
 		if(!intrigue.gameOverFlag){
 			BasePlayer.isSpectating = true;
-			BasePlayer.spectators = GameObject.FindGameObjectsWithTag(player.Team);
 			switchSpectate();
 			PhotonNetwork.Destroy(gameObject);
 		}
 	}
 
 	private void switchSpectate(){
-		foreach (GameObject teamMate in spectators){
-			if(teamMate != null && teamMate != gameObject){
-				BasePlayer bp = teamMate.GetComponent<BasePlayer>();
-				isSpectated = false;
-				bp.isSpectated = true;
-				teamMate.GetComponentInChildren<Camera>().enabled = true;
-				NGUITools.SetActive(bp.chatArea, true);
-				NGUITools.SetActiveChildren(bp.chatArea, true);
-				NGUITools.SetActive(bp.scoreboard, true);
-				NGUITools.SetActiveChildren(bp.scoreboard, true);
-				NGUITools.SetActive(bp.timeLabel, true);
-				NGUITools.SetActive(bp.UIRoot, true);
+		BasePlayer.spectators = GameObject.FindGameObjectsWithTag(player.Team);
+		BasePlayer.spectatingIndex = (++BasePlayer.spectatingIndex) %
+												BasePlayer.spectators.Length;
+		GameObject teamMate;
+		do{
+			teamMate = BasePlayer.spectators[BasePlayer.spectatingIndex];
+			BasePlayer.spectatingIndex = (++BasePlayer.spectatingIndex) %
+												BasePlayer.spectators.Length;
+		}while(teamMate == null && teamMate == gameObject);
 
-				NGUITools.SetActive(chatArea, false);
-				NGUITools.SetActiveChildren(chatArea, false);
-				NGUITools.SetActive(scoreboard, false);
-				NGUITools.SetActiveChildren(scoreboard, false);
-				NGUITools.SetActive(timeLabel, false);
-				NGUITools.SetActive(UIRoot, false);
-				break;
-			}
-		}
+		BasePlayer bp = teamMate.GetComponent<BasePlayer>();
+		this.isSpectated = false;
+		bp.isSpectated = true;
+
+		this.GetComponentInChildren<Camera>().enabled = false;
+		NGUITools.SetActive(this.chatArea, false);
+		NGUITools.SetActiveChildren(this.chatArea, false);
+		NGUITools.SetActive(this.scoreboard, false);
+		NGUITools.SetActiveChildren(this.scoreboard, false);
+		NGUITools.SetActive(this.timeLabel, false);
+		NGUITools.SetActive(this.UIRoot, false);
+
+		teamMate.GetComponentInChildren<Camera>().enabled = true;
+		NGUITools.SetActive(bp.chatArea, true);
+		NGUITools.SetActiveChildren(bp.chatArea, true);
+		NGUITools.SetActive(bp.scoreboard, true);
+		NGUITools.SetActiveChildren(bp.scoreboard, true);
+		NGUITools.SetActive(bp.timeLabel, true);
+		NGUITools.SetActive(bp.UIRoot, true);
 	}
 
 	protected virtual void highlightTargeted(){
@@ -377,7 +385,8 @@ public class BasePlayer : MonoBehaviour {
 	}
 
 	void OnDestroy(){
-		if(isSpectated){
+		Debug.Log(this.isSpectated);
+		if(this.isSpectated){
 			switchSpectate();
 		}
 	}
