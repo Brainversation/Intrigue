@@ -54,10 +54,10 @@ public class NetworkConnection : Photon.MonoBehaviour {
 
 	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
 		if( (string)photonPlayer.customProperties["Team"] == "Guard" ){
-			if( !photonPlayer.customProperties["isOut"] )photonView.RPC("removeGuard", PhotonTargets.All);
+			if( !(bool)photonPlayer.customProperties["isOut"] )photonView.RPC("removeGuard", PhotonTargets.All);
 			player.GetComponent<BasePlayer>().newEvent("[FF2B2B]" + (string)photonPlayer.customProperties["Handle"]  + "[-][FFCC00] has disconnected.[-]");
 		} else {
-			if( !photonPlayer.customProperties["isOut"] )photonView.RPC("removeSpy", PhotonTargets.All);
+			if( !(bool)photonPlayer.customProperties["isOut"] )photonView.RPC("removeSpy", PhotonTargets.All);
 			player.GetComponent<BasePlayer>().newEvent("[00CCFF]" + (string)photonPlayer.customProperties["Handle"]  + "[-][FFCC00] has disconnected.[-]");
 		}
 	}
