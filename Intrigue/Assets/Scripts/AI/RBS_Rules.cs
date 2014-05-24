@@ -124,7 +124,6 @@ namespace RBS{
 			script.distFromDest = 10f;
 			script.agent.SetDestination(script.destination);
 			script.tree = new DrinkingTree(gameObject);
-			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 115f, false);
 			return Status.Waiting;
 		}
 
@@ -172,7 +171,6 @@ namespace RBS{
 				returnStat = Status.Waiting;
 			}
 			conversers.Add(gameObject);
-			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
 			return returnStat;
 		}
 	}
@@ -203,7 +201,6 @@ namespace RBS{
 			script.anim.SetBool("Speed", true);
 			script.tree = new RepairingTree(gameObject);
 			script.agent.SetDestination(script.destination);
-			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
 			return Status.Waiting;
 		}
 	}
@@ -236,7 +233,6 @@ namespace RBS{
 			// Make then add ArtTree handleConverse
 			// script.tree = new ArtTree(gameObject);
 
-			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
 			return Status.Waiting;
 		}
 	}
@@ -265,75 +261,68 @@ namespace RBS{
 			script.distFromDest = 5f;
 			script.agent.SetDestination(script.destination);
 
-			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
 			return Status.Waiting;
 		}
 	}
 
-/*
-	class Relax : Rule{
-		public Relax(GameObject gameObject){
-			this.addCondition(new IsAnxious(gameObject));
-			this.addCondition(new NotBored(gameObject));
-			this.addCondition(new IsTired(gameObject));
-			this.consequence = goRelax;
-		}
+	// class Relax : Rule{
+	// 	public Relax(GameObject gameObject){
+	// 		this.addCondition(new IsAnxious(gameObject));
+	// 		this.addCondition(new NotBored(gameObject));
+	// 		this.addCondition(new IsTired(gameObject));
+	// 		this.consequence = goRelax;
+	// 	}
 
-		private Status goRelax(GameObject gameObject){
-			BaseAI script = gameObject.GetComponent<BaseAI>();
-			script.anxiety -= 15;
-			script.tired -= 15;
-			script.bored += 15;
+	// 	private Status goRelax(GameObject gameObject){
+	// 		BaseAI script = gameObject.GetComponent<BaseAI>();
+	// 		script.anxiety -= 15;
+	// 		script.tired -= 15;
+	// 		script.bored += 15;
 
-			//Check if room has hotspot
-			if(script.room.relaxLocation != Vector3.zero){
-				script.destination = script.room.relaxLocation;
-				script.anim.SetBool("Speed", true);
-				script.distFromDest = 5f;
-				script.agent.SetDestination(script.destination);
-			}
-			//Find couch hotspot somewhere
-			else{
-				Debug.Log("Find a relaxLocation");
-			}
+	// 		//Check if room has hotspot
+	// 		if(script.room.relaxLocation != Vector3.zero){
+	// 			script.destination = script.room.relaxLocation;
+	// 			script.anim.SetBool("Speed", true);
+	// 			script.distFromDest = 5f;
+	// 			script.agent.SetDestination(script.destination);
+	// 		}
+	// 		//Find couch hotspot somewhere
+	// 		else{
+	// 			Debug.Log("Find a relaxLocation");
+	// 		}
 
-			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
-			return Status.Waiting;
-		}
-	}
-*/
+	// 		return Status.Waiting;
+	// 	}
+	// }
+	
+	// class LetOffSteam : Rule{
+	// 	public LetOffSteam(GameObject gameObject){
+	// 		this.addCondition(new IsAnxious(gameObject));
+	// 		this.addCondition(new NotBored(gameObject));
+	// 		this.addCondition(new IsAngry(gameObject));
+	// 		this.consequence = coolDown;
+	// 	}
 
-/*
-	class LetOffSteam : Rule{
-		public LetOffSteam(GameObject gameObject){
-			this.addCondition(new IsAnxious(gameObject));
-			this.addCondition(new NotBored(gameObject));
-			this.addCondition(new IsAngry(gameObject));
-			this.consequence = coolDown;
-		}
+	// 	private Status coolDown(GameObject gameObject){
+	// 		BaseAI script = gameObject.GetComponent<BaseAI>();
+	// 		script.anxiety -= 15;
+	// 		script.tired -= 15;
+	// 		script.bored += 15;
 
-		private Status coolDown(GameObject gameObject){
-			BaseAI script = gameObject.GetComponent<BaseAI>();
-			script.anxiety -= 15;
-			script.tired -= 15;
-			script.bored += 15;
+	// 		//Check if room has hotspot
+	// 		if(script.room.relaxLocation != Vector3.zero){
+	// 			script.destination = script.room.relaxLocation;
+	// 			script.anim.SetBool("Speed", true);
+	// 			script.distFromDest = 5f;
+	// 			script.agent.SetDestination(script.destination);
+	// 		} else{
+	// 			//Find couch hotspot somewhere
+	// 			Debug.Log("Find a relaxLocation");
+	// 		}
 
-			//Check if room has hotspot
-			if(script.room.relaxLocation != Vector3.zero){
-				script.destination = script.room.relaxLocation;
-				script.anim.SetBool("Speed", true);
-				script.distFromDest = 5f;
-				script.agent.SetDestination(script.destination);
-			} else{
-				//Find couch hotspot somewhere
-				Debug.Log("Find a relaxLocation");
-			}
-
-			Debug.DrawLine(gameObject.transform.position, script.destination, Color.red, 15f, false);
-			return Status.Waiting;
-		}
-	}
-*/
+	// 		return Status.Waiting;
+	// 	}
+	// }
 
 	class Smoke : Rule{
 		public Smoke(GameObject gameObject){

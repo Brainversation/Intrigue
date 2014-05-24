@@ -70,7 +70,6 @@ public class ConversationHotSpot : MonoBehaviour {
 			script.distFromDest = 3;
 			script.status = Status.Waiting;
 			++population;
-			// Debug.DrawLine(other.gameObject.transform.position, spots[queue.Count], Color.red, 15f, false);
 			queue.Add(other.gameObject);
 			script.inConvo = true;
 		}

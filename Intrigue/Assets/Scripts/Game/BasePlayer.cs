@@ -234,6 +234,7 @@ public class BasePlayer : MonoBehaviour {
 		}
 
 		if(Input.GetKeyDown(KeyCode.Escape)){
+			Screen.lockCursor = !Screen.lockCursor;
 			BasePlayer.menuFlag = !BasePlayer.menuFlag;
 		}
 		

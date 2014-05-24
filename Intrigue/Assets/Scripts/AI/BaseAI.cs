@@ -71,6 +71,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			switch(status){
 				case Status.False:
 					//Sort the list in terms of weight
+					anim.SetBool("Speed", false);
 					rules.Sort();
 					for (int i = 0; i < rules.Count; i++){
 						if (rules[i].isFired()){
