@@ -181,16 +181,17 @@ public class BasePlayer : MonoBehaviour {
 			}
 			/*------------------------------------------------------*/
 			
-			if(!beStrong && player.Team == "Guard" && Intrigue.numGuardsLeft == 1){
-				beStrong = true;
-				textList.Add("[FFCC00]You are the last Guard left [-]" + player.Handle + "[FFCC00]. Be strong for mother.[-]");
+			if(intrigue.GetTimeLeft<410){
+				if(!beStrong && player.Team == "Guard" && Intrigue.numGuardsLeft == 1){
+					beStrong = true;
+					textList.Add("[FFCC00]You are the last Guard left [-]" + player.Handle + "[FFCC00]. Be strong for mother.[-]");
+				}
+				if(!beStrong && player.Team == "Spy" && Intrigue.numSpiesLeft == 1){
+					beStrong = true;
+					textList.Add("[FFCC00]You are the last Spy left [-]" + player.Handle + "[FFCC00]. Be strong for mother.[-]");
+				}	
 			}
-			if(!beStrong && player.Team == "Spy" && Intrigue.numSpiesLeft == 1){
-				beStrong = true;
-				textList.Add("[FFCC00]You are the last Spy left [-]" + player.Handle + "[FFCC00]. Be strong for mother.[-]");
-			}
-		
-
+			
 		}
 
 		playFootsteps();
