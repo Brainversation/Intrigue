@@ -56,6 +56,7 @@ public class BasePlayer : MonoBehaviour {
 	public static GameObject[] spectators;
 
 	private bool roundStarted = false;
+	private bool beStrong = false;
 	private GameObject[] guardsList;
 	private GameObject[] spiesList;
 	private GameObject[] servers;
@@ -176,7 +177,15 @@ public class BasePlayer : MonoBehaviour {
 				highlightTargeted();
 			}
 			/*------------------------------------------------------*/
-	
+			
+			if(player.Team == "Guard" && Intrigue.numGuardsLeft == 1){
+				newEvent("[FFCC00]You are the last Guard left [-]" + player.Handle + "[FFCC00]. Be strong for mother.");
+			}
+			if(player.Team == "Spy" && Intrigue.numSpiesLeft == 1){
+				newEvent("[FFCC00]You are the last Spy left [-]" + player.Handle + "[FFCC00]. Be strong for mother.");
+			}
+		
+
 		}
 
 		playFootsteps();

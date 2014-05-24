@@ -124,4 +124,9 @@ public class PostGame : MonoBehaviour {
 			}
 		}
 	}
+
+	[RPC]
+	public void receiveMessage(string s){
+		textList.Add(s);
+	}
 }
