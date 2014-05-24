@@ -361,11 +361,13 @@ public class BasePlayer : MonoBehaviour {
 		BasePlayer.spectatingIndex = BasePlayer.spectatingIndex %
 												BasePlayer.spectators.Length;
 		GameObject teamMate;
+		int count = 0;
 		do{
 			teamMate = BasePlayer.spectators[BasePlayer.spectatingIndex];
 			BasePlayer.spectatingIndex = (++BasePlayer.spectatingIndex) %
 												BasePlayer.spectators.Length;
-		}while(!Intrigue.gameOverFlag && (teamMate == null || teamMate == gameObject));
+			++count;
+		}while(count <= BasePlayer.spectators.Length && (teamMate == null || teamMate == gameObject));
 
 		if(Intrigue.gameOverFlag){
 			return;
