@@ -63,6 +63,9 @@ public class BasePlayer : MonoBehaviour {
 	private List<GameObject> allPlayers = new List<GameObject>();
 	private Rect windowRect = new Rect(Screen.width/4, Screen.height/4, Screen.width/2, Screen.height/2);
 
+	private static bool menuFlag = false;
+	private bool areYouSure = false;
+
 	protected virtual void Start (){
 		// Set conversationGUI so spy and guard can use
 		conversationGUI.alpha = 0;
@@ -228,15 +231,13 @@ public class BasePlayer : MonoBehaviour {
 		}
 
 		if(Input.GetKeyDown(KeyCode.Escape)){
-			menuFlag = !menuFlag;
+			BasePlayer.menuFlag = !BasePlayer.menuFlag;
 		}
 		
 	}
 
-	private bool menuFlag = false;
-	private bool areYouSure = false;
 	void OnGUI(){
-		if(menuFlag){
+		if(BasePlayer.menuFlag){
 			windowRect = GUILayout.Window(0, windowRect, doWindow, "");
 		}
 	}
