@@ -30,7 +30,7 @@ public class Guard : BasePlayer{
 	protected override void Start(){
 		// Guest or Spy layer
 		layerMask = (1 << 9) | (1 << 10);
-		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Guard"},{"Ping", PhotonNetwork.GetPing()}});	
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Guard"},{"Ping", PhotonNetwork.GetPing()}, {"isOut", false}});	
 		base.Start();
 	}
 
@@ -174,6 +174,7 @@ public class Guard : BasePlayer{
 		}else{
 			photonView.RPC("invokeGuardFailed", PhotonTargets.All );
 			isOut = true;
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"isOut", true}});
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
 			accused = null;
 			base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has accused a guest![-]");

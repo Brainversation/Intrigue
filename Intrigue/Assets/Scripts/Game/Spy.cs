@@ -24,7 +24,7 @@ public class Spy : BasePlayer{
 	protected override void Start(){
 		// Guest or Guard layer
 		layerMask = (1 << 9) | (1 << 8);
-		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Spy"},{"Ping", PhotonNetwork.GetPing()}});	
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Spy"},{"Ping", PhotonNetwork.GetPing()}, {"isOut", false}});	
 		base.Start();
 	}
 
@@ -205,6 +205,7 @@ public class Spy : BasePlayer{
 	void destroySpy(){
 		if( photonView.isMine){
 			isOut = true;
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"isOut", true}});
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
 		}
 	}
