@@ -278,7 +278,7 @@ public class Intrigue : MonoBehaviour {
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team}});
 
 		Intrigue.playerGO = PhotonNetwork.Instantiate(
-						"Robot_"+ (string)PhotonNetwork.player.customProperties["Team"] +type.ToString(),
+						"Robot_"+ (string)PhotonNetwork.player.customProperties["Team"] +"1"/*type.ToString()*/,
 						position,
 						rotation, 0);
 
