@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: TestMat_Metal_BrushedStainless Dark
-  m_Shader: {fileID: 4800000, guid: 400a16de57a637f468dab1f38afbe96f, type: 3}
+  m_Shader: {fileID: 4800000, guid: 10a93473a43f9704eaf3df3a299a48fe, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -17,14 +17,21 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: e5d11edbb5951ac42b277b4302e956c5, type: 3}
-          m_Scale: {x: 1, y: 1}
+          m_Texture: {fileID: 2800000, guid: 7f9b1145b6828bc4094fbb8856d4b755, type: 3}
+          m_Scale: {x: .100000001, y: .100000001}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
           m_Texture: {fileID: 2800000, guid: 331b4516c13958547b4bccc04fc39cf2, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Ramp
+        second:
+          m_Texture: {fileID: 2800000, guid: 948e1b7327c293a4081ba3c18eaab19f, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -59,6 +66,10 @@ Material:
         second: .143880591
       data:
         first:
+          name: _Outline
+        second: .0291071422
+      data:
+        first:
           name: _Gloss
         second: .462686568
       data:
@@ -77,6 +88,10 @@ Material:
         first:
           name: _Metalics
         second: .611940324
+      data:
+        first:
+          name: _RimPower
+        second: .5
       data:
         first:
           name: _Density
@@ -100,8 +115,20 @@ Material:
         second: {r: .850746274, g: .937376082, b: 1, a: 1}
       data:
         first:
+          name: _OutlineColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _SColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
           name: _ReflectColor
         second: {r: 1, g: 1, b: 1, a: .5}
+      data:
+        first:
+          name: _RimColor
+        second: {r: .0676470026, g: 0, b: .338235319, a: .600000024}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6

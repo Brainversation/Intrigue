@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: metall_mirrored
-  m_Shader: {fileID: 23, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 06d1aac584e8ea1439aef17569096dcf, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -17,7 +17,7 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: c1fbe35e123e4d54db85a2526d9a10a8, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
@@ -26,6 +26,13 @@ Material:
         second:
           m_Texture: {fileID: 2800000, guid: 331b4516c13958547b4bccc04fc39cf2, type: 3}
           m_Scale: {x: 5, y: 2}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Ramp
+        second:
+          m_Texture: {fileID: 2800000, guid: 948e1b7327c293a4081ba3c18eaab19f, type: 3}
+          m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
@@ -39,6 +46,10 @@ Material:
         first:
           name: _Shininess
         second: .0507076122
+      data:
+        first:
+          name: _Outline
+        second: .0116071431
     m_Colors:
       data:
         first:
@@ -48,6 +59,14 @@ Material:
         first:
           name: _SpecColor
         second: {r: 1, g: 1, b: 1, a: 1}
+      data:
+        first:
+          name: _OutlineColor
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _SColor
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _ReflectColor
