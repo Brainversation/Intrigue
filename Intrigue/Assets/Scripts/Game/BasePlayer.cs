@@ -225,7 +225,7 @@ public class BasePlayer : MonoBehaviour {
 	}
 
 	private bool menuFlag = false;
-
+	private bool areYouSure = false;
 	void OnGUI(){
 		if(menuFlag){
 			windowRect = GUILayout.Window(0, windowRect, doWindow, "");
@@ -234,9 +234,16 @@ public class BasePlayer : MonoBehaviour {
 
 	void doWindow(int windowID){
 		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
-		if(GUILayout.Button("Leave Lobby")){
-			PhotonNetwork.LeaveRoom();
-			PhotonNetwork.LoadLevel( "MainMenu" );
+		if(!areYouSure){
+			if(GUILayout.Button("Leave Match")){
+			areYouSure = true;		
+			}
+		}
+		else{
+			if(GUILayout.Button("Are you sure?\nLeaving will hurt your team you heartless meany face.")){
+					PhotonNetwork.LeaveRoom();
+					PhotonNetwork.LoadLevel( "MainMenu" );
+			}	
 		}
 	}
 
