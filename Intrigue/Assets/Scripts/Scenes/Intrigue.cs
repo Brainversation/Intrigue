@@ -30,7 +30,6 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector] public float objectivesCompleted = 0;
 	[HideInInspector] public bool[] objectives;
 	[HideInInspector] public bool[] mainObjectives;
-	[HideInInspector] public bool gameOverFlag = false;
 	[HideInInspector] public bool gameStart = false;
 	[HideInInspector] public bool doneLoading = false;
 	[HideInInspector] public float loadedGuests = 0;
@@ -40,9 +39,10 @@ public class Intrigue : MonoBehaviour {
 	public static int numSpiesLeft;
 	public static int numGuardsLeft;
 	public static GameObject playerGO = null;
+	public static bool gameOverFlag = false;
 	
 	// CHANGE GAMEOVER HERE
-	public static bool wantGameOver = false;
+	public static bool wantGameOver = true;
 
 	void Awake(){
 		GameObject menuMusic = GameObject.Find("MenuMusic");

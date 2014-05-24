@@ -336,7 +336,7 @@ public class BasePlayer : MonoBehaviour {
 	}
 
 	void spectate(){
-		if(!intrigue.gameOverFlag){
+		if(!Intrigue.gameOverFlag){
 			BasePlayer.isSpectating = true;
 			switchSpectate();
 			PhotonNetwork.Destroy(gameObject);
@@ -344,6 +344,7 @@ public class BasePlayer : MonoBehaviour {
 	}
 
 	private void switchSpectate(){
+
 		BasePlayer.spectators = GameObject.FindGameObjectsWithTag(player.Team);
 		BasePlayer.spectatingIndex = BasePlayer.spectatingIndex %
 												BasePlayer.spectators.Length;
@@ -352,7 +353,11 @@ public class BasePlayer : MonoBehaviour {
 			teamMate = BasePlayer.spectators[BasePlayer.spectatingIndex];
 			BasePlayer.spectatingIndex = (++BasePlayer.spectatingIndex) %
 												BasePlayer.spectators.Length;
-		}while(teamMate == null || teamMate == gameObject);
+		}while(!Intrigue.gameOverFlag && (teamMate == null || teamMate == gameObject));
+
+		if(Intrigue.gameOverFlag){
+			return;
+		}
 
 		BasePlayer bp = teamMate.GetComponent<BasePlayer>();
 		this.isSpectated = false;
