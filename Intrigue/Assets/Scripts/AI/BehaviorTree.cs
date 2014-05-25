@@ -57,6 +57,23 @@ namespace BehaviorTree{
 		}
 	}
 
+	class RandomChildSelector : Selector {
+		private int index;
+		public RandomChildSelector(){}
+		public RandomChildSelector( List<Task> children ) : base( children ){
+			this.children = children;
+			rand();
+		}
+
+		public override Status run(GameObject gameObject){
+			return children[index].run(gameObject);
+		}
+
+		public void rand(){
+			index = UnityEngine.Random.Range(0, children.Count);
+		}
+	}
+
 	class Sequence : Task {
 		public Sequence(){}
 		public Sequence( List<Task> children ) : base(children){}
@@ -173,16 +190,34 @@ namespace BehaviorTree{
 		}
 	}
 
-	class Idle1 : Task { 
+	class Idle1Start : Task { 
 		public override Status run(GameObject gameObject){
-			// gameObject.GetComponent<Animator>().SetBool("Idle1", true);
+			Debug.Log("idle1start");
+			gameObject.GetComponent<Animator>().SetBool("Idle1", true);
 			return Status.True;
 		}
 	}
 
-	class Idle2 : Task { 
+	class Idle2Start : Task { 
 		public override Status run(GameObject gameObject){
-			// gameObject.GetComponent<Animator>().SetBool("Idle2", true);
+			Debug.Log("idle2start");
+			gameObject.GetComponent<Animator>().SetBool("Idle2", true);
+			return Status.True;
+		}
+	}
+
+	class Idle1Stop : Task { 
+		public override Status run(GameObject gameObject){
+			Debug.Log("idle1stop");
+			gameObject.GetComponent<Animator>().SetBool("Idle1", false);
+			return Status.True;
+		}
+	}
+
+	class Idle2Stop : Task { 
+		public override Status run(GameObject gameObject){
+			Debug.Log("idle2stop");
+			gameObject.GetComponent<Animator>().SetBool("Idle2", false);
 			return Status.True;
 		}
 	}
@@ -281,10 +316,27 @@ namespace BehaviorTree{
 		}
 	}
 
-	class IdleSelector : NonDeterministicSelector {
+	class IdleSelector : RandomChildSelector {
 		public IdleSelector(){
 			this.addChild(new Idle1());
 			this.addChild(new Idle2());
+			rand();
+		}
+	}
+
+	class Idle1 : Sequence {
+		public Idle1(){
+			this.addChild(new Idle1Start());
+			this.addChild(new Wait(5));
+			this.addChild(new Idle1Stop());
+		}
+	}
+
+	class Idle2 : Sequence {
+		public Idle2(){
+			this.addChild(new Idle2Start());
+			this.addChild(new Wait(7));
+			this.addChild(new Idle2Stop());
 		}
 	}
 
@@ -309,10 +361,9 @@ namespace BehaviorTree{
 
 	class SmokeTree : Sequence {
 		public SmokeTree(GameObject go){
-			addChild(new Sequence());
-			children[children.Count-1].addChild(new startSmoke());
-			children[children.Count-1].addChild(new Wait(10));
-			children[children.Count-1].addChild(new endSmoke());
+			addChild(new startSmoke());
+			addChild(new Wait(10));
+			addChild(new endSmoke());
 		}
 	}
 

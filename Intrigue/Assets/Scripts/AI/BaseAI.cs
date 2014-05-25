@@ -199,12 +199,12 @@ public class BaseAI : Photon.MonoBehaviour {
 		rules.Add( new WantToMoveRoom(gameObject) );
 		rules.Add( new NeedToUseRestroom(gameObject) );
 		rules.Add( new AdmireArt(gameObject) );
+		rules.Add( new DoIdle(gameObject) );
+		rules.Add( new Smoke(gameObject) );
 		//<-------- Rules To Add ------->
 		// Relax
 		// LetOffSteam
-		// Smoke
 		// ReadPoetry
-		// DoIdle
 		if(aiTesting){
 			thirst = 0;
 			bored = 0;
@@ -230,13 +230,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			happy = Random.Range(20, 100);
 			sad = Random.Range(20, 100);
 			toxicity = Random.Range(20, 100);
-		}
-
-		if(Random.Range(0,100) > 50){
-			smoker = true;
-		}
-		else{
-			smoker = false;
+			smoker = ((Random.Range(0,100) > 50) ?  true : false);
 		}
 	}
 

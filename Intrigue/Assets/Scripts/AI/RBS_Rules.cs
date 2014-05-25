@@ -386,11 +386,12 @@ namespace RBS{
 		public DoIdle(GameObject gameObject){
 			this.addCondition(new StayStill());
 			this.consequence = stay;
+			this.weight = 1;
 		}
 
 		private Status stay(GameObject gameObject){
-			gameObject.GetComponent<Animator>().CrossFade("Idle", 1f);
-			return Status.True;
+			gameObject.GetComponent<BaseAI>().tree = new IdleSelector();
+			return Status.Tree;
 		}
 	}
 }
