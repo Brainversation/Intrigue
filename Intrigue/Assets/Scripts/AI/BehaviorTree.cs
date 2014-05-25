@@ -192,7 +192,6 @@ namespace BehaviorTree{
 
 	class Idle1Start : Task { 
 		public override Status run(GameObject gameObject){
-			Debug.Log("idle1start");
 			gameObject.GetComponent<Animator>().SetBool("Idle1", true);
 			return Status.True;
 		}
@@ -200,7 +199,6 @@ namespace BehaviorTree{
 
 	class Idle2Start : Task { 
 		public override Status run(GameObject gameObject){
-			Debug.Log("idle2start");
 			gameObject.GetComponent<Animator>().SetBool("Idle2", true);
 			return Status.True;
 		}
@@ -208,7 +206,6 @@ namespace BehaviorTree{
 
 	class Idle1Stop : Task { 
 		public override Status run(GameObject gameObject){
-			Debug.Log("idle1stop");
 			gameObject.GetComponent<Animator>().SetBool("Idle1", false);
 			return Status.True;
 		}
@@ -216,7 +213,6 @@ namespace BehaviorTree{
 
 	class Idle2Stop : Task { 
 		public override Status run(GameObject gameObject){
-			Debug.Log("idle2stop");
 			gameObject.GetComponent<Animator>().SetBool("Idle2", false);
 			return Status.True;
 		}
@@ -304,7 +300,6 @@ namespace BehaviorTree{
 		}
 
 		public override Status run(GameObject gameObject){
-			// Debug.Log("Making Drink");
 			return base.run(gameObject);
 		}
 	}
