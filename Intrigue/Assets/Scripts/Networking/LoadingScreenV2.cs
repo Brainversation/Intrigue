@@ -119,11 +119,11 @@ public class LoadingScreenV2 : MonoBehaviour {
 	}
 
 	string getNewTip(){
-		int rand = Random.Range(1,8);
+		int rand = Random.Range(1,10);
 		string tip;
 
 		switch(rand){
-			case 1: tip = "Tip: Use the 'A' and 'D' keys to rotate smoothly!";
+			case 1: tip = "Tip: Use the '[FFCC00]A[-]' and '[FFCC00]D[-]' keys to rotate smoothly when rotating is on!";
 				break;
 			case 2: tip = "Tip: When you start downloading a server, it alerts the guards!\nUse this to your advantage.";
 				break;
@@ -135,7 +135,11 @@ public class LoadingScreenV2 : MonoBehaviour {
 				break;
 			case 6: tip = "Tip: Guards hear a heartbeat when a Spy is near!";
 				break;
-			case 7: tip = "Use [FFCC00]CTRL[-] to toggle strafing/smooth rotating!";
+			case 7: tip = "Tip: Use [FFCC00]CTRL[-] to toggle strafing/smooth rotating!";
+				break;
+			case 8: tip = "Tip: Use [FFCC00]" + Settings.Interact.ToUpper() + "[-] to join conversations when near!";
+				break;
+			case 9: tip = "Tip: Use [FFCC00]SPACE[-] to cycle through teammates when spectating!";
 				break;
 			default: tip = "Tip: Kayvan rarely showers, avoid getting too near!";
 				break;
