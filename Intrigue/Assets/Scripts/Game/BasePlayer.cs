@@ -432,7 +432,7 @@ public class BasePlayer : MonoBehaviour {
 					if(rend.gameObject.CompareTag("highLight")){
 						foreach(Material mat in rend.materials){
 							Debug.Log("Mat name = " + mat);
-							if(mat.Contains("Mat"))
+							if(mat.name.Contains("Mat"))
 								mat.shader = blueStaticShader;
 							else
 								mat.shader = staticShader;
