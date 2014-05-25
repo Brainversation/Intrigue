@@ -38,6 +38,7 @@ public class BasePlayer : MonoBehaviour {
 	public UISprite server1GUI;
 	public UISprite server2GUI;
 	public UISprite server3GUI;
+	public Shader blueStaticShader;
 	public Shader staticShader;
 	public Shader toonShader;
 
@@ -404,12 +405,17 @@ public class BasePlayer : MonoBehaviour {
 				if(rend.gameObject.CompareTag("highLight")){
 					if(markedGuests.ContainsKey(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID) ||
 						markedOther.ContainsKey(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID)){
-						rend.material.shader = staticShader;
+						Debug.Log("Material highlighted: " + rend.material);
+						foreach(Material mat in rend.materials){
+							mat.shader = staticShader;
+						}
 						rend.material.SetColor("_ReflectColor", Color.yellow);
 					} else {
 						rend.material.color = Color.white;	
 						rend.material.SetColor("_ReflectColor", Color.red);
-						rend.material.shader = toonShader;
+						foreach(Material mat in rend.materials){
+							mat.shader = toonShader;
+						}
 					}
 				}
 			}
@@ -423,8 +429,15 @@ public class BasePlayer : MonoBehaviour {
 
 				renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
 				foreach(Renderer rend in renders){
-					if(rend.gameObject.CompareTag("highLight"))
-						rend.material.shader = staticShader;
+					if(rend.gameObject.CompareTag("highLight")){
+						foreach(Material mat in rend.materials){
+							Debug.Log("Mat name = " + mat);
+							if(mat.Contains("Mat"))
+								mat.shader = blueStaticShader;
+							else
+								mat.shader = staticShader;
+						}
+					}
 				}
 
 			}
