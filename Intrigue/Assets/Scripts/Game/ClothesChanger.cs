@@ -51,5 +51,10 @@ public class ClothesChanger : MonoBehaviour {
 		colors.Add(new Color(141f/255f,0f/255f,59f/255f));
 		colors.Add(new Color(236f/255f,59f/255f,134f/255f));
 		colors.Add(new Color(236f/255f,106f/255f,161f/255f));
+		colors.Add(new Color(59f/255f,130f/255f,61f/255f));
+		colors.Add(new Color(53f/255f,140f/255f,121f/255f));
+		colors.Add(new Color(135f/255f,59f/255f,43f/255f));
+
+
 	}
 }
