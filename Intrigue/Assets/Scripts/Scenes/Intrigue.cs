@@ -168,8 +168,7 @@ public class Intrigue : MonoBehaviour {
 		while(readyCount != PhotonNetwork.playerList.Length)
 			yield return null;
 
-		for( int x = 0; x < player.Guests; ++x)
-		{	
+		for(int x = 0; x < player.Guests; ++x){	
 			nextSpawnPoint();
 			loadedGuests = x;
 			int type = Mathf.RoundToInt(Random.Range(1,5));

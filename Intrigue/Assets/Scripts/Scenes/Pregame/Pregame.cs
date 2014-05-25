@@ -185,7 +185,7 @@ public class Pregame : MonoBehaviour {
 				readyCount == PhotonNetwork.playerList.Length-1 &&
 				!string.IsNullOrEmpty(player.Team)){
 				PhotonNetwork.room.visible = false;
-				photonView.RPC("go", PhotonTargets.All);
+				StartCoroutine(go());
 			} else if(string.IsNullOrEmpty(player.Team)){
 				textList.Add("[FF0000]Error:[-][FFCC00] Please choose a team.");
 			} else {
@@ -278,8 +278,18 @@ public class Pregame : MonoBehaviour {
 		return pingColor;
 	}
 
+	IEnumerator go(){
+		foreach(PhotonPlayer p in PhotonNetwork.playerList){
+			if(PhotonNetwork.player != p){
+				photonView.RPC("sendGo", p);
+				yield return new WaitForSeconds(1f);
+			}
+		}
+		sendGo();
+	}
+
 	[RPC]
-	public void go(){
+	public void sendGo(){
 		CancelInvoke();
 		if(player.Team == "Spy")
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"TeamID", 1}});

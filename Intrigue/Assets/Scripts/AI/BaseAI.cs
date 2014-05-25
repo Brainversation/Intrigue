@@ -54,7 +54,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool hasDrink = false;
 	[HideInInspector] public bool inConvo = false;
 
-	private bool aiTesting = true;
+	private bool aiTesting = false;
 
 	void Start(){
 		anim = GetComponent<Animator>();
