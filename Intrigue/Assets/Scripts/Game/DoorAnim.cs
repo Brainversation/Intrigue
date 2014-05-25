@@ -14,6 +14,7 @@ public class DoorAnim : MonoBehaviour
 	private string[]			m_AnimNames;
 	private int curInside;
 	private List<GameObject> peopleInside = new List<GameObject>();
+	public AudioSource doorAudio;
 
 	void Start()
 	{
@@ -37,12 +38,16 @@ public class DoorAnim : MonoBehaviour
 				{
 				case eInteractiveState.Active:
 					animation.Play(m_AnimNames[0]);
+					if(!doorAudio.isPlaying){
+						doorAudio.Play();
+					}
 					break;
 				case eInteractiveState.Inactive:
 					animation.Play(m_AnimNames[1]);
+					if(!doorAudio.isPlaying){
+						doorAudio.Play();
+					}
 					break;
-				default:
-				 	break;
 				}
 		}
 	}
