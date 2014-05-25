@@ -5,18 +5,15 @@ public class TableBobScript : MonoBehaviour {
 
 	private Vector3 pos1;
 	private Vector3 pos2;
-	private Vector3 offset;	
 	private Vector3 moveTo;
-	private float moveSpeed;
+	public float offset;	
+	public float moveSpeed;
 
 
 	// Use this for initialization
 	void Start () {
-		offset = Vector3.down;
-		offset.y += .9f;
 		pos1 = transform.position;
-		pos2 = pos1 + offset;
-		moveSpeed = 0.001f;
+		pos2 = pos1 + (offset*Vector3.down);
 	}
 	
 	// Update is called once per frame
