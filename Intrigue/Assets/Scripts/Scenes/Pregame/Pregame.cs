@@ -16,6 +16,7 @@ public class Pregame : MonoBehaviour {
 	public GameObject playerPrefab;
 	public GameObject guardTable;
 	public GameObject spyTable;
+	public UIPanel gameStartingPanel;
 
 	private PhotonView photonView = null;
 	private Player player;
@@ -25,6 +26,7 @@ public class Pregame : MonoBehaviour {
 	private List<int> spies = new List<int>();
 	private List<int> guards = new List<int>();
 	private int prevGuestCount = 0;
+	private bool gameStarting = false;
 
 	private static bool isTesting = true;
 
@@ -125,7 +127,7 @@ public class Pregame : MonoBehaviour {
 	}
 
 	void swapToSpy(){
-		if(player.Team == "Spy") return;
+		if(player.Team == "Spy" || gameStarting) return;
 		player.Team = "Spy";
 		player.TeamID = 1;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Spy"}});
@@ -133,7 +135,7 @@ public class Pregame : MonoBehaviour {
 	}
 
 	void swapToGuard(){
-		if(player.Team == "Guard") return;
+		if(player.Team == "Guard" || gameStarting) return;
 		player.Team = "Guard";
 		player.TeamID = 2;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Guard"}});
@@ -191,7 +193,7 @@ public class Pregame : MonoBehaviour {
 			} else {
 				textList.Add("[FF0000]Error:[-][FFCC00] Each team must have at least one player!");
 			}
-		} else {
+		} else if(!gameStarting){
 			if(isReady){
 				isReady = false;
 				readyCheckToggle.value = false;
@@ -279,6 +281,7 @@ public class Pregame : MonoBehaviour {
 	}
 
 	IEnumerator go(){
+		photonView.RPC("sendStarting", PhotonTargets.Others);
 		foreach(PhotonPlayer p in PhotonNetwork.playerList){
 			if(PhotonNetwork.player != p){
 				photonView.RPC("sendGo", p);
@@ -286,6 +289,12 @@ public class Pregame : MonoBehaviour {
 			}
 		}
 		sendGo();
+	}
+
+	[RPC]
+	public void sendStarting(){
+		gameStarting = true;
+		gameStartingPanel.alpha = 1;
 	}
 
 	[RPC]
