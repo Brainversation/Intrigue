@@ -3,6 +3,13 @@ using System.Collections;
 
 public class Credits : MonoBehaviour {
 	
+	void Awake(){
+		GameObject menuMusic = GameObject.Find("MenuMusic");
+		if(menuMusic){
+			Destroy(menuMusic);
+		}
+	}
+	
 	// Update is called once per frame
 	void FixedUpdate () {
 		if(transform.localPosition.y<2900){
