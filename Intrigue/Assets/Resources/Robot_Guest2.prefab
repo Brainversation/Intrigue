@@ -904,6 +904,7 @@ GameObject:
   - 54: {fileID: 5400000}
   - 82: {fileID: 8200000}
   - 82: {fileID: 8200002}
+  - 136: {fileID: 13600000}
   m_Layer: 9
   m_Name: Robot_Guest2
   m_TagString: Guest
@@ -1871,6 +1872,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mType: 0
+  objectsToChange: []
+--- !u!136 &13600000
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100120}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.29999995
+  m_Height: 17.1000004
+  m_Direction: 1
+  m_Center: {x: 0, y: 7.55999994, z: .330000013}
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
