@@ -143,7 +143,8 @@ public class Spy : BasePlayer{
 						stunAudio.Play();
 						photonView.RPC("playStunAudio", PhotonTargets.Others);
 					}
-
+					pointPop.GetComponent<TextMesh>().text = "+50";
+					Instantiate(pointPop, hit.transform.position + (Vector3.up * hit.transform.gameObject.GetComponent<Collider>().bounds.size.y), hit.transform.rotation);
 					photonView.RPC("addPlayerScore", PhotonTargets.All, 50, player.TeamID);
 					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
 					hit.transform.gameObject.GetComponent<Guard>().stunned = true;
@@ -157,6 +158,9 @@ public class Spy : BasePlayer{
 						photonView.RPC("playStunAudio", PhotonTargets.Others);
 					}
 					
+					
+					pointPop.GetComponent<TextMesh>().text = "-50";
+					Instantiate(pointPop, hit.transform.position + (Vector3.up * hit.transform.gameObject.GetComponent<Collider>().bounds.size.y), hit.transform.rotation);
 					photonView.RPC("addPlayerScore", PhotonTargets.All, -50, player.TeamID);
 					hit.transform.GetComponent<PhotonView>().RPC("isStunned", PhotonTargets.All);
 					stuns--;

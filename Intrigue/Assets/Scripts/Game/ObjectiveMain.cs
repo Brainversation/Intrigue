@@ -13,6 +13,8 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 	public bool isActive = true;
 	public bool textAdded = false;
 	public string objectiveType;
+	public GameObject pointPop;
+
 	private float timeLeft;
 	private bool finished = false;
 	private Intrigue intrigue;
@@ -52,6 +54,8 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 				finished = true;
 				user.GetComponent<Spy>().doingObjective = false;
 				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 200, teamID);
+				pointPop.GetComponent<TextMesh>().text = "+200";
+				Instantiate(pointPop, transform.position + (Vector3.up * GetComponent<Collider>().bounds.size.y), transform.rotation);
 				user.GetComponent<BasePlayer>().newEvent("[00CCFF]"+user.GetComponent<BasePlayer>().localHandle +"[-] [FFCC00]has downloaded [-][33CCCC]Objective " + objectiveName + "[-][00CCFF]![-]");
 				isActive = false;
 			}

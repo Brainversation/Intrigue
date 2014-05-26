@@ -31,6 +31,7 @@ public class BasePlayer : MonoBehaviour {
 	public GameObject RoundResultBase;
 	public GameObject UIRoot;
 	public GameObject scoreboard;
+	public GameObject pointPop;
 	public UITextList textList;
 	public UIPanel conversationGUI;
 	public UILabel inConvoGUI;

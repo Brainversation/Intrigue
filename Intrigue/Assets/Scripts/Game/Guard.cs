@@ -164,6 +164,8 @@ public class Guard : BasePlayer{
 	void testAccusation(){
 		if(accused != null && accused.CompareTag("Spy") && !accused.GetComponent<BasePlayer>().isOut){
 			photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, player.TeamID, 100);
+			pointPop.GetComponent<TextMesh>().text = "+100";
+			Instantiate(pointPop, accused.transform.position + (Vector3.up * accused.GetComponent<Collider>().bounds.size.y), accused.transform.rotation);
 			photonView.RPC("invokeSpyCaught", PhotonTargets.All);
 			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
 			accused.GetComponent<BasePlayer>().isOut = true;

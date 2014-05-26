@@ -11,6 +11,7 @@ public class Objective : Photon.MonoBehaviour {
 	public string objectiveType;
 	public AudioSource tumbler;
 	public AudioSource door;
+	public GameObject pointPop;
 
 	private float timeLeft;
 	private bool finished = false;
@@ -45,6 +46,8 @@ public class Objective : Photon.MonoBehaviour {
 				finished = true;
 				user.GetComponent<Spy>().doingObjective = false;
 				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 50, teamID);
+				pointPop.GetComponent<TextMesh>().text = "+50";
+				Instantiate(pointPop, transform.position + (Vector3.up * GetComponent<Collider>().bounds.size.y), transform.rotation);
 				anim.SetBool("Complete",true);
 				isActive = false;
 				photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", true);
