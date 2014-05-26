@@ -216,7 +216,11 @@ public class MainMenu : MonoBehaviour {
 		Application.LoadLevel("Settings");
 	}
 
-	void onCreditsClicked(){
+	public void onCreditsClicked(){
+		if(PlayerPrefs.GetString(playerPrefsPrefix + "Name") != string.Empty)
+			PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
+		PlayerPrefs.Save();
+		Application.LoadLevel("Credits");
 	}
 
 	void onExitGameClicked(){
