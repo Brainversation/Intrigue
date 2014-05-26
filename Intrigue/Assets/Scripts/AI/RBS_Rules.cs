@@ -333,7 +333,6 @@ namespace RBS{
 		}
 
 		private Status goSmoke(GameObject gameObject){
-			Debug.Log("Inside SMoke");
 			bool roomPicked = false;
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 
