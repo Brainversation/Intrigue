@@ -42,7 +42,7 @@ public class Intrigue : MonoBehaviour {
 	public static bool gameOverFlag = false;
 	
 	// CHANGE GAMEOVER HERE
-	public static bool wantGameOver = false;
+	public static bool wantGameOver = true;
 
 	void Awake(){
 		GameObject menuMusic = GameObject.Find("MenuMusic");
