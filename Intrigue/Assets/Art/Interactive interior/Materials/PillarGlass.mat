@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: lambert1
-  m_Shader: {fileID: 4800000, guid: 054a31a99d11e49d110086ba44295342, type: 3}
+  m_Name: PillarGlass
+  m_Shader: {fileID: 4800000, guid: fd3ef78a3f664e74698717c1cc724973, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -17,34 +17,38 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: 21a1347d71983d94f959880c420a2044, type: 3}
+          m_Texture: {fileID: 2800000, guid: 3d1287381112ec343a978a55efb4cf93, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _ToonShade
+          name: _BumpMap
         second:
-          m_Texture: {fileID: 8900000, guid: b995d4bd9d11078d11005b9844295342, type: 3}
-          m_Scale: {x: 1, y: 1}
+          m_Texture: {fileID: 2800000, guid: ec3b9bfc90230b8418fa43286eb444ed, type: 3}
+          m_Scale: {x: 11, y: 11}
           m_Offset: {x: 0, y: 0}
       data:
         first:
-          name: _Ramp
+          name: _Cube
         second:
-          m_Texture: {fileID: 2800000, guid: 948e1b7327c293a4081ba3c18eaab19f, type: 3}
+          m_Texture: {fileID: 8900000, guid: 65a7d442f1932344384c29c6fecc89c6, type: 2}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
-          name: _Outline
-        second: .00499999989
+          name: _Trans
+        second: .371428549
+      data:
+        first:
+          name: _BumpAmt
+        second: 7.64179087
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .227941155, g: .227941155, b: .227941155, a: 1}
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
-          name: _OutlineColor
-        second: {r: 0, g: 0, b: 0, a: 1}
+          name: _ReflectColor
+        second: {r: .358208954, g: .358208954, b: .358208954, a: .501960814}

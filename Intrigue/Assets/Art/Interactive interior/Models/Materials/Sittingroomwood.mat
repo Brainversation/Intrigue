@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ceramic 2
-  m_Shader: {fileID: 23, guid: 0000000000000000f000000000000000, type: 0}
+  m_Name: Sittingroomwood
+  m_Shader: {fileID: 4, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -17,21 +17,21 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
+          m_Texture: {fileID: 2800000, guid: efe93f7001e454c41b7e3dc64489d3e2, type: 3}
+          m_Scale: {x: .00999999978, y: .00999999978}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: b211f9f61dfb27e48a99d649d46f27cf, type: 3}
-          m_Scale: {x: 2, y: 1}
+          m_Texture: {fileID: 2800000, guid: d6adfed8ecdd8434582042d4e40532c6, type: 3}
+          m_Scale: {x: 7, y: 7}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _Cube
         second:
-          m_Texture: {fileID: 8900000, guid: 1cfc76ed54abd264eaa181c42c736557, type: 2}
+          m_Texture: {fileID: 0}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -43,12 +43,12 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: .301470578, g: .301470578, b: .301470578, a: 1}
       data:
         first:
           name: _SpecColor
-        second: {r: .447761178, g: .447761178, b: .447761178, a: 1}
+        second: {r: .588235259, g: .588235259, b: .588235259, a: 1}
       data:
         first:
           name: _ReflectColor
-        second: {r: .141791046, g: .141791046, b: .141791046, a: .501960814}
+        second: {r: 1, g: 1, b: 1, a: .5}
