@@ -424,6 +424,7 @@ public class BasePlayer : MonoBehaviour {
 		}
 
 		if (Physics.Raycast(ray, out hit, 15, layerMask)) {
+			Crosshair.currGo = hit.transform.gameObject;
 			string tag = hit.transform.gameObject.tag;
 			if((tag == "Spy" && !hit.transform.GetComponent<BasePlayer>().isOut) || 
 				(tag == "Guard" && !hit.transform.GetComponent<BasePlayer>().isOut && !hit.transform.GetComponent<Guard>().stunned) ||
@@ -433,7 +434,6 @@ public class BasePlayer : MonoBehaviour {
 				foreach(Renderer rend in renders){
 					if(rend.gameObject.CompareTag("highLight")){
 						foreach(Material mat in rend.materials){
-							Debug.Log("Mat name = " + mat);
 							if(mat.name.Contains("Mat"))
 								mat.shader = blueStaticShader;
 							else

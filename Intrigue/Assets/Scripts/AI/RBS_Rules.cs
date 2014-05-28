@@ -27,7 +27,6 @@ namespace RBS{
 			if(rooms.Length != 0){
 				do{
 					int i = UnityEngine.Random.Range(0, rooms.Length);
-					Debug.Log(i);
 					room = rooms[i];
 				}while(room == curRoom);
 			} else {
