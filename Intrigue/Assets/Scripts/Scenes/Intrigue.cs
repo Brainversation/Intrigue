@@ -100,6 +100,11 @@ public class Intrigue : MonoBehaviour {
 
 	void Update () {
 		if(!gameStart) return;
+
+		if(Input.GetKeyUp(KeyCode.Mouse0)){
+			Screen.lockCursor = true;
+		}
+
 		timeLeft -= Time.deltaTime;
 		photonView.RPC("syncTime", PhotonTargets.Others, timeLeft);
 		if( timeLeft <= 0 || numSpiesLeft<=0 || numGuardsLeft <=0 || objectivesCompleted == 2){
