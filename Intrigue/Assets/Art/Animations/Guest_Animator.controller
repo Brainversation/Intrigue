@@ -1158,38 +1158,6 @@ StateMachine:
   m_ChildStateMachinePosition: []
   m_OrderedTransitions:
     data:
-      first: {fileID: 110270292}
-      second:
-      - {fileID: 110148285}
-    data:
-      first: {fileID: 110283797}
-      second:
-      - {fileID: 110126713}
-    data:
-      first: {fileID: 110223653}
-      second:
-      - {fileID: 110107452}
-    data:
-      first: {fileID: 110225224}
-      second:
-      - {fileID: 110118028}
-    data:
-      first: {fileID: 110252057}
-      second:
-      - {fileID: 110152122}
-    data:
-      first: {fileID: 110218870}
-      second:
-      - {fileID: 110129674}
-    data:
-      first: {fileID: 110202513}
-      second:
-      - {fileID: 110175219}
-    data:
-      first: {fileID: 110219538}
-      second:
-      - {fileID: 110139402}
-    data:
       first: {fileID: 0}
       second: []
     data:
@@ -1245,6 +1213,53 @@ StateMachine:
       first: {fileID: 110222115}
       second:
       - {fileID: 110111897}
+    data:
+      first: {fileID: 110219538}
+      second:
+      - {fileID: 110139402}
+    data:
+      first: {fileID: 110202513}
+      second:
+      - {fileID: 110175219}
+    data:
+      first: {fileID: 110218870}
+      second:
+      - {fileID: 110129674}
+    data:
+      first: {fileID: 110252057}
+      second:
+      - {fileID: 110152122}
+    data:
+      first: {fileID: 110225224}
+      second:
+      - {fileID: 110118028}
+    data:
+      first: {fileID: 110223653}
+      second:
+      - {fileID: 110107452}
+    data:
+      first: {fileID: 110283797}
+      second:
+      - {fileID: 110126713}
+    data:
+      first: {fileID: 110270292}
+      second:
+      - {fileID: 110148285}
   m_MotionSetCount: 1
   m_AnyStatePosition: {x: 108, y: -504, z: 0}
+  m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
+--- !u!1107 &110784572
+StateMachine:
+  serializedVersion: 2
+  m_ObjectHideFlags: 3
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: New StateMachine
+  m_DefaultState: {fileID: 0}
+  m_States: []
+  m_ChildStateMachine: []
+  m_ChildStateMachinePosition: []
+  m_OrderedTransitions: {}
+  m_MotionSetCount: 2
+  m_AnyStatePosition: {x: 50, y: 20, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}

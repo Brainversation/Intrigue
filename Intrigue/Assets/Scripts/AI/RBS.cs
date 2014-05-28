@@ -8,6 +8,7 @@ namespace RBS{
 	public delegate Status ConsequenceFunction(GameObject gameObject);
 	public delegate Status AntiConsequenceFunction();
 
+	// An array of these are used to choose the correct rule
 	public abstract class Condition {
 		protected GameObject gameObject;
 
@@ -20,6 +21,7 @@ namespace RBS{
 		abstract public bool test();
 	}
 
+	// Base class for rules
 	public class Rule : IComparable{
 		// every element in this list is a condition but the last;
 		// the last element is the consequence

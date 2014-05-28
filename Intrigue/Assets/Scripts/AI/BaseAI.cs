@@ -6,33 +6,32 @@ using BehaviorTree;
 
 public class BaseAI : Photon.MonoBehaviour {
 
-	public NavMeshAgent agent;
-
-	private Vector3 correctPlayerPos;
-	private Quaternion correctPlayerRot;
+	private Vector3 nextPlayerPos;
+	private Quaternion nextPlayerRot;
 	private Rule currentRule;
 	private float updateWants = 5f;
 	private bool stunInstantiated = false;
+	private GameObject currentStunEffect;
 
 	protected List<Rule> rules;
 
 	//Audio Sources
-	public Animator animator;
 	public AudioSource footstepL;
 	public AudioSource footstepR;
 
+	public NavMeshAgent agent;
 	//Particle Effects
 	public GameObject stunPrefab;
-	private GameObject currentStunEffect;
+
 
 	// AI info
 	[HideInInspector] public Animator anim;
 	[HideInInspector] public Vector3 destination;
 	[HideInInspector] public AI_RoomState room;
 	[HideInInspector] public Task tree = null;
-	[HideInInspector] public bool isYourTurn = false;
 	[HideInInspector] public Status status = Status.False;
 	[HideInInspector] public float distFromDest = 5f;
+	[HideInInspector] public bool isYourTurn = false;
 	[HideInInspector] public bool stunned = false;
 
 	// Wants, needs, and feelings 0-100 scale
@@ -54,8 +53,10 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool hasDrink = false;
 	[HideInInspector] public bool inConvo = false;
 
+	// Used for offline testing
 	private bool aiTesting = false;
 
+	// Initializes all fields
 	void Start(){
 		anim = GetComponent<Animator>();
 		GetComponent<NavMeshAgent>().speed = NetworkCharacter.CHARSPEED;
@@ -63,10 +64,12 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	public void Update(){
+		// Only sets position and rotation when not master client
 		if(!PhotonNetwork.isMasterClient && !aiTesting){
-			transform.position = Vector3.Lerp(transform.position, this.correctPlayerPos, Time.deltaTime * 5);
-			transform.rotation = Quaternion.Lerp(transform.rotation, this.correctPlayerRot, Time.deltaTime * 5);
+			transform.position = Vector3.Lerp(transform.position, this.nextPlayerPos, Time.deltaTime * 5);
+			transform.rotation = Quaternion.Lerp(transform.rotation, this.nextPlayerRot, Time.deltaTime * 5);
 		} else {
+			// Status system that updates the AI appropriately 
 			switch(status){
 				case Status.False:
 					//Sort the list in terms of weight
@@ -124,36 +127,35 @@ public class BaseAI : Photon.MonoBehaviour {
 			}
 		}
 
-		if(!aiTesting){
-			//Left foot position
-			Vector3 leftFootT = animator.GetIKPosition(AvatarIKGoal.LeftFoot);
-			Quaternion leftFootQ = animator.GetIKRotation(AvatarIKGoal.LeftFoot);
-			Vector3 leftFootH = new Vector3(0, -animator.leftFeetBottomHeight, 0);
-			Vector3 posL = leftFootT + leftFootQ * leftFootH;
-			//Right foot position
-			Vector3 rightFootT = animator.GetIKPosition(AvatarIKGoal.RightFoot);
-			Quaternion rightFootQ = animator.GetIKRotation(AvatarIKGoal.RightFoot);
-			Vector3 rightFootH = new Vector3(0, -animator.rightFeetBottomHeight, 0);
-			Vector3 posR = rightFootT + rightFootQ * rightFootH;
+		//Left foot position
+		Vector3 leftFootT = anim.GetIKPosition(AvatarIKGoal.LeftFoot);
+		Quaternion leftFootQ = anim.GetIKRotation(AvatarIKGoal.LeftFoot);
+		Vector3 leftFootH = new Vector3(0, -anim.leftFeetBottomHeight, 0);
+		Vector3 posL = leftFootT + leftFootQ * leftFootH;
+		//Right foot position
+		Vector3 rightFootT = anim.GetIKPosition(AvatarIKGoal.RightFoot);
+		Quaternion rightFootQ = anim.GetIKRotation(AvatarIKGoal.RightFoot);
+		Vector3 rightFootH = new Vector3(0, -anim.rightFeetBottomHeight, 0);
+		Vector3 posR = rightFootT + rightFootQ * rightFootH;
 
-			float rHeight = posR.y - transform.position.y;
-			float lHeight = posL.y - transform.position.y;
+		float rHeight = posR.y - transform.position.y;
+		float lHeight = posL.y - transform.position.y;
 
-			if(rHeight > 0f){
-				if(!footstepR.isPlaying){
-					footstepR.Play();
-				}
+		if(rHeight > 0f){
+			if(!footstepR.isPlaying){
+				footstepR.Play();
 			}
-			if(lHeight > 0f){
-				if(!footstepL.isPlaying){
-					footstepL.Play();
-				}
+		}
+		if(lHeight > 0f){
+			if(!footstepL.isPlaying){
+				footstepL.Play();
 			}
 		}
 
 	}
 
 	void FixedUpdate(){
+		// Updates the AI's stats
 		if(PhotonNetwork.isMasterClient && updateWants < 0){
 			if( thirst < 100) thirst += 2f;
 			if( bored < 100) bored += 2f;
@@ -175,6 +177,7 @@ public class BaseAI : Photon.MonoBehaviour {
 		}
 	}
 
+#if (UNITY_EDITOR)
 	void OnGUI(){
 		if(!aiTesting) return;
 		GUI.color = Color.black;
@@ -188,7 +191,9 @@ public class BaseAI : Photon.MonoBehaviour {
 			GUILayout.Label( "bladder " + bladder);
 		GUILayout.EndArea();
 	}
-
+#endif
+	
+	// Sets rules and stats
 	void initAI(){
 		rules = new List<Rule>();
 		rules.Add( new WantToGetDrink(gameObject) );
@@ -233,6 +238,7 @@ public class BaseAI : Photon.MonoBehaviour {
 		}
 	}
 
+	// Used so rules do not fire to quickly and so we can have anti-consequences
 	void backToRule(){
 		if(!aiTesting){
 			photonView.RPC("updateStunPS", PhotonTargets.All, false);
@@ -252,7 +258,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	[RPC]
-	void isStunned(){
+	void stunAI(){
 		if(PhotonNetwork.isMasterClient){
 			stunned = true;
 			status = Status.Waiting;
@@ -291,8 +297,8 @@ public class BaseAI : Photon.MonoBehaviour {
 
 		}else{
 			// Network player, receive data
-			this.correctPlayerPos = (Vector3) stream.ReceiveNext();
-			this.correctPlayerRot = (Quaternion) stream.ReceiveNext();
+			this.nextPlayerPos = (Vector3) stream.ReceiveNext();
+			this.nextPlayerRot = (Quaternion) stream.ReceiveNext();
 			anim.SetBool("Speed", (bool) stream.ReceiveNext());
 			anim.SetBool("Drink", (bool) stream.ReceiveNext());
 			anim.SetBool("Converse", (bool) stream.ReceiveNext());

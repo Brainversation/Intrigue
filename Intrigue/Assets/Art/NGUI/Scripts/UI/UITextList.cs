@@ -273,8 +273,10 @@ public class UITextList : MonoBehaviour
 
 			// Recalculate the total number of lines
 			mTotalLines = 0;
-			for (int i = 0, imax = mParagraphs.size; i < imax; ++i)
-				mTotalLines += mParagraphs.buffer[i].lines.Length;
+			for (int i = 0, imax = mParagraphs.size; i < imax; ++i){
+				if(mParagraphs.buffer[i].lines != null)
+					mTotalLines += mParagraphs.buffer[i].lines.Length;
+			}
 
 			// Update the bar's size
 			if (scrollBar != null)
@@ -306,7 +308,9 @@ public class UITextList : MonoBehaviour
 			for (int i = 0, imax = mParagraphs.size; maxLines > 0 && i < imax; ++i)
 			{
 				Paragraph p = mParagraphs.buffer[i];
-
+				
+				if(p.lines == null)
+					continue;
 				for (int b = 0, bmax = p.lines.Length; maxLines > 0 && b < bmax; ++b)
 				{
 					string s = p.lines[b];

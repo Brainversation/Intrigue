@@ -32,7 +32,7 @@ namespace BehaviorTree{
 			this.addChild(new IdleComeHere());
 			this.addChild(new IdleWave());
 			this.addChild(new IdleCough());
-			this.addChild(new HealClick());
+			this.addChild(new HeelClick());
 			this.addChild(new Yawn());
 			this.addChild(new FacePalm());
 			this.addChild(new IdleSadHips());
@@ -81,11 +81,11 @@ namespace BehaviorTree{
 		}
 	}
 
-	class HealClick : Sequence {
-		public HealClick(){
-			this.addChild(new AnimStart("HealClick"));
+	class HeelClick : Sequence {
+		public HeelClick(){
+			this.addChild(new AnimStart("HeelClick"));
 			this.addChild(new Wait(3));
-			this.addChild(new AnimStop("HealClick"));
+			this.addChild(new AnimStop("HeelClick"));
 		}
 	}
 

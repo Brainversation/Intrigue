@@ -5,25 +5,25 @@ using BehaviorTree;
 
 public class ConversationHotSpot : MonoBehaviour {
 
-	private int population = 0;
 	private List<GameObject> queue = new List<GameObject>();
 	private List<GameObject> players = new List<GameObject>();
 	private Vector3[] spots = null;
-	private float radius;
 	private Vector3 center;
-	private float slice;
+	private int population = 0;
 	private int talkerIndex = 0;
 	private float talkerTime = 5;
+	private float radius;
+	private float slice;
 
 	public static int max = 5;
 
 	void Start(){
-
 		if(!PhotonNetwork.isMasterClient){
 			enabled = false;
 			return;
 		}
 
+		// Builds pie for AI positions
 		radius = GetComponent<NavMeshObstacle>().radius = max/2;
 		GetComponent<SphereCollider>().radius = max*1.5f;
 		center = transform.TransformPoint(GetComponent<SphereCollider>().center);
@@ -67,7 +67,7 @@ public class ConversationHotSpot : MonoBehaviour {
 			BaseAI script = other.gameObject.GetComponent<BaseAI>();
 			script.agent.SetDestination(spots[queue.Count]);
 			script.anim.SetBool("Speed", true);
-			script.distFromDest = 3;
+			script.distFromDest = 2;
 			script.status = Status.Waiting;
 			++population;
 			queue.Add(other.gameObject);
@@ -84,7 +84,7 @@ public class ConversationHotSpot : MonoBehaviour {
 	void OnTriggerStay(Collider other){
 		if(other.tag == "Guard" || other.tag == "Spy"){
 			// If player presses E and the GUI element is present, then add to convo
-			if(Input.GetKeyUp(Settings.Interact) && other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha == 1){
+			if(other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha == 1 && Input.GetKeyUp(Settings.Interact)){
 				++population;
 				queue.Add(other.gameObject);
 				other.gameObject.GetComponent<BasePlayer>().inConvoGUI.alpha = 1;
@@ -103,8 +103,8 @@ public class ConversationHotSpot : MonoBehaviour {
 			if(other.gameObject.GetComponent<Animator>().GetBool("Converse"))
 				other.gameObject.GetComponent<Animator>().SetBool("Converse", false);
 		} else if (other.tag == "Guard" || other.tag == "Spy"){
+			players.Remove(other.gameObject);
 			other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
-			Debug.Log("Ontrigger exit");
 			if(queue.Contains(other.gameObject)){
 				--population;
 				queue.Remove(other.gameObject);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using RBS;
 
 namespace BehaviorTree{
-
+	// Abstract base class for all behavior tree classes
 	public abstract class Task {
 		public List<Task> children;
 
@@ -57,6 +57,7 @@ namespace BehaviorTree{
 		}
 	}
 
+	// Chooses one child at "Random" and runs that until destroyed
 	class RandomChildSelector : Selector {
 		private int index;
 		public RandomChildSelector(){}
@@ -167,10 +168,15 @@ namespace BehaviorTree{
 	}
 
 	public enum Status{
+		// No rule and task failed
 		False,
+		// Found rule and task passed
 		True,
+		// AI is waiting while walking somewhere or in line
 		Waiting,
+		// Behavior tree is running
 		Tree,
+		// Will be used for edge cases
 		Error
 	}
 

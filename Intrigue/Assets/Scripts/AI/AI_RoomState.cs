@@ -7,16 +7,17 @@ public class AI_RoomState : MonoBehaviour{
 	public string roomName = "";
 	
 	[HideInInspector] public List<GameObject> conversers;
+	[HideInInspector] public List<GameObject> relaxLocations;
 	[HideInInspector] public List<Vector3> artLocations;
 	[HideInInspector] public List<Vector3> restroomLocations;
-	[HideInInspector] public int population;
-	[HideInInspector] public List<GameObject> relaxLocations;
 	[HideInInspector] public Vector3 drinkLocation;
 	[HideInInspector] public Vector3 converseLocation;
 	[HideInInspector] public Vector3 poetLocation;
 	[HideInInspector] public GameObject me;
 	[HideInInspector] public GameObject poet;
+	[HideInInspector] public int population;
 
+	// Initializes all vars
 	public void Start(){
 		roomName = gameObject.name;
 		population = 0;
@@ -24,10 +25,11 @@ public class AI_RoomState : MonoBehaviour{
 		conversers = new List<GameObject>();
 		artLocations = new List<Vector3>();
 		restroomLocations = new List<Vector3>();
+		relaxLocations = new List<GameObject>();
 	}
 
+	// Finds all items in the room
 	void OnTriggerEnter(Collider other){
-
 		switch(other.tag){
 			case "Guest":
 				other.gameObject.GetComponent<BaseAI>().room = this;
@@ -69,7 +71,7 @@ public class AI_RoomState : MonoBehaviour{
 		}
 	}
 
-
+	// Makes sure the population is up to date
 	void OnTriggerExit(Collider other){
 		if(other.tag == "Guest" || other.tag == "Player")
 			population--;

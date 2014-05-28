@@ -219,7 +219,7 @@ public class Guard : BasePlayer{
 	}
 	
 	[RPC]
-	void isStunned(){
+	void stunGuard(){
 		if(photonView.isMine){
 			if(!stunInstantiated){
 				photonView.RPC("updateStunPS", PhotonTargets.All, true);

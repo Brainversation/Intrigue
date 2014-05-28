@@ -26,7 +26,7 @@ public class QueueHotSpot : MonoBehaviour {
 	}
 
 	protected virtual void OnTriggerExit(Collider other){
-		if(other.tag == "Guest" && queue.Contains(other.gameObject)){
+		if(other.tag == "Guest" && other.gameObject.GetComponent<BaseAI>().isYourTurn){
 			queue.Remove(other.gameObject);
 			other.gameObject.GetComponent<BaseAI>().isYourTurn = false;
 		}

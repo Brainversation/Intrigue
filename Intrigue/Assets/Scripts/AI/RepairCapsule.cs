@@ -25,7 +25,6 @@ public class RepairCapsule : QueueHotSpot {
 	}
 
 	public void doRepair(){
-		Debug.Log("DO REPAIR");
 		repair = true;
 	}
 
