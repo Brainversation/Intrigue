@@ -41,20 +41,36 @@ public class ClothesChanger : MonoBehaviour {
 	}
 
 	void AddColors(){
+		//Blues
 		colors.Add(new Color(36f/255f,25f/255f,178f/255f));
 		colors.Add(new Color(53f/255f,47f/255f,133f/255f));
 		colors.Add(new Color(16f/255f,8f/255f,115f/255f));
-		colors.Add(new Color(87f/255f,77f/255f,216f/255f));
-		colors.Add(new Color(121f/255f,114f/255f,216f/255f));
-		colors.Add(new Color(217f/255f,0f/255f,91f/255f));
+		
+		//Purple
 		colors.Add(new Color(163f/255f,41f/255f,92f/255f));
+
+		//Maroon
 		colors.Add(new Color(141f/255f,0f/255f,59f/255f));
-		colors.Add(new Color(236f/255f,59f/255f,134f/255f));
-		colors.Add(new Color(236f/255f,106f/255f,161f/255f));
+
+		//Green
 		colors.Add(new Color(59f/255f,130f/255f,61f/255f));
+
+		//Blue/Green
 		colors.Add(new Color(53f/255f,140f/255f,121f/255f));
+
+		//Brown
 		colors.Add(new Color(135f/255f,59f/255f,43f/255f));
 
+		//Grey
+		colors.Add(new Color(50f/255f, 50f/255f, 50f/255f));
 
+		//White-Grey
+		colors.Add(new Color(229f/255f, 229f/255f, 229f/255f));
+
+		//White-Yellow
+		colors.Add(new Color(229f/255f, 229f/255f, 134f/255f));
+
+		//Light Red
+		colors.Add(new Color(159f/255f, 87f/255f, 88f/255f));
 	}
 }
