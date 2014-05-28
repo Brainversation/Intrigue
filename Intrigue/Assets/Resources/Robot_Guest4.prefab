@@ -1732,7 +1732,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 54.9173546, y: 3.1654253, z: 75.8084793}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 400124}
@@ -1879,7 +1879,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 6cb276929742e4768af5c79a6130dd9d, type: 3}
   m_Controller: {fileID: 9100000, guid: 7e4608a9e3b6d084ea202653be43bdde, type: 2}
   m_CullingMode: 1
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
 --- !u!111 &11100000
@@ -1907,17 +1907,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468cc884df37b904c9665a039f0e129b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 19500000}
-  animator: {fileID: 9500000}
   footstepL: {fileID: 8200002}
   footstepR: {fileID: 8200000}
+  agent: {fileID: 19500000}
   stunPrefab: {fileID: 100000, guid: 56858680ff6b1dd4687ea5deb2ad9a1f, type: 2}
   anim: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
   room: {fileID: 0}
-  isYourTurn: 0
   status: 0
   distFromDest: 5
+  isYourTurn: 0
   stunned: 0
   thirst: 0
   bored: 0
