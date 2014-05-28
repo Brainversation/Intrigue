@@ -48,10 +48,12 @@ public class Pregame : MonoBehaviour {
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Handle", player.Handle},
 																{"Ready", PhotonNetwork.isMasterClient},
 																{"Ping", 100},
-																{"Score", 0},
-																{"Team", ""},
-																{"TeamID", -1}});
+																{"Score", 0}});
 		reloadScoreboard();
+		if(spies.Count<=guards.Count)
+			swapToSpy();
+		else
+			swapToGuard();
 	}
 
 	void Update(){
@@ -68,8 +70,12 @@ public class Pregame : MonoBehaviour {
 		{
 			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
 			string text = NGUIText.StripSymbols(mInput.value);
+			bool isCommand = false;
+			if(PhotonNetwork.isMasterClient)
+				isCommand = testCommands(text);
+
 			text = StringCleaner.CleanString(text);
-			if (!string.IsNullOrEmpty(text) && text.Length>=2){
+			if (!string.IsNullOrEmpty(text) && text.Length>=2 && !isCommand){
 				if(player.Team == "Spy"){
 					textList.Add("[8169FF]"+player.Handle+": [-]"+text);
 					photonView.RPC("receiveMessage", PhotonTargets.Others, "[8169FF]"+player.Handle+": [-]"+text);
@@ -83,6 +89,31 @@ public class Pregame : MonoBehaviour {
 				mInput.value = "";
 			}
 		}
+	}
+
+	bool testCommands(string message){
+		bool commandValid = false;
+		bool targetValid = false;
+		PhotonPlayer target = null;
+		string commandTest = message.Substring(0, message.IndexOf(" "));
+		string targetTest = message.Substring(message.IndexOf(" ") + 1);
+
+		if(commandTest == "/kick")
+			commandValid = true;
+		if(commandValid){
+			foreach(PhotonPlayer player in PhotonNetwork.playerList){
+				if(targetTest == (string)player.customProperties["Handle"] && (player != PhotonNetwork.player)){
+					targetValid = true;
+					target = player;
+				}
+			}
+		}
+		if(commandValid && targetValid){
+			photonView.RPC("kickPlayer", target);
+			mInput.value = "";
+			return true;
+		}
+		return false;
 	}
 
 	void syncPing(){
@@ -131,6 +162,7 @@ public class Pregame : MonoBehaviour {
 		player.Team = "Spy";
 		player.TeamID = 1;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Spy"}});
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"TeamID", "1"}});
 		photonView.RPC("reloadScoreboard", PhotonTargets.All);
 	}
 
@@ -139,6 +171,7 @@ public class Pregame : MonoBehaviour {
 		player.Team = "Guard";
 		player.TeamID = 2;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Guard"}});
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"TeamID", "2"}});
 		photonView.RPC("reloadScoreboard", PhotonTargets.All);
 	}
 
@@ -320,5 +353,11 @@ public class Pregame : MonoBehaviour {
 	[RPC]
 	void guestCount(int guests){
 		player.Guests = guests;
+	}
+
+	[RPC]
+	void kickPlayer(){
+		photonView.RPC("receiveMessage", PhotonTargets.Others, player.Handle + "[FF0000] has been kicked by the host");
+		Application.LoadLevel("MainMenu");
 	}
 }
