@@ -7,7 +7,6 @@ public class AudioControl : MonoBehaviour {
 
 	private AudioSource[] AudioSources;
 
-	// Use this for initialization
 	void Start () {
 		AudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
 		Invoke("SetAudio",0.1f);

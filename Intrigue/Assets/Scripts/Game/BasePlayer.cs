@@ -99,7 +99,7 @@ public class BasePlayer : MonoBehaviour {
 			}
 		}
 
-		Invoke("setTeamWhyTheFuckShouldWeHaveToDoThis", 2);
+		Invoke("setTeam", 2);
 
 	}
 	
@@ -128,7 +128,7 @@ public class BasePlayer : MonoBehaviour {
 		return go;
 	}
 
-	void setTeamWhyTheFuckShouldWeHaveToDoThis(){
+	void setTeam(){
 		PhotonNetwork.player.SetCustomProperties(new Hashtable{{"Team", player.Team}});
 	}
 
@@ -151,8 +151,7 @@ public class BasePlayer : MonoBehaviour {
 				GetComponentInChildren<Camera>().enabled = false;
 				GetComponentInChildren<AudioListener>().enabled = false;
 				GetComponentInChildren<Crosshair>().enabled = false;
-			}
-			else if(intrigue.gameStart && !roundStarted){
+			} else if(intrigue.gameStart && !roundStarted){
 				GetComponentInChildren<Camera>().enabled = true;
 				GetComponentInChildren<AudioListener>().enabled = true;
 				GetComponentInChildren<Crosshair>().enabled = true;

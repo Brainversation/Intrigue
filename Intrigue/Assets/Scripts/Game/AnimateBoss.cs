@@ -5,12 +5,11 @@ public class AnimateBoss : MonoBehaviour {
 
 	private bool done = true;
 	private Animator anim;
-	// Use this for initialization
+
 	void Start () {
 		anim = GetComponent<Animator>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if(done){
 			done = false;
