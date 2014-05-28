@@ -423,12 +423,13 @@ public class BasePlayer : MonoBehaviour {
 			}
 		}
 
-		if (Physics.Raycast(ray, out hit, 15, layerMask)) {
+		if (Physics.Raycast(ray, out hit, 75, layerMask)) {
 			Crosshair.currGo = hit.transform.gameObject;
 			string tag = hit.transform.gameObject.tag;
 			if((tag == "Spy" && !hit.transform.GetComponent<BasePlayer>().isOut) || 
 				(tag == "Guard" && !hit.transform.GetComponent<BasePlayer>().isOut && !hit.transform.GetComponent<Guard>().stunned) ||
-				(tag == "Guest" && !hit.transform.GetComponent<BaseAI>().stunned)){
+				(tag == "Guest" && !hit.transform.GetComponent<BaseAI>().stunned) &&
+				((Vector3.Distance(hit.transform.position, transform.position) ) < 15)){
 
 				renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();
 				foreach(Renderer rend in renders){

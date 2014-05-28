@@ -114,7 +114,7 @@ public class Spy : BasePlayer{
 	void attemptInteract(){
 		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 		RaycastHit hit;
-		if( Physics.Raycast(ray, out hit, 1000f) ){
+		if( Physics.Raycast(ray, out hit, 75f, 1 << 11) ){
 			if( hit.transform.tag == "ObjectiveMain" ){
 				ObjectiveMain hitObjective = hit.transform.GetComponent<ObjectiveMain>();
 				hitObjective.useObjective(gameObject, player.TeamID);
