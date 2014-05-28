@@ -34,12 +34,17 @@ public class Pregame : MonoBehaviour {
 		this.photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 
+		checkHandle();
+
 		//Sets Chat Max Line Count
 		mInput.label.maxLineCount = 1;
 
 		//Disables Controlling the Guest Slider for Clients
 		if(!PhotonNetwork.isMasterClient){
 			slider.enabled = false;
+		}
+		else{
+			textList.Add("[FF0000]Tip:[-][FFCC00] type [-]'/kick '[FFCC00] + [-]'player's handle'[FFCC00] to kick that player.");
 		}
 
 		//Updates Ping and Score Every X Seconds
@@ -54,6 +59,7 @@ public class Pregame : MonoBehaviour {
 			swapToSpy();
 		else
 			swapToGuard();
+
 	}
 
 	void Update(){
@@ -114,6 +120,16 @@ public class Pregame : MonoBehaviour {
 			return true;
 		}
 		return false;
+	}
+
+	void checkHandle(){
+		foreach(PhotonPlayer play in PhotonNetwork.playerList){
+			if(player.Handle == (string)play.customProperties["Handle"]){
+				player.Handle = player.Handle + "1";
+				PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Handle", player.Handle}});
+				break;
+			}
+		}
 	}
 
 	void syncPing(){

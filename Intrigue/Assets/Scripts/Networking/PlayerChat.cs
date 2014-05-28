@@ -49,7 +49,7 @@ public class PlayerChat : MonoBehaviour
 	}
 
 	public void OnSubmit (){
-		if(UICamera.currentKey == KeyCode.Return);
+		if(UICamera.currentKey == KeyCode.Return)
 			mIgnoreUp = true;
 
 		if (textList != null)
