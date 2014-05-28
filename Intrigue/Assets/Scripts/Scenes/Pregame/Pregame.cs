@@ -133,7 +133,7 @@ public class Pregame : MonoBehaviour {
 
 	void checkHandle(){
 		foreach(PhotonPlayer play in PhotonNetwork.playerList){
-			if(player.Handle == (string)play.customProperties["Handle"]){
+			if(player.Handle == (string)play.customProperties["Handle"] && (PhotonNetwork.player != play)){
 				player.Handle = player.Handle + "1";
 				PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Handle", player.Handle}});
 				break;
