@@ -98,27 +98,39 @@ public class Pregame : MonoBehaviour {
 	}
 
 	bool testCommands(string message){
-		bool commandValid = false;
 		bool targetValid = false;
-		PhotonPlayer target = null;
+		string commandType = "";
 		string commandTest = message.Substring(0, message.IndexOf(" "));
 		string targetTest = message.Substring(message.IndexOf(" ") + 1);
 
-		if(commandTest == "/kick")
-			commandValid = true;
-		if(commandValid){
-			foreach(PhotonPlayer player in PhotonNetwork.playerList){
-				if(targetTest == (string)player.customProperties["Handle"] && (player != PhotonNetwork.player)){
-					targetValid = true;
-					target = player;
-				}
-			}
+		switch(commandTest){
+			case "/kick": 
+					foreach(PhotonPlayer player in PhotonNetwork.playerList){
+						if(targetTest == (string)player.customProperties["Handle"] && (player != PhotonNetwork.player)){
+							targetValid = true;
+							photonView.RPC("kickPlayer", player);
+							mInput.value = "";
+							return true;
+						}
+					}
+				break;
+
+			case "/gameover":
+					if(targetTest == "true" || targetTest == "True"){
+						Intrigue.wantGameOver = true;
+						mInput.value = "";
+						textList.Add("[FFCC00]GameOver set to true");
+						return true;
+					}
+					else if(targetTest == "false" || targetTest == "False"){
+						Intrigue.wantGameOver = false;
+						textList.Add("[FFCC00]GameOver set to false");
+						mInput.value = "";
+						return true;
+					}
+				break;
 		}
-		if(commandValid && targetValid){
-			photonView.RPC("kickPlayer", target);
-			mInput.value = "";
-			return true;
-		}
+
 		return false;
 	}
 
