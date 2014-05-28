@@ -24,9 +24,15 @@ namespace RBS{
 		// Debug.Log("Number of rooms: " + rooms.Length);
 
 			//ensure next room to go to is not the same as the current room
-			do{
-				room = rooms[UnityEngine.Random.Range(0, rooms.Length)];
-			}while(room == curRoom);
+			if(rooms.Length != 0){
+				do{
+					int i = UnityEngine.Random.Range(0, rooms.Length);
+					Debug.Log(i);
+					room = rooms[i];
+				}while(room == curRoom);
+			} else {
+				return Status.False;
+			}
 
 			// Debug.Log("Room: " + room.name);
 
@@ -142,7 +148,7 @@ namespace RBS{
 			this.addCondition( new IsBored(gameObject) );
 			this.addCondition( new NotInConvo(gameObject) );
 			this.consequence = handleConverse;
-			this.weight = 4;
+			this.weight = 7;
 		}
 
 		private Status handleConverse(GameObject gameObject){
@@ -160,7 +166,10 @@ namespace RBS{
 
 			if(conversers.Count == 0 || conversers.Count >= offset){
 				script.destination = gameObject.transform.position;
-				PhotonNetwork.InstantiateSceneObject("ConversationHotSpot", gameObject.transform.position, Quaternion.identity, 0, null);
+				if(BaseAI.aiTesting)
+					UnityEngine.Object.Instantiate(Resources.Load<GameObject>("ConversationHotSpot"), gameObject.transform.position, Quaternion.identity);
+				else
+					PhotonNetwork.InstantiateSceneObject("ConversationHotSpot", gameObject.transform.position, Quaternion.identity, 0, null);
 				script.tree = new IdleSelector();
 				conversers.Clear();
 				returnStat = Status.Tree;
@@ -209,9 +218,8 @@ namespace RBS{
 		public AdmireArt(GameObject gameObject){
 			this.addCondition(new HasArt(gameObject));
 			this.addCondition(new IsBored(gameObject));
-			this.addCondition(new ConversationInRoom(gameObject));
 			this.consequence = goToArt;
-			this.weight = 11;
+			this.weight = 6;
 		}
 
 		private Status goToArt(GameObject gameObject){

@@ -54,7 +54,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool inConvo = false;
 
 	// Used for offline testing
-	private bool aiTesting = false;
+	public static bool aiTesting = true;
 
 	// Initializes all fields
 	void Start(){
@@ -65,7 +65,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	public void Update(){
 		// Only sets position and rotation when not master client
-		if(!PhotonNetwork.isMasterClient && !aiTesting){
+		if(!PhotonNetwork.isMasterClient && !BaseAI.aiTesting){
 			transform.position = Vector3.Lerp(transform.position, this.nextPlayerPos, Time.deltaTime * 5);
 			transform.rotation = Quaternion.Lerp(transform.rotation, this.nextPlayerRot, Time.deltaTime * 5);
 		} else {
@@ -156,7 +156,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	void FixedUpdate(){
 		// Updates the AI's stats
-		if(PhotonNetwork.isMasterClient && updateWants < 0){
+		if((PhotonNetwork.isMasterClient || BaseAI.aiTesting) && updateWants < 0){
 			if( thirst < 100) thirst += 2f;
 			if( bored < 100) bored += 2f;
 			if( hunger < 100) hunger += 2f;
@@ -179,7 +179,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 #if (UNITY_EDITOR)
 	void OnGUI(){
-		if(!aiTesting) return;
+		if(!BaseAI.aiTesting) return;
 		GUI.color = Color.black;
 		GUILayout.BeginArea(new Rect(100, 0, 100, 200));
 			GUILayout.Label( "thirst " + thirst);
@@ -209,11 +209,11 @@ public class BaseAI : Photon.MonoBehaviour {
 		// Relax
 		// LetOffSteam
 		// ReadPoetry
-		if(aiTesting){
+		if(BaseAI.aiTesting){
 			thirst = 0;
-			bored = 0;
+			bored = 51;
 			hunger = 0;
-			lonely = 0;
+			lonely = 51;
 			tired = 0;
 			anxiety = 0;
 			bladder = 0;
@@ -221,7 +221,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			happy = 0;
 			sad = 0;
 			toxicity = 0;
-			smoker = true;
+			// smoker = true;
 		} else {
 			thirst = Random.Range(20, 100);
 			bored = Random.Range(20, 100);
@@ -240,7 +240,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	// Used so rules do not fire to quickly and so we can have anti-consequences
 	void backToRule(){
-		if(!aiTesting){
+		if(!BaseAI.aiTesting){
 			photonView.RPC("updateStunPS", PhotonTargets.All, false);
 		}
 		stunInstantiated = false;
@@ -286,7 +286,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info){
-		if(aiTesting) return;
+		if(BaseAI.aiTesting) return;
 		if (stream.isWriting){
 			// We own this player: send the others our data
 			stream.SendNext(transform.position);

@@ -56,7 +56,7 @@ public class AI_RoomState : MonoBehaviour{
 				break;
 
 			case "Relax":
-				Debug.Log("Adding Relax: " + other.gameObject);
+				// Debug.Log("Adding Relax: " + other.gameObject);
 				relaxLocations.Add(other.gameObject);
 				break;
 

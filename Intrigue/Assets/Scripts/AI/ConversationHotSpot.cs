@@ -14,14 +14,17 @@ public class ConversationHotSpot : MonoBehaviour {
 	private float talkerTime = 5;
 	private float radius;
 	private float slice;
+	private bool canDestroy = false;
 
 	public static int max = 5;
 
 	void Start(){
-		if(!PhotonNetwork.isMasterClient){
+		if(!BaseAI.aiTesting && !PhotonNetwork.isMasterClient){
 			enabled = false;
 			return;
 		}
+
+		Invoke("failSafe", 5);
 
 		// Builds pie for AI positions
 		radius = GetComponent<NavMeshObstacle>().radius = max/2;
@@ -35,8 +38,11 @@ public class ConversationHotSpot : MonoBehaviour {
 	}
 
 	void Update () {
-		if(population == 0){
-			PhotonNetwork.Destroy(gameObject);
+		if( canDestroy && population == 0){
+			if(BaseAI.aiTesting)
+				Destroy(gameObject);
+			else
+				PhotonNetwork.Destroy(gameObject);
 		} else {
 			for(int i = 0; i < queue.Count; ++i){
 				if(queue[i].tag == "Guard" || queue[i].tag == "Spy" ||
@@ -121,6 +127,10 @@ public class ConversationHotSpot : MonoBehaviour {
 			g.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
 			g.GetComponent<BasePlayer>().inConvoGUI.alpha = 0;
 		}
+	}
+
+	void failSafe(){
+		canDestroy = true;
 	}
 
 	float findX(int index){

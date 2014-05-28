@@ -178,14 +178,6 @@ namespace RBS{
 		}
 	}
 
-	class ConversationInRoom : Condition{
-		public ConversationInRoom(GameObject gameObject):base(gameObject){}
-
-		public override bool test(){
-			return (gameObject.GetComponent<BaseAI>().room.conversers.Count > 0);
-		}
-	}
-
 	class NotInRoom : Condition{
 		public NotInRoom(GameObject gameObject):base(gameObject){}
 
