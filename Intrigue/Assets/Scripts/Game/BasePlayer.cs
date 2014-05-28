@@ -77,6 +77,7 @@ public class BasePlayer : MonoBehaviour {
 		photonView = PhotonView.Get(this);
 		player = GameObject.Find("Player").GetComponent<Player>();
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
+		Camera cam = GetComponentInChildren<Camera>();
 
 		if(photonView.isMine){
 			photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
@@ -84,11 +85,12 @@ public class BasePlayer : MonoBehaviour {
 			InvokeRepeating("syncPing", 1, 2F);
 			updateRoundResults();
 			textList.Add("[FF2B2B]Press [-]Enter[FF2B2B] to chat![-]");
+			cam.farClipPlane = 140.0f;
+			Debug.Log("Occlusion Culling : " + cam.useOcclusionCulling);
 			if(hairHat!=null)
 				hairHat.GetComponent<Renderer>().enabled = false;
 
 		} else {
-			Camera cam = GetComponentInChildren<Camera>();
 			cam.enabled = false; 
 			cam.GetComponentInChildren<MouseLook>().enabled = false;
 			GetComponentInChildren<AudioListener>().enabled = false;
