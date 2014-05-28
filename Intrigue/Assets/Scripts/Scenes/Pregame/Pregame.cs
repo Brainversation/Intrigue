@@ -98,8 +98,6 @@ public class Pregame : MonoBehaviour {
 	}
 
 	bool testCommands(string message){
-		bool targetValid = false;
-		string commandType = "";
 		string commandTest = message.Substring(0, message.IndexOf(" "));
 		string targetTest = message.Substring(message.IndexOf(" ") + 1);
 
@@ -107,7 +105,6 @@ public class Pregame : MonoBehaviour {
 			case "/kick": 
 					foreach(PhotonPlayer player in PhotonNetwork.playerList){
 						if(targetTest == (string)player.customProperties["Handle"] && (player != PhotonNetwork.player)){
-							targetValid = true;
 							photonView.RPC("kickPlayer", player);
 							mInput.value = "";
 							return true;

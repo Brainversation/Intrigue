@@ -15,6 +15,8 @@ public class PlayerChat : MonoBehaviour
 	private GameObject[] team;
 	private bool mIgnoreUp = false;
 
+	private static bool debugMode = true;
+
 	UIInput mInput;
 
 	void Start ()
@@ -60,11 +62,15 @@ public class PlayerChat : MonoBehaviour
 			else{
 				team = GameObject.FindGameObjectsWithTag("Guard");
 			}
+
 			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
 			string text = NGUIText.StripSymbols(mInput.value);
+			bool isCommand = false;
+			if(debugMode)
+				isCommand = testCommands(text);
 			text = StringCleaner.CleanString(text);
 
-			if (!string.IsNullOrEmpty(text) && text.Length>=2){
+			if (!string.IsNullOrEmpty(text) && text.Length>=2 && !isCommand){
 				if(player.Team == "Spy"){
 					foreach(GameObject gu in team){
 						gu.GetComponent<Spy>().photonView.RPC("receiveMessage", PhotonTargets.All, "[00CCFF]"+player.Handle+": [-]"+text);
@@ -78,6 +84,30 @@ public class PlayerChat : MonoBehaviour
 				mInput.value = "";
 			}
 		}
+	}
+
+	bool testCommands(string message){
+		string commandTest = message.Substring(0, message.IndexOf(" "));
+		string targetTest = message.Substring(message.IndexOf(" ") + 1);
+
+		switch(commandTest){
+			case "/gameover":
+					if(targetTest == "true" || targetTest == "True"){
+						Intrigue.wantGameOver = true;
+						mInput.value = "";
+						textList.Add("[FFCC00]GameOver set to true");
+						return true;
+					}
+					else if(targetTest == "false" || targetTest == "False"){
+						Intrigue.wantGameOver = false;
+						textList.Add("[FFCC00]GameOver set to false");
+						mInput.value = "";
+						return true;
+					}
+				break;
+		}
+
+		return false;
 	}
 
 	[RPC]
