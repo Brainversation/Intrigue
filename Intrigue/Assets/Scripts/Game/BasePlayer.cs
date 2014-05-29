@@ -236,9 +236,12 @@ public class BasePlayer : MonoBehaviour {
 			switchSpectate();
 		}
 
-		if(Input.GetKeyDown(KeyCode.Escape)){
+		if(Input.GetKeyUp(KeyCode.Escape)){
 			Screen.lockCursor = !Screen.lockCursor;
 			BasePlayer.menuFlag = !BasePlayer.menuFlag;
+		}
+		if(Input.GetKeyUp(KeyCode.Mouse0)){
+			Screen.lockCursor = true;
 		}
 		
 	}

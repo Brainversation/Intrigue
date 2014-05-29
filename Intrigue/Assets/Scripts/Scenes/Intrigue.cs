@@ -101,9 +101,6 @@ public class Intrigue : MonoBehaviour {
 	void Update () {
 		if(!gameStart) return;
 
-		if(Input.GetKeyUp(KeyCode.Mouse0)){
-			Screen.lockCursor = true;
-		}
 
 		timeLeft -= Time.deltaTime;
 		photonView.RPC("syncTime", PhotonTargets.Others, timeLeft);
