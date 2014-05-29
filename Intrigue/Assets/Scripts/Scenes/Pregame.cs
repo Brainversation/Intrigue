@@ -397,6 +397,7 @@ public class Pregame : MonoBehaviour {
 	[RPC]
 	void kickPlayer(){
 		photonView.RPC("receiveMessage", PhotonTargets.Others, player.Handle + "[FF0000] has been kicked by the host");
-		Application.LoadLevel("MainMenu");
+		PhotonNetwork.LeaveRoom();
+		PhotonNetwork.LoadLevel( "MainMenu" );
 	}
 }
