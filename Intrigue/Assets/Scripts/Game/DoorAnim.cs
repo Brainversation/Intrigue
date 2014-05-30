@@ -92,7 +92,7 @@ public class DoorAnim : MonoBehaviour
 		{
 			if(peopleInside.Contains(other.gameObject)){
 				peopleInside.Remove(other.gameObject);
-				--curInside;
+				curInside = Mathf.Max(--curInside, 0);
 
 				if(curInside == 0){
 					m_State = eInteractiveState.Inactive;

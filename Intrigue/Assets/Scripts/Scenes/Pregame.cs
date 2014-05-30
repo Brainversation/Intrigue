@@ -359,11 +359,11 @@ public class Pregame : MonoBehaviour {
 	}
 
 	IEnumerator go(){
-		photonView.RPC("sendStarting", PhotonTargets.Others);
+		photonView.RPC("sendStarting", PhotonTargets.All);
 		foreach(PhotonPlayer p in PhotonNetwork.playerList){
 			if(PhotonNetwork.player != p){
 				photonView.RPC("sendGo", p);
-				yield return new WaitForSeconds(1f);
+				yield return new WaitForSeconds(0.5f);
 			}
 		}
 		sendGo();
