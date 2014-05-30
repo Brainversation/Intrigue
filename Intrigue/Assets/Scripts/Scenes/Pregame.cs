@@ -42,7 +42,7 @@ public class Pregame : MonoBehaviour {
 	private int prevGuestCount = 0;
 	private bool gameStarting = false;
 
-	private static bool isTesting = true;
+	private static bool isTesting = false;
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
