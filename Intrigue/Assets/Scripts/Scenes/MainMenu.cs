@@ -35,6 +35,8 @@ public class MainMenu : MonoBehaviour {
 	public GameObject quickMatchFailed;
 	public UILabel connectionStatus;
 	public UISprite serverCreator;
+	public UILabel banInfo;
+	public UIPanel banPanel;
 
 	[HideInInspector] public GameObject createServerButton;
 	[HideInInspector] public GameObject findServerButton;
@@ -140,7 +142,16 @@ public class MainMenu : MonoBehaviour {
 						break;
 
             	}
-			//connectionStatus.text = PhotonNetwork.connectionStateDetailed.ToString();
+
+            if(banPanel.alpha == 1){
+    			long temp = Convert.ToInt64(PlayerPrefs.GetString("banTime"));
+				TimeSpan timeSinceBan = System.DateTime.Now.Subtract(DateTime.FromBinary(temp));
+				int minutes = timeSinceBan.Minutes;
+				int seconds = timeSinceBan.Seconds;
+				banInfo.text = "[FF2B2B]" + minutes + ":" + (60-seconds);
+            }
+
+
 		}
 		checkInternet();
 	}
@@ -288,15 +299,26 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	public void showBanInfo(){
-		Debug.Log("Banned");
+		if( PlayerPrefs.HasKey("banTime") && PlayerPrefs.GetString("banTime") != string.Empty ){
+			banPanel.alpha = 1;
+			long temp = Convert.ToInt64(PlayerPrefs.GetString("banTime"));
+			TimeSpan timeSinceBan = System.DateTime.Now.Subtract(DateTime.FromBinary(temp));
+			Invoke("disableBanPanel",(60f-(float)timeSinceBan.TotalSeconds));
+		}
+	}
+
+	void disableBanPanel(){
+		banPanel.alpha = 0;
 	}
 
 	public bool isBanned(){
 		if( PlayerPrefs.HasKey("banTime") && PlayerPrefs.GetString("banTime") != string.Empty ){
 			long temp = Convert.ToInt64(PlayerPrefs.GetString("banTime"));
 			TimeSpan timeSinceBan = System.DateTime.Now.Subtract(DateTime.FromBinary(temp));
-			if(timeSinceBan.TotalMinutes<4)
+			if(timeSinceBan.TotalMinutes<1){
+				showBanInfo();
 				return true;
+			}
 		}
 		return false;
 	}
