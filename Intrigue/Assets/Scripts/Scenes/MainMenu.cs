@@ -15,6 +15,7 @@
 using UnityEngine;
 using System.Collections;
 using System.IO;
+using System;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class MainMenu : MonoBehaviour {
@@ -275,7 +276,29 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void quickMatch(){
-		PhotonNetwork.JoinRandomRoom();
+		TimeSpan timeSinceBan;
+		if(!isBanned())
+			PhotonNetwork.JoinRandomRoom();
+		else{
+			if( PlayerPrefs.HasKey("banTime") && PlayerPrefs.GetString("banTime") != string.Empty ){
+				long temp = Convert.ToInt64(PlayerPrefs.GetString("banTime"));
+				timeSinceBan = System.DateTime.Now.Subtract(DateTime.FromBinary(temp));
+			}
+		}
+	}
+
+	public void showBanInfo(){
+		Debug.Log("Banned");
+	}
+
+	public bool isBanned(){
+		if( PlayerPrefs.HasKey("banTime") && PlayerPrefs.GetString("banTime") != string.Empty ){
+			long temp = Convert.ToInt64(PlayerPrefs.GetString("banTime"));
+			TimeSpan timeSinceBan = System.DateTime.Now.Subtract(DateTime.FromBinary(temp));
+			if(timeSinceBan.TotalMinutes<4)
+				return true;
+		}
+		return false;
 	}
 
 	void OnPhotonRandomJoinFailed(){
@@ -291,12 +314,14 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnJoinedRoom(){
-		if(PlayerPrefs.GetString(playerPrefsPrefix + "Name") != string.Empty)
-			PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
-		if(PlayerPrefs.GetString(playerPrefsPrefix + "Room") != string.Empty)
-			PlayerPrefs.SetString(playerPrefsPrefix + "Room", player.RoomName);
-		PlayerPrefs.Save();
-		PhotonNetwork.LoadLevel("Pregame");
+		if(!isBanned()){
+			if(PlayerPrefs.GetString(playerPrefsPrefix + "Name") != string.Empty)
+				PlayerPrefs.SetString(playerPrefsPrefix + "Name", player.Handle);
+			if(PlayerPrefs.GetString(playerPrefsPrefix + "Room") != string.Empty)
+				PlayerPrefs.SetString(playerPrefsPrefix + "Room", player.RoomName);
+			PlayerPrefs.Save();
+			PhotonNetwork.LoadLevel("Pregame");
+		}
 	}
 
 	void OnPhotonJoinFailed(){
