@@ -84,7 +84,7 @@ GameObject:
   - 4: {fileID: 58792969}
   - 114: {fileID: 58792970}
   m_Layer: 8
-  m_Name: CreditsMarketing
+  m_Name: CreditsUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,7 +97,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 58792968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1927.52002, z: 0}
+  m_LocalPosition: {x: 0, y: -1909.2489, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1547422822}
@@ -130,23 +130,25 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 580
-  mHeight: 112
+  mWidth: 332
+  mHeight: 148
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.17857122
+  aspectRatio: 2.29729724
   user: -1
   labelHandle: 
   labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
-  mText: '- MARKETING & SOCIAL MEDIA -
+  mText: '- USER INTERFACE -
 
 
-    [FFCC00]Ian Winter'
+    [FFCC00]Ian Winter
+
+    Sean Stein'
   mFontSize: 37
   mFontStyle: 0
   mEncoding: 1
@@ -190,7 +192,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 165436232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2086.48779, z: 0}
+  m_LocalPosition: {x: 0, y: -2098.39795, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1547422822}
@@ -223,13 +225,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 592
+  mWidth: 576
   mHeight: 334
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.7724551
+  aspectRatio: 1.72455084
   user: -1
   labelHandle: 
   labelType: 
@@ -596,13 +598,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 290
+  mWidth: 284
   mHeight: 40
   mDepth: 4
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 7.25
+  aspectRatio: 7.0999999
   user: -1
   labelHandle: 
   labelType: 
@@ -698,13 +700,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 356
+  mWidth: 352
   mHeight: 296
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.20270276
+  aspectRatio: 1.1891892
   user: -1
   labelHandle: 
   labelType: 
@@ -799,13 +801,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 308
+  mWidth: 302
   mHeight: 260
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.18461537
+  aspectRatio: 1.16153848
   user: -1
   labelHandle: 
   labelType: 
@@ -972,13 +974,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 234
+  mWidth: 224
   mHeight: 222
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.05405402
+  aspectRatio: 1.009009
   user: -1
   labelHandle: 
   labelType: 
@@ -1244,20 +1246,20 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 556
+  mWidth: 530
   mHeight: 666
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .834834814
+  aspectRatio: .82582581
   user: -1
   labelHandle: 
   labelType: 
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 12800000, guid: 41ef51a2a918b4c82bf2d6b4a64d979f, type: 3}
   mFont: {fileID: 0}
-  mText: '- ADMINISTRATION -
+  mText: '- HACKSAW GAMES -
 
 
     Project Lead: [FFCC00]Ian Winter[-]
@@ -1713,13 +1715,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 434
+  mWidth: 428
   mHeight: 334
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.29940116
+  aspectRatio: 1.28143716
   user: -1
   labelHandle: 
   labelType: 
@@ -1855,7 +1857,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2000854099}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2401.48779, z: 0}
+  m_LocalPosition: {x: 0, y: -2417.15088, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1547422822}
@@ -1888,13 +1890,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 376
+  mWidth: 366
   mHeight: 334
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.12574852
+  aspectRatio: 1.09580839
   user: -1
   labelHandle: 
   labelType: 
@@ -1991,13 +1993,13 @@ MonoBehaviour:
     absolute: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 1
-  mWidth: 276
+  mWidth: 270
   mHeight: 370
   mDepth: 2
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: .74594593
+  aspectRatio: .729729712
   user: -1
   labelHandle: 
   labelType: 
