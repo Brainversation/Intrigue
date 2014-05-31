@@ -19,7 +19,6 @@ using System.Collections.Generic;
 public class SolarSystem : MonoBehaviour {
 
 	public GameObject[] planets;
-	public GameObject[] asteroids;
 
 	private Vector3 rotationalAxis;
 	private List<Vector3> rotationalTypes = new List<Vector3>();
@@ -45,10 +44,6 @@ public class SolarSystem : MonoBehaviour {
 		foreach(GameObject planet in planets){
 			planet.transform.RotateAround(gameObject.transform.position, rotationalTypes[i], Random.Range(5,40) * Time.deltaTime);
 			++i;
-		}
-
-		foreach(GameObject asteroid in asteroids){
-			asteroid.transform.RotateAround(gameObject.transform.position, Vector3.left, Random.Range(5,40) * Time.deltaTime);
 		}
 	}
 }
