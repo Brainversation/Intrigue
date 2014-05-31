@@ -72,7 +72,8 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 				user.GetComponent<Spy>().doingObjective = false;
 				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 200, teamID);
 				pointPop.GetComponent<TextMesh>().text = "+200";
-				Instantiate(pointPop, transform.position + (Vector3.up * GetComponent<Collider>().bounds.size.y), transform.rotation);
+				pointPop.GetComponent<TextMesh>().characterSize = 3;
+				Instantiate(pointPop, transform.localPosition - (transform.up * 6) +(transform.forward * 3), Quaternion.identity);
 				user.GetComponent<BasePlayer>().newEvent("[00CCFF]"+user.GetComponent<BasePlayer>().localHandle +"[-] [FFCC00]has downloaded [-][33CCCC]Objective " + objectiveName + "[-][00CCFF]![-]");
 				isActive = false;
 			}

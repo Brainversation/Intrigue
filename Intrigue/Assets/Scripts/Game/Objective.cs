@@ -39,10 +39,6 @@ public class Objective : Photon.MonoBehaviour {
 		anim.SetBool("Complete",false);
 	}
 
-	void Update(){
-
-	}
-
 	public void useObjective(GameObject user, int teamID){
 		if(isActive){
 			if(timeLeft > 0){
@@ -63,7 +59,7 @@ public class Objective : Photon.MonoBehaviour {
 				user.GetComponent<Spy>().doingObjective = false;
 				user.GetComponent<Spy>().photonView.RPC("addPlayerScore", PhotonTargets.All, 50, teamID);
 				pointPop.GetComponent<TextMesh>().text = "+50";
-				Instantiate(pointPop, transform.position + (Vector3.up * GetComponent<Collider>().bounds.size.y), transform.rotation);
+				Instantiate(pointPop, transform.position + (transform.up * 3), transform.rotation);
 				anim.SetBool("Complete",true);
 				isActive = false;
 				photonView.RPC("sendAnimBool",PhotonTargets.All,"Complete", true);
