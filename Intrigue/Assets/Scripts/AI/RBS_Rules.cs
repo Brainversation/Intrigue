@@ -110,6 +110,7 @@ namespace RBS{
 
 	class WantToGetDrink : Rule{
 		private GameObject go;
+		public static GameObject[] drinkLocations = GameObject.FindGameObjectsWithTag("Drink");
 		public WantToGetDrink(GameObject gameObject) {
 			this.addCondition(new IsThirsty(gameObject));
 			this.addCondition(new IsBored(gameObject));
@@ -130,7 +131,6 @@ namespace RBS{
 			}
 			//Choose random hotspot location
 			else{
-				GameObject[] drinkLocations = GameObject.FindGameObjectsWithTag("Drink");
 				GameObject drinkLocation = drinkLocations[UnityEngine.Random.Range(0, drinkLocations.Length)];
 				script.destination = drinkLocation.transform.position;
 			}
