@@ -104,7 +104,6 @@ public class BasePlayer : MonoBehaviour {
 			updateRoundResults();
 			textList.Add("[FF2B2B]Press [-]Enter[FF2B2B] to chat![-]");
 			cam.farClipPlane = 140.0f;
-			Debug.Log("Occlusion Culling : " + cam.useOcclusionCulling);
 			if(hairHat!=null)
 				hairHat.GetComponent<Renderer>().enabled = false;
 
@@ -432,7 +431,6 @@ public class BasePlayer : MonoBehaviour {
 				if(rend.gameObject.CompareTag("highLight")){
 					if(markedGuests.ContainsKey(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID) ||
 						markedOther.ContainsKey(rend.transform.root.gameObject.GetComponent<PhotonView>().viewID)){
-						Debug.Log("Material highlighted: " + rend.material);
 						foreach(Material mat in rend.materials){
 							mat.shader = staticShader;
 						}

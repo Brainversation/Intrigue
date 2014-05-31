@@ -94,7 +94,6 @@ public class BaseAI : Photon.MonoBehaviour {
 							currentRule = rules[i];
 							rules[i].weight -= 15;
 							status = rules[i].consequence(gameObject);
-							// Debug.Log(rules[i].ToString());
 							break;
 						}
 					}
@@ -119,7 +118,6 @@ public class BaseAI : Photon.MonoBehaviour {
 
 					if (agent.pathStatus == NavMeshPathStatus.PathPartial ||
 						agent.pathStatus == NavMeshPathStatus.PathInvalid){
-						//Debug.Log("Path invalid or can not be reached!");
 						anim.SetBool("Speed", false);
 						agent.ResetPath();
 						tree = null;
@@ -265,7 +263,6 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	public void addDrink(){
-		// Debug.Log("adding Drink");
 		this.thirst -= 10;
 		this.bladder += 5;
 		this.hasDrink = true;

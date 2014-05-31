@@ -347,7 +347,9 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnPhotonJoinFailed(){
-		Debug.Log("OnPhotonJoinFailed");
+		NGUITools.SetActive(createRoomFailed, true);
+		CancelInvoke();
+		Invoke("deactiveErrorMessages", 5);
 	}
 
 	void OnPhotonCreateRoomFailed(){

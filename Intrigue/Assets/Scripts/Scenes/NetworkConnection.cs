@@ -50,7 +50,6 @@ public class NetworkConnection : Photon.MonoBehaviour {
 
 	void OnPhotonPlayerConnected(PhotonPlayer newPlayer){
 		if(PhotonNetwork.player.ID == newPlayer.ID){
-			Debug.Log("Reconnected");
 			if(player.Team == "Guard")
 				photonView.RPC("reAddGuard", PhotonTargets.All);
 			else
@@ -78,13 +77,11 @@ public class NetworkConnection : Photon.MonoBehaviour {
 
 	void OnMasterClientSwitched(PhotonPlayer newMasterClient){
 		if(PhotonNetwork.player.ID == newMasterClient.ID){
-			Debug.Log("Master Switch");
 			GameObject.FindWithTag("Scripts").GetComponent<Intrigue>().enabled = true;
 		}
 	}
 
 	void OnJoinedRoom(){
-		Debug.Log("OnJoinedRoom");
 		gui.SetActive(false);
 		showRetry = false;
 
@@ -110,7 +107,6 @@ public class NetworkConnection : Photon.MonoBehaviour {
 	}
 
 	void OnDisconnectedFromPhoton(){
-		Debug.Log("OnDisconnect");
 		if(Intrigue.playerGO != null){
 			lastPos = Intrigue.playerGO.transform.position;
 		}

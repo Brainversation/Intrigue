@@ -57,12 +57,10 @@ public class AI_RoomState : MonoBehaviour{
 
 			case "Drink":
 				drinkLocation = other.transform.position;
-				//Debug.Log("drinkLocation: " + drinkLocation);
 				break;
 
 			case "RestRoom":
 				restroomLocations.Add(other.transform.position);
-				// Debug.Log("bathroomLocation: " + restroomLocation);
 				break;
 
 			case "poetry":
@@ -70,18 +68,12 @@ public class AI_RoomState : MonoBehaviour{
 				break;
 
 			case "Relax":
-				// Debug.Log("Adding Relax: " + other.gameObject);
 				relaxLocations.Add(other.gameObject);
 				break;
 
 			case "Art":
 				artLocations.Add(other.transform.position);
-				// Debug.Log("artLocations: " + other.transform.position);
 				break;
-
-			// default:
-			// 	Debug.LogError("Collide not in stuff: " + other.tag);
-			// 	break;
 		}
 	}
 

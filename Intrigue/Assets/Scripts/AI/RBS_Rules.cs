@@ -35,8 +35,6 @@ namespace RBS{
 			GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
 			GameObject room;
 
-		// Debug.Log("Number of rooms: " + rooms.Length);
-
 			//ensure next room to go to is not the same as the current room
 			if(rooms.Length != 0){
 				do{
@@ -46,8 +44,6 @@ namespace RBS{
 			} else {
 				return Status.False;
 			}
-
-			// Debug.Log("Room: " + room.name);
 
 			//Pick spot inside collider of chosen room
 			Vector3 newDest;
@@ -124,7 +120,6 @@ namespace RBS{
 		}
 
 		private Status setDestRoom(GameObject gameObject){
-			// Debug.Log("Wants a drink");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bored -= 10;
 			script.thirst -= 25;
@@ -165,7 +160,6 @@ namespace RBS{
 		}
 
 		private Status handleConverse(GameObject gameObject){
-			// Debug.Log("Wants to converse");
 			Status returnStat;
 			List<GameObject> conversers;
 			BaseAI script = gameObject.GetComponent<BaseAI>();
@@ -205,7 +199,6 @@ namespace RBS{
 		}
 
 		private Status setDestRestroom(GameObject gameObject){
-			// Debug.Log("needs to use restroom");
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			script.bladder -= 75;
 

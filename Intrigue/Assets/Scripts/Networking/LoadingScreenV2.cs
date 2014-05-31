@@ -74,7 +74,6 @@ public class LoadingScreenV2 : MonoBehaviour {
 			transform.parent.gameObject.SetActive(false);
 
 			foreach (GameObject guard in guards){
-				Debug.Log("Game is starting");
 				guard.GetComponentInChildren<Camera>().GetComponentInChildren<MouseLook>().enabled = true;
 				guard.GetComponentInChildren<MouseLook>().enabled = true;
 			}

@@ -407,7 +407,6 @@ public class Pregame : MonoBehaviour {
 	void kickPlayer(){
 		photonView.RPC("receiveMessage", PhotonTargets.Others, player.Handle + "[FF0000] has been kicked by the host");
 		PlayerPrefs.SetString("banTime", System.DateTime.Now.ToBinary().ToString());
-		Debug.Log("Banned at: " + System.DateTime.Now.ToString());
 		PhotonNetwork.LeaveRoom();
 		PhotonNetwork.LoadLevel( "MainMenu" );
 	}

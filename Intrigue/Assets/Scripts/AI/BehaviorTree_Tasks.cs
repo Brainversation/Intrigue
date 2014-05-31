@@ -109,11 +109,9 @@ namespace BehaviorTree{
 
 		public override Status run(GameObject gameObject){
 			if(seconds >= 0){
-				// Debug.Log("Waiting...");
 				seconds -= Time.deltaTime;
 				return Status.False;
 			}
-			// Debug.Log("Done Waiting");
 			return Status.True;
 		}
 	}
