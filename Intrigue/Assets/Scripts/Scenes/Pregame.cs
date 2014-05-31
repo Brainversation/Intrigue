@@ -113,6 +113,8 @@ public class Pregame : MonoBehaviour {
 	}
 
 	bool testCommands(string message){
+		if(!message.Contains(" "))
+			return false;
 		string commandTest = message.Substring(0, message.IndexOf(" "));
 		string targetTest = message.Substring(message.IndexOf(" ") + 1);
 
