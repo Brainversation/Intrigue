@@ -20,7 +20,6 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class Scoreboard : MonoBehaviour {
 	
 	public GameObject scoreboard;
-	//private PhotonView photonView = null;
 	private Player player;
 	public GameObject playerPrefab;
 	public GameObject guardTable;
@@ -34,8 +33,7 @@ public class Scoreboard : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		scoreboard.GetComponent<UIPanel>().alpha = 0;
-		//this.photonView = PhotonView.Get(this);
-		player = GameObject.Find("Player").GetComponent<Player>();
+		player = Player.Instance;
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Score", player.Score}});
 
 		InvokeRepeating("reloadScoreboard", 1, 1);

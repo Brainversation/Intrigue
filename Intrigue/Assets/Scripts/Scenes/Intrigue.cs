@@ -67,7 +67,7 @@ public class Intrigue : MonoBehaviour {
 
 	void Start () {
 		photonView = PhotonView.Get(this);
-		player = GameObject.Find("Player").GetComponent<Player>();
+		player = Player.Instance;
 		totalGuests = player.Guests;
 		objArray = GameObject.FindGameObjectsWithTag("Objective");
 

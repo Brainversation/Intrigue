@@ -40,7 +40,7 @@ public class PostGame : MonoBehaviour {
 		Screen.lockCursor = false;
 		//Sets Chat Max Line Count
 		mInput.label.maxLineCount = 1;
-		player = GameObject.Find("Player").GetComponent<Player>();
+		player = Player.Instance;
 		this.photonView = PhotonView.Get(this);
 
 		foreach(PhotonPlayer play in PhotonNetwork.playerList){

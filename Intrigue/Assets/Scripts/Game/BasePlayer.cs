@@ -96,7 +96,7 @@ public class BasePlayer : MonoBehaviour {
 
 		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 		photonView = PhotonView.Get(this);
-		player = GameObject.Find("Player").GetComponent<Player>();
+		player = Player.Instance;
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		Camera cam = GetComponentInChildren<Camera>();
 

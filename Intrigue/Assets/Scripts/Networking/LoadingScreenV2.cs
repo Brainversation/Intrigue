@@ -41,7 +41,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 
 	void Start(){
 		photonView = PhotonView.Get(this);
-		player = GameObject.Find("Player").GetComponent<Player>();
+		player = Player.Instance;
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		loadTimer.GetComponent<UILabel>().text = totalCountdownWithLoading+"s";
 

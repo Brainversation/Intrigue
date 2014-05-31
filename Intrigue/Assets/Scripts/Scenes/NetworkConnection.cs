@@ -24,7 +24,7 @@ public class NetworkConnection : Photon.MonoBehaviour {
 	private Vector3 lastPos = Vector3.zero;
 
 	void Start () {
-		player = GameObject.Find("Player").GetComponent<Player>();
+		player = Player.Instance;
 	}
 
 	void OnGUI(){

@@ -47,7 +47,7 @@ public class Pregame : MonoBehaviour {
 
 	void Start(){
 		this.photonView = PhotonView.Get(this);
-		player = GameObject.Find("Player").GetComponent<Player>();
+		player = Player.Instance;
 
 		checkHandle();
 

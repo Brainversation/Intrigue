@@ -74,7 +74,7 @@ public class SettingsManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		player = GameObject.Find("Player").GetComponent<Player>();
+		player = Player.Instance;
 		Settings.Start();
 		updateKeyBindings();
 

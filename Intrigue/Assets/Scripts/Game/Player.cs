@@ -17,6 +17,8 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+	public static Player Instance = null;
+
 	private string handle = "";
 	private string roomName = "";
 	private string team = "";
@@ -29,6 +31,9 @@ public class Player : MonoBehaviour {
 	private bool ready = false;
 
 	void Awake(){
+		if(Instance == null){
+			Instance = this;
+		}
 		DontDestroyOnLoad(transform.gameObject);
 	}
 

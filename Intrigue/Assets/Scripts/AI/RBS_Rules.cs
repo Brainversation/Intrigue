@@ -20,6 +20,7 @@ using BehaviorTree;
 
 namespace RBS{
 	class WantToMoveRoom : Rule{
+		private static GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
 		private GameObject go;
 		public WantToMoveRoom(GameObject gameObject){
 			this.addCondition(new TimeToMove(gameObject));
@@ -32,7 +33,6 @@ namespace RBS{
 		private Status goToRoom(GameObject gameObject){
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			GameObject curRoom = script.room.me;
-			GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
 			GameObject room;
 
 			//ensure next room to go to is not the same as the current room
@@ -192,6 +192,7 @@ namespace RBS{
 	}
 
 	class NeedToUseRestroom : Rule{
+		private static GameObject[] bathroomLocations = GameObject.FindGameObjectsWithTag("RestRoom");
 		public NeedToUseRestroom(GameObject gameObject){
 			this.addCondition( new IsBursting(gameObject) );
 			this.consequence = setDestRestroom;
@@ -208,7 +209,6 @@ namespace RBS{
 			}
 			//Find random hotspot
 			else{
-				GameObject[] bathroomLocations = GameObject.FindGameObjectsWithTag("RestRoom");
 				GameObject bathroomLocation = bathroomLocations[UnityEngine.Random.Range(0, bathroomLocations.Length)];
 				script.destination = bathroomLocation.transform.position;
 			}
@@ -252,6 +252,7 @@ namespace RBS{
 	}
 
 	class FindRoom : Rule{
+		private static GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
 		public FindRoom(GameObject gameObject){
 			this.addCondition(new NotInRoom(gameObject));
 			this.consequence = goToRoom;
@@ -262,7 +263,6 @@ namespace RBS{
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 
 			int minIndex = 0;
-			GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
 			for(int i = 1; i < rooms.Length; ++i){
 				if(Vector3.Distance(rooms[i-1].transform.position, gameObject.transform.position) <
 						Vector3.Distance(rooms[i].transform.position, gameObject.transform.position)){

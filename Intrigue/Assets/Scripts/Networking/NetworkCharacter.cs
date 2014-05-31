@@ -42,7 +42,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		//Get References to Animator and Collider
 		anim = GetComponent<Animator>();
 		anim.speed = 1.0f;
-		player = GameObject.Find("Player").GetComponent<Player>();
+		player = Player.Instance;
 		if(player.Team=="Spy"){
 			staminaDrainSpeed = 20;
 			staminaRegenSpeed = 10;

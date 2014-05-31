@@ -56,7 +56,7 @@ public class MainMenu : MonoBehaviour {
 		findServerButton = GameObject.Find("FIND SERVER");
 		optionsButtons = GameObject.Find("OptionsButtons");
 		Screen.lockCursor = false;
-		player = GameObject.Find("Player").GetComponent<Player>();
+		player = Player.Instance;
 		if(PhotonNetwork.connectionStateDetailed != PeerState.JoinedLobby)
 			connect();
 
@@ -287,15 +287,8 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void quickMatch(){
-		TimeSpan timeSinceBan;
 		if(!isBanned())
 			PhotonNetwork.JoinRandomRoom();
-		else{
-			if( PlayerPrefs.HasKey("banTime") && PlayerPrefs.GetString("banTime") != string.Empty ){
-				long temp = Convert.ToInt64(PlayerPrefs.GetString("banTime"));
-				timeSinceBan = System.DateTime.Now.Subtract(DateTime.FromBinary(temp));
-			}
-		}
 	}
 
 	public void showBanInfo(){

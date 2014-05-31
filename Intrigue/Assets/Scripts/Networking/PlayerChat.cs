@@ -36,7 +36,7 @@ public class PlayerChat : MonoBehaviour
 	void Start ()
 	{
 		//this.photonView = PhotonView.Get(this);
-		player = GameObject.Find("Player").GetComponent<Player>();
+		player = Player.Instance;
 		mInput = GetComponent<UIInput>();
 		mInput.label.maxLineCount = 1;
 	}
