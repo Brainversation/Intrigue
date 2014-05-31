@@ -122,7 +122,7 @@ public class BaseAI : Photon.MonoBehaviour {
 						agent.ResetPath();
 						tree = null;
 						CancelInvoke();
-						Invoke("backToRule", 5f);
+						backToRule();
 					}
 
 					if(agent.hasPath && !agent.pathPending && agent.remainingDistance < distFromDest){
@@ -252,14 +252,17 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	// Used so rules do not fire to quickly and so we can have anti-consequences
 	void backToRule(){
-		if(!BaseAI.aiTesting){
-			photonView.RPC("updateStunPS", PhotonTargets.All, false);
-		}
-		stunInstantiated = false;
-		stunned = false;
 		if(currentRule != null && currentRule.antiConsequence != null)
 			currentRule.antiConsequence();
 		if(!agent.hasPath) status = Status.False;
+	}
+
+	void finishStun(){
+		stunInstantiated = false;
+		stunned = false;
+		if(!BaseAI.aiTesting){
+			photonView.RPC("updateStunPS", PhotonTargets.All, false);
+		}
 	}
 
 	public void addDrink(){
@@ -277,6 +280,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			agent.ResetPath();
 			CancelInvoke();
 			Invoke("backToRule", 5);
+			Invoke("finishStun", 5);
 			if(!stunInstantiated){
 				photonView.RPC("updateStunPS", PhotonTargets.All, true);
 				stunInstantiated = true;
