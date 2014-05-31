@@ -18,6 +18,11 @@ using System.Collections.Generic;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class BasePlayer : MonoBehaviour {
+
+	public const int GUARD = 8;
+	public const int GUEST = 9;
+	public const int SPY = 10;
+	public const int WALL = 12;
 	
 	protected Player player;
 	protected Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
@@ -448,10 +453,10 @@ public class BasePlayer : MonoBehaviour {
 
 		if (Physics.Raycast(ray, out hit, 75, layerMask)) {
 			Crosshair.currGo = hit.transform.gameObject;
-			string tag = hit.transform.gameObject.tag;
-			if((tag == "Spy" && !hit.transform.GetComponent<BasePlayer>().isOut) || 
-				(tag == "Guard" && !hit.transform.GetComponent<BasePlayer>().isOut && !hit.transform.GetComponent<Guard>().stunned) ||
-				(tag == "Guest" && !hit.transform.GetComponent<BaseAI>().stunned) &&
+			int tag = hit.transform.gameObject.layer;
+			if((tag == BasePlayer.SPY && !hit.transform.GetComponent<BasePlayer>().isOut) || 
+				(tag == BasePlayer.GUARD && !hit.transform.GetComponent<BasePlayer>().isOut && !hit.transform.GetComponent<Guard>().stunned) ||
+				(tag == BasePlayer.GUEST && !hit.transform.GetComponent<BaseAI>().stunned) &&
 				((Vector3.Distance(hit.transform.position, transform.position) ) < 15)){
 
 				renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();

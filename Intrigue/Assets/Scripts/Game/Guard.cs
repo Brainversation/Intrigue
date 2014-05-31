@@ -45,7 +45,7 @@ public class Guard : BasePlayer{
 
 	protected override void Start(){
 		// Guest, Spy, and objective layer
-		layerMask = (1 << 9) | (1 << 10) | (1 << 11);
+		layerMask = (1 << GUEST) | (1 << SPY) | (1 << Objective.OBJECTIVE) | (1 << WALL);
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Guard"},{"Ping", PhotonNetwork.GetPing()}, {"isOut", false}});	
 		base.Start();
 		accuseUICancel.text = "[FFCC00]" + Settings.Cancel.ToUpper();
@@ -160,8 +160,8 @@ public class Guard : BasePlayer{
 			}
 		} else if(hit.transform != null ){
 			if( Input.GetKeyUp(Settings.Interact) && !isChatting){
-				if(hit.transform.gameObject.tag == "Spy" && !(hit.transform.gameObject.GetComponent<BasePlayer>().isOut)||
-					(hit.transform.gameObject.tag == "Guest")){
+				if(hit.transform.gameObject.layer == BasePlayer.SPY && !(hit.transform.gameObject.GetComponent<BasePlayer>().isOut)||
+					(hit.transform.gameObject.layer == BasePlayer.GUEST)){
 					accusing = true;
 					accused = hit.transform.gameObject;
 				}

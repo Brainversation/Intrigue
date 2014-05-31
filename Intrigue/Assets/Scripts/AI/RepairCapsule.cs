@@ -44,7 +44,7 @@ public class RepairCapsule : QueueHotSpot {
 
 	protected override void OnTriggerExit(Collider other){
 		base.OnTriggerExit(other);
-		if(other.tag == "Guest" && queue.Contains(other.gameObject)){
+		if(other.gameObject.layer == BasePlayer.GUEST && queue.Contains(other.gameObject)){
 			repair = false;
 		}
 	}

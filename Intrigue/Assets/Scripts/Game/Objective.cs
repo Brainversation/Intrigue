@@ -17,6 +17,8 @@ using System.Collections;
 
 public class Objective : Photon.MonoBehaviour {
 
+	public const int OBJECTIVE = 11;
+	
 	public float completionTime = 5;
 	public int id;
 	public bool inUse;

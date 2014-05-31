@@ -22,7 +22,7 @@ public class RelaxHotSpot : MonoBehaviour {
 	[HideInInspector] private GameObject currGuest;
 
 	void OnTriggerEnter(Collider other){
-		if (other.tag == "Guest" && 
+		if (other.gameObject.layer == BasePlayer.GUEST && 
 			other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position){
 			currGuest = other.gameObject;
 			//other.gameObject.GetComponent<BaseAI>().status = Status.Waiting;
@@ -31,7 +31,7 @@ public class RelaxHotSpot : MonoBehaviour {
 	}
 
 	protected virtual void OnTriggerExit(Collider other){
-		if(other.tag == "Guest" && other.gameObject == currGuest){				
+		if(other.gameObject.layer == BasePlayer.GUEST && other.gameObject == currGuest){				
 			occupied = false;
 		}
 	}

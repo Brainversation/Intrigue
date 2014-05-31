@@ -16,6 +16,9 @@ using UnityEngine;
 using System.Collections;
 
 public class ObjectiveMain : Photon.MonoBehaviour {
+
+	public const int OBJECTIVEMAIN = 18;
+
 	[HideInInspector]
 	public float completionTime = 60;
 	public int objectiveName;

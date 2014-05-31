@@ -37,7 +37,7 @@ public class Spy : BasePlayer{
 
 	protected override void Start(){
 		// Guest, Guard, and objective layer
-		layerMask = (1 << 9) | (1 << 8) | (1 << 11);
+		layerMask = (1 << GUEST) | (1 << GUARD) | (1 << Objective.OBJECTIVE) | (1 << WALL);
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Spy"},{"Ping", PhotonNetwork.GetPing()}, {"isOut", false}});	
 		base.Start();
 	}
@@ -129,12 +129,12 @@ public class Spy : BasePlayer{
 		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 		RaycastHit hit;
 		if( Physics.Raycast(ray, out hit, 75f, 1 << 11) ){
-			if( hit.transform.tag == "ObjectiveMain" ){
+			if( hit.transform.gameObject.layer == ObjectiveMain.OBJECTIVEMAIN ){
 				ObjectiveMain hitObjective = hit.transform.GetComponent<ObjectiveMain>();
 				hitObjective.useObjective(gameObject, player.TeamID);
 				objectiveType = hitObjective.objectiveType;
 			}
-			else if((Vector3.Distance(hit.transform.position, transform.position)<10 && hit.transform.tag == "Objective")){
+			else if((Vector3.Distance(hit.transform.position, transform.position)<10 && hit.transform.gameObject.layer == Objective.OBJECTIVE)){
 				Objective hitObjective = hit.transform.GetComponent<Objective>();
 				hitObjective.useObjective(gameObject, player.TeamID);
 				objectiveType = hitObjective.objectiveType;				
@@ -151,7 +151,7 @@ public class Spy : BasePlayer{
 		RaycastHit hit;
 		if( Physics.Raycast(ray, out hit, 15f, layerMask) ){
 			if(stuns>=1){
-				if(hit.transform.tag == "Guard" && !hit.transform.gameObject.GetComponent<Guard>().stunned){
+				if(hit.transform.gameObject.layer == BasePlayer.GUARD && !hit.transform.gameObject.GetComponent<Guard>().stunned){
 					//Audio for stun
 					if(!stunAudio.isPlaying){
 						stunAudio.Play();

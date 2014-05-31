@@ -59,7 +59,7 @@ public class ConversationHotSpot : MonoBehaviour {
 				PhotonNetwork.Destroy(gameObject);
 		} else {
 			for(int i = 0; i < queue.Count; ++i){
-				if(queue[i].tag == "Guard" || queue[i].tag == "Spy" ||
+				if(queue[i].gameObject.layer == BasePlayer.GUARD || queue[i].gameObject.layer == BasePlayer.SPY ||
 					queue[i].GetComponent<BaseAI>().status != Status.Waiting){
 						if(i == talkerIndex && queue.Count > 1){
 							queue[i].GetComponent<Animator>().SetBool("Converse", true);
@@ -72,7 +72,7 @@ public class ConversationHotSpot : MonoBehaviour {
 							talkerTime = 5;
 						}
 
-						if(queue[i].tag == "Guest")
+						if(queue[i].gameObject.layer == BasePlayer.GUEST)
 							queue[i].transform.LookAt(transform.position);
 				}
 			}
@@ -82,7 +82,7 @@ public class ConversationHotSpot : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if(other.tag == "Guest" &&
+		if(other.gameObject.layer == BasePlayer.GUEST &&
 		   other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position){
 			BaseAI script = other.gameObject.GetComponent<BaseAI>();
 			script.agent.SetDestination(spots[queue.Count]);
@@ -95,14 +95,14 @@ public class ConversationHotSpot : MonoBehaviour {
 		}
 
 		//Activate GUI that says enter conversation hotspot for player
-		if(other.tag == "Guard" || other.tag == "Spy"){
+		if(other.gameObject.layer == BasePlayer.GUARD || other.gameObject.layer == BasePlayer.SPY){
 			other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 1;
 			players.Add(other.gameObject);
 		}
 	}
 
 	void OnTriggerStay(Collider other){
-		if(other.tag == "Guard" || other.tag == "Spy"){
+		if(other.gameObject.layer == 8 || other.gameObject.layer == 10){
 			// If player presses E and the GUI element is present, then add to convo
 			if(other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha == 1 && Input.GetKeyUp(Settings.Interact)){
 				++population;
@@ -116,13 +116,13 @@ public class ConversationHotSpot : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider other){
-		if(other.tag == "Guest" && other.GetComponent<BaseAI>().inConvo){
+		if(other.gameObject.layer == BasePlayer.GUEST && other.GetComponent<BaseAI>().inConvo){
 			--population;
 			queue.Remove(other.gameObject);
 			other.GetComponent<BaseAI>().inConvo = false;
 			if(other.gameObject.GetComponent<Animator>().GetBool("Converse"))
 				other.gameObject.GetComponent<Animator>().SetBool("Converse", false);
-		} else if (other.tag == "Guard" || other.tag == "Spy"){
+		} else if (other.gameObject.layer == BasePlayer.GUARD || other.gameObject.layer == BasePlayer.SPY){
 			players.Remove(other.gameObject);
 			other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
 			if(queue.Contains(other.gameObject)){

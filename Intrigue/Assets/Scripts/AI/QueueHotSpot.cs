@@ -32,7 +32,7 @@ public class QueueHotSpot : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if(other.tag == "Guest" &&
+		if(other.gameObject.layer == BasePlayer.GUEST &&
 			other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position){
 			other.gameObject.GetComponent<BaseAI>().status = Status.Waiting;
 			queue.Add(other.gameObject);
@@ -40,7 +40,7 @@ public class QueueHotSpot : MonoBehaviour {
 	}
 
 	protected virtual void OnTriggerExit(Collider other){
-		if(other.tag == "Guest" && other.gameObject.GetComponent<BaseAI>().isYourTurn){
+		if(other.gameObject.layer == BasePlayer.GUEST && other.gameObject.GetComponent<BaseAI>().isYourTurn){
 			queue.Remove(other.gameObject);
 			other.gameObject.GetComponent<BaseAI>().isYourTurn = false;
 		}

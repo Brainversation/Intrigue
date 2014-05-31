@@ -44,34 +44,35 @@ public class AI_RoomState : MonoBehaviour{
 
 	// Finds all items in the room
 	void OnTriggerEnter(Collider other){
-		switch(other.tag){
-			case "Guest":
+		switch(other.gameObject.layer){
+			case BasePlayer.GUEST:
 				other.gameObject.GetComponent<BaseAI>().room = this;
 				other.gameObject.GetComponent<BaseAI>().anxiety += population * 2;
 				population++;
 				break;
 
-			case "Player":
+			case BasePlayer.GUARD:
+			case BasePlayer.SPY:
 				population++;
 				break;
 
-			case "Drink":
+			case 13: //"Drink"
 				drinkLocation = other.transform.position;
 				break;
 
-			case "RestRoom":
+			case 14: //"RestRoom":
 				restroomLocations.Add(other.transform.position);
 				break;
 
-			case "poetry":
+			case 15: //"poetry":
 				poetLocation = other.transform.position;
 				break;
 
-			case "Relax":
+			case 16: //"Relax":
 				relaxLocations.Add(other.gameObject);
 				break;
 
-			case "Art":
+			case 17: //"Art":
 				artLocations.Add(other.transform.position);
 				break;
 		}
@@ -79,7 +80,9 @@ public class AI_RoomState : MonoBehaviour{
 
 	// Makes sure the population is up to date
 	void OnTriggerExit(Collider other){
-		if(other.tag == "Guest" || other.tag == "Player")
+		if(other.gameObject.layer == BasePlayer.GUEST ||
+			other.gameObject.layer == BasePlayer.GUARD ||
+			other.gameObject.layer == BasePlayer.SPY)
 			population--;
 	}
 }

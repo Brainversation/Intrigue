@@ -36,17 +36,17 @@ public class Crosshair : MonoBehaviour {
 		if(Camera.main != null && currGo != null){
 			//Spy
 			if(teamSpy){
-				if( currGo.tag == "ObjectiveMain" || currGo.tag =="Objective"){
-					if(currGo.tag == "ObjectiveMain" && currGo.GetComponent<ObjectiveMain>().isActive ){
+				if( currGo.layer == ObjectiveMain.OBJECTIVEMAIN || currGo.layer == Objective.OBJECTIVE){
+					if(currGo.layer == ObjectiveMain.OBJECTIVEMAIN && currGo.GetComponent<ObjectiveMain>().isActive ){
 						canInteract = true;
-					} else if(currGo.tag == "Objective" && currGo.GetComponent<Objective>().isActive && (Vector3.Distance(currGo.transform.position, transform.position) )<=10){
+					} else if(currGo.layer == Objective.OBJECTIVE && currGo.GetComponent<Objective>().isActive && (Vector3.Distance(currGo.transform.position, transform.position) )<=10){
 						canInteract = true;
 					}
-				}else if( (currGo.tag == "Guard" || currGo.tag == "Guest") && Vector3.Distance(currGo.transform.position, transform.position)<15){
-						if(currGo.tag == "Guard" && !currGo.GetComponent<Guard>().stunned){
+				}else if( (currGo.layer == BasePlayer.GUARD || currGo.layer == BasePlayer.GUEST) && Vector3.Distance(currGo.transform.position, transform.position)<15){
+						if(currGo.layer == BasePlayer.GUARD && !currGo.GetComponent<Guard>().stunned){
 							canInteract = true;
 						}
-						if(currGo.tag == "Guest" && !currGo.GetComponent<BaseAI>().stunned){
+						if(currGo.layer == BasePlayer.GUEST && !currGo.GetComponent<BaseAI>().stunned){
 							canInteract = true;
 						}
 				}
