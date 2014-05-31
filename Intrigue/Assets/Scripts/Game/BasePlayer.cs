@@ -53,6 +53,8 @@ public class BasePlayer : MonoBehaviour {
 	public UISprite server1GUI;
 	public UISprite server2GUI;
 	public UISprite server3GUI;
+	public UILabel convoUIJoin;
+	public UILabel convoUICancel;
 	public Shader blueStaticShader;
 	public Shader staticShader;
 	public Shader toonShader;
@@ -94,6 +96,8 @@ public class BasePlayer : MonoBehaviour {
 		Camera cam = GetComponentInChildren<Camera>();
 
 		if(photonView.isMine){
+			convoUICancel.text = "[FFCC00]" + Settings.Cancel.ToUpper();
+			convoUIJoin.text = "[FFCC00]" + Settings.Interact.ToUpper();
 			photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
 			photonView.RPC("sendID", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
 			InvokeRepeating("syncPing", 1, 2F);

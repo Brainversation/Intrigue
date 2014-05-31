@@ -29,6 +29,8 @@ public class Guard : BasePlayer{
 	public AudioSource server3;
 	public GameObject stunPrefab;
 	public GameObject spyCaughtLabel;
+	public UILabel accuseUIAccuse;
+	public UILabel accuseUICancel;
 
 	private GameObject accused;
 	private GameObject currentStunEffect;
@@ -46,6 +48,8 @@ public class Guard : BasePlayer{
 		layerMask = (1 << 9) | (1 << 10) | (1 << 11);
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Guard"},{"Ping", PhotonNetwork.GetPing()}, {"isOut", false}});	
 		base.Start();
+		accuseUICancel.text = "[FFCC00]" + Settings.Cancel.ToUpper();
+		accuseUIAccuse.text = "[FFCC00]" + Settings.Interact.ToUpper();
 	}
 
 	protected override void Update (){
