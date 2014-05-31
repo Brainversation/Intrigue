@@ -373,6 +373,7 @@ public class Pregame : MonoBehaviour {
 	public void sendStarting(){
 		gameStarting = true;
 		gameStartingPanel.alpha = 1;
+		gameStartingPanel.GetComponentInChildren<TweenAlpha>().PlayForward();
 	}
 
 	[RPC]
