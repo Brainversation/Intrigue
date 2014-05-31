@@ -17,9 +17,9 @@ using System.Collections;
 
 public class Crosshair : MonoBehaviour {
 
-	public Texture2D crosshairNormal;
-	public Texture2D crosshairInteract;
 	public bool teamSpy;
+	public GameObject interactTex;
+	public GameObject normalTex;
 
 	[HideInInspector] public bool canInteract = false;
 
@@ -28,9 +28,6 @@ public class Crosshair : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		position = new Rect((Screen.width - crosshairNormal.width)/2,
-								(Screen.height - crosshairNormal.height)/2,
-									crosshairNormal.width, crosshairNormal.height);
 		teamSpy = GetComponent<Spy>() != null;
 	}
 
@@ -59,14 +56,23 @@ public class Crosshair : MonoBehaviour {
 			}
 			currGo = null;
 		}
+		updateVisual();
 	}
 	
-	void OnGUI () {
+	void updateVisual(){
 		if(!Input.GetKey(KeyCode.Tab)){
-			if(canInteract==true)
-				GUI.DrawTexture(position, crosshairInteract);
-			else
-				GUI.DrawTexture(position, crosshairNormal);
+			if(canInteract==true){
+				NGUITools.SetActive(interactTex, true);
+				NGUITools.SetActive(normalTex, false);
+			}
+			else{
+				NGUITools.SetActive(interactTex, false);
+				NGUITools.SetActive(normalTex, true);
+			}
+		}
+		else{
+			NGUITools.SetActive(interactTex, false);
+			NGUITools.SetActive(normalTex, false);
 		}
 	}
 }
