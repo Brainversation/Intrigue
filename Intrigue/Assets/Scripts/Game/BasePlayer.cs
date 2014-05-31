@@ -240,10 +240,14 @@ public class BasePlayer : MonoBehaviour {
 		//Adding toggle to chat with Z and making chat visible
 		/*------------------------------------------------------*/
 		if(Input.GetKeyUp(KeyCode.Z)){
-			if(chatArea.GetComponentInChildren<UILabel>().alpha == 1)
+			if(chatArea.GetComponentInChildren<UILabel>().alpha == 1){
 				chatArea.GetComponentInChildren<UILabel>().alpha = 0;
-			else
+				chatArea.GetComponentInChildren<UISprite>().alpha = 0;
+			}
+			else{
 				chatArea.GetComponentInChildren<UILabel>().alpha = 1;
+				chatArea.GetComponentInChildren<UISprite>().alpha = 1;
+			}
 		}
 
 		if(BasePlayer.isSpectating && isSpectated && Input.GetKeyUp(KeyCode.Space)){
