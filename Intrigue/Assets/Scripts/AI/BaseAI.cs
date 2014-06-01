@@ -69,7 +69,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool inConvo = false;
 
 	// Used for offline testing
-	public static bool aiTesting = true;
+	public static bool aiTesting = false;
 
 	// Initializes all fields
 	void Start(){

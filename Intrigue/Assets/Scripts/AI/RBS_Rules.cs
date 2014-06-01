@@ -351,12 +351,12 @@ namespace RBS{
 			bool roomPicked = false;
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 
-			GameObject[] relaxLocations = GameObject.FindGameObjectsWithTag("relax");
+			GameObject[] relaxLocations = GameObject.FindGameObjectsWithTag("Relax");
 
-			Debug.Log("After finding locations");
+			//Debug.Log("After finding locations");
 
 			foreach(GameObject relaxLocation in relaxLocations){
-				Debug.Log("Inside smoke foreach");
+				//Debug.Log("Inside smoke foreach");
 				if(!relaxLocation.GetComponent<RelaxHotSpot>().occupied){
 					script.destination = relaxLocation.transform.position;
 					roomPicked = true;
