@@ -260,7 +260,8 @@ public class Intrigue : MonoBehaviour {
 
 	public static void resetVariables(){
 		roundsLeft = MAXROUNDS;
-		timeLeft = TIMELIMIT;	
+		timeLeft = TIMELIMIT;
+		roundResults.Clear();
 	}
 
 	[RPC]

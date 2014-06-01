@@ -181,6 +181,17 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			stream.SendNext(anim.GetBool("Out"));
 			stream.SendNext(anim.GetBool("Converse"));
 			stream.SendNext(anim.GetBool("StrafeToggle"));
+			stream.SendNext(anim.GetBool("Idle1"));
+			stream.SendNext(anim.GetBool("Idle2"));
+			stream.SendNext(anim.GetBool("Idle3"));
+			stream.SendNext(anim.GetBool("Idle4"));
+			stream.SendNext(anim.GetBool("Idle5"));
+			stream.SendNext(anim.GetBool("Idle6"));
+			stream.SendNext(anim.GetBool("Idle7"));
+			stream.SendNext(anim.GetBool("Idle8"));
+			stream.SendNext(anim.GetBool("Idle9"));
+			stream.SendNext(anim.GetBool("Idle10"));
+			stream.SendNext(anim.GetBool("Idle11"));
 
 		}else{
 			// Network player, receive data
@@ -195,6 +206,17 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetBool("Out", (bool) stream.ReceiveNext());
 			anim.SetBool("Converse", (bool) stream.ReceiveNext());
 			anim.SetBool("StrafeToggle", (bool) stream.ReceiveNext());
+			anim.SetBool("Idle1", (bool) stream.ReceiveNext());
+			anim.SetBool("Idle2", (bool) stream.ReceiveNext());
+			anim.SetBool("Idle3", (bool) stream.ReceiveNext());
+			anim.SetBool("Idle4", (bool) stream.ReceiveNext());
+			anim.SetBool("Idle5", (bool) stream.ReceiveNext());
+			anim.SetBool("Idle6", (bool) stream.ReceiveNext());
+			anim.SetBool("Idle7", (bool) stream.ReceiveNext());
+			anim.SetBool("Idle8", (bool) stream.ReceiveNext());
+			anim.SetBool("Idle9", (bool) stream.ReceiveNext());
+			anim.SetBool("Idle10", (bool) stream.ReceiveNext());
+			anim.SetBool("Idle11", (bool) stream.ReceiveNext());
 		}
 	}
 

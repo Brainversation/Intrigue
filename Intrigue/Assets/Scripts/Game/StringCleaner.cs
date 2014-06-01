@@ -34,7 +34,7 @@ public class StringCleaner : MonoBehaviour {
     }
 
    public static void createStringLists(){
-   		PatternTemplate = @"\b(fuck|ass|shit|bitch|damn|cunt|fag|faggot|dick|bastard|cock|nigger|kike|chode|douche)(s|ing|es)?\b";
+   		PatternTemplate = @"\b(fuck|ass|shit|bitch|damn|cunt|fag|faggot|dick|bastard|cock|nigger|kike|chode|douche|whore|slut)(\w+)?\b";
 		Options = RegexOptions.IgnoreCase;
 		rx = new Regex(PatternTemplate, Options);
    }

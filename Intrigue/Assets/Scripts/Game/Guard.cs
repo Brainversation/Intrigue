@@ -246,6 +246,8 @@ public class Guard : BasePlayer{
 				stunInstantiated = true;
 			}
 
+			accusing = false;
+			accused = null;
 			stunned = GetComponent<NetworkCharacter>().isStunned = true;
 			NGUITools.SetActive(stunUI.gameObject, true);
 			//Have to disable the mouse look on the camera as well
