@@ -102,7 +102,7 @@ public class SettingsManager : MonoBehaviour {
 		ResolutionList.items.Clear();
 		CurrentResolution.text = Screen.currentResolution.width + "x" + Screen.currentResolution.height;
 		foreach(Resolution res in Screen.resolutions){
-			if(res.width/res.height == (4/3)){
+			if(res.width/res.height == (16/9)){
 				ResolutionList.items.Add(res.width + "x" + res.height);
 			}
 		}
