@@ -105,7 +105,7 @@ public class ObjectiveMain : Photon.MonoBehaviour {
 			finished = true;
 			isActive = false;
 			timeLeft = 0;
-			intrigue.objectivesCompleted++;
+			Intrigue.objectivesCompleted++;
 			intrigue.mainObjectives[objectiveName-1] = true;
 
 		}	

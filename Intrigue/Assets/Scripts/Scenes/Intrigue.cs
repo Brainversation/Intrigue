@@ -41,13 +41,13 @@ public class Intrigue : MonoBehaviour {
 	private GameObject[] objArray;
 
 	[HideInInspector] public string roundResult;
-	[HideInInspector] public float objectivesCompleted = 0;
 	[HideInInspector] public bool[] objectives;
 	[HideInInspector] public bool[] mainObjectives;
 	[HideInInspector] public bool gameStart = false;
 	[HideInInspector] public bool doneLoading = false;
 	[HideInInspector] public float loadedGuests = 0;
 	[HideInInspector] public float totalGuests;
+	[HideInInspector] public static int objectivesCompleted = 0;
 	[HideInInspector] public static List<int> roundResults = new List<int>();
 	
 	public static int numSpiesLeft;
@@ -261,6 +261,7 @@ public class Intrigue : MonoBehaviour {
 	public static void resetVariables(){
 		roundsLeft = MAXROUNDS;
 		timeLeft = TIMELIMIT;
+		objectivesCompleted = 0;
 		roundResults.Clear();
 	}
 
