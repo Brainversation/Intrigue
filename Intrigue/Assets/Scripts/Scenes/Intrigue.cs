@@ -139,25 +139,28 @@ public class Intrigue : MonoBehaviour {
 					roundResultInstance = 1;
 				}
 
-				roundResults.Add(roundResultInstance);
 				photonView.RPC("syncRoundResults", PhotonTargets.OthersBuffered, roundResultInstance);
 
 				//Converts winningTeamThisRound from Spies/Guard to Team1/Team2
 				if(player.Team == "Spy" && winningTeamThisRound == 1){
 					winningTeamThisRound = player.TeamID;
-				} else if(player.Team == "Spy" && winningTeamThisRound == 2){
+				} 
+				else if(player.Team == "Spy" && winningTeamThisRound == 2){
 					if(player.TeamID == 1)
 						winningTeamThisRound = 2;
 					else
 						winningTeamThisRound = 1;
-				} else if(player.Team == "Guard" && winningTeamThisRound == 2){
+				} 
+				else if(player.Team == "Guard" && winningTeamThisRound == 2){
 					winningTeamThisRound = player.TeamID;
-				} else if(player.Team == "Guard" && winningTeamThisRound == 1){
+				}
+				else if(player.Team == "Guard" && winningTeamThisRound == 1){
 					if(player.TeamID == 1)
 						winningTeamThisRound = 2;
 					else
 						winningTeamThisRound = 1;
 				}
+				roundResults.Add(winningTeamThisRound);
 				photonView.RPC("callGameOver", PhotonTargets.AllBuffered, roundResult, winningTeamThisRound);
 			}
 		}
