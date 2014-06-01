@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: TestMat_Metal_BrushedStainless Dark
-  m_Shader: {fileID: 4800000, guid: 10a93473a43f9704eaf3df3a299a48fe, type: 3}
+  m_Shader: {fileID: 4800000, guid: 054a31a99d11e49d110086ba44295342, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -62,16 +62,12 @@ Material:
         second: .641791046
       data:
         first:
+          name: _Outline
+        second: .00500000035
+      data:
+        first:
           name: _Shininess
         second: .143880591
-      data:
-        first:
-          name: _Outline
-        second: .0291071422
-      data:
-        first:
-          name: _RimPower
-        second: .5
       data:
         first:
           name: _Gloss
@@ -84,6 +80,10 @@ Material:
         first:
           name: _FrezFalloff
         second: .447761178
+      data:
+        first:
+          name: _RimPower
+        second: .5
       data:
         first:
           name: _EdgeAlpha
@@ -108,11 +108,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .311418682, g: .325529397, b: .352941185, a: 1}
-      data:
-        first:
-          name: _SpecColor
-        second: {r: .850746274, g: .937376082, b: 1, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _OutlineColor
@@ -121,6 +117,10 @@ Material:
         first:
           name: _SColor
         second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .850746274, g: .937376082, b: 1, a: 1}
       data:
         first:
           name: _ReflectColor
