@@ -155,6 +155,7 @@ namespace RBS{
 			this.addCondition( new IsLonely(gameObject) );
 			this.addCondition( new IsBored(gameObject) );
 			this.addCondition( new NotInConvo(gameObject) );
+			this.addCondition( new RoomHasPeople(gameObject) );
 			this.consequence = handleConverse;
 			this.weight = 7;
 		}

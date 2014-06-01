@@ -200,6 +200,14 @@ namespace RBS{
 		}
 	}
 
+	class RoomHasPeople : Condition{
+		public RoomHasPeople(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
+			return (gameObject.GetComponent<BaseAI>().room.population > 0);
+		}
+	}
+
 	class StayStill : Condition{
 		public override bool test(){
 			return true;

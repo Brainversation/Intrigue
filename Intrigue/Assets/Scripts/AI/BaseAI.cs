@@ -45,6 +45,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public Task tree = null;
 	[HideInInspector] public Status status = Status.False;
 	[HideInInspector] public float distFromDest = 5f;
+	[HideInInspector] public float convoTime = 5f;
 	[HideInInspector] public bool isYourTurn = false;
 	[HideInInspector] public bool stunned = false;
 
@@ -94,6 +95,7 @@ public class BaseAI : Photon.MonoBehaviour {
 							currentRule = rules[i];
 							rules[i].weight -= 15;
 							status = rules[i].consequence(gameObject);
+							// Debug.Log(currentRule);
 							break;
 						}
 					}
@@ -128,12 +130,25 @@ public class BaseAI : Photon.MonoBehaviour {
 					if(agent.hasPath && !agent.pathPending && agent.remainingDistance < distFromDest){
 						anim.SetBool("Speed", false);
 						agent.ResetPath();
-						if(tree == null){
+						if(tree != null){
+							status = Status.Tree;
+						} else if(inConvo){
+							status = Status.Convo;
+							convoTime = 5f;
+						} else {
 							status = Status.False;
 							backToRule();
-						} else {
-							status = Status.Tree;
 						}
+					}
+				break;
+
+				case Status.Convo:
+					if(convoTime < 0){
+						status = Status.Waiting;
+						inConvo = false;
+						Debug.Log("convo time is up");
+					} else {
+						convoTime -= Time.deltaTime;
 					}
 				break;
 			}

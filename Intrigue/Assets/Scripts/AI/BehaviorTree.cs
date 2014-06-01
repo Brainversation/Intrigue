@@ -92,7 +92,7 @@ namespace BehaviorTree{
 	class Sequence : Task {
 		public Sequence(){}
 		public Sequence( List<Task> children ) : base(children){}
-		
+
 		public override Status run(GameObject gameObject){
 			foreach( Task t in children ){
 				if( t.run(gameObject) != Status.True ){
@@ -190,6 +190,8 @@ namespace BehaviorTree{
 		Waiting,
 		// Behavior tree is running
 		Tree,
+		// When ai is in convo
+		Convo,
 		// Will be used for edge cases
 		Error
 	}

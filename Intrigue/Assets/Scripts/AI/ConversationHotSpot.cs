@@ -60,7 +60,7 @@ public class ConversationHotSpot : MonoBehaviour {
 		} else {
 			for(int i = 0; i < queue.Count; ++i){
 				if(queue[i].gameObject.layer == BasePlayer.GUARD || queue[i].gameObject.layer == BasePlayer.SPY ||
-					queue[i].GetComponent<BaseAI>().status != Status.Waiting){
+					!queue[i].GetComponent<BaseAI>().agent.hasPath){
 						if(i == talkerIndex && queue.Count > 1){
 							queue[i].GetComponent<Animator>().SetBool("Converse", true);
 							talkerTime -= Time.deltaTime;
@@ -73,7 +73,7 @@ public class ConversationHotSpot : MonoBehaviour {
 						}
 
 						if(queue[i].gameObject.layer == BasePlayer.GUEST)
-							queue[i].transform.LookAt(transform.position);
+							queue[i].transform.LookAt(center);
 				}
 			}
 		}
