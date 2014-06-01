@@ -353,7 +353,10 @@ namespace RBS{
 
 			GameObject[] relaxLocations = GameObject.FindGameObjectsWithTag("relax");
 
+			Debug.Log("After finding locations");
+
 			foreach(GameObject relaxLocation in relaxLocations){
+				Debug.Log("Inside smoke foreach");
 				if(!relaxLocation.GetComponent<RelaxHotSpot>().occupied){
 					script.destination = relaxLocation.transform.position;
 					roomPicked = true;

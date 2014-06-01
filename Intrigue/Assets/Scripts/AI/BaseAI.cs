@@ -69,7 +69,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool inConvo = false;
 
 	// Used for offline testing
-	public static bool aiTesting = false;
+	public static bool aiTesting = true;
 
 	// Initializes all fields
 	void Start(){
@@ -223,14 +223,14 @@ public class BaseAI : Photon.MonoBehaviour {
 	// Sets rules and stats
 	void initAI(){
 		rules = new List<Rule>();
-		rules.Add( new WantToGetDrink(gameObject) );
-		rules.Add( new WantToConverse(gameObject) );
-		rules.Add( new FindRoom(gameObject) );
-		rules.Add( new WantToWanderRoom(gameObject) );
-		rules.Add( new WantToMoveRoom(gameObject) );
-		rules.Add( new NeedToUseRestroom(gameObject) );
-		rules.Add( new AdmireArt(gameObject) );
-		rules.Add( new DoIdle(gameObject) );
+		//rules.Add( new WantToGetDrink(gameObject) );
+		//rules.Add( new WantToConverse(gameObject) );
+		//rules.Add( new FindRoom(gameObject) );
+		//rules.Add( new WantToWanderRoom(gameObject) );
+		//rules.Add( new WantToMoveRoom(gameObject) );
+		//rules.Add( new NeedToUseRestroom(gameObject) );
+		//rules.Add( new AdmireArt(gameObject) );
+		//rules.Add( new DoIdle(gameObject) );
 		rules.Add( new Smoke(gameObject) );
 		//<-------- Rules To Add ------->
 		// Relax
@@ -242,13 +242,13 @@ public class BaseAI : Photon.MonoBehaviour {
 			hunger = 0;
 			lonely = 51;
 			tired = 0;
-			anxiety = 0;
+			anxiety = 51;
 			bladder = 0;
 			anger = 0;
 			happy = 0;
 			sad = 0;
 			toxicity = 0;
-			// smoker = true;
+			smoker = true;
 		} else {
 			thirst = Random.Range(20, 100);
 			bored = Random.Range(20, 100);
