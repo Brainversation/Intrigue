@@ -56,6 +56,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		camStart = cam.transform.localPosition;
 		strafeToggle = true;
 		anim.SetBool("StrafeToggle", strafeToggle);
+		photonView.RPC("toggleOtherAnims", PhotonTargets.Others, "StrafeToggle", strafeToggle);
 	}
 
 	public void Update(){
@@ -67,6 +68,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			if(Input.GetKeyUp(KeyCode.LeftControl)){
 				strafeToggle = !strafeToggle;
 				anim.SetBool("StrafeToggle", strafeToggle);
+				photonView.RPC("toggleOtherAnims", PhotonTargets.Others, "StrafeToggle", strafeToggle);
 			}
 			if(Input.GetKeyDown(KeyCode.Alpha1) && !isIdleAnimating){
 				playRandomIdle();
@@ -91,6 +93,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 				anim.SetFloat("Direction", 0f);
 				anim.SetBool("Run", false);
 				anim.SetBool("Out", true);
+				photonView.RPC("toggleOtherAnims", PhotonTargets.Others, "Out", true);
 			}
 			else if(player.Team == "Spy" && Intrigue.playerGO.GetComponent<Spy>().doingObjective){
 				anim.SetFloat("Speed", 0f);
@@ -123,11 +126,13 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	void playRandomIdle(){
 		int animIndex = Random.Range(1,12);
 		anim.SetBool("Idle" + animIndex, true);
+		photonView.RPC("toggleIdleAnim", PhotonTargets.Others, curRandomAnim, true);
 		curRandomAnim = animIndex;
 	}
 
 	void stopRandomIdle(){
 		anim.SetBool("Idle" + curRandomAnim, false);
+		photonView.RPC("toggleIdleAnim", PhotonTargets.Others, curRandomAnim, false);
 		isIdleAnimating = false;
 	}
 
@@ -178,20 +183,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			stream.SendNext(anim.GetBool("InteractSafe"));
 			stream.SendNext(anim.GetBool("InteractComp"));
 			stream.SendNext(anim.GetBool("InteractServer"));
-			stream.SendNext(anim.GetBool("Out"));
 			stream.SendNext(anim.GetBool("Converse"));
-			stream.SendNext(anim.GetBool("StrafeToggle"));
-			stream.SendNext(anim.GetBool("Idle1"));
-			stream.SendNext(anim.GetBool("Idle2"));
-			stream.SendNext(anim.GetBool("Idle3"));
-			stream.SendNext(anim.GetBool("Idle4"));
-			stream.SendNext(anim.GetBool("Idle5"));
-			stream.SendNext(anim.GetBool("Idle6"));
-			stream.SendNext(anim.GetBool("Idle7"));
-			stream.SendNext(anim.GetBool("Idle8"));
-			stream.SendNext(anim.GetBool("Idle9"));
-			stream.SendNext(anim.GetBool("Idle10"));
-			stream.SendNext(anim.GetBool("Idle11"));
 
 		}else{
 			// Network player, receive data
@@ -203,21 +195,18 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			anim.SetBool("InteractSafe", (bool) stream.ReceiveNext());
 			anim.SetBool("InteractComp", (bool) stream.ReceiveNext());
 			anim.SetBool("InteractServer",(bool) stream.ReceiveNext());
-			anim.SetBool("Out", (bool) stream.ReceiveNext());
 			anim.SetBool("Converse", (bool) stream.ReceiveNext());
-			anim.SetBool("StrafeToggle", (bool) stream.ReceiveNext());
-			anim.SetBool("Idle1", (bool) stream.ReceiveNext());
-			anim.SetBool("Idle2", (bool) stream.ReceiveNext());
-			anim.SetBool("Idle3", (bool) stream.ReceiveNext());
-			anim.SetBool("Idle4", (bool) stream.ReceiveNext());
-			anim.SetBool("Idle5", (bool) stream.ReceiveNext());
-			anim.SetBool("Idle6", (bool) stream.ReceiveNext());
-			anim.SetBool("Idle7", (bool) stream.ReceiveNext());
-			anim.SetBool("Idle8", (bool) stream.ReceiveNext());
-			anim.SetBool("Idle9", (bool) stream.ReceiveNext());
-			anim.SetBool("Idle10", (bool) stream.ReceiveNext());
-			anim.SetBool("Idle11", (bool) stream.ReceiveNext());
 		}
+	}
+
+	[RPC]
+	void toggleIdleAnim(int animID, bool status){
+		anim.SetBool("Idle" + animID, status);
+	}
+
+	[RPC]
+	void toggleOtherAnims(string animName, bool status){
+		anim.SetBool(animName, status);
 	}
 
 	void StartRegen(){
