@@ -238,17 +238,14 @@ public class Pregame : MonoBehaviour {
 				readyLabel.text = "START GAME";
 				readyLabel.fontSize = 28;
 				readyCheckToggle.value = true;
-			} else {	
-				if(string.IsNullOrEmpty(player.Team)){
-					readyLabel.text = "CHOOSE TEAM";
-					readyLabel.fontSize = 28;
-					readyCheckToggle.value = false;
-
-				} else {
-					readyLabel.text = "WAITING FOR OTHERS";
-					readyLabel.fontSize = 24;
-					readyCheckToggle.value = false;
-				}
+			} else if(string.IsNullOrEmpty(player.Team)){
+				readyLabel.text = "CHOOSE TEAM";
+				readyLabel.fontSize = 28;
+				readyCheckToggle.value = false;
+			} else {
+				readyLabel.text = "WAITING FOR OTHERS";
+				readyLabel.fontSize = 24;
+				readyCheckToggle.value = false;
 			}
 		} else {
 			if(!string.IsNullOrEmpty(player.Team)){

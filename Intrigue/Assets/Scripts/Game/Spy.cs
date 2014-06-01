@@ -130,7 +130,7 @@ public class Spy : BasePlayer{
 	void attemptInteract(){
 		Ray ray = Camera.main.ScreenPointToRay( screenPoint );
 		RaycastHit hit;
-		if( Physics.Raycast(ray, out hit, 75f, 1 << 11) ){
+		if( Physics.Raycast(ray, out hit, 75f, layerMask) ){
 			if( hit.transform.gameObject.layer == ObjectiveMain.OBJECTIVEMAIN ){
 				ObjectiveMain hitObjective = hit.transform.GetComponent<ObjectiveMain>();
 				hitObjective.useObjective(gameObject, player.TeamID);
