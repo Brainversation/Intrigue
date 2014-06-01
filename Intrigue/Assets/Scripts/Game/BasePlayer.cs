@@ -266,7 +266,7 @@ public class BasePlayer : MonoBehaviour {
 			Screen.lockCursor = !Screen.lockCursor;
 			BasePlayer.menuFlag = !BasePlayer.menuFlag;
 		}
-		if(Input.GetKeyUp(KeyCode.Mouse0)){
+		if(Input.GetKeyUp(KeyCode.Mouse0) && !BasePlayer.menuFlag){
 			Screen.lockCursor = true;
 		}
 		
