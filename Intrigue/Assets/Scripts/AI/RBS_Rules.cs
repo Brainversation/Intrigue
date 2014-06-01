@@ -47,11 +47,11 @@ namespace RBS{
 
 			//Pick spot inside collider of chosen room
 			Vector3 newDest;
-            newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<MeshCollider>().bounds.min.x,
-                                  room.GetComponent<MeshCollider>().bounds.max.x),
+            newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<Collider>().bounds.min.x,
+                                  room.GetComponent<Collider>().bounds.max.x),
                                   gameObject.transform.position.y,
-                                  UnityEngine.Random.Range(room.GetComponent<MeshCollider>().bounds.min.z,
-                                  room.GetComponent<MeshCollider>().bounds.max.z));
+                                  UnityEngine.Random.Range(room.GetComponent<Collider>().bounds.min.z,
+                                  room.GetComponent<Collider>().bounds.max.z));
 
 			//script.bored -= 20;
 			//script.lonely -= 20;
@@ -83,22 +83,22 @@ namespace RBS{
 
 			//Choose random point inside curRoom collider
 			Vector3 newDest;
-            newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<MeshCollider>().bounds.min.x,
-                                  room.GetComponent<MeshCollider>().bounds.max.x),
+            newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<Collider>().bounds.min.x,
+                                  room.GetComponent<Collider>().bounds.max.x),
                                   gameObject.transform.position.y,
-                                  UnityEngine.Random.Range(room.GetComponent<MeshCollider>().bounds.min.z,
-                                  room.GetComponent<MeshCollider>().bounds.max.z));
+                                  UnityEngine.Random.Range(room.GetComponent<Collider>().bounds.min.z,
+                                  room.GetComponent<Collider>().bounds.max.z));
 
             //Following ensures that chosen random point is on navMesh, currently probably not useful.
            
             // script.agent.CalculatePath(newDest, path);
 
             // while(path.status ==  NavMeshPathStatus.PathPartial){
-            // 	newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<MeshCollider>().bounds.min.x,
-            //                           room.GetComponent<MeshCollider>().bounds.max.x),
+            // 	newDest = new Vector3(UnityEngine.Random.Range(room.GetComponent<Collider>().bounds.min.x,
+            //                           room.GetComponent<Collider>().bounds.max.x),
             //                           gameObject.transform.position.y,
-            //                           UnityEngine.Random.Range(room.GetComponent<MeshCollider>().bounds.min.z,
-            //                           room.GetComponent<MeshCollider>().bounds.max.z));
+            //                           UnityEngine.Random.Range(room.GetComponent<Collider>().bounds.min.z,
+            //                           room.GetComponent<Collider>().bounds.max.z));
 
             // 	script.agent.CalculatePath(newDest, path);
             // }

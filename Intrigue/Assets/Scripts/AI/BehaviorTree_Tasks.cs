@@ -77,11 +77,11 @@ namespace BehaviorTree{
 	class WalkAway : Task {
 		public override Status run(GameObject gameObject){
 			Vector3 newDest;
-			newDest = new Vector3(UnityEngine.Random.Range( gameObject.GetComponent<BaseAI>().room.me.GetComponent<MeshCollider>().bounds.min.x,
-															gameObject.GetComponent<BaseAI>().room.me.GetComponent<MeshCollider>().bounds.max.x),
+			newDest = new Vector3(UnityEngine.Random.Range( gameObject.GetComponent<BaseAI>().room.me.GetComponent<Collider>().bounds.min.x,
+															gameObject.GetComponent<BaseAI>().room.me.GetComponent<Collider>().bounds.max.x),
 															gameObject.transform.position.y,
-															UnityEngine.Random.Range(gameObject.GetComponent<BaseAI>().room.me.GetComponent<MeshCollider>().bounds.min.z,
-															gameObject.GetComponent<BaseAI>().room.me.GetComponent<MeshCollider>().bounds.max.z));
+															UnityEngine.Random.Range(gameObject.GetComponent<BaseAI>().room.me.GetComponent<Collider>().bounds.min.z,
+															gameObject.GetComponent<BaseAI>().room.me.GetComponent<Collider>().bounds.max.z));
 			gameObject.GetComponent<BaseAI>().destination = newDest;
 			gameObject.GetComponent<BaseAI>().distFromDest = 1f;
 			gameObject.GetComponent<Animator>().SetBool("Speed", true);
