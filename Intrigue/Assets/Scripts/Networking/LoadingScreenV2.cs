@@ -132,7 +132,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 	}
 
 	string getNewTip(){
-		int rand = Random.Range(1,10);
+		int rand = Random.Range(1,11);
 		string tip;
 
 		switch(rand){
@@ -153,6 +153,8 @@ public class LoadingScreenV2 : MonoBehaviour {
 			case 8: tip = "Tip: Use [FFCC00]" + Settings.Interact.ToUpper() + "[-] to join conversations when near!";
 				break;
 			case 9: tip = "Tip: Use [FFCC00]SPACE[-] to cycle through teammates when spectating!";
+				break;
+			case 10: tip = "Tip: Use [FFCC00]1[-] to play a random idle animation to blend in!";
 				break;
 			default: tip = "Tip: Kayvan rarely showers, avoid getting too near!";
 				break;
