@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: FoyerFloorMat
-  m_Shader: {fileID: 4800000, guid: caeb49b454b8f854dbe3d8825ccd9b67, type: 3}
+  m_Shader: {fileID: 20, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -22,12 +22,30 @@ Material:
           m_Offset: {x: 0, y: 0}
       data:
         first:
+          name: _BumpMap
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Detail
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
           name: _Cube
         second:
           m_Texture: {fileID: 8900000, guid: 1cfc76ed54abd264eaa181c42c736557, type: 2}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
-    m_Floats: {}
+    m_Floats:
+      data:
+        first:
+          name: _Shininess
+        second: .078125
     m_Colors:
       data:
         first:
@@ -35,5 +53,9 @@ Material:
         second: {r: .588, g: .588, b: .588, a: 1}
       data:
         first:
+          name: _SpecColor
+        second: {r: .5, g: .5, b: .5, a: 1}
+      data:
+        first:
           name: _ReflectColor
-        second: {r: 1, g: 1, b: 1, a: .294117659}
+        second: {r: .235294104, g: .235294104, b: .235294104, a: .294117659}

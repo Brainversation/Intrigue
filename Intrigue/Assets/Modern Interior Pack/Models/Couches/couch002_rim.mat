@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: couch002_rim
-  m_Shader: {fileID: 4800000, guid: 06d1aac584e8ea1439aef17569096dcf, type: 3}
+  m_Shader: {fileID: 4800000, guid: 054a31a99d11e49d110086ba44295342, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -31,18 +31,18 @@ Material:
         first:
           name: _Ramp
         second:
-          m_Texture: {fileID: 2800000, guid: 948e1b7327c293a4081ba3c18eaab19f, type: 3}
+          m_Texture: {fileID: 2800000, guid: abc83c21d57d4a74cabe12065fa1a8b2, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
-          name: _Outline
-        second: .00321428548
-      data:
-        first:
           name: _Shininess
         second: .642751873
+      data:
+        first:
+          name: _Outline
+        second: .00321428548
     m_Colors:
       data:
         first:
@@ -50,12 +50,12 @@ Material:
         second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
-          name: _OutlineColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-      data:
-        first:
           name: _SpecColor
         second: {r: .679104447, g: .679104447, b: .679104447, a: 1}
+      data:
+        first:
+          name: _OutlineColor
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _SColor
