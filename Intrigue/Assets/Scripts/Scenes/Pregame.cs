@@ -37,7 +37,6 @@ public class Pregame : MonoBehaviour {
 	private Player player;
 	private bool isReady = false;
 	private bool allReady = false;
-	private int readyCount = 0;
 	private List<int> spies = new List<int>();
 	private List<int> guards = new List<int>();
 	private int prevGuestCount = 0;
@@ -59,7 +58,7 @@ public class Pregame : MonoBehaviour {
 			slider.enabled = false;
 		}
 		else{
-			textList.Add("[FF0000]Tip:[-][FFCC00] type [-]'/kick '[FFCC00] + [-]'player's handle'[FFCC00] to kick that player.");
+			textList.Add("[FF0000]Tip:[-][FFCC00] type [-]'/kick '[FFCC00] + [-]'player's handle'[FFCC00] to kick that player.[-]");
 		}
 
 		//Updates Ping and Score Every X Seconds
@@ -133,12 +132,12 @@ public class Pregame : MonoBehaviour {
 					if(targetTest == "true" || targetTest == "True"){
 						Intrigue.wantGameOver = true;
 						mInput.value = "";
-						textList.Add("[FFCC00]GameOver set to true");
+						textList.Add("[FFCC00]GameOver set to true[-]");
 						return true;
 					}
 					else if(targetTest == "false" || targetTest == "False"){
 						Intrigue.wantGameOver = false;
-						textList.Add("[FFCC00]GameOver set to false");
+						textList.Add("[FFCC00]GameOver set to false[-]");
 						mInput.value = "";
 						return true;
 					}
@@ -225,13 +224,7 @@ public class Pregame : MonoBehaviour {
 	void readyStatus(){
 		//Ready Button
 		if(PhotonNetwork.isMasterClient){
-			allReady = true;
-			foreach(PhotonPlayer playy in PhotonNetwork.playerList){
-				if((bool)playy.customProperties["Ready"] == false){
-					allReady = false;
-					break;
-				}
-			}
+			allReadyCheck();
 
 			if( ((spies.Count > 0 && guards.Count > 0) || isTesting) &&
 					allReady && !string.IsNullOrEmpty(player.Team)){
@@ -258,34 +251,43 @@ public class Pregame : MonoBehaviour {
 		}
 	}
 
+	void allReadyCheck(){
+		allReady = true;
+			foreach(PhotonPlayer playy in PhotonNetwork.playerList){
+				if((bool)playy.customProperties["Ready"] == false){
+					allReady = false;
+					break;
+				}
+			}
+	}
+
 	void readyClick(){
 		if(PhotonNetwork.isMasterClient){
-			if( ((spies.Count > 0 && guards.Count > 0) || isTesting) &&
-				readyCount == PhotonNetwork.playerList.Length-1 &&
-				!string.IsNullOrEmpty(player.Team)){
+			allReadyCheck();
+			if( ((spies.Count > 0 && guards.Count > 0) || isTesting) && allReady && !string.IsNullOrEmpty(player.Team)){
 				PhotonNetwork.room.visible = false;
 				StartCoroutine(go());
 			} else if(string.IsNullOrEmpty(player.Team)){
-				textList.Add("[FF0000]Error:[-][FFCC00] Please choose a team.");
+				textList.Add("[FF0000]Error:[-][FFCC00] Please choose a team.[-]");
+			} else if (!allReady){
+				textList.Add("[FF0000]Error:[-][FFCC00] All players must ready up.[-]");
 			} else {
-				textList.Add("[FF0000]Error:[-][FFCC00] Each team must have at least one player!");
+				textList.Add("[FF0000]Error:[-][FFCC00] Each team must have at least one player![-]");
 			}
 		} else if(!gameStarting){
 			if(isReady){
 				isReady = false;
 				readyCheckToggle.value = false;
 				PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ready", false}});
-				photonView.RPC("ready", PhotonTargets.MasterClient, -1);
 				photonView.RPC("reloadScoreboard", PhotonTargets.All);
 			} else {
 				if(!string.IsNullOrEmpty(player.Team)){
 					isReady = true;
 					readyCheckToggle.value = true;
 					PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ready", true}});
-					photonView.RPC("ready", PhotonTargets.MasterClient, 1);
 					photonView.RPC("reloadScoreboard", PhotonTargets.All);
 				} else {
-					textList.Add("[FF0000]Error:[-][FFCC00] Please choose a team.");
+					textList.Add("[FF0000]Error:[-][FFCC00] Please choose a team.[-]");
 				}
 			}
 
@@ -386,11 +388,6 @@ public class Pregame : MonoBehaviour {
 	}
 
 	[RPC]
-	public void ready(int val){
-		this.readyCount +=val;
-	}
-
-	[RPC]
 	public void receiveMessage(string s){
 		textList.Add(s);
 	}
@@ -402,7 +399,7 @@ public class Pregame : MonoBehaviour {
 
 	[RPC]
 	void kickPlayer(){
-		photonView.RPC("receiveMessage", PhotonTargets.Others, player.Handle + "[FF0000] has been kicked by the host");
+		photonView.RPC("receiveMessage", PhotonTargets.Others, player.Handle + "[FF0000] has been kicked by the host[-]");
 		PlayerPrefs.SetString("banTime", System.DateTime.Now.ToBinary().ToString());
 		PhotonNetwork.LeaveRoom();
 		PhotonNetwork.LoadLevel( "MainMenu" );
