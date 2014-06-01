@@ -37,6 +37,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private float staminaRegenSpeed;
 	private bool canRegen;
 	private bool strafeToggle;
+	private int curRandomAnim;
+	private bool isIdleAnimating;
 
 	void Start() {
 		//Get References to Animator and Collider
@@ -65,6 +67,12 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			if(Input.GetKeyUp(KeyCode.LeftControl)){
 				strafeToggle = !strafeToggle;
 				anim.SetBool("StrafeToggle", strafeToggle);
+			}
+			if(Input.GetKeyDown(KeyCode.Alpha1) && !isIdleAnimating){
+				playRandomIdle();
+			}
+			else if(Input.GetKeyUp(KeyCode.Alpha1)){
+				stopRandomIdle();
 			}
 		}
 	}
@@ -110,6 +118,17 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		// For gravity
 		moveDirection.y -= 1000 * Time.deltaTime;
 		GetComponent<CharacterController>().Move(moveDirection * Time.deltaTime); 
+	}
+
+	void playRandomIdle(){
+		int animIndex = Random.Range(1,12);
+		anim.SetBool("Idle" + animIndex, true);
+		curRandomAnim = animIndex;
+	}
+
+	void stopRandomIdle(){
+		anim.SetBool("Idle" + curRandomAnim, false);
+		isIdleAnimating = false;
 	}
 
 	void doStamina(){
