@@ -223,14 +223,14 @@ public class BaseAI : Photon.MonoBehaviour {
 	// Sets rules and stats
 	void initAI(){
 		rules = new List<Rule>();
-		//rules.Add( new WantToGetDrink(gameObject) );
-		//rules.Add( new WantToConverse(gameObject) );
-		//rules.Add( new FindRoom(gameObject) );
-		//rules.Add( new WantToWanderRoom(gameObject) );
-		//rules.Add( new WantToMoveRoom(gameObject) );
-		//rules.Add( new NeedToUseRestroom(gameObject) );
-		//rules.Add( new AdmireArt(gameObject) );
-		//rules.Add( new DoIdle(gameObject) );
+		rules.Add( new WantToGetDrink(gameObject) );
+		rules.Add( new WantToConverse(gameObject) );
+		rules.Add( new FindRoom(gameObject) );
+		rules.Add( new WantToWanderRoom(gameObject) );
+		rules.Add( new WantToMoveRoom(gameObject) );
+		rules.Add( new NeedToUseRestroom(gameObject) );
+		rules.Add( new AdmireArt(gameObject) );
+		rules.Add( new DoIdle(gameObject) );
 		rules.Add( new Smoke(gameObject) );
 		//<-------- Rules To Add ------->
 		// Relax
@@ -324,6 +324,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			stream.SendNext(anim.GetBool("Speed"));
 			stream.SendNext(anim.GetBool("Drink"));
 			stream.SendNext(anim.GetBool("Converse"));
+			stream.SendNext(anim.GetBool("Smoking"));
 
 		}else{
 			// Network player, receive data
@@ -332,6 +333,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			anim.SetBool("Speed", (bool) stream.ReceiveNext());
 			anim.SetBool("Drink", (bool) stream.ReceiveNext());
 			anim.SetBool("Converse", (bool) stream.ReceiveNext());
+			anim.SetBool("Smoking", (bool) stream.ReceiveNext());
 		}
 	}
 }
