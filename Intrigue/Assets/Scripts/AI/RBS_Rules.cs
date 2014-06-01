@@ -351,7 +351,9 @@ namespace RBS{
 			bool roomPicked = false;
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 
-			foreach(GameObject relaxLocation in script.room.relaxLocations){
+			GameObject[] relaxLocations = GameObject.FindGameObjectsWithTag("relax");
+
+			foreach(GameObject relaxLocation in relaxLocations){
 				if(!relaxLocation.GetComponent<RelaxHotSpot>().occupied){
 					script.destination = relaxLocation.transform.position;
 					roomPicked = true;
