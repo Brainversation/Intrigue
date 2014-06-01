@@ -146,7 +146,7 @@ public class BaseAI : Photon.MonoBehaviour {
 					if(convoTime < 0){
 						status = Status.Waiting;
 						inConvo = false;
-						Debug.Log("convo time is up");
+						// Debug.Log("convo time is up");
 					} else {
 						convoTime -= Time.deltaTime;
 					}
