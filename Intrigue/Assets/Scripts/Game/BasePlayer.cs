@@ -108,6 +108,7 @@ public class BasePlayer : MonoBehaviour {
 			InvokeRepeating("syncPing", 1, 2F);
 			updateRoundResults();
 			textList.Add("[FF2B2B]Press [-]Enter[FF2B2B] to chat![-]");
+			textList.Add("[FF2B2B]Press [-]Z[FF2B2B] to show/hide chat![-]");
 			cam.farClipPlane = 140.0f;
 			if(hairHat!=null)
 				hairHat.GetComponent<Renderer>().enabled = false;
