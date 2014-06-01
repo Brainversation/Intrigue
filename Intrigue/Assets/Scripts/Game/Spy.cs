@@ -36,8 +36,10 @@ public class Spy : BasePlayer{
 	}
 
 	protected override void Start(){
-		// Guest, Guard, and objective layer
-		layerMask = (1 << GUEST) | (1 << GUARD) | (1 << Objective.OBJECTIVE) | (1 << WALL);
+		layerMask = (1 << GUEST) | (1 << GUARD) |
+					(1 << Objective.OBJECTIVE) |
+					(1 << ObjectiveMain.MAINOBJECTIVE) |
+					(1 << WALL);
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", "Spy"},{"Ping", PhotonNetwork.GetPing()}, {"isOut", false}});	
 		base.Start();
 	}
