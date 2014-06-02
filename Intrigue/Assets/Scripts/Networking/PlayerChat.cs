@@ -121,9 +121,33 @@ public class PlayerChat : MonoBehaviour
 						return true;
 					}
 				break;
+
+			default:
+				foreach(PhotonPlayer p in PhotonNetwork.playerList){
+					if(p!= PhotonNetwork.player && commandTest == "/"+(string)p.customProperties["Handle"]){
+						sendPrivateMessage(commandTest, message, p);
+						return true;
+					}
+				}
+				break;
 		}
 
 		return false;
+	}
+
+	void sendPrivateMessage(string commandTest, string message, PhotonPlayer p){
+		string newMessage = message.Substring(commandTest.Length+1, (message.Length-1)-commandTest.Length);
+			foreach(GameObject gu in GameObject.FindGameObjectsWithTag((string)p.customProperties["Team"])){
+				if(gu.GetComponent<BasePlayer>().localHandle == (string)p.customProperties["Handle"]){
+					if((string)p.customProperties["Team"] == "Guard")
+						gu.GetComponent<Guard>().photonView.RPC("receiveMessage", p, "[FFCC00]["+(string)PhotonNetwork.player.customProperties["Handle"]+"]: " + newMessage + "[-]");
+					else
+						gu.GetComponent<Spy>().photonView.RPC("receiveMessage", p, "[FFCC00]["+(string)PhotonNetwork.player.customProperties["Handle"]+"]: " + newMessage + "[-]");
+				}
+			}
+					
+		textList.Add("[FFCC00][To] " + (string)p.customProperties["Handle"] + ": " + newMessage + "[-]");
+		mInput.value = "";
 	}
 
 	[RPC]
