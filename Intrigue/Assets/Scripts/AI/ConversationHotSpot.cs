@@ -54,8 +54,10 @@ public class ConversationHotSpot : MonoBehaviour {
 		if( canDestroy && queue.Count <= 0){
 			if(BaseAI.aiTesting)
 				Destroy(gameObject);
-			else
+			else{
+				Debug.Log("Destroyed");
 				PhotonNetwork.Destroy(gameObject);
+			}
 		} else {
 			for(int i = 0; i < queue.Count; ++i){
 				if(queue[i].gameObject.layer == BasePlayer.GUARD || queue[i].gameObject.layer == BasePlayer.SPY ||
