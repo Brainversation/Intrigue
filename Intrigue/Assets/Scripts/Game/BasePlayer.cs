@@ -249,7 +249,7 @@ public class BasePlayer : MonoBehaviour {
 
 		//Adding toggle to chat with Z and making chat visible
 		/*------------------------------------------------------*/
-		if(Input.GetKeyUp(KeyCode.Z) && chatArea!= null){
+		if(Input.GetKeyUp(KeyCode.Z) && chatArea!= null && (photonView.isMine || isSpectated)){
 			if(chatArea.GetComponentInChildren<UILabel>().alpha == 1){
 				chatArea.GetComponentInChildren<UILabel>().alpha = 0;
 				chatArea.GetComponentInChildren<UISprite>().alpha = 0;
