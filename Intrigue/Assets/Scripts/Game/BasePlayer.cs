@@ -107,8 +107,9 @@ public class BasePlayer : MonoBehaviour {
 			photonView.RPC("sendID", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
 			InvokeRepeating("syncPing", 1, 2F);
 			updateRoundResults();
-			textList.Add("[FF2B2B]Press [-]Enter[FF2B2B] to chat![-]");
-			textList.Add("[FF2B2B]Press [-]Z[FF2B2B] to show/hide chat![-]");
+			textList.Add("[FFCC00]Press [-]Enter[FFCC00] to chat![-]");
+			textList.Add("[FFCC00]Press [-]Z[FFCC00] to show/hide chat![-]");
+			textList.Add("[FFCC00]Type [-]/[Player Handle][FFCC00] to private message![-]");
 			cam.farClipPlane = 140.0f;
 			if(hairHat!=null)
 				hairHat.GetComponent<Renderer>().enabled = false;
