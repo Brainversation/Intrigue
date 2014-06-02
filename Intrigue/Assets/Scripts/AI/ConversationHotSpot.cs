@@ -19,11 +19,10 @@ using BehaviorTree;
 
 public class ConversationHotSpot : MonoBehaviour {
 
-	private List<GameObject> queue = new List<GameObject>();
+	public List<GameObject> queue = new List<GameObject>();
 	private List<GameObject> players = new List<GameObject>();
 	private Vector3[] spots = null;
 	private Vector3 center;
-	private int population = 0;
 	private int talkerIndex = 0;
 	private float talkerTime = 5;
 	private float radius;
@@ -52,7 +51,7 @@ public class ConversationHotSpot : MonoBehaviour {
 	}
 
 	void Update () {
-		if( canDestroy && population == 0){
+		if( canDestroy && queue.Count <= 0){
 			if(BaseAI.aiTesting)
 				Destroy(gameObject);
 			else
@@ -86,12 +85,10 @@ public class ConversationHotSpot : MonoBehaviour {
 		   other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position){
 			BaseAI script = other.gameObject.GetComponent<BaseAI>();
 			script.agent.SetDestination(spots[queue.Count]);
-			script.anim.SetBool("Speed", true);
-			script.distFromDest = 2;
-			script.status = Status.Waiting;
-			++population;
 			queue.Add(other.gameObject);
 			script.inConvo = true;
+			script.distFromDest = 2;
+			script.status = Status.Waiting;
 		}
 
 		//Activate GUI that says enter conversation hotspot for player
@@ -105,7 +102,6 @@ public class ConversationHotSpot : MonoBehaviour {
 		if(other.gameObject.layer == 8 || other.gameObject.layer == 10){
 			// If player presses E and the GUI element is present, then add to convo
 			if(other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha == 1 && Input.GetKeyUp(Settings.Interact)){
-				++population;
 				queue.Add(other.gameObject);
 				other.gameObject.GetComponent<BasePlayer>().inConvoGUI.alpha = 1;
 				other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
@@ -117,7 +113,6 @@ public class ConversationHotSpot : MonoBehaviour {
 
 	void OnTriggerExit(Collider other){
 		if(other.gameObject.layer == BasePlayer.GUEST && other.GetComponent<BaseAI>().inConvo){
-			--population;
 			queue.Remove(other.gameObject);
 			other.GetComponent<BaseAI>().inConvo = false;
 			if(other.gameObject.GetComponent<Animator>().GetBool("Converse"))
@@ -126,7 +121,6 @@ public class ConversationHotSpot : MonoBehaviour {
 			players.Remove(other.gameObject);
 			other.gameObject.GetComponent<BasePlayer>().conversationGUI.alpha = 0;
 			if(queue.Contains(other.gameObject)){
-				--population;
 				queue.Remove(other.gameObject);
 				other.gameObject.GetComponent<BasePlayer>().inConvoGUI.alpha = 0;
 				if(other.gameObject.GetComponent<Animator>().GetBool("Converse"))

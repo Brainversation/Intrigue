@@ -243,14 +243,14 @@ namespace RBS{
 	}
 
 	class TimeToMove: Condition{
-		private float threshold = 15;
+		private float threshold = 10;
 		public TimeToMove(GameObject gameObject):base(gameObject){
-			threshold = UnityEngine.Random.Range(5, 25);
+			threshold = UnityEngine.Random.Range(0, 10);
 		}
 
 		public override bool test(){
 			BaseAI script = gameObject.GetComponent<BaseAI>();
-			if(script.timeInRoom >= threshold){
+			if(script.timeInRoom <= threshold){
 				return true;
 			}
 			return false;
@@ -258,14 +258,12 @@ namespace RBS{
 	}
 
 	class HalfRoomTime:Condition{
-		private float threshold = 10;
-		public HalfRoomTime(GameObject gameObject):base(gameObject){
-			threshold = UnityEngine.Random.Range(5, 25);
-		}
+		private static float threshold = 10;
+		public HalfRoomTime(GameObject gameObject):base(gameObject){}
 		
 		public override bool test(){
 			BaseAI script = gameObject.GetComponent<BaseAI>();
-			if(script.timeInRoom >= threshold){
+			if(script.timeInRoom <= threshold){
 				return true;
 			}
 			return false;

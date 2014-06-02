@@ -48,6 +48,7 @@ public class AI_RoomState : MonoBehaviour{
 			case BasePlayer.GUEST:
 				other.gameObject.GetComponent<BaseAI>().room = this;
 				other.gameObject.GetComponent<BaseAI>().anxiety += population * 2;
+				other.gameObject.GetComponent<BaseAI>().timeInRoom = 20f;
 				population++;
 				break;
 

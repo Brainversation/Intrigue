@@ -44,10 +44,12 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public AI_RoomState room;
 	[HideInInspector] public Task tree = null;
 	[HideInInspector] public Status status = Status.False;
-	[HideInInspector] public float distFromDest = 5f;
-	[HideInInspector] public float convoTime = 5f;
 	[HideInInspector] public bool isYourTurn = false;
 	[HideInInspector] public bool stunned = false;
+	[HideInInspector] public float distFromDest = 5f;
+	[HideInInspector] public float convoTime = 5f;
+	[HideInInspector] public float timeInRoom = 20f;
+	[HideInInspector] public float ruleTime = 0f;
 
 	// Wants, needs, and feelings 0-100 scale
 	[HideInInspector] public float thirst = 0f;
@@ -61,7 +63,6 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public float happy = 0f;
 	[HideInInspector] public float sad = 0f;
 	[HideInInspector] public float toxicity = 0f;
-	[HideInInspector] public float timeInRoom = 0f;
 
 	//Other AI Characteristics
 	[HideInInspector] public bool smoker = false;
@@ -70,6 +71,17 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	// Used for offline testing
 	public static bool aiTesting = false;
+	public static List<GameObject> aiTestingList;
+	private int AIID;
+
+	void Awake(){
+		if(aiTesting){
+			if(aiTestingList == null)
+				aiTestingList = new List<GameObject>();
+			AIID = aiTestingList.Count;
+			aiTestingList.Add(gameObject);
+		}
+	}
 
 	// Initializes all fields
 	void Start(){
@@ -85,55 +97,55 @@ public class BaseAI : Photon.MonoBehaviour {
 			transform.rotation = Quaternion.Lerp(transform.rotation, this.nextPlayerRot, Time.deltaTime * 5);
 		} else {
 			// Status system that updates the AI appropriately 
+			anim.SetFloat("Speed", agent.velocity.magnitude);
 			switch(status){
 				case Status.False:
 					//Sort the list in terms of weight
-					anim.SetBool("Speed", false);
 					rules.Sort();
 					for (int i = 0; i < rules.Count; i++){
 						if (rules[i].isFired()){
 							currentRule = rules[i];
 							rules[i].weight -= 15;
 							status = rules[i].consequence(gameObject);
-							// Debug.Log(currentRule);
+							ruleTime = 2.5f;
+							Debug.Log(currentRule);
 							break;
 						}
 					}
 				break;
 
 				case Status.True:
-					status = Status.Waiting;
-					Invoke("backToRule", 2.5f);
+					if(ruleTime > 0){
+						status = Status.Waiting;
+					} else {
+						ruleTime -= Time.deltaTime;
+					}
 				break;
 
 				case Status.Tree:
 					if( tree.run(gameObject) == Status.True){
-						Invoke("backToRule", 5f);
+						backToRule();
 						tree = null;
 						status = Status.Waiting;
 					}
 				break;
 
 				case Status.Waiting:
-					if(stunned)
+					if(stunned){
 						return;
-
-					if (agent.pathStatus == NavMeshPathStatus.PathPartial ||
+					} else if (agent.pathStatus == NavMeshPathStatus.PathPartial ||
 						agent.pathStatus == NavMeshPathStatus.PathInvalid){
-						anim.SetBool("Speed", false);
 						agent.ResetPath();
 						tree = null;
-						CancelInvoke();
 						backToRule();
-					}
-
-					if(agent.hasPath && !agent.pathPending && agent.remainingDistance < distFromDest){
-						anim.SetBool("Speed", false);
+						status = Status.False;
+					} else if(agent.hasPath && agent.remainingDistance < distFromDest){
 						agent.ResetPath();
 						if(tree != null){
 							status = Status.Tree;
 						} else if(inConvo){
 							status = Status.Convo;
+							Debug.Log("convo time started");
 							convoTime = 5f;
 						} else {
 							status = Status.False;
@@ -144,9 +156,8 @@ public class BaseAI : Photon.MonoBehaviour {
 
 				case Status.Convo:
 					if(convoTime < 0){
-						status = Status.Waiting;
-						inConvo = false;
-						// Debug.Log("convo time is up");
+						status = Status.False;
+						Debug.Log("convo time is up");
 					} else {
 						convoTime -= Time.deltaTime;
 					}
@@ -195,8 +206,8 @@ public class BaseAI : Photon.MonoBehaviour {
 			if( happy < 100) happy += 2f;
 			if( sad < 100) sad += 2f;
 			if( toxicity < 100) toxicity += 2f;
-			if(timeInRoom <= 15){
-				timeInRoom +=5f;
+			if(timeInRoom > 0){
+				timeInRoom -=5f;
 			}
 			updateWants = 5f;
 		} else {
@@ -208,7 +219,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	void OnGUI(){
 		if(!BaseAI.aiTesting) return;
 		GUI.color = Color.black;
-		GUILayout.BeginArea(new Rect(100, 0, 100, 200));
+		GUILayout.BeginArea(new Rect(75*AIID, 0, 100, 200));
 			GUILayout.Label( "thirst " + thirst);
 			GUILayout.Label( "bored " + bored);
 			GUILayout.Label( "hunger " + hunger);
@@ -216,6 +227,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			GUILayout.Label( "tired " + tired);
 			GUILayout.Label( "anxiety " + anxiety);
 			GUILayout.Label( "bladder " + bladder);
+			GUILayout.Label( status.ToString() );
 		GUILayout.EndArea();
 	}
 #endif
@@ -230,7 +242,6 @@ public class BaseAI : Photon.MonoBehaviour {
 		rules.Add( new WantToMoveRoom(gameObject) );
 		rules.Add( new NeedToUseRestroom(gameObject) );
 		rules.Add( new AdmireArt(gameObject) );
-		rules.Add( new DoIdle(gameObject) );
 		rules.Add( new Smoke(gameObject) );
 		//<-------- Rules To Add ------->
 		// Relax
@@ -242,7 +253,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			hunger = 0;
 			lonely = 51;
 			tired = 0;
-			anxiety = 51;
+			anxiety = 0;
 			bladder = 0;
 			anger = 0;
 			happy = 0;
@@ -269,7 +280,6 @@ public class BaseAI : Photon.MonoBehaviour {
 	void backToRule(){
 		if(currentRule != null && currentRule.antiConsequence != null)
 			currentRule.antiConsequence();
-		if(!agent.hasPath) status = Status.False;
 	}
 
 	void finishStun(){
@@ -291,7 +301,6 @@ public class BaseAI : Photon.MonoBehaviour {
 		if(PhotonNetwork.isMasterClient){
 			stunned = true;
 			status = Status.Waiting;
-			anim.SetBool("Speed", false);
 			agent.ResetPath();
 			CancelInvoke();
 			Invoke("backToRule", 5);
@@ -321,7 +330,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			// We own this player: send the others our data
 			stream.SendNext(transform.position);
 			stream.SendNext(transform.rotation);
-			stream.SendNext(anim.GetBool("Speed"));
+			stream.SendNext(anim.GetFloat("Speed"));
 			stream.SendNext(anim.GetBool("Drink"));
 			stream.SendNext(anim.GetBool("Converse"));
 			stream.SendNext(anim.GetBool("Smoking"));
@@ -330,7 +339,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			// Network player, receive data
 			this.nextPlayerPos = (Vector3) stream.ReceiveNext();
 			this.nextPlayerRot = (Quaternion) stream.ReceiveNext();
-			anim.SetBool("Speed", (bool) stream.ReceiveNext());
+			anim.SetFloat("Speed", (float) stream.ReceiveNext());
 			anim.SetBool("Drink", (bool) stream.ReceiveNext());
 			anim.SetBool("Converse", (bool) stream.ReceiveNext());
 			anim.SetBool("Smoking", (bool) stream.ReceiveNext());
