@@ -170,13 +170,12 @@ public class Pregame : MonoBehaviour {
 	void OnPhotonPlayerConnected(PhotonPlayer newPlayer){
 		if(PhotonNetwork.isMasterClient){
 			photonView.RPC("guestCount", PhotonTargets.Others, player.Guests);
-			//photonView.RPC("receiveMessage", PhotonTargets.All,(string)newPlayer.customProperties["Handle"] + " [FFCC00]has joined the lobby![-]");
 		}
 		textList.Add((string)newPlayer.customProperties["Handle"] + " [FFCC00]has joined the lobby![-]");
 	}
 
 	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
-		photonView.RPC("reloadScoreboard", PhotonTargets.All);
+		reloadScoreboard();
 		textList.Add((string)photonPlayer.customProperties["Handle"] + " [FFCC00]has disconnected.[-]");
 	}
 

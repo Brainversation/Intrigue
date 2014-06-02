@@ -186,15 +186,15 @@ public class Guard : BasePlayer{
 			photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 			pointPop.GetComponent<TextMesh>().text = "+100";
 			Instantiate(pointPop, accused.transform.position + (Vector3.up * accused.GetComponent<Collider>().bounds.size.y), accused.transform.rotation);
-			photonView.RPC("invokeSpyCaught", PhotonTargets.All);
-			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.All);
+			photonView.RPC("invokeSpyCaught", PhotonTargets.MasterClient);
+			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.MasterClient);
 			accused.GetComponent<BasePlayer>().isOut = true;
 			spyCaughtLabel.SetActive(true);
 			Invoke("removeSpyCaughtLabel", 2);
 			base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + accused.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
 			accused = null;
 		}else{
-			photonView.RPC("invokeGuardFailed", PhotonTargets.All );
+			photonView.RPC("invokeGuardFailed", PhotonTargets.Master );
 			isOut = true;
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"isOut", true}});
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
@@ -233,6 +233,7 @@ public class Guard : BasePlayer{
 	}
 
 	void guardFailed(){
+		Debug.Log("die guard die");
 	    --Intrigue.numGuardsLeft;
 	}
 

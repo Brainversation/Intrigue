@@ -177,12 +177,12 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void spawnGuard(){
-		photonView.RPC("addGuard",PhotonTargets.All);
+		photonView.RPC("addGuard", PhotonTargets.MasterClient);
 		photonView.RPC("sendSpawnPoint", PhotonTargets.MasterClient);
 	}
 
 	void spawnSpy(){
-		photonView.RPC("addSpy",PhotonTargets.All);
+		photonView.RPC("addSpy", PhotonTargets.MasterClient);
 		photonView.RPC("sendSpawnPoint", PhotonTargets.MasterClient);
 	}
 
@@ -285,7 +285,7 @@ public class Intrigue : MonoBehaviour {
 						rotation, 0);
 
 		player.TeamID = (int)PhotonNetwork.player.customProperties["TeamID"];
-		photonView.RPC("ready", PhotonTargets.All);
+		photonView.RPC("ready", PhotonTargets.MasterClient);
 	}
 
 	[RPC]

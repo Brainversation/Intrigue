@@ -51,9 +51,9 @@ public class NetworkConnection : Photon.MonoBehaviour {
 	void OnPhotonPlayerConnected(PhotonPlayer newPlayer){
 		if(PhotonNetwork.player.ID == newPlayer.ID){
 			if(player.Team == "Guard")
-				photonView.RPC("reAddGuard", PhotonTargets.All);
+				photonView.RPC("reAddGuard", PhotonTargets.MasterClient);
 			else
-				photonView.RPC("reAddSpy", PhotonTargets.All);
+				photonView.RPC("reAddSpy", PhotonTargets.MasterClient);
 		}
 
 		if((string)newPlayer.customProperties["Team"] == "Guard"){
@@ -67,10 +67,10 @@ public class NetworkConnection : Photon.MonoBehaviour {
 
 	void OnPhotonPlayerDisconnected(PhotonPlayer photonPlayer){
 		if( (string)photonPlayer.customProperties["Team"] == "Guard" ){
-			if( !(bool)photonPlayer.customProperties["isOut"] )photonView.RPC("removeGuard", PhotonTargets.All);
+			if( PhotonNetwork.isMasterClient && !(bool)photonPlayer.customProperties["isOut"] )removeGuard();
 			player.GetComponent<BasePlayer>().newEvent("[FF2B2B]" + (string)photonPlayer.customProperties["Handle"]  + "[-][FFCC00] has disconnected.[-]");
 		} else {
-			if( !(bool)photonPlayer.customProperties["isOut"] )photonView.RPC("removeSpy", PhotonTargets.All);
+			if( PhotonNetwork.isMasterClient && !(bool)photonPlayer.customProperties["isOut"] )removeSpy();
 			player.GetComponent<BasePlayer>().newEvent("[00CCFF]" + (string)photonPlayer.customProperties["Handle"]  + "[-][FFCC00] has disconnected.[-]");
 		}
 	}
