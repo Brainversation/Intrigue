@@ -193,6 +193,7 @@ public class BasePlayer : MonoBehaviour {
 			if(chatWindow.alpha == 1){
 				isChatting = true;
 				chatArea.GetComponentInChildren<UILabel>().alpha = 1;
+				chatArea.GetComponentInChildren<UISprite>().alpha = 1;
 			}
 			else{ 
 				isChatting = false;
@@ -248,7 +249,7 @@ public class BasePlayer : MonoBehaviour {
 
 		//Adding toggle to chat with Z and making chat visible
 		/*------------------------------------------------------*/
-		if(Input.GetKeyUp(KeyCode.Z)){
+		if(Input.GetKeyUp(KeyCode.Z) && chatArea!= null){
 			if(chatArea.GetComponentInChildren<UILabel>().alpha == 1){
 				chatArea.GetComponentInChildren<UILabel>().alpha = 0;
 				chatArea.GetComponentInChildren<UISprite>().alpha = 0;

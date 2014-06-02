@@ -194,11 +194,17 @@ public class Spy : BasePlayer{
 	}
 
 	void toggleChatOff(){
-		chatArea.GetComponentInChildren<UILabel>().alpha = 0;
+		if(chatArea!=null){
+			chatArea.GetComponentInChildren<UILabel>().alpha = 0;
+			chatArea.GetComponentInChildren<UISprite>().alpha = 0;
+		}
 	}
 
 	void toggleChatOn(){
-		chatArea.GetComponentInChildren<UILabel>().alpha = 1;
+		if(chatArea!=null){
+			chatArea.GetComponentInChildren<UILabel>().alpha = 1;
+			chatArea.GetComponentInChildren<UISprite>().alpha = 1;
+		}
 	}
 
 	void objAnimations(){
