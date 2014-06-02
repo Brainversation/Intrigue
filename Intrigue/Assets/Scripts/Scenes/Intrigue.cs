@@ -26,6 +26,7 @@ public class Intrigue : MonoBehaviour {
 
 	private static int roundsLeft = MAXROUNDS;
 	private static float timeLeft = TIMELIMIT;
+	private static PhotonView photonView = null;
 
 	private int numSpies = 0;
 	private int numGuards = 0;
@@ -34,7 +35,6 @@ public class Intrigue : MonoBehaviour {
 	private int winningTeamThisRound;
 	private float totalObjActive;
 	private Player player;
-	private PhotonView photonView = null;
 	private Transform spawnTrans;
 	private List<Transform> spawns = new List<Transform>();
 	private List<Transform> availableSpawns = new List<Transform>();
@@ -242,6 +242,24 @@ public class Intrigue : MonoBehaviour {
 		objectivesCompleted = 0;
 		finalRoundOver = false;
 		roundResults.Clear();
+	}
+
+	public static IEnumerator sendResetRound(){
+		foreach(PhotonPlayer p in PhotonNetwork.playerList){
+			if(PhotonNetwork.player != p){
+				Intrigue.photonView.RPC("resetRound", p);
+				yield return new WaitForSeconds(0.5f);
+			}
+		}
+		Intrigue.photonView.RPC("resetRound", PhotonTargets.MasterClient);
+	}
+
+	[RPC]
+	public void resetRound(){
+		this.numSpies = Intrigue.numSpiesLeft =
+		this.numGuards = Intrigue.numGuardsLeft =
+		Intrigue.objectivesCompleted = 0;
+		PhotonNetwork.LoadLevel("Intrigue");
 	}
 
 	[RPC]

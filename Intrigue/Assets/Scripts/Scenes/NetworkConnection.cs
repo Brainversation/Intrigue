@@ -77,7 +77,7 @@ public class NetworkConnection : Photon.MonoBehaviour {
 
 	void OnMasterClientSwitched(PhotonPlayer newMasterClient){
 		if(PhotonNetwork.player.ID == newMasterClient.ID){
-			GameObject.FindWithTag("Scripts").GetComponent<Intrigue>().enabled = true;
+			StartCoroutine(Intrigue.sendResetRound());
 		}
 	}
 
