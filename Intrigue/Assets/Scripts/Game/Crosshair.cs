@@ -46,7 +46,7 @@ public class Crosshair : MonoBehaviour {
 						if(currGo.layer == BasePlayer.GUARD && !currGo.GetComponent<Guard>().stunned && !currGo.GetComponent<Guard>().recentlyStunned){
 							canInteract = true;
 						}
-						if(currGo.layer == BasePlayer.GUEST && !currGo.GetComponent<BaseAI>().recentlyStunned){
+						if(currGo.layer == BasePlayer.GUEST && !currGo.GetComponent<BaseAI>().stunned && !currGo.GetComponent<BaseAI>().recentlyStunned){
 							canInteract = true;
 						}
 				}

@@ -153,19 +153,24 @@ public class Spy : BasePlayer{
 		RaycastHit hit;
 		if( Physics.Raycast(ray, out hit, 15f, layerMask) ){
 			if(stuns>=1){
-				if(hit.transform.gameObject.layer == BasePlayer.GUARD && !hit.transform.gameObject.GetComponent<Guard>().stunned && !hit.transform.gameObject.GetComponent<Guard>().recentlyStunned){
-					//Audio for stun
-					if(!stunAudio.isPlaying){
-						stunAudio.Play();
-						photonView.RPC("playStunAudio", PhotonTargets.Others);
+				if(hit.transform.gameObject.layer == BasePlayer.GUARD){
+					if(!hit.transform.gameObject.GetComponent<Guard>().stunned && !hit.transform.gameObject.GetComponent<Guard>().recentlyStunned){
+					
+						//Audio for stun
+						if(!stunAudio.isPlaying){
+							stunAudio.Play();
+							photonView.RPC("playStunAudio", PhotonTargets.Others);
+						}
+
+						pointPop.GetComponent<TextMesh>().text = "+50";
+						Instantiate(pointPop, hit.transform.position + (Vector3.up * hit.transform.gameObject.GetComponent<Collider>().bounds.size.y), hit.transform.rotation);
+						photonView.RPC("addPlayerScore", PhotonTargets.All, 50, player.TeamID);
+						hit.transform.GetComponent<PhotonView>().RPC("stunGuard", PhotonTargets.All);
+						hit.transform.gameObject.GetComponent<Guard>().stunned = true;
+						stuns--;
+						base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned [-][FF2B2B]" + hit.transform.gameObject.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
+				
 					}
-					pointPop.GetComponent<TextMesh>().text = "+50";
-					Instantiate(pointPop, hit.transform.position + (Vector3.up * hit.transform.gameObject.GetComponent<Collider>().bounds.size.y), hit.transform.rotation);
-					photonView.RPC("addPlayerScore", PhotonTargets.All, 50, player.TeamID);
-					hit.transform.GetComponent<PhotonView>().RPC("stunGuard", PhotonTargets.All);
-					hit.transform.gameObject.GetComponent<Guard>().stunned = true;
-					stuns--;
-					base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned [-][FF2B2B]" + hit.transform.gameObject.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
 				}
 				else if(!hit.transform.gameObject.GetComponent<BaseAI>().stunned && !hit.transform.gameObject.GetComponent<BaseAI>().recentlyStunned){
 					//Audio for stun
