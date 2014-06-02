@@ -332,8 +332,9 @@ public class Intrigue : MonoBehaviour {
 		if(roundsLeft > 0){
 			--roundsLeft;
 			enabled = false;
-			this.numSpies = Intrigue.numSpiesLeft = 0;
-			this.numGuards = Intrigue.numGuardsLeft = 0;
+			this.numSpies = Intrigue.numSpiesLeft =
+			this.numGuards = Intrigue.numGuardsLeft =
+			Intrigue.objectivesCompleted = 0;
 
 			//Swaps Teams
 			if(player.Team == "Spy"){
