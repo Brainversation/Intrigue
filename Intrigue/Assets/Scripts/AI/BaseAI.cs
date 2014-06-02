@@ -71,7 +71,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool inConvo = false;
 
 	// Used for offline testing
-	public static bool aiTesting = true;
+	public static bool aiTesting = false;
 	public static List<GameObject> aiTestingList;
 	private int AIID;
 
