@@ -31,7 +31,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private Quaternion correctPlayerRot;
 	private Animator anim;
 	private Player player;
-	private Vector3 camStart;
 	private float stamina = 100;
 	private float staminaDrainSpeed;
 	private float staminaRegenSpeed;
@@ -53,7 +52,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			staminaDrainSpeed = 15;
 			staminaRegenSpeed = 10;
 		}
-		camStart = cam.transform.localPosition;
 		strafeToggle = true;
 		anim.SetBool("StrafeToggle", strafeToggle);
 		photonView.RPC("toggleOtherAnims", PhotonTargets.Others, "StrafeToggle", strafeToggle);
@@ -144,13 +142,11 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		if(canMove && stamina>=1 && Input.GetKey(Settings.Sprint) && Input.GetAxis("Vertical")!=0){
 			stamina-=staminaDrainSpeed*Time.deltaTime;
 			canRegen = false;
-			cam.transform.localPosition = camStart + new Vector3(0f,0f,2f);
 			anim.SetBool("Run", Input.GetKey(Settings.Sprint));
 			speedMult = Mathf.PI;
 		} 
 		else {
 			speedMult = 1;
-			cam.transform.localPosition = camStart;
 			if(!canRegen){
 				Invoke("StartRegen", 3);
 			}
