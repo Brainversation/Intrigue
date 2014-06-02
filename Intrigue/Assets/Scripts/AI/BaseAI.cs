@@ -71,7 +71,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool inConvo = false;
 
 	// Used for offline testing
-	public static bool aiTesting = false;
+	public static bool aiTesting = true;
 	public static List<GameObject> aiTestingList;
 	private int AIID;
 
@@ -88,6 +88,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	void Start(){
 		anim = GetComponent<Animator>();
 		GetComponent<NavMeshAgent>().speed = NetworkCharacter.CHARSPEED;
+		agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
 		initAI();
 	}
 
@@ -146,7 +147,6 @@ public class BaseAI : Photon.MonoBehaviour {
 							status = Status.Tree;
 						} else if(inConvo){
 							status = Status.Convo;
-							Debug.Log("convo time started");
 							convoTime = 5f;
 						} else {
 							status = Status.False;
@@ -158,7 +158,6 @@ public class BaseAI : Photon.MonoBehaviour {
 				case Status.Convo:
 					if(convoTime < 0){
 						status = Status.False;
-						Debug.Log("convo time is up");
 					} else {
 						convoTime -= Time.deltaTime;
 					}
@@ -244,6 +243,7 @@ public class BaseAI : Photon.MonoBehaviour {
 		rules.Add( new NeedToUseRestroom(gameObject) );
 		rules.Add( new AdmireArt(gameObject) );
 		rules.Add( new Smoke(gameObject) );
+		rules.Add( new DoIdle(gameObject) );
 		//<-------- Rules To Add ------->
 		// Relax
 		// LetOffSteam

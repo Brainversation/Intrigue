@@ -25,6 +25,7 @@ namespace RBS{
 		public WantToMoveRoom(GameObject gameObject){
 			this.addCondition(new TimeToMove(gameObject));
 			this.consequence = goToRoom;
+			this.antiConsequence = atRoom;
 			this.weight = 10;
 			this.go = gameObject;
 		}
@@ -61,13 +62,18 @@ namespace RBS{
             script.agent.SetDestination(newDest);
             return Status.Waiting;
 		}
+
+		private Status atRoom(){
+			go.GetComponent<BaseAI>().timeInRoom = 0f;
+			return Status.True;
+		}
 	}
 
 	class WantToWanderRoom : Rule{
 		public WantToWanderRoom(GameObject gameObject){
 			this.addCondition(new HalfRoomTime(gameObject));
 			this.consequence = wanderRoom;
-			this.weight = 10;
+			this.weight = 6;
 		}
 
 		private Status wanderRoom(GameObject gameObject){
@@ -108,7 +114,7 @@ namespace RBS{
 			this.addCondition(new IsBored(gameObject));
 			this.consequence = setDestRoom;
 			this.antiConsequence = stopDrinking;
-			this.weight = 10;
+			this.weight = 7;
 			this.go = gameObject;
 		}
 
@@ -139,13 +145,16 @@ namespace RBS{
 	}
 
 	class WantToConverse : Rule{
+		protected int offset;
+
 		public WantToConverse(GameObject gameObject){
+			offset = ConversationHotSpot.max;
 			this.addCondition( new IsLonely(gameObject) );
 			this.addCondition( new IsBored(gameObject) );
 			this.addCondition( new NotInConvo(gameObject) );
 			this.addCondition( new RoomHasPeople(gameObject) );
 			this.consequence = handleConverse;
-			this.weight = 10;
+			this.weight = 7;
 		}
 
 		private Status handleConverse(GameObject gameObject){
@@ -160,7 +169,7 @@ namespace RBS{
 			script.lonely -= 30;
 			script.bored -= 20;
 
-			if(conversers.Count == 0 || conversers.Count >= ConversationHotSpot.max){
+			if(conversers.Count == 0 || conversers.Count >= offset){
 				script.destination = gameObject.transform.position;
 				if(BaseAI.aiTesting)
 					UnityEngine.Object.Instantiate(Resources.Load<GameObject>("ConversationHotSpot"), gameObject.transform.position, Quaternion.identity);
@@ -212,7 +221,7 @@ namespace RBS{
 			this.addCondition(new HasArt(gameObject));
 			this.addCondition(new IsBored(gameObject));
 			this.consequence = goToArt;
-			this.weight = 10;
+			this.weight = 6;
 		}
 
 		private Status goToArt(GameObject gameObject){
@@ -327,7 +336,6 @@ namespace RBS{
 			this.addCondition(new IsBored(gameObject));
 			this.addCondition(new IsSmoker(gameObject));
 			this.consequence = goSmoke;
-			this.weight = 10;
 		}
 
 		private Status goSmoke(GameObject gameObject){
@@ -367,7 +375,6 @@ namespace RBS{
 			this.addCondition(new IsHappy(gameObject));
 			this.addCondition(new IsNotAnxious(gameObject));
 			this.addCondition(new IsNoPoet(gameObject));
-			this.weight = 10;
 		}
 
 		private Status doPoetry(GameObject gameObject){
@@ -380,6 +387,19 @@ namespace RBS{
 			script.agent.SetDestination(script.destination);
 
 			return Status.Waiting;
+		}
+	}
+
+	class DoIdle : Rule{
+		public DoIdle(GameObject gameObject){
+			this.addCondition(new StayStill());
+			this.consequence = stay;
+			this.weight = 1;
+		}
+
+		private Status stay(GameObject gameObject){
+			gameObject.GetComponent<BaseAI>().tree = new IdleSelector();
+			return Status.Tree;
 		}
 	}
 }
