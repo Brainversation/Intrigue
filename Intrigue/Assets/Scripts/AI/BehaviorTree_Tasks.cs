@@ -66,7 +66,6 @@ namespace BehaviorTree{
 	class GoToDestination : Task {
 		public override Status run(GameObject gameObject){
 			Vector3 dest = gameObject.GetComponent<BaseAI>().destination;
-			gameObject.GetComponent<Animator>().SetBool("Speed", true);
 			gameObject.GetComponent<BaseAI>().distFromDest = 10f;
 			gameObject.GetComponent<BaseAI>().status = Status.Waiting;
 			gameObject.GetComponent<NavMeshAgent>().SetDestination(dest);
@@ -84,7 +83,6 @@ namespace BehaviorTree{
 															gameObject.GetComponent<BaseAI>().room.me.GetComponent<Collider>().bounds.max.z));
 			gameObject.GetComponent<BaseAI>().destination = newDest;
 			gameObject.GetComponent<BaseAI>().distFromDest = 1f;
-			gameObject.GetComponent<Animator>().SetBool("Speed", true);
 			gameObject.GetComponent<BaseAI>().status = Status.Waiting;
 			gameObject.GetComponent<NavMeshAgent>().SetDestination(newDest);
 			return Status.True;
