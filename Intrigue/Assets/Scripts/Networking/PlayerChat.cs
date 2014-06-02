@@ -124,7 +124,7 @@ public class PlayerChat : MonoBehaviour
 
 			default:
 				foreach(PhotonPlayer p in PhotonNetwork.playerList){
-					if(p!= PhotonNetwork.player && commandTest == "/"+(string)p.customProperties["Handle"]){
+					if(p!= PhotonNetwork.player && commandTest == ("/"+(string)p.customProperties["Handle"])){
 						sendPrivateMessage(commandTest, message, p);
 						return true;
 					}

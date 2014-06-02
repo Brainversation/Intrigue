@@ -144,7 +144,7 @@ public class Pregame : MonoBehaviour {
 
 			default:
 				foreach(PhotonPlayer p in PhotonNetwork.playerList){
-					if(p!= PhotonNetwork.player && commandTest == "/"+(string)p.customProperties["Handle"]){
+					if(p!= PhotonNetwork.player && commandTest == ("/"+(string)p.customProperties["Handle"])){
 						string newMessage = message.Substring(commandTest.Length+1, (message.Length-1)-commandTest.Length);
 						photonView.RPC("receiveMessage", p, "[FFCC00]["+(string)PhotonNetwork.player.customProperties["Handle"]+"]: " + newMessage + "[-]");
 						textList.Add("[FFCC00][To] " + (string)p.customProperties["Handle"] + ": " + newMessage + "[-]");
