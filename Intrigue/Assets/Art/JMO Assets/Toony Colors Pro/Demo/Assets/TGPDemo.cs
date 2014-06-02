@@ -243,17 +243,17 @@ public class TGPDemo : MonoBehaviour
 	private void UpdateGUI()
 	{
 		foreach(GameObject obj in actRim)
-			obj.SetActiveRecursively(rim);
+			obj.SetActive(rim);
 		
 		foreach(GameObject obj in actRimOutline)
-			obj.SetActiveRecursively(rimOutline);
+			obj.SetActive(rimOutline);
 		
 		UpdateGUITButtons();
 	}
 	
 	private void UpdateGUITButtons()
 	{
-		GUIT_Button[] buttons = (GUIT_Button[])FindSceneObjectsOfType(typeof(GUIT_Button));
+		GUIT_Button[] buttons = (GUIT_Button[])FindObjectsOfType(typeof(GUIT_Button));
 		foreach(GUIT_Button btn in buttons)
 		{
 			switch(btn.callback)

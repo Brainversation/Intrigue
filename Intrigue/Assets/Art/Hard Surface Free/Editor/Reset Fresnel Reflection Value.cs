@@ -16,7 +16,7 @@ public class MaterialValuesCopier : ScriptableObject
     	
     	foreach (Material m in Selection.GetFiltered(typeof(Material), SelectionMode.DeepAssets))
         {
-        	Undo.RegisterUndo (m, "Material Copy Change");
+        	Undo.RecordObject (m, "Material Copy Change");
         	        	
         	if(m.HasProperty("_FrezPow"))
 			{
