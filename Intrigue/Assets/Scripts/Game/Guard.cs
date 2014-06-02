@@ -194,7 +194,7 @@ public class Guard : BasePlayer{
 			base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + accused.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
 			accused = null;
 		}else{
-			photonView.RPC("invokeGuardFailed", PhotonTargets.Master );
+			photonView.RPC("invokeGuardFailed", PhotonTargets.MasterClient );
 			isOut = true;
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"isOut", true}});
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
