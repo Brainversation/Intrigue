@@ -108,7 +108,7 @@ public class BaseAI : Photon.MonoBehaviour {
 							rules[i].weight -= 15;
 							status = rules[i].consequence(gameObject);
 							ruleTime = 2.5f;
-							Debug.Log(currentRule);
+							// Debug.Log(currentRule);
 							break;
 						}
 					}
