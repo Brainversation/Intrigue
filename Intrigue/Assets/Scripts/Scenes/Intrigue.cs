@@ -164,7 +164,7 @@ public class Intrigue : MonoBehaviour {
 						winningTeamThisRound = 1;
 				}
 				roundResults.Add(winningTeamThisRound);
-				StartCoroutine(callGameOver(roundResult, winningTeamThisRound));
+				photonView.RPC("gameOver", PhotonTargets.AllBuffered, roundResult, winningTeamThisRound);
 			}
 		}
 	}
@@ -206,16 +206,6 @@ public class Intrigue : MonoBehaviour {
 		spawnIndex = Random.Range(0,availableSpawns.Count-1);
 		spawnTrans = availableSpawns[spawnIndex];
 		availableSpawns.RemoveAt(spawnIndex);
-	}
-
-	IEnumerator callGameOver(string resultFromMC, int winningTeam){
-		foreach(PhotonPlayer p in PhotonNetwork.playerList){
-			if(PhotonNetwork.player != p){
-				photonView.RPC("gameOver", p, resultFromMC, winningTeam);
-				yield return new WaitForSeconds(0.5f);
-			}
-		}
-		gameOver(resultFromMC, winningTeam);
 	}
 
 	public float GetTimeLeft{
