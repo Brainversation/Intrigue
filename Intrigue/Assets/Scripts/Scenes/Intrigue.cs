@@ -19,6 +19,8 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class Intrigue : MonoBehaviour {
 
+	public GameObject loadingScreenObject;
+
 	private const float TIMELIMIT = 420;
 	private const int MAXROUNDS = 3;
 
@@ -47,6 +49,7 @@ public class Intrigue : MonoBehaviour {
 	[HideInInspector] public bool doneLoading = false;
 	[HideInInspector] public float loadedGuests = 0;
 	[HideInInspector] public float totalGuests;
+	[HideInInspector] public static bool finalRoundOver = false;
 	[HideInInspector] public static int objectivesCompleted = 0;
 	[HideInInspector] public static List<int> roundResults = new List<int>();
 	
@@ -119,7 +122,7 @@ public class Intrigue : MonoBehaviour {
 		timeLeft -= Time.deltaTime;
 		photonView.RPC("syncTime", PhotonTargets.Others, timeLeft);
 		if( timeLeft <= 0 || numSpiesLeft<=0 || numGuardsLeft <=0 || objectivesCompleted == 2){
-			if(wantGameOver){
+			if(wantGameOver && !finalRoundOver){
 				int roundResultInstance;
 				if(timeLeft<=0){
 					roundResult = "Time Limit Reached.\nGuards Win!";
@@ -239,7 +242,8 @@ public class Intrigue : MonoBehaviour {
 			
 			PhotonNetwork.LoadLevel("Intrigue");
 		} else {
-			PhotonNetwork.LoadLevel("PostGame");
+			finalRoundOver = true;
+			loadingScreenObject.SetActive(true);
 		}
 	}
 
@@ -265,6 +269,7 @@ public class Intrigue : MonoBehaviour {
 		roundsLeft = MAXROUNDS;
 		timeLeft = TIMELIMIT;
 		objectivesCompleted = 0;
+		finalRoundOver = false;
 		roundResults.Clear();
 	}
 

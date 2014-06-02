@@ -82,7 +82,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	public void FixedUpdate(){
 		if(photonView.isMine){
 			if((player.Team != "Spy" || !Intrigue.playerGO.GetComponent<Spy>().doingObjective) &&
-				!isOut && !gameObject.GetComponent<BasePlayer>().isChatting && !isStunned){
+				!isOut && !gameObject.GetComponent<BasePlayer>().isChatting && !isStunned && !Intrigue.finalRoundOver){
 				// Stamina functionality
 				doStamina();
 

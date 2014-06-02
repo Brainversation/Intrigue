@@ -17,7 +17,6 @@ using System.Collections;
 
 public class LoadingScreenV2 : MonoBehaviour {
 
-	public string levelToLoad;
 	public GameObject UIRoot;
 	public GameObject bg;
 	public GameObject loadingBar;
@@ -70,7 +69,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 	}
 
 	void Update(){
-		if(intrigue.gameStart){
+		if(intrigue.gameStart && !Intrigue.finalRoundOver){
 			transform.parent.gameObject.SetActive(false);
 
 			foreach (GameObject guard in guards){
@@ -108,6 +107,10 @@ public class LoadingScreenV2 : MonoBehaviour {
 			Invoke("beepLow",2);
 			Invoke("beepLow",3);
 			Invoke("beepHigh",4);
+		}
+
+		if(Intrigue.finalRoundOver){
+			finalRoundInfo();
 		}
 	}
 
@@ -161,6 +164,43 @@ public class LoadingScreenV2 : MonoBehaviour {
 		}
 
 		return tip;
+	}
+
+	void finalRoundInfo(){
+		Invoke("EndGame", 5f);
+		foreach (GameObject guard in guards){
+			guard.GetComponentInChildren<Camera>().GetComponentInChildren<MouseLook>().enabled = false;
+			guard.GetComponentInChildren<MouseLook>().enabled = false;
+		}
+		foreach (GameObject spy in spies){
+			spy.GetComponentInChildren<Camera>().GetComponentInChildren<MouseLook>().enabled = false;
+			spy.GetComponentInChildren<MouseLook>().enabled = false;
+		}
+
+		NGUITools.SetActive(loadingBar, false);
+		NGUITools.SetActive(loadTimer, false);
+		NGUITools.SetActive(loadNextRound, false);
+		NGUITools.SetActive(loadTip, false);
+
+		if((int)PhotonNetwork.player.customProperties["Team1Score"] > (int)PhotonNetwork.player.customProperties["Team2Score"]){
+			if((int)PhotonNetwork.player.customProperties["TeamID"] == 1){
+				loadTitle.GetComponent<UILabel>().text = "[FFCC00]VICTORY[-]";
+			}else{
+				loadTitle.GetComponent<UILabel>().text = "[FF2B2B]DEFEAT[-]";
+			}
+		}else{
+			if((int)PhotonNetwork.player.customProperties["TeamID"] == 2){
+				loadTitle.GetComponent<UILabel>().text = "[FFCC00]VICTORY[-]";
+			}else{
+				loadTitle.GetComponent<UILabel>().text = "[FF2B2B]DEFEAT[-]";
+			}
+		}
+		loadResult.GetComponent<UILabel>().text = player.PrevResult;
+
+	}
+
+	void EndGame(){
+		PhotonNetwork.LoadLevel("PostGame");
 	}
 
 	[RPC]
