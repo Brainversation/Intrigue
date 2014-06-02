@@ -164,7 +164,7 @@ public class Intrigue : MonoBehaviour {
 						winningTeamThisRound = 1;
 				}
 				roundResults.Add(winningTeamThisRound);
-				photonView.RPC("callGameOver", PhotonTargets.AllBuffered, roundResult, winningTeamThisRound);
+				StartCoroutine(callGameOver(roundResult, winningTeamThisRound));
 			}
 		}
 	}
@@ -208,43 +208,14 @@ public class Intrigue : MonoBehaviour {
 		availableSpawns.RemoveAt(spawnIndex);
 	}
 
-	void gameOver(){
-		gameOverFlag = true;
-		if(playerGO!=null){
-			playerGO.GetComponentInChildren<Camera>().enabled = false;
-			playerGO.GetComponentInChildren<AudioListener>().enabled = false;
-		}
-
-		//Add bonus points for winning round
-		if(winningTeamThisRound==1){
-			player.Team1Score += 300;
-			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team1Score", player.Team1Score}});
-		}
-		else{
-			player.Team2Score += 300;
-			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team2Score", player.Team2Score}});
-		}
-
-		if(roundsLeft > 0){
-			--roundsLeft;
-			enabled = false;
-			this.numSpies = Intrigue.numSpiesLeft = 0;
-			this.numGuards = Intrigue.numGuardsLeft = 0;
-
-			//Swaps Teams
-			if(player.Team == "Spy"){
-				player.Team = "Guard";
-			} else {
-				player.Team = "Spy";
+	IEnumerator callGameOver(string resultFromMC, int winningTeam){
+		foreach(PhotonPlayer p in PhotonNetwork.playerList){
+			if(PhotonNetwork.player != p){
+				photonView.RPC("gameOver", p, resultFromMC, winningTeam);
+				yield return new WaitForSeconds(0.5f);
 			}
-
-			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team}});	
-			
-			PhotonNetwork.LoadLevel("Intrigue");
-		} else {
-			finalRoundOver = true;
-			loadingScreenObject.SetActive(true);
 		}
+		gameOver(resultFromMC, winningTeam);
 	}
 
 	public float GetTimeLeft{
@@ -321,13 +292,6 @@ public class Intrigue : MonoBehaviour {
 		++Intrigue.numGuardsLeft;
 	}
 
-	[RPC]
-	void callGameOver(string resultFromMC, int winningTeam){
-		winningTeamThisRound = winningTeam;
-		roundResult = resultFromMC;
-		player.PrevResult = resultFromMC;
-		gameOver();
-	}
 
 	[RPC]
 	void syncTime(float time){
@@ -342,5 +306,48 @@ public class Intrigue : MonoBehaviour {
 	[RPC]
 	void syncRoundResults(int winningTeam){
 		roundResults.Add(winningTeam);
+	}
+
+	[RPC]
+	void gameOver(string resultFromMC, int winningTeam){
+		winningTeamThisRound = winningTeam;
+		roundResult = resultFromMC;
+		player.PrevResult = resultFromMC;
+		gameOverFlag = true;
+		if(playerGO!=null){
+			playerGO.GetComponentInChildren<Camera>().enabled = false;
+			playerGO.GetComponentInChildren<AudioListener>().enabled = false;
+		}
+
+		//Add bonus points for winning round
+		if(winningTeamThisRound==1){
+			player.Team1Score += 300;
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team1Score", player.Team1Score}});
+		}
+		else{
+			player.Team2Score += 300;
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team2Score", player.Team2Score}});
+		}
+
+		if(roundsLeft > 0){
+			--roundsLeft;
+			enabled = false;
+			this.numSpies = Intrigue.numSpiesLeft = 0;
+			this.numGuards = Intrigue.numGuardsLeft = 0;
+
+			//Swaps Teams
+			if(player.Team == "Spy"){
+				player.Team = "Guard";
+			} else {
+				player.Team = "Spy";
+			}
+
+			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Team", player.Team}});	
+			
+			PhotonNetwork.LoadLevel("Intrigue");
+		} else {
+			finalRoundOver = true;
+			loadingScreenObject.SetActive(true);
+		}
 	}
 }
