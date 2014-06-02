@@ -91,6 +91,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 				anim.SetFloat("Direction", 0f);
 				anim.SetBool("Run", false);
 				anim.SetBool("Out", true);
+				GetComponent<CharacterController>().Move(Vector3.zero); 
 				photonView.RPC("toggleOtherAnims", PhotonTargets.Others, "Out", true);
 			}
 			else if(player.Team == "Spy" && Intrigue.playerGO.GetComponent<Spy>().doingObjective){
@@ -126,6 +127,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		anim.SetBool("Idle" + animIndex, true);
 		photonView.RPC("toggleIdleAnim", PhotonTargets.Others, curRandomAnim, true);
 		curRandomAnim = animIndex;
+		isIdleAnimating = true;
 	}
 
 	void stopRandomIdle(){
