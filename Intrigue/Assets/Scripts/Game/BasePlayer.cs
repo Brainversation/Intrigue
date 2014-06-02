@@ -456,8 +456,8 @@ public class BasePlayer : MonoBehaviour {
 			Crosshair.currGo = hit.transform.gameObject;
 			int tag = hit.transform.gameObject.layer;
 			if((tag == BasePlayer.SPY && !hit.transform.GetComponent<BasePlayer>().isOut) || 
-				(tag == BasePlayer.GUARD && !hit.transform.GetComponent<BasePlayer>().isOut && !hit.transform.GetComponent<Guard>().stunned) ||
-				(tag == BasePlayer.GUEST && !hit.transform.GetComponent<BaseAI>().stunned) &&
+				(tag == BasePlayer.GUARD && !hit.transform.GetComponent<BasePlayer>().isOut && !hit.transform.GetComponent<Guard>().stunned && !hit.transform.GetComponent<Guard>().recentlyStunned) ||
+				(tag == BasePlayer.GUEST && !hit.transform.GetComponent<BaseAI>().stunned && !hit.transform.GetComponent<BaseAI>().recentlyStunned) &&
 				((Vector3.Distance(hit.transform.position, transform.position) ) < 15)){
 
 				renders = hit.transform.gameObject.GetComponentsInChildren<Renderer>();

@@ -46,6 +46,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public Status status = Status.False;
 	[HideInInspector] public bool isYourTurn = false;
 	[HideInInspector] public bool stunned = false;
+	[HideInInspector] public bool recentlyStunned = false;
 	[HideInInspector] public float distFromDest = 5f;
 	[HideInInspector] public float convoTime = 5f;
 	[HideInInspector] public float timeInRoom = 20f;
@@ -285,9 +286,15 @@ public class BaseAI : Photon.MonoBehaviour {
 	void finishStun(){
 		stunInstantiated = false;
 		stunned = false;
+		recentlyStunned = true;
+		Invoke("resetRecentlyStunned", 5);
 		if(!BaseAI.aiTesting){
 			photonView.RPC("updateStunPS", PhotonTargets.All, false);
 		}
+	}
+
+	void resetRecentlyStunned(){
+		recentlyStunned = false;
 	}
 
 	public void addDrink(){

@@ -20,7 +20,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 public class Guard : BasePlayer{
 	
 	[HideInInspector] public bool stunned = false;
-	
+	[HideInInspector] public bool recentlyStunned = false;
 	public UIPanel stunUI;
 	public UIPanel accusationGUI;
 	public AudioSource heartbeat;
@@ -209,6 +209,8 @@ public class Guard : BasePlayer{
 
 	void stunCooldown(){
 		GetComponent<NetworkCharacter>().isStunned = stunned = false;
+		recentlyStunned = true;
+		Invoke("resetRecentlyStunned", 5);
 		stunInstantiated = false;
 		photonView.RPC("updateStunPS", PhotonTargets.All, false);
 		NGUITools.SetActive(stunUI.gameObject, false);
@@ -220,6 +222,10 @@ public class Guard : BasePlayer{
 		}
 		GetComponentInChildren<Crosshair>().enabled = true;
 		GetComponent<MouseLook>().enabled = true;
+	}
+
+	void resetRecentlyStunned(){
+		recentlyStunned = false;
 	}
 
 	void spyCaught(){

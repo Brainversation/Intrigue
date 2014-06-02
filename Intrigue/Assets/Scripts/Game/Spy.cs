@@ -153,7 +153,7 @@ public class Spy : BasePlayer{
 		RaycastHit hit;
 		if( Physics.Raycast(ray, out hit, 15f, layerMask) ){
 			if(stuns>=1){
-				if(hit.transform.gameObject.layer == BasePlayer.GUARD && !hit.transform.gameObject.GetComponent<Guard>().stunned){
+				if(hit.transform.gameObject.layer == BasePlayer.GUARD && !hit.transform.gameObject.GetComponent<Guard>().stunned && !hit.transform.gameObject.GetComponent<Guard>().recentlyStunned){
 					//Audio for stun
 					if(!stunAudio.isPlaying){
 						stunAudio.Play();
@@ -167,7 +167,7 @@ public class Spy : BasePlayer{
 					stuns--;
 					base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned [-][FF2B2B]" + hit.transform.gameObject.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
 				}
-				else if(!hit.transform.gameObject.GetComponent<BaseAI>().stunned){
+				else if(!hit.transform.gameObject.GetComponent<BaseAI>().stunned && !hit.transform.gameObject.GetComponent<BaseAI>().recentlyStunned){
 					//Audio for stun
 					if(!stunAudio.isPlaying){
 						stunAudio.Play();

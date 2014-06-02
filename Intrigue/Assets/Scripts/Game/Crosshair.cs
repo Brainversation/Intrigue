@@ -43,10 +43,10 @@ public class Crosshair : MonoBehaviour {
 						canInteract = true;
 					}
 				}else if( (currGo.layer == BasePlayer.GUARD || currGo.layer == BasePlayer.GUEST) && Vector3.Distance(currGo.transform.position, transform.position)<15){
-						if(currGo.layer == BasePlayer.GUARD && !currGo.GetComponent<Guard>().stunned){
+						if(currGo.layer == BasePlayer.GUARD && !currGo.GetComponent<Guard>().stunned && !currGo.GetComponent<Guard>().recentlyStunned){
 							canInteract = true;
 						}
-						if(currGo.layer == BasePlayer.GUEST && !currGo.GetComponent<BaseAI>().stunned){
+						if(currGo.layer == BasePlayer.GUEST && !currGo.GetComponent<BaseAI>().recentlyStunned){
 							canInteract = true;
 						}
 				}
