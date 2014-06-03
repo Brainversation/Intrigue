@@ -26,7 +26,7 @@ public class Credits : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if(transform.localPosition.y<2900){
+		if(transform.localPosition.y<3500){
 			transform.Translate(new Vector3(0f,0.15f,0f) * Time.deltaTime);
 		}
 		else{
