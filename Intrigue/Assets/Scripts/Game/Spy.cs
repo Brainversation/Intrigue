@@ -234,11 +234,9 @@ public class Spy : BasePlayer{
 
 	[RPC]
 	void destroySpy(){
-		if( photonView.isMine){
-			isOut = true;
-			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"isOut", true}});
-			gameObject.GetComponent<NetworkCharacter>().isOut = true;
-		}
+		isOut = true;
+		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"isOut", true}});
+		gameObject.GetComponent<NetworkCharacter>().isOut = true;
 	}
 
 	[RPC]
