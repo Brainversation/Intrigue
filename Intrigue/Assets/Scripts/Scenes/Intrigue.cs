@@ -123,23 +123,19 @@ public class Intrigue : MonoBehaviour {
 		photonView.RPC("syncTime", PhotonTargets.Others, timeLeft);
 		if( timeLeft <= 0 || numSpiesLeft<=0 || numGuardsLeft <=0 || objectivesCompleted == 2){
 			if(wantGameOver && !finalRoundOver){
-				int roundResultInstance;
 				if(timeLeft<=0){
 					roundResult = "Time Limit Reached.\nGuards Win!";
 					winningTeamThisRound = 2;
-					roundResultInstance = 2;
 				} else if(numSpiesLeft<=0){
 					roundResult = "All Spies Caught.\nGuards Win!";
 					winningTeamThisRound = 2;
-					roundResultInstance = 2;
 				} else if(numGuardsLeft<=0){
 					roundResult = "All Guards Out.\nSpies Win!";
 					winningTeamThisRound = 1;
-					roundResultInstance = 1;
+
 				} else{
 					roundResult = "Objectives Completed.\nSpies Win!";
 					winningTeamThisRound = 1;
-					roundResultInstance = 1;
 				}
 
 
