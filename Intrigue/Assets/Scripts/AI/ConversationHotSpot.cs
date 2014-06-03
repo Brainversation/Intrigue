@@ -55,7 +55,6 @@ public class ConversationHotSpot : MonoBehaviour {
 			if(BaseAI.aiTesting)
 				Destroy(gameObject);
 			else{
-				Debug.Log("Destroyed");
 				PhotonNetwork.Destroy(gameObject);
 			}
 		} else {

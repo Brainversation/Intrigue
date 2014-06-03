@@ -20,19 +20,13 @@ using BehaviorTree;
 
 namespace RBS{
 	public delegate Status ConsequenceFunction(GameObject gameObject);
-	public delegate Status AntiConsequenceFunction();
+	public delegate Status AntiConsequenceFunction(GameObject gameObject);
 
 	// An array of these are used to choose the correct rule
 	public abstract class Condition {
-		protected GameObject gameObject;
-
 		public Condition(){}
 
-		public Condition(GameObject gameObject) {
-			this.gameObject = gameObject;
-		}
-
-		abstract public bool test();
+		abstract public bool test(GameObject gameObject);
 	}
 
 	// Base class for rules
@@ -53,9 +47,9 @@ namespace RBS{
 			this.consequence = consequence;
 		}
 
-		public bool isFired(){
+		public bool isFired(GameObject gameObject){
 			foreach(Condition con in conditions){
-				if (!con.test()){
+				if (!con.test(gameObject)){
 					return false;
 				}
 			}
