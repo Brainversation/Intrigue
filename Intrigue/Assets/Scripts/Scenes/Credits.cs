@@ -36,6 +36,6 @@ public class Credits : MonoBehaviour {
 	}
 
 	public void ReturnToMain(){
-		Application.LoadLevel("MainMenu");
+		PhotonNetwork.LoadLevel("MainMenu");
 	}
 }
