@@ -82,6 +82,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			AIID = aiTestingList.Count;
 			aiTestingList.Add(gameObject);
 		}
+		rules = null;
 	}
 
 	// Initializes all fields
