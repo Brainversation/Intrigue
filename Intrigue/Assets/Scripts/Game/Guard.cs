@@ -234,7 +234,6 @@ public class Guard : BasePlayer{
 	}
 
 	void guardFailed(){
-		Debug.Log("die guard die");
 	    --Intrigue.numGuardsLeft;
 	}
 
