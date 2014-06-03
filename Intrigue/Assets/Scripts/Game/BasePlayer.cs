@@ -28,9 +28,9 @@ public class BasePlayer : MonoBehaviour {
 	protected Vector3 screenPoint = new Vector3(Screen.width/2, Screen.height/2, 0);
 	protected Intrigue intrigue;
 	protected UILabel[] guiLabels;
-	protected int photonID = -1;
 	protected Renderer[] renders;
 	protected RaycastHit hit;
+	protected int photonID = -1;
 	
 	protected static Dictionary<int, bool> markedOther = new Dictionary<int, bool>();
 	protected static Dictionary<int, bool> markedGuests = new Dictionary<int, bool>();

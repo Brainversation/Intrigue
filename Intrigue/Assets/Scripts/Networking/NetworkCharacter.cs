@@ -54,7 +54,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		}
 		strafeToggle = true;
 		anim.SetBool("StrafeToggle", strafeToggle);
-		photonView.RPC("toggleOtherAnims", PhotonTargets.Others, "StrafeToggle", strafeToggle);
 	}
 
 	public void Update(){

@@ -187,11 +187,12 @@ public class Guard : BasePlayer{
 			pointPop.GetComponent<TextMesh>().text = "+100";
 			Instantiate(pointPop, accused.transform.position + (Vector3.up * accused.GetComponent<Collider>().bounds.size.y), accused.transform.rotation);
 			photonView.RPC("invokeSpyCaught", PhotonTargets.MasterClient);
-			accused.GetComponent<PhotonView>().RPC("destroySpy", PhotonTargets.MasterClient);
-			accused.GetComponent<BasePlayer>().isOut = true;
+			BasePlayer bp = accused.GetComponent<BasePlayer>();
+			bp.photonView.RPC("destroySpy", bp.photonView.owner);
+			bp.isOut = true;
 			spyCaughtLabel.SetActive(true);
 			Invoke("removeSpyCaughtLabel", 2);
-			base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + accused.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
+			base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + bp.localHandle + "[-][FFCC00]![-]");
 			accused = null;
 		}else{
 			photonView.RPC("invokeGuardFailed", PhotonTargets.MasterClient );

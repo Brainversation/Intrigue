@@ -245,7 +245,7 @@ public class Intrigue : MonoBehaviour {
 		this.numSpies = Intrigue.numSpiesLeft =
 		this.numGuards = Intrigue.numGuardsLeft =
 		Intrigue.objectivesCompleted = 0;
-		player.PrevResult = "Host Disconnected Reseting Round";
+		player.PrevResult = "Host Disconnected Resetting Round";
 		PhotonNetwork.LoadLevel("Intrigue");
 	}
 
