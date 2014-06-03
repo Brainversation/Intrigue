@@ -21,6 +21,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	public UIPanel sprintPanel;
 	public UISprite sprintSprite;
+	public bool infiniteRun = false;
 	public Camera cam;
 	[HideInInspector] public bool isOut = false;
 	[HideInInspector] public bool isStunned = false;
@@ -145,7 +146,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			canMove = false;
 
 		if(canMove && stamina>=1 && Input.GetKey(Settings.Sprint) && Input.GetAxis("Vertical")!=0){
-			stamina-=staminaDrainSpeed*Time.deltaTime;
+			if(!infiniteRun)
+				stamina-=staminaDrainSpeed*Time.deltaTime;
 			canRegen = false;
 			anim.SetBool("Run", Input.GetKey(Settings.Sprint));
 			speedMult = Mathf.PI;

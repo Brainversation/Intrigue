@@ -24,18 +24,17 @@ public class PlayerChat : MonoBehaviour
 {
 	public UITextList textList;
 	public GameObject window;
-	// private PhotonView photonView = null;
+		//SET TO ALLOW CHAT COMMANDS
+	private static bool debugMode = true;
 	private Player player;
 	private bool mIgnoreUp = false;
 	private PhotonView photonView = null;
-	private static bool debugMode = true;
 	public string lastMessagedPlayer = "";
 
 	UIInput mInput;
 
 	void Start ()
 	{
-		//this.photonView = PhotonView.Get(this);
 		player = Player.Instance;
 		mInput = GetComponent<UIInput>();
 		mInput.label.maxLineCount = 1;
@@ -75,8 +74,7 @@ public class PlayerChat : MonoBehaviour
 			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
 			string text = NGUIText.StripSymbols(mInput.value);
 			bool isCommand = false;
-			if(debugMode)
-				isCommand = testCommands(text);
+			isCommand = testCommands(text);
 			text = StringCleaner.CleanString(text);
 
 			if (!string.IsNullOrEmpty(text) && text.Length>=2 && !isCommand){
@@ -95,9 +93,9 @@ public class PlayerChat : MonoBehaviour
 			return false;
 		string commandTest = message.Substring(0, message.IndexOf(" "));
 		string targetTest = message.Substring(message.IndexOf(" ") + 1);
-
 		switch(commandTest){
 			case "/gameover":
+				if(debugMode){
 					if(targetTest == "true" || targetTest == "True"){
 						Intrigue.wantGameOver = true;
 						mInput.value = "";
@@ -109,6 +107,24 @@ public class PlayerChat : MonoBehaviour
 						textList.Add("[FFCC00]GameOver set to false");
 						mInput.value = "";
 						return true;
+					}
+				}
+			break;
+
+			case "/supersprint":
+					if(debugMode){
+						if(targetTest == "true" || targetTest == "True"){
+								Intrigue.playerGO.GetComponent<NetworkCharacter>().infiniteRun = true;
+								mInput.value = "";
+								textList.Add("[FFCC00]SuperSprint set to true");
+								return true;
+							}
+							else if(targetTest == "false" || targetTest == "False"){
+								Intrigue.playerGO.GetComponent<NetworkCharacter>().infiniteRun = false;
+								textList.Add("[FFCC00]SuperSprint set to false");
+								mInput.value = "";
+								return true;
+							}
 					}
 				break;
 
