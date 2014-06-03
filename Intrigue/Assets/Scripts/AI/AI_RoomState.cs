@@ -58,22 +58,27 @@ public class AI_RoomState : MonoBehaviour{
 				break;
 
 			case 13: //"Drink"
+				// Debug.Log("DRink");
 				drinkLocation = other.transform.position;
 				break;
 
 			case 14: //"RestRoom":
+				// Debug.Log("Restroom");
 				restroomLocations.Add(other.transform.position);
 				break;
 
 			case 15: //"poetry":
+				// Debug.Log("Poet");
 				poetLocation = other.transform.position;
 				break;
 
 			case 16: //"Relax":
+				// Debug.Log("Relax");
 				relaxLocations.Add(other.gameObject);
 				break;
 
 			case 17: //"Art":
+				// Debug.Log("Art");
 				artLocations.Add(other.transform.position);
 				break;
 		}

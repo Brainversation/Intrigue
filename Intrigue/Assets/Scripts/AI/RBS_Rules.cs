@@ -20,7 +20,7 @@ using BehaviorTree;
 
 namespace RBS{
 	class WantToMoveRoom : Rule{
-		private static GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+		public static GameObject[] rooms = null;
 		private GameObject go;
 		public WantToMoveRoom(GameObject gameObject){
 			this.addCondition(new TimeToMove(gameObject));
@@ -108,7 +108,7 @@ namespace RBS{
 
 	class WantToGetDrink : Rule{
 		private GameObject go;
-		public static GameObject[] drinkLocations = GameObject.FindGameObjectsWithTag("Drink");
+		public static GameObject[] drinkLocations = null;
 		public WantToGetDrink(GameObject gameObject) {
 			this.addCondition(new IsThirsty(gameObject));
 			this.addCondition(new IsBored(gameObject));
@@ -189,7 +189,7 @@ namespace RBS{
 	}
 
 	class NeedToUseRestroom : Rule{
-		private static GameObject[] bathroomLocations = GameObject.FindGameObjectsWithTag("RestRoom");
+		public static GameObject[] bathroomLocations = null;
 		public NeedToUseRestroom(GameObject gameObject){
 			this.addCondition( new IsBursting(gameObject) );
 			this.consequence = setDestRestroom;
@@ -247,7 +247,7 @@ namespace RBS{
 	}
 
 	class FindRoom : Rule{
-		private static GameObject[] rooms = GameObject.FindGameObjectsWithTag("Room");
+		public static GameObject[] rooms = null;
 		public FindRoom(GameObject gameObject){
 			this.addCondition(new NotInRoom(gameObject));
 			this.consequence = goToRoom;

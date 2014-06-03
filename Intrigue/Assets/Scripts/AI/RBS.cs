@@ -37,8 +37,6 @@ namespace RBS{
 
 	// Base class for rules
 	public class Rule : IComparable{
-		// every element in this list is a condition but the last;
-		// the last element is the consequence
 		public List<Condition> conditions;
 		public ConsequenceFunction consequence;
 		public AntiConsequenceFunction antiConsequence;
@@ -46,11 +44,6 @@ namespace RBS{
 
 		public Rule(){
 			this.conditions = new List<Condition>();
-		}
-
-		public Rule(List<Condition> conditions, ConsequenceFunction consequence){
-			this.conditions = conditions;
-			this.consequence = consequence;
 		}
 
 		public bool isFired(){

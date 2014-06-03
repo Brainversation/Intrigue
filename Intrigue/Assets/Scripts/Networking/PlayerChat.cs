@@ -130,7 +130,7 @@ public class PlayerChat : MonoBehaviour
 
 			case "/r":
 				if(lastMessagedPlayer!=""){
-					Debug.Log("Messaging : " + lastMessagedPlayer);
+					// Debug.Log("Messaging : " + lastMessagedPlayer);
 					foreach(PhotonPlayer p in PhotonNetwork.playerList){
 						if(p!= PhotonNetwork.player && lastMessagedPlayer == (string)p.customProperties["Handle"]){
 							sendPrivateMessage(commandTest, message, p);

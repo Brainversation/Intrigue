@@ -27,6 +27,8 @@ public class BaseAI : Photon.MonoBehaviour {
 	private bool stunInstantiated = false;
 	private GameObject currentStunEffect;
 
+	private static bool resetGameObjects = true;
+
 	protected List<Rule> rules;
 
 	//Audio Sources
@@ -82,11 +84,19 @@ public class BaseAI : Photon.MonoBehaviour {
 			AIID = aiTestingList.Count;
 			aiTestingList.Add(gameObject);
 		}
+
+		if(resetGameObjects){
+			WantToMoveRoom.rooms = GameObject.FindGameObjectsWithTag("Room");
+			WantToGetDrink.drinkLocations = GameObject.FindGameObjectsWithTag("Drink");
+			NeedToUseRestroom.bathroomLocations = GameObject.FindGameObjectsWithTag("RestRoom");
+			FindRoom.rooms = WantToMoveRoom.rooms;
+			BaseAI.resetGameObjects = false;
+			Invoke("resetGO", 10);
+		}
 	}
 
 	// Initializes all fields
 	void Start(){
-		anim = GetComponent<Animator>();
 		GetComponent<NavMeshAgent>().speed = NetworkCharacter.CHARSPEED;
 		agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
 		initAI();
@@ -303,6 +313,10 @@ public class BaseAI : Photon.MonoBehaviour {
 		this.hasDrink = true;
 	}
 
+	public void resetGO(){
+		BaseAI.resetGameObjects = true;
+	}
+
 	[RPC]
 	void stunAI(){
 		if(PhotonNetwork.isMasterClient){
@@ -310,7 +324,6 @@ public class BaseAI : Photon.MonoBehaviour {
 			status = Status.Waiting;
 			agent.ResetPath();
 			CancelInvoke();
-			Invoke("backToRule", 5);
 			Invoke("finishStun", 5);
 			if(!stunInstantiated){
 				photonView.RPC("updateStunPS", PhotonTargets.All, true);
