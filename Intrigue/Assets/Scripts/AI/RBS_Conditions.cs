@@ -209,8 +209,6 @@ namespace RBS{
 	}
 
 	class StayStill : Condition{
-		public StayStill(GameObject gameObject):base(gameObject){}
-
 		public override bool test(){
 			return true;
 		}

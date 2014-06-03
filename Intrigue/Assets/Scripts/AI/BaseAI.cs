@@ -34,12 +34,12 @@ public class BaseAI : Photon.MonoBehaviour {
 	public AudioSource footstepR;
 
 	public NavMeshAgent agent;
-	public Animator anim;
 	//Particle Effects
 	public GameObject stunPrefab;
 
 
 	// AI info
+	[HideInInspector] public Animator anim;
 	[HideInInspector] public Vector3 destination;
 	[HideInInspector] public AI_RoomState room;
 	[HideInInspector] public Task tree = null;
@@ -86,6 +86,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	// Initializes all fields
 	void Start(){
+		anim = GetComponent<Animator>();
 		GetComponent<NavMeshAgent>().speed = NetworkCharacter.CHARSPEED;
 		agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
 		initAI();
@@ -279,7 +280,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	// Used so rules do not fire to quickly and so we can have anti-consequences
 	void backToRule(){
 		if(currentRule != null && currentRule.antiConsequence != null)
-			currentRule.antiConsequence(gameObject);
+			currentRule.antiConsequence();
 	}
 
 	void finishStun(){
@@ -304,15 +305,17 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	[RPC]
 	void stunAI(){
-		stunned = true;
-		status = Status.Waiting;
-		agent.ResetPath();
-		CancelInvoke();
-		Invoke("backToRule", 5);
-		Invoke("finishStun", 5);
-		if(!stunInstantiated){
-			photonView.RPC("updateStunPS", PhotonTargets.All, true);
-			stunInstantiated = true;
+		if(PhotonNetwork.isMasterClient){
+			stunned = true;
+			status = Status.Waiting;
+			agent.ResetPath();
+			CancelInvoke();
+			Invoke("backToRule", 5);
+			Invoke("finishStun", 5);
+			if(!stunInstantiated){
+				photonView.RPC("updateStunPS", PhotonTargets.All, true);
+				stunInstantiated = true;
+			}
 		}
 	}
 
