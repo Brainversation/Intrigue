@@ -235,6 +235,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	// Sets rules and stats
 	void initAI(){
 		if(rules == null){
+			Debug.Log("Reset Rules");
 			rules = new List<Rule>();
 			rules.Add( new WantToGetDrink() );
 			rules.Add( new WantToConverse() );

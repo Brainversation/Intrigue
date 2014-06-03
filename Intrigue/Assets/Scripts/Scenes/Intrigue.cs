@@ -324,6 +324,10 @@ public class Intrigue : MonoBehaviour {
 			playerGO.GetComponentInChildren<AudioListener>().enabled = false;
 		}
 
+		if(PhotonNetwork.isMasterClient){
+			PhotonNetwork.DestroyAll();
+		}
+
 		//Add bonus points for winning round
 		if(winningTeamThisRound==1){
 			player.Team1Score += 300;
