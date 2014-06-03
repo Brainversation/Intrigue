@@ -34,12 +34,12 @@ public class BaseAI : Photon.MonoBehaviour {
 	public AudioSource footstepR;
 
 	public NavMeshAgent agent;
+	public Animator anim;
 	//Particle Effects
 	public GameObject stunPrefab;
 
 
 	// AI info
-	[HideInInspector] public Animator anim;
 	[HideInInspector] public Vector3 destination;
 	[HideInInspector] public AI_RoomState room;
 	[HideInInspector] public Task tree = null;
@@ -86,7 +86,6 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	// Initializes all fields
 	void Start(){
-		anim = GetComponent<Animator>();
 		GetComponent<NavMeshAgent>().speed = NetworkCharacter.CHARSPEED;
 		agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
 		initAI();

@@ -1970,14 +1970,18 @@ MonoBehaviour:
   footstepL: {fileID: 8200000}
   footstepR: {fileID: 8200002}
   agent: {fileID: 19500000}
+  anim: {fileID: 9500000}
   stunPrefab: {fileID: 100000, guid: 56858680ff6b1dd4687ea5deb2ad9a1f, type: 2}
-  anim: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
   room: {fileID: 0}
   status: 0
-  distFromDest: 5
   isYourTurn: 0
   stunned: 0
+  recentlyStunned: 0
+  distFromDest: 5
+  convoTime: 5
+  timeInRoom: 0
+  ruleTime: 0
   thirst: 0
   bored: 0
   hunger: 0
@@ -1989,7 +1993,6 @@ MonoBehaviour:
   happy: 0
   sad: 0
   toxicity: 0
-  timeInRoom: 0
   smoker: 0
   hasDrink: 0
   inConvo: 0

@@ -1074,7 +1074,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100016}
-  m_LocalRotation: {x: -.355479866, y: -.455051482, z: .576302767, w: .578305721}
+  m_LocalRotation: {x: -.355479836, y: -.455051422, z: .576302707, w: .578305662}
   m_LocalPosition: {x: -.0197048485, y: -.00129670009, z: .000248045777}
   m_LocalScale: {x: .999999762, y: .999999821, z: .999999821}
   m_Children:
@@ -1910,14 +1910,18 @@ MonoBehaviour:
   footstepL: {fileID: 8200002}
   footstepR: {fileID: 8200000}
   agent: {fileID: 19500000}
+  anim: {fileID: 9500000}
   stunPrefab: {fileID: 100000, guid: 56858680ff6b1dd4687ea5deb2ad9a1f, type: 2}
-  anim: {fileID: 0}
   destination: {x: 0, y: 0, z: 0}
   room: {fileID: 0}
   status: 0
-  distFromDest: 5
   isYourTurn: 0
   stunned: 0
+  recentlyStunned: 0
+  distFromDest: 5
+  convoTime: 5
+  timeInRoom: 0
+  ruleTime: 0
   thirst: 0
   bored: 0
   hunger: 0
@@ -1929,7 +1933,6 @@ MonoBehaviour:
   happy: 0
   sad: 0
   toxicity: 0
-  timeInRoom: 0
   smoker: 0
   hasDrink: 0
   inConvo: 0
