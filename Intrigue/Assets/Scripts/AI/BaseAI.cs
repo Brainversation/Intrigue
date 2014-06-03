@@ -82,7 +82,6 @@ public class BaseAI : Photon.MonoBehaviour {
 			AIID = aiTestingList.Count;
 			aiTestingList.Add(gameObject);
 		}
-		rules = null;
 	}
 
 	// Initializes all fields
@@ -105,7 +104,7 @@ public class BaseAI : Photon.MonoBehaviour {
 					//Sort the list in terms of weight
 					rules.Sort();
 					for (int i = 0; i < rules.Count; i++){
-						if (rules[i].isFired(gameObject)){
+						if (rules[i].isFired()){
 							currentRule = rules[i];
 							rules[i].weight -= 15;
 							status = rules[i].consequence(gameObject);
@@ -234,19 +233,16 @@ public class BaseAI : Photon.MonoBehaviour {
 	
 	// Sets rules and stats
 	void initAI(){
-		if(rules == null){
-			Debug.Log("Reset Rules");
-			rules = new List<Rule>();
-			rules.Add( new WantToGetDrink() );
-			rules.Add( new WantToConverse() );
-			rules.Add( new FindRoom() );
-			rules.Add( new WantToWanderRoom() );
-			rules.Add( new WantToMoveRoom() );
-			rules.Add( new NeedToUseRestroom() );
-			rules.Add( new AdmireArt() );
-			rules.Add( new Smoke() );
-			rules.Add( new DoIdle() );
-		}
+		rules = new List<Rule>();
+		rules.Add( new WantToGetDrink(gameObject) );
+		rules.Add( new WantToConverse(gameObject) );
+		rules.Add( new FindRoom(gameObject) );
+		rules.Add( new WantToWanderRoom(gameObject) );
+		rules.Add( new WantToMoveRoom(gameObject) );
+		rules.Add( new NeedToUseRestroom(gameObject) );
+		rules.Add( new AdmireArt(gameObject) );
+		rules.Add( new Smoke(gameObject) );
+		rules.Add( new DoIdle(gameObject) );
 		//<-------- Rules To Add ------->
 		// Relax
 		// LetOffSteam

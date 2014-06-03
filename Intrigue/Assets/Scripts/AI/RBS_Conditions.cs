@@ -20,9 +20,9 @@ using BehaviorTree;
 
 namespace RBS{
 	class IsThirsty : Condition{
-		public IsThirsty(){}
+		public IsThirsty(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().thirst > 50){
 				return true;
 			}
@@ -31,9 +31,9 @@ namespace RBS{
 	}
 
 	class IsBored : Condition{
-		public IsBored(){}
+		public IsBored(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().bored > 50){
 				return true;
 			}
@@ -42,9 +42,9 @@ namespace RBS{
 	}
 
 	class NotBored : Condition{
-		public NotBored(){}
+		public NotBored(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().bored > 50){
 				return false;
 			}
@@ -53,9 +53,9 @@ namespace RBS{
 	}
 
 	class IsHungry : Condition{
-		public IsHungry(){}
+		public IsHungry(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().hunger > 50){
 				return true;
 			}
@@ -64,9 +64,9 @@ namespace RBS{
 	}
 
 	class IsLonely : Condition{
-		public IsLonely(){}
+		public IsLonely(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().lonely > 50){
 				return true;
 			}
@@ -75,9 +75,9 @@ namespace RBS{
 	}
 
 	class IsTired : Condition{
-		public IsTired(){}
+		public IsTired(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().tired > 50){
 				return true;
 			}
@@ -86,9 +86,9 @@ namespace RBS{
 	}
 
 	class IsAnxious : Condition{
-		public IsAnxious(){}
+		public IsAnxious(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().anxiety > 50){
 				return true;
 			}
@@ -97,9 +97,9 @@ namespace RBS{
 	}
 
 	class IsNotAnxious : Condition{
-		public IsNotAnxious(){}
+		public IsNotAnxious(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if(gameObject.GetComponent<BaseAI>().anxiety < 50){
 				return true;
 			}
@@ -108,9 +108,9 @@ namespace RBS{
 	}
 
 	class IsBursting : Condition{
-		public IsBursting(){}
+		public IsBursting(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().bladder > 80){
 				return true;
 			}
@@ -119,9 +119,9 @@ namespace RBS{
 	}
 
 	class IsAngry : Condition{
-		public IsAngry(){}
+		public IsAngry(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().anger > 50){
 				return true;
 			}
@@ -130,9 +130,9 @@ namespace RBS{
 	}
 
 	class IsHappy : Condition{
-		public IsHappy(){}
+		public IsHappy(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().happy > 50){
 				return true;
 			}
@@ -141,9 +141,9 @@ namespace RBS{
 	}
 
 	class IsSad : Condition{
-		public IsSad(){}
+		public IsSad(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().sad > 50){
 				return true;
 			}
@@ -152,9 +152,9 @@ namespace RBS{
 	}
 
 	class IsToxic : Condition{
-		public IsToxic(){}
+		public IsToxic(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			if (gameObject.GetComponent<BaseAI>().toxicity > 50){
 				return true;
 			}
@@ -163,9 +163,9 @@ namespace RBS{
 	}
 
 	class IsContent : Condition{
-		public IsContent(){}
+		public IsContent(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			if(	script.thirst < 50 && script.bored < 50 &&
 				script.hunger < 50 && script.lonely < 50 &&
@@ -177,47 +177,49 @@ namespace RBS{
 	}
 
 	class HasDrink : Condition{
-		public HasDrink(){}
+		public HasDrink(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			return gameObject.GetComponent<BaseAI>().hasDrink;
 		}
 	}
 
 	class HasArt : Condition{
-		public HasArt(){}
+		public HasArt(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			return gameObject.GetComponent<BaseAI>().room.artLocations.Count > 0;
 		}
 	}
 
 	class NotInRoom : Condition{
-		public NotInRoom(){}
+		public NotInRoom(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			return (gameObject.GetComponent<BaseAI>().room == null);
 		}
 	}
 
 	class RoomHasPeople : Condition{
-		public RoomHasPeople(){}
+		public RoomHasPeople(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			return (gameObject.GetComponent<BaseAI>().room.population > 0);
 		}
 	}
 
 	class StayStill : Condition{
-		public override bool test(GameObject gameObject){
+		public StayStill(GameObject gameObject):base(gameObject){}
+
+		public override bool test(){
 			return true;
 		}
 	}
 
 	class IsNoPoet : Condition{
-		public IsNoPoet(){}
+		public IsNoPoet(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			if(script.room.name == "smoking" && script.room.poet != null){
 				return true;
@@ -227,28 +229,28 @@ namespace RBS{
 	}
 
 	class IsSmoker : Condition{
-		public IsSmoker(){}
+		public IsSmoker(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			return gameObject.GetComponent<BaseAI>().smoker;
 		}
 	}
 
 	class NotInConvo : Condition{
-		public NotInConvo(){}
+		public NotInConvo(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			return !gameObject.GetComponent<BaseAI>().inConvo;
 		}
 	}
 
 	class TimeToMove: Condition{
 		private float threshold = 10;
-		public TimeToMove(){
+		public TimeToMove(GameObject gameObject):base(gameObject){
 			threshold = UnityEngine.Random.Range(0, 10);
 		}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			if(script.timeInRoom <= threshold){
 				return true;
@@ -259,9 +261,9 @@ namespace RBS{
 
 	class HalfRoomTime:Condition{
 		private static float threshold = 10;
-		public HalfRoomTime(){}
+		public HalfRoomTime(GameObject gameObject):base(gameObject){}
 		
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			BaseAI script = gameObject.GetComponent<BaseAI>();
 			if(script.timeInRoom <= threshold){
 				return true;
@@ -271,17 +273,17 @@ namespace RBS{
 	}
 
 	class alwaysTrue : Condition{
-		public alwaysTrue(){}
+		public alwaysTrue(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			return true;
 		}
 	}
 
 	class alwaysFalse : Condition{
-		public alwaysFalse(){}
+		public alwaysFalse(GameObject gameObject):base(gameObject){}
 
-		public override bool test(GameObject gameObject){
+		public override bool test(){
 			return false;
 		}
 	}

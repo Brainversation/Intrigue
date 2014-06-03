@@ -138,7 +138,7 @@ namespace BehaviorTree{
 	class DrinkingTree : Sequence {
 		public DrinkingTree(GameObject go){
 			addChild(new Inverter( new WaitInLine() ));
-			addChild(new SemaphoreGuard(new MakeDrink(), new HasDrink()));
+			addChild(new SemaphoreGuard(new MakeDrink(), new HasDrink(go)));
 			addChild(new Sequence());
 			children[children.Count-1].addChild(new Wait(5));
 			children[children.Count-1].addChild(new WalkAway());

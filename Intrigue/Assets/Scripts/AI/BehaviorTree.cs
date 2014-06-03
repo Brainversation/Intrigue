@@ -174,7 +174,7 @@ namespace BehaviorTree{
 		}
 
 		public override Status run(GameObject gameObject){
-			if( cond.test(gameObject) ){
+			if( cond.test() ){
 				return Status.True;
 			}
 			return child.run(gameObject);

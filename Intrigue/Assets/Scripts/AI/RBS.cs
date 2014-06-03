@@ -24,9 +24,13 @@ namespace RBS{
 
 	// An array of these are used to choose the correct rule
 	public abstract class Condition {
-		public Condition(){}
+		protected GameObject gameObject;
 
-		abstract public bool test(GameObject gameObject);
+		public Condition(GameObject gameObject){
+			this.gameObject = gameObject;
+		}
+
+		abstract public bool test();
 	}
 
 	// Base class for rules
@@ -38,18 +42,22 @@ namespace RBS{
 		public AntiConsequenceFunction antiConsequence;
 		public int weight = 0;
 
-		public Rule(){
+		protected GameObject gameObject;
+
+		public Rule(GameObject gameObject){
 			this.conditions = new List<Condition>();
+			this.gameObject = gameObject;
 		}
 
-		public Rule(List<Condition> conditions, ConsequenceFunction consequence){
+		public Rule(GameObject gameObject, List<Condition> conditions, ConsequenceFunction consequence){
 			this.conditions = conditions;
 			this.consequence = consequence;
+			this.gameObject = gameObject;
 		}
 
-		public bool isFired(GameObject gameObject){
+		public bool isFired(){
 			foreach(Condition con in conditions){
-				if (!con.test(gameObject)){
+				if (!con.test()){
 					return false;
 				}
 			}
