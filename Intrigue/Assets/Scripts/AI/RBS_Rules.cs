@@ -21,13 +21,11 @@ using BehaviorTree;
 namespace RBS{
 	class WantToMoveRoom : Rule{
 		public static GameObject[] rooms = null;
-		private GameObject go;
-		public WantToMoveRoom(GameObject gameObject){
-			this.addCondition(new TimeToMove(gameObject));
+		public WantToMoveRoom(){
+			this.addCondition(new TimeToMove());
 			this.consequence = goToRoom;
 			this.antiConsequence = atRoom;
 			this.weight = 10;
-			this.go = gameObject;
 		}
 
 		private Status goToRoom(GameObject gameObject){
@@ -63,15 +61,15 @@ namespace RBS{
             return Status.Waiting;
 		}
 
-		private Status atRoom(){
-			go.GetComponent<BaseAI>().timeInRoom = 0f;
+		private Status atRoom(GameObject gameObject){
+			gameObject.GetComponent<BaseAI>().timeInRoom = 0f;
 			return Status.True;
 		}
 	}
 
 	class WantToWanderRoom : Rule{
-		public WantToWanderRoom(GameObject gameObject){
-			this.addCondition(new HalfRoomTime(gameObject));
+		public WantToWanderRoom(){
+			this.addCondition(new HalfRoomTime());
 			this.consequence = wanderRoom;
 			this.weight = 6;
 		}
@@ -107,15 +105,13 @@ namespace RBS{
 	}
 
 	class WantToGetDrink : Rule{
-		private GameObject go;
 		public static GameObject[] drinkLocations = null;
-		public WantToGetDrink(GameObject gameObject) {
-			this.addCondition(new IsThirsty(gameObject));
-			this.addCondition(new IsBored(gameObject));
+		public WantToGetDrink(){
+			this.addCondition(new IsThirsty());
+			this.addCondition(new IsBored());
 			this.consequence = setDestRoom;
 			this.antiConsequence = stopDrinking;
 			this.weight = 7;
-			this.go = gameObject;
 		}
 
 		private Status setDestRoom(GameObject gameObject){
@@ -138,8 +134,8 @@ namespace RBS{
 			return Status.Waiting;
 		}
 
-		private Status stopDrinking(){
-			this.go.GetComponent<Animator>().SetBool("Drink", false);
+		private Status stopDrinking(GameObject gameObject){
+			gameObject.GetComponent<Animator>().SetBool("Drink", false);
 			return Status.True;
 		}
 	}
@@ -147,12 +143,12 @@ namespace RBS{
 	class WantToConverse : Rule{
 		protected int offset;
 
-		public WantToConverse(GameObject gameObject){
+		public WantToConverse(){
 			offset = ConversationHotSpot.max;
-			this.addCondition( new IsLonely(gameObject) );
-			this.addCondition( new IsBored(gameObject) );
-			this.addCondition( new NotInConvo(gameObject) );
-			this.addCondition( new RoomHasPeople(gameObject) );
+			this.addCondition( new IsLonely() );
+			this.addCondition( new IsBored() );
+			this.addCondition( new NotInConvo() );
+			this.addCondition( new RoomHasPeople() );
 			this.consequence = handleConverse;
 			this.weight = 7;
 		}
@@ -190,8 +186,8 @@ namespace RBS{
 
 	class NeedToUseRestroom : Rule{
 		public static GameObject[] bathroomLocations = null;
-		public NeedToUseRestroom(GameObject gameObject){
-			this.addCondition( new IsBursting(gameObject) );
+		public NeedToUseRestroom(){
+			this.addCondition( new IsBursting() );
 			this.consequence = setDestRestroom;
 			this.weight = 10;
 		}
@@ -217,9 +213,9 @@ namespace RBS{
 	}
 
 	class AdmireArt : Rule{
-		public AdmireArt(GameObject gameObject){
-			this.addCondition(new HasArt(gameObject));
-			this.addCondition(new IsBored(gameObject));
+		public AdmireArt(){
+			this.addCondition(new HasArt());
+			this.addCondition(new IsBored());
 			this.consequence = goToArt;
 			this.weight = 6;
 		}
@@ -248,8 +244,8 @@ namespace RBS{
 
 	class FindRoom : Rule{
 		public static GameObject[] rooms = null;
-		public FindRoom(GameObject gameObject){
-			this.addCondition(new NotInRoom(gameObject));
+		public FindRoom(){
+			this.addCondition(new NotInRoom());
 			this.consequence = goToRoom;
 			this.weight = 1000;
 		}
@@ -275,9 +271,9 @@ namespace RBS{
 
 	// class Relax : Rule{
 	// 	public Relax(GameObject gameObject){
-	// 		this.addCondition(new IsAnxious(gameObject));
-	// 		this.addCondition(new NotBored(gameObject));
-	// 		this.addCondition(new IsTired(gameObject));
+	// 		this.addCondition(new IsAnxious());
+	// 		this.addCondition(new NotBored());
+	// 		this.addCondition(new IsTired());
 	// 		this.consequence = goRelax;
 	// 	}
 
@@ -304,9 +300,9 @@ namespace RBS{
 	
 	// class LetOffSteam : Rule{
 	// 	public LetOffSteam(GameObject gameObject){
-	// 		this.addCondition(new IsAnxious(gameObject));
-	// 		this.addCondition(new NotBored(gameObject));
-	// 		this.addCondition(new IsAngry(gameObject));
+	// 		this.addCondition(new IsAnxious());
+	// 		this.addCondition(new NotBored());
+	// 		this.addCondition(new IsAngry());
 	// 		this.consequence = coolDown;
 	// 	}
 
@@ -331,10 +327,10 @@ namespace RBS{
 	// }
 
 	class Smoke : Rule{
-		public Smoke(GameObject gameObject){
-			this.addCondition(new IsAnxious(gameObject));
-			this.addCondition(new IsBored(gameObject));
-			this.addCondition(new IsSmoker(gameObject));
+		public Smoke(){
+			this.addCondition(new IsAnxious());
+			this.addCondition(new IsBored());
+			this.addCondition(new IsSmoker());
 			this.consequence = goSmoke;
 		}
 
@@ -371,10 +367,10 @@ namespace RBS{
 	}
 
 	class ReadPoetry : Rule{
-		public ReadPoetry(GameObject gameObject){
-			this.addCondition(new IsHappy(gameObject));
-			this.addCondition(new IsNotAnxious(gameObject));
-			this.addCondition(new IsNoPoet(gameObject));
+		public ReadPoetry(){
+			this.addCondition(new IsHappy());
+			this.addCondition(new IsNotAnxious());
+			this.addCondition(new IsNoPoet());
 		}
 
 		private Status doPoetry(GameObject gameObject){
@@ -391,7 +387,7 @@ namespace RBS{
 	}
 
 	class DoIdle : Rule{
-		public DoIdle(GameObject gameObject){
+		public DoIdle(){
 			this.addCondition(new StayStill());
 			this.consequence = stay;
 			this.weight = 1;

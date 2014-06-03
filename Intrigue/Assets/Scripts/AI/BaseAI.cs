@@ -29,7 +29,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	private static bool resetGameObjects = true;
 
-	protected List<Rule> rules;
+	protected static List<Rule> rules = null;
 
 	//Audio Sources
 	public AudioSource footstepL;
@@ -90,8 +90,6 @@ public class BaseAI : Photon.MonoBehaviour {
 			WantToGetDrink.drinkLocations = GameObject.FindGameObjectsWithTag("Drink");
 			NeedToUseRestroom.bathroomLocations = GameObject.FindGameObjectsWithTag("RestRoom");
 			FindRoom.rooms = WantToMoveRoom.rooms;
-			BaseAI.resetGameObjects = false;
-			Invoke("resetGO", 10);
 		}
 	}
 
@@ -115,7 +113,7 @@ public class BaseAI : Photon.MonoBehaviour {
 					//Sort the list in terms of weight
 					rules.Sort();
 					for (int i = 0; i < rules.Count; i++){
-						if (rules[i].isFired()){
+						if (rules[i].isFired(gameObject)){
 							currentRule = rules[i];
 							rules[i].weight -= 15;
 							status = rules[i].consequence(gameObject);
@@ -136,7 +134,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 				case Status.Tree:
 					if( tree.run(gameObject) == Status.True){
-						backToRule();
+						doAnti();
 						tree = null;
 						status = Status.Waiting;
 					}
@@ -149,7 +147,7 @@ public class BaseAI : Photon.MonoBehaviour {
 						agent.pathStatus == NavMeshPathStatus.PathInvalid){
 						agent.ResetPath();
 						tree = null;
-						backToRule();
+						doAnti();
 						status = Status.False;
 					} else if(agent.hasPath && agent.remainingDistance < distFromDest){
 						agent.ResetPath();
@@ -160,7 +158,7 @@ public class BaseAI : Photon.MonoBehaviour {
 							convoTime = 5f;
 						} else {
 							status = Status.False;
-							backToRule();
+							doAnti();
 						}
 					}
 				break;
@@ -244,16 +242,20 @@ public class BaseAI : Photon.MonoBehaviour {
 	
 	// Sets rules and stats
 	void initAI(){
-		rules = new List<Rule>();
-		rules.Add( new WantToGetDrink(gameObject) );
-		rules.Add( new WantToConverse(gameObject) );
-		rules.Add( new FindRoom(gameObject) );
-		rules.Add( new WantToWanderRoom(gameObject) );
-		rules.Add( new WantToMoveRoom(gameObject) );
-		rules.Add( new NeedToUseRestroom(gameObject) );
-		rules.Add( new AdmireArt(gameObject) );
-		rules.Add( new Smoke(gameObject) );
-		rules.Add( new DoIdle(gameObject) );
+		if(resetGameObjects){
+			rules = new List<Rule>();
+			rules.Add( new WantToGetDrink() );
+			rules.Add( new WantToConverse() );
+			rules.Add( new FindRoom() );
+			rules.Add( new WantToWanderRoom() );
+			rules.Add( new WantToMoveRoom() );
+			rules.Add( new NeedToUseRestroom() );
+			rules.Add( new AdmireArt() );
+			rules.Add( new Smoke() );
+			rules.Add( new DoIdle() );
+			BaseAI.resetGameObjects = false;
+			Invoke("resetGO", 10);
+		}
 		//<-------- Rules To Add ------->
 		// Relax
 		// LetOffSteam
@@ -288,9 +290,9 @@ public class BaseAI : Photon.MonoBehaviour {
 	}
 
 	// Used so rules do not fire to quickly and so we can have anti-consequences
-	void backToRule(){
+	void doAnti(){
 		if(currentRule != null && currentRule.antiConsequence != null)
-			currentRule.antiConsequence();
+			currentRule.antiConsequence(gameObject);
 	}
 
 	void finishStun(){
