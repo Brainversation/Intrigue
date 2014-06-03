@@ -30,7 +30,6 @@ public class BasePlayer : MonoBehaviour {
 	protected UILabel[] guiLabels;
 	protected Renderer[] renders;
 	protected RaycastHit hit;
-	protected int photonID = -1;
 	
 	protected static Dictionary<int, bool> markedOther = new Dictionary<int, bool>();
 	protected static Dictionary<int, bool> markedGuests = new Dictionary<int, bool>();
@@ -326,11 +325,11 @@ public class BasePlayer : MonoBehaviour {
 					GameObject textInstance = Instantiate(allytext, ally.transform.position,ally.transform.rotation) as GameObject;
 					textInstance.GetComponent<AllyText>().target = ally.transform;
 					textInstance.transform.parent = ally.transform;
-					textInstance.GetComponent<TextMesh>().text = (string)PhotonPlayer.Find(ally.GetComponent<BasePlayer>().photonID).customProperties["Handle"];
+					textInstance.GetComponent<TextMesh>().text = (string)ally.GetComponent<PhotonView>().owner.customProperties["Handle"];
 				}
 
 				if((ally.GetComponentInChildren<TextMesh>().text == "") && ally.GetComponent<BasePlayer>().textAdded){
-					ally.GetComponentInChildren<TextMesh>().text = (string)PhotonPlayer.Find(ally.GetComponent<BasePlayer>().photonID).customProperties["Handle"];
+					ally.GetComponentInChildren<TextMesh>().text = (string)ally.GetComponent<PhotonView>().owner.customProperties["Handle"];
 				}
 			}
 		}
@@ -344,7 +343,7 @@ public class BasePlayer : MonoBehaviour {
 		BasePlayer bp;
 		foreach(GameObject playerInstance in allPlayers){
 			bp = playerInstance.GetComponent<BasePlayer>();
-			bp.GetComponent<PhotonView>().RPC("receiveMessage", PhotonPlayer.Find(bp.photonID), eventMessage);
+			bp.photonView.RPC("receiveMessage", bp.photonView.owner, eventMessage);
 		}
 	}
 

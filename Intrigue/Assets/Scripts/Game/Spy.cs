@@ -165,7 +165,8 @@ public class Spy : BasePlayer{
 						pointPop.GetComponent<TextMesh>().text = "+50";
 						Instantiate(pointPop, hit.transform.position + (Vector3.up * hit.transform.gameObject.GetComponent<Collider>().bounds.size.y), hit.transform.rotation);
 						photonView.RPC("addPlayerScore", PhotonTargets.All, 50, player.TeamID);
-						hit.transform.GetComponent<PhotonView>().RPC("stunGuard", PhotonTargets.All);
+						PhotonView pv = hit.transform.GetComponent<PhotonView>();
+						pv.RPC("stunGuard", pv.owner);
 						hit.transform.gameObject.GetComponent<Guard>().stunned = true;
 						stuns--;
 						base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned [-][FF2B2B]" + hit.transform.gameObject.GetComponent<BasePlayer>().localHandle + "[-][FFCC00]![-]");
@@ -183,7 +184,8 @@ public class Spy : BasePlayer{
 					pointPop.GetComponent<TextMesh>().text = "-50";
 					Instantiate(pointPop, hit.transform.position + (Vector3.up * hit.transform.gameObject.GetComponent<Collider>().bounds.size.y), hit.transform.rotation);
 					photonView.RPC("addPlayerScore", PhotonTargets.All, -50, player.TeamID);
-					hit.transform.GetComponent<PhotonView>().RPC("stunAI", PhotonTargets.All);
+					PhotonView pv = hit.transform.GetComponent<PhotonView>();
+					pv.RPC("stunAI", pv.owner);
 					stuns--;
 					base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned a guest!");
 				}
@@ -273,10 +275,5 @@ public class Spy : BasePlayer{
 	[RPC]
 	void setLocalHandle(string handle){
 		this.localHandle = handle;
-	}
-
-	[RPC]
-	void sendID(int ID){
-		this.photonID = ID;
 	}
 }

@@ -307,17 +307,15 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	[RPC]
 	void stunAI(){
-		if(PhotonNetwork.isMasterClient){
-			stunned = true;
-			status = Status.Waiting;
-			agent.ResetPath();
-			CancelInvoke();
-			Invoke("backToRule", 5);
-			Invoke("finishStun", 5);
-			if(!stunInstantiated){
-				photonView.RPC("updateStunPS", PhotonTargets.All, true);
-				stunInstantiated = true;
-			}
+		stunned = true;
+		status = Status.Waiting;
+		agent.ResetPath();
+		CancelInvoke();
+		Invoke("backToRule", 5);
+		Invoke("finishStun", 5);
+		if(!stunInstantiated){
+			photonView.RPC("updateStunPS", PhotonTargets.All, true);
+			stunInstantiated = true;
 		}
 	}
 

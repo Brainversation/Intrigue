@@ -254,27 +254,25 @@ public class Guard : BasePlayer{
 	
 	[RPC]
 	void stunGuard(){
-		if(photonView.isMine){
-			if(!stunInstantiated){
-				photonView.RPC("updateStunPS", PhotonTargets.All, true);
-				stunInstantiated = true;
-			}
-
-			accusing = false;
-			accused = null;
-			stunned = GetComponent<NetworkCharacter>().isStunned = true;
-			NGUITools.SetActive(stunUI.gameObject, true);
-			//Have to disable the mouse look on the camera as well
-			Component [] mouseLooks = GetComponentsInChildren<MouseLook>();
-			foreach(MouseLook ml in mouseLooks){
-				ml.enabled = false;
-			}
-
-			GetComponentInChildren<AudioListener>().enabled = false;
-			GetComponentInChildren<Crosshair>().enabled = false;
-			GetComponent<MouseLook>().enabled = false;
-			Invoke("stunCooldown", 5);
+		if(!stunInstantiated){
+			photonView.RPC("updateStunPS", PhotonTargets.All, true);
+			stunInstantiated = true;
 		}
+
+		accusing = false;
+		accused = null;
+		stunned = GetComponent<NetworkCharacter>().isStunned = true;
+		NGUITools.SetActive(stunUI.gameObject, true);
+		//Have to disable the mouse look on the camera as well
+		Component [] mouseLooks = GetComponentsInChildren<MouseLook>();
+		foreach(MouseLook ml in mouseLooks){
+			ml.enabled = false;
+		}
+
+		GetComponentInChildren<AudioListener>().enabled = false;
+		GetComponentInChildren<Crosshair>().enabled = false;
+		GetComponent<MouseLook>().enabled = false;
+		Invoke("stunCooldown", 5);
 	}
 
 	[RPC]
@@ -352,10 +350,5 @@ public class Guard : BasePlayer{
 	[RPC]
 	void setLocalHandle(string handle){
 		this.localHandle = handle;
-	}
-
-	[RPC]
-	void sendID(int ID){
-		this.photonID = ID;
 	}
 }
