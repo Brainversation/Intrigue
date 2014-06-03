@@ -41,6 +41,7 @@ public class Pregame : MonoBehaviour {
 	private List<int> guards = new List<int>();
 	private int prevGuestCount = 0;
 	private bool gameStarting = false;
+	private string lastMessagedPlayer = "";
 
 	private static bool isTesting = true;
 
@@ -91,8 +92,7 @@ public class Pregame : MonoBehaviour {
 			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
 			string text = NGUIText.StripSymbols(mInput.value);
 			bool isCommand = false;
-			if(PhotonNetwork.isMasterClient)
-				isCommand = testCommands(text);
+			isCommand = testCommands(text);
 
 			text = StringCleaner.CleanString(text);
 			if (!string.IsNullOrEmpty(text) && text.Length>=2 && !isCommand){
@@ -118,13 +118,20 @@ public class Pregame : MonoBehaviour {
 		string targetTest = message.Substring(message.IndexOf(" ") + 1);
 		switch(commandTest){
 			case "/kick": 
-					foreach(PhotonPlayer player in PhotonNetwork.playerList){
-						if(targetTest == (string)player.customProperties["Handle"] && (player != PhotonNetwork.player)){
-							photonView.RPC("kickPlayer", player);
-							mInput.value = "";
-							return true;
+					if(PhotonNetwork.isMasterClient){
+						foreach(PhotonPlayer player in PhotonNetwork.playerList){
+							if(targetTest == (string)player.customProperties["Handle"] && (player != PhotonNetwork.player)){
+								photonView.RPC("kickPlayer", player);
+								mInput.value = "";
+								return true;
+							}
 						}
+					}else{
+						textList.Add("[FF0000]Error: [FFCC00]only the host can kick players.[-]");
+						mInput.value = "";
+						return true;
 					}
+					
 				break;
 
 			case "/gameover":
@@ -142,11 +149,25 @@ public class Pregame : MonoBehaviour {
 					}
 				break;
 
+			case "/r":
+				if(lastMessagedPlayer!=""){
+					foreach(PhotonPlayer p in PhotonNetwork.playerList){
+						if(p!= PhotonNetwork.player && lastMessagedPlayer == (string)p.customProperties["Handle"]){
+							string newMessage = message.Substring(commandTest.Length+1, (message.Length-1)-commandTest.Length);
+							photonView.RPC("receivePrivateMessage", p, "[FFCC00]["+(string)PhotonNetwork.player.customProperties["Handle"]+"]: " + newMessage + "[-]", PhotonNetwork.player.customProperties["Handle"]);
+							textList.Add("[FFCC00][To] " + (string)p.customProperties["Handle"] + ": " + newMessage + "[-]");
+							mInput.value = "";
+							return true;
+						}
+					}	
+				}
+				break;
+
 			default:
 				foreach(PhotonPlayer p in PhotonNetwork.playerList){
 					if(p!= PhotonNetwork.player && commandTest == ("/"+(string)p.customProperties["Handle"])){
 						string newMessage = message.Substring(commandTest.Length+1, (message.Length-1)-commandTest.Length);
-						photonView.RPC("receiveMessage", p, "[FFCC00]["+(string)PhotonNetwork.player.customProperties["Handle"]+"]: " + newMessage + "[-]");
+						photonView.RPC("receivePrivateMessage", p, "[FFCC00]["+(string)PhotonNetwork.player.customProperties["Handle"]+"]: " + newMessage + "[-]", PhotonNetwork.player.customProperties["Handle"]);
 						textList.Add("[FFCC00][To] " + (string)p.customProperties["Handle"] + ": " + newMessage + "[-]");
 						mInput.value = "";
 						return true;
@@ -401,6 +422,12 @@ public class Pregame : MonoBehaviour {
 	[RPC]
 	public void receiveMessage(string s){
 		textList.Add(s);
+	}
+
+	[RPC]
+	public void receivePrivateMessage(string s, string sender){
+		textList.Add(s);
+		lastMessagedPlayer = sender;
 	}
 
 	[RPC]

@@ -26,10 +26,10 @@ public class PlayerChat : MonoBehaviour
 	public GameObject window;
 	// private PhotonView photonView = null;
 	private Player player;
-	private GameObject[] team;
 	private bool mIgnoreUp = false;
-
+	private PhotonView photonView = null;
 	private static bool debugMode = true;
+	public string lastMessagedPlayer = "";
 
 	UIInput mInput;
 
@@ -39,6 +39,7 @@ public class PlayerChat : MonoBehaviour
 		player = Player.Instance;
 		mInput = GetComponent<UIInput>();
 		mInput.label.maxLineCount = 1;
+		photonView = PhotonView.Get(this);
 	}
 
 	/// <summary>
@@ -70,12 +71,6 @@ public class PlayerChat : MonoBehaviour
 
 		if (textList != null)
 		{	
-			if(player.Team == "Spy"){
-				team = GameObject.FindGameObjectsWithTag("Spy");
-			}
-			else{
-				team = GameObject.FindGameObjectsWithTag("Guard");
-			}
 
 			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
 			string text = NGUIText.StripSymbols(mInput.value);
@@ -85,16 +80,11 @@ public class PlayerChat : MonoBehaviour
 			text = StringCleaner.CleanString(text);
 
 			if (!string.IsNullOrEmpty(text) && text.Length>=2 && !isCommand){
-				if(player.Team == "Spy"){
-					foreach(GameObject gu in team){
-						gu.GetComponent<Spy>().photonView.RPC("receiveMessage", PhotonTargets.All, "[00CCFF]"+player.Handle+": [-]"+text);
+				foreach(PhotonPlayer p in PhotonNetwork.playerList){
+					if((string)p.customProperties["Team"] == (string)PhotonNetwork.player.customProperties["Team"]){
+						photonView.RPC("receiveMessage", p, "[00CCFF]"+player.Handle+": [-]"+text);
 					}
-
-				} else if(player.Team == "Guard") {
-					foreach(GameObject gu in team){
-						gu.GetComponent<Guard>().photonView.RPC("receiveMessage", PhotonTargets.All, "[FF2B2B]"+player.Handle+": [-]"+text);
-					}
-				} 
+				}
 				mInput.value = "";
 			}
 		}
@@ -122,6 +112,20 @@ public class PlayerChat : MonoBehaviour
 					}
 				break;
 
+			case "/r":
+				if(lastMessagedPlayer!=""){
+					Debug.Log("Messaging : " + lastMessagedPlayer);
+					foreach(PhotonPlayer p in PhotonNetwork.playerList){
+						if(p!= PhotonNetwork.player && lastMessagedPlayer == (string)p.customProperties["Handle"]){
+							sendPrivateMessage(commandTest, message, p);
+							return true;
+						}
+					}	
+				}else{
+					Debug.Log("No recent player");
+				}
+				break;	
+
 			default:
 				foreach(PhotonPlayer p in PhotonNetwork.playerList){
 					if(p!= PhotonNetwork.player && commandTest == ("/"+(string)p.customProperties["Handle"])){
@@ -129,7 +133,9 @@ public class PlayerChat : MonoBehaviour
 						return true;
 					}
 				}
-				break;
+				textList.Add("[FF0000]Error: [-][FFCC00]Could not find player: [-]" + commandTest.Substring(1, commandTest.Length-1));
+				mInput.value = "";
+				return true;
 		}
 
 		return false;
@@ -137,21 +143,23 @@ public class PlayerChat : MonoBehaviour
 
 	void sendPrivateMessage(string commandTest, string message, PhotonPlayer p){
 		string newMessage = message.Substring(commandTest.Length+1, (message.Length-1)-commandTest.Length);
-			foreach(GameObject gu in GameObject.FindGameObjectsWithTag((string)p.customProperties["Team"])){
-				if(gu.GetComponent<BasePlayer>().localHandle == (string)p.customProperties["Handle"]){
-					if((string)p.customProperties["Team"] == "Guard")
-						gu.GetComponent<Guard>().photonView.RPC("receiveMessage", p, "[FFCC00]["+(string)PhotonNetwork.player.customProperties["Handle"]+"]: " + newMessage + "[-]");
-					else
-						gu.GetComponent<Spy>().photonView.RPC("receiveMessage", p, "[FFCC00]["+(string)PhotonNetwork.player.customProperties["Handle"]+"]: " + newMessage + "[-]");
-				}
-			}
-					
+		photonView.RPC("receivePrivateMessage", p, "[FFCC00]["+(string)PhotonNetwork.player.customProperties["Handle"]+"]: " + newMessage + "[-]", PhotonNetwork.player.customProperties["Handle"]);
 		textList.Add("[FFCC00][To] " + (string)p.customProperties["Handle"] + ": " + newMessage + "[-]");
 		mInput.value = "";
 	}
 
 	[RPC]
 	public void receiveMessage(string s){
-		textList.Add(s);
+		foreach(GameObject p in GameObject.FindGameObjectsWithTag((string)PhotonNetwork.player.customProperties["Team"])){
+			p.GetComponentInChildren<PlayerChat>().textList.Add(s);
+		}
+	}
+
+	[RPC]
+	public void receivePrivateMessage(string s, string sender){
+		foreach(GameObject p in GameObject.FindGameObjectsWithTag((string)PhotonNetwork.player.customProperties["Team"])){
+			p.GetComponentInChildren<PlayerChat>().textList.Add(s);
+			p.GetComponentInChildren<PlayerChat>().lastMessagedPlayer = sender;
+		}
 	}
 }

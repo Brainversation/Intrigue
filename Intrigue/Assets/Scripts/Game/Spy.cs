@@ -172,7 +172,7 @@ public class Spy : BasePlayer{
 				
 					}
 				}
-				else if(!hit.transform.gameObject.GetComponent<BaseAI>().stunned && !hit.transform.gameObject.GetComponent<BaseAI>().recentlyStunned){
+				else if(hit.transform.gameObject.layer == BasePlayer.GUEST && !hit.transform.gameObject.GetComponent<BaseAI>().stunned && !hit.transform.gameObject.GetComponent<BaseAI>().recentlyStunned){
 					//Audio for stun
 					if(!stunAudio.isPlaying){
 						stunAudio.Play();
