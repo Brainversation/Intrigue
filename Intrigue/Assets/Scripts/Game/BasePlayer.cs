@@ -103,7 +103,6 @@ public class BasePlayer : MonoBehaviour {
 			convoUICancel.text = "[FFCC00]" + Settings.Cancel.ToUpper();
 			convoUIJoin.text = "[FFCC00]" + Settings.Interact.ToUpper();
 			photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
-			photonView.RPC("sendID", PhotonTargets.AllBuffered, PhotonNetwork.player.ID);
 			InvokeRepeating("syncPing", 1, 2F);
 			updateRoundResults();
 			textList.Add("[FFCC00]Press [-]Enter[FFCC00] to chat![-]");

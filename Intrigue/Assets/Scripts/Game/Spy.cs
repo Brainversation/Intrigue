@@ -185,7 +185,7 @@ public class Spy : BasePlayer{
 					Instantiate(pointPop, hit.transform.position + (Vector3.up * hit.transform.gameObject.GetComponent<Collider>().bounds.size.y), hit.transform.rotation);
 					photonView.RPC("addPlayerScore", PhotonTargets.All, -50, player.TeamID);
 					PhotonView pv = hit.transform.GetComponent<PhotonView>();
-					pv.RPC("stunAI", pv.owner);
+					pv.RPC("stunAI", PhotonTargets.MasterClient);
 					stuns--;
 					base.newEvent("[00CCFF]"+player.Handle+"[-] [FFCC00]has stunned a guest!");
 				}
