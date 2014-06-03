@@ -80,7 +80,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	public void FixedUpdate(){
 		if(photonView.isMine){
 			if((player.Team != "Spy" || !Intrigue.playerGO.GetComponent<Spy>().doingObjective) &&
-				!isOut && !gameObject.GetComponent<BasePlayer>().isChatting && !isStunned && !Intrigue.finalRoundOver){
+				!isOut && !gameObject.GetComponent<BasePlayer>().isChatting && !isStunned && !Intrigue.finalRoundOver && !isIdleAnimating){
 				// Stamina functionality
 				doStamina();
 
@@ -93,8 +93,12 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 				anim.SetBool("Out", true);
 				GetComponent<CharacterController>().Move(Vector3.zero); 
 				photonView.RPC("toggleOtherAnims", PhotonTargets.Others, "Out", true);
-			}
-			else if(player.Team == "Spy" && Intrigue.playerGO.GetComponent<Spy>().doingObjective){
+			} else if(isIdleAnimating){
+				anim.SetFloat("Speed", 0f);
+				anim.SetFloat("Direction", 0f);
+				anim.SetBool("Run", false);
+				GetComponent<CharacterController>().Move(Vector3.zero); 
+			} else if(player.Team == "Spy" && Intrigue.playerGO.GetComponent<Spy>().doingObjective){
 				anim.SetFloat("Speed", 0f);
 				anim.SetFloat("Direction", 0f);
 				anim.SetBool("Run", false);
