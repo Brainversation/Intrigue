@@ -23,6 +23,8 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	public UISprite sprintSprite;
 	public bool infiniteRun = false;
 	public Camera cam;
+	public Animator anim;
+	
 	[HideInInspector] public bool isOut = false;
 	[HideInInspector] public bool isStunned = false;
 	
@@ -30,7 +32,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	private float speedMult = 1;
 	private Vector3 correctPlayerPos;
 	private Quaternion correctPlayerRot;
-	private Animator anim;
 	private Player player;
 	private float stamina = 100;
 	private float staminaDrainSpeed;
