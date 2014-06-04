@@ -9,7 +9,7 @@ using UnityEngine;
 /// Sends a message to the remote object when something happens.
 /// </summary>
 
-[AddComponentMenu("NGUI/Interaction/Button Message")]
+[AddComponentMenu("NGUI/Interaction/Button Message (Legacy)")]
 public class UIButtonMessage : MonoBehaviour
 {
 	public enum Trigger
@@ -20,7 +20,6 @@ public class UIButtonMessage : MonoBehaviour
 		OnPress,
 		OnRelease,
 		OnDoubleClick,
-		OnButtonPress,
 	}
 
 	public GameObject target;
@@ -33,12 +32,6 @@ public class UIButtonMessage : MonoBehaviour
 	void Start () { mStarted = true; }
 
 	void OnEnable () { if (mStarted) OnHover(UICamera.IsHighlighted(gameObject)); }
-
-	void Update(){
-		if(trigger == Trigger.OnButtonPress && Input.GetKeyUp(KeyCode.Return)){
-			Send();
-		}
-	}
 
 	void OnHover (bool isOver)
 	{

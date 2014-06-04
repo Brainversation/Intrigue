@@ -158,7 +158,7 @@ public class UIDragObject : MonoBehaviour
 
 					// Create the plane to drag along
 					Transform trans = UICamera.currentCamera.transform;
-					mPlane = new Plane((mPanel != null ? mPanel.cachedTransform.rotation : trans.rotation) * Vector3.back, UICamera.lastHit.point);
+					mPlane = new Plane((mPanel != null ? mPanel.cachedTransform.rotation : trans.rotation) * Vector3.back, UICamera.lastWorldPosition);
 				}
 			}
 			else if (mPressed && mTouchID == UICamera.currentTouchID)
@@ -242,6 +242,9 @@ public class UIDragObject : MonoBehaviour
 			after.x = Mathf.Round(after.x);
 			after.y = Mathf.Round(after.y);
 			target.localPosition = after;
+
+			UIScrollView ds = mPanel.GetComponent<UIScrollView>();
+			if (ds != null) ds.UpdateScrollbars(true);
 		}
 		else target.position += worldDelta;
 	}

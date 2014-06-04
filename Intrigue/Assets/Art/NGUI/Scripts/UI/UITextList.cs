@@ -117,8 +117,8 @@ public class UITextList : MonoBehaviour
 		get
 		{
 			if (!isValid) return 0;
-			int visibleLines = Mathf.FloorToInt((float)textLabel.height / textLabel.fontSize);
-			return Mathf.Max(0, mTotalLines - visibleLines);
+			int maxLines = Mathf.FloorToInt((float)textLabel.height / lineHeight);
+			return Mathf.Max(0, mTotalLines - maxLines);
 		}
 	}
 
@@ -179,10 +179,10 @@ public class UITextList : MonoBehaviour
 	/// Allow scrolling of the text list.
 	/// </summary>
 
-	void OnScroll (float val)
+	public void OnScroll (float val)
 	{
 		int sh = scrollHeight;
-		
+
 		if (sh != 0)
 		{
 			val *= lineHeight;
@@ -194,7 +194,7 @@ public class UITextList : MonoBehaviour
 	/// Allow dragging of the text list.
 	/// </summary>
 
-	void OnDrag (Vector2 delta)
+	public void OnDrag (Vector2 delta)
 	{
 		int sh = scrollHeight;
 
@@ -263,26 +263,21 @@ public class UITextList : MonoBehaviour
 			{
 				string final;
 				Paragraph p = mParagraphs.buffer[i];
-
-				if (NGUIText.WrapText(p.text, out final))
-				{
-					p.lines = final.Split('\n');
-					mTotalLines += p.lines.Length;
-				}
+				NGUIText.WrapText(p.text, out final);
+				p.lines = final.Split('\n');
+				mTotalLines += p.lines.Length;
 			}
 
 			// Recalculate the total number of lines
 			mTotalLines = 0;
-			for (int i = 0, imax = mParagraphs.size; i < imax; ++i){
-				if(mParagraphs.buffer[i].lines != null)
-					mTotalLines += mParagraphs.buffer[i].lines.Length;
-			}
+			for (int i = 0, imax = mParagraphs.size; i < imax; ++i)
+				mTotalLines += mParagraphs.buffer[i].lines.Length;
 
 			// Update the bar's size
 			if (scrollBar != null)
 			{
 				UIScrollBar sb = scrollBar as UIScrollBar;
-				if (sb != null) sb.barSize = 1f - (float)scrollHeight / mTotalLines;
+				if (sb != null) sb.barSize = (mTotalLines == 0) ? 1f : 1f - (float)scrollHeight / mTotalLines;
 			}
 
 			// Update the visible text
@@ -298,7 +293,13 @@ public class UITextList : MonoBehaviour
 	{
 		if (isValid)
 		{
-			int maxLines = Mathf.FloorToInt((float)textLabel.height / textLabel.fontSize);
+			if (mTotalLines == 0)
+			{
+				textLabel.text = "";
+				return;
+			}
+
+			int maxLines = Mathf.FloorToInt((float)textLabel.height / lineHeight);
 			int sh = Mathf.Max(0, mTotalLines - maxLines);
 			int offset = Mathf.RoundToInt(mScroll * sh);
 			if (offset < 0) offset = 0;
@@ -308,9 +309,7 @@ public class UITextList : MonoBehaviour
 			for (int i = 0, imax = mParagraphs.size; maxLines > 0 && i < imax; ++i)
 			{
 				Paragraph p = mParagraphs.buffer[i];
-				
-				if(p.lines == null)
-					continue;
+
 				for (int b = 0, bmax = p.lines.Length; maxLines > 0 && b < bmax; ++b)
 				{
 					string s = p.lines[b];

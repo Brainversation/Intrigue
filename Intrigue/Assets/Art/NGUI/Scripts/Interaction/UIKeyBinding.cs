@@ -9,17 +9,13 @@ using UnityEngine;
 /// This class makes it possible to activate or select something by pressing a key (such as space bar for example).
 /// </summary>
 
-[AddComponentMenu("Game/UI/Key Binding")]
+[AddComponentMenu("NGUI/Interaction/Key Binding")]
 public class UIKeyBinding : MonoBehaviour
 {
 	public enum Action
 	{
 		PressAndClick,
 		Select,
-		Toggle,
-		Deselect,
-		ToggleUIVisibilty,
-		SelectAndDeselect
 	}
 
 	public enum Modifier
@@ -48,10 +44,9 @@ public class UIKeyBinding : MonoBehaviour
 
 	public Action action = Action.PressAndClick;
 
-	public GameObject Window = null;
-
 	bool mIgnoreUp = false;
 	bool mIsInput = false;
+	bool mPress = false;
 
 	/// <summary>
 	/// If we're bound to an input field, subscribe to its Submit notification.
@@ -62,9 +57,6 @@ public class UIKeyBinding : MonoBehaviour
 		UIInput input = GetComponent<UIInput>();
 		mIsInput = (input != null);
 		if (input != null) EventDelegate.Add(input.onSubmit, OnSubmit);
-		if(action == Action.ToggleUIVisibilty){
-			Window.GetComponent<UISprite>().alpha = 0;
-		}
 	}
 
 	/// <summary>
@@ -112,66 +104,44 @@ public class UIKeyBinding : MonoBehaviour
 			if (UICamera.inputHasFocus) return;
 
 			UICamera.currentTouch = UICamera.controller;
-			UICamera.currentScheme = UICamera.ControlScheme.Controller;
+			UICamera.currentScheme = UICamera.ControlScheme.Mouse;
 			UICamera.currentTouch.current = gameObject;
 
 			if (Input.GetKeyDown(keyCode))
 			{
+				mPress = true;
 				UICamera.Notify(gameObject, "OnPress", true);
 			}
 
 			if (Input.GetKeyUp(keyCode))
 			{
 				UICamera.Notify(gameObject, "OnPress", false);
-				UICamera.Notify(gameObject, "OnClick", null);
+
+				if (mPress)
+				{
+					UICamera.Notify(gameObject, "OnClick", null);
+					mPress = false;
+				}
 			}
 			UICamera.currentTouch.current = null;
 		}
-		else if(action == Action.ToggleUIVisibilty){
-			if(Input.GetKeyUp(keyCode)){
-				if(Window.GetComponent<UISprite>().alpha == 0)
+		else if (action == Action.Select)
+		{
+			if (Input.GetKeyUp(keyCode))
+			{
+				if (mIsInput)
 				{
-					Window.GetComponent<UISprite>().alpha = 1;
-					gameObject.GetComponentInChildren<UIInput>().enabled = true;
+					if (!mIgnoreUp && !UICamera.inputHasFocus)
+					{
+						UICamera.selectedObject = gameObject;
+					}
+					mIgnoreUp = false;
 				}
 				else
-				{	
-					gameObject.GetComponentInChildren<UIInput>().enabled = false;
-					Window.GetComponent<UISprite>().alpha = 0;
+				{
+					UICamera.selectedObject = gameObject;
 				}
 			}
-		}
-		else if (action == Action.Select){
-			if (Input.GetKeyUp(keyCode) && IsModifierActive()){
-					if (mIsInput){
-						if (!mIgnoreUp && !UICamera.inputHasFocus){
-							UICamera.selectedObject = gameObject;
-						}
-						mIgnoreUp = false;
-					}
-					else{
-						UICamera.selectedObject = gameObject;
-					}
-				}
-		}
-		else if(action == Action.SelectAndDeselect){
-				if (Input.GetKeyUp(keyCode) && IsModifierActive() && Window.GetComponent<UISprite>().alpha == 1){
-					if (mIsInput){
-						if (!mIgnoreUp && !UICamera.inputHasFocus){
-							UICamera.selectedObject = gameObject;
-						}
-						mIgnoreUp = false;
-					}
-					else{
-						UICamera.selectedObject = gameObject;
-					}
-				}
-				else if(Input.GetKeyUp(keyCode) && IsModifierActive() && Window.GetComponent<UISprite>().alpha == 0){					
-					UICamera.inputHasFocus = false;
-					UICamera.selectedObject = null;
-					gameObject.GetComponentInChildren<UIInput>().enabled = false;
-					Window.GetComponent<UISprite>().alpha = 0;				
-				}
 		}
 	}
 }

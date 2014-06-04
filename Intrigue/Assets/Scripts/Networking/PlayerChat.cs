@@ -39,6 +39,11 @@ public class PlayerChat : MonoBehaviour
 		mInput = GetComponent<UIInput>();
 		mInput.label.maxLineCount = 1;
 		photonView = PhotonView.Get(this);
+		window.GetComponent<UISprite>().alpha = 0;
+		gameObject.GetComponent<UIInput>().enabled = false;	
+		UICamera.inputHasFocus = false;
+		UICamera.selectedObject = null;
+		gameObject.GetComponent<UIInput>().enabled = false;
 	}
 
 	/// <summary>
@@ -61,6 +66,28 @@ public class PlayerChat : MonoBehaviour
 			UICamera.inputHasFocus = false;
 			UICamera.selectedObject = null;
 			mInput.enabled = false;			
+		}
+
+		if(Input.GetKeyUp(KeyCode.Return)){
+			if(window.GetComponent<UISprite>().alpha == 0){
+				if(mInput){
+					if(!mIgnoreUp && !UICamera.inputHasFocus)
+						UICamera.selectedObject = gameObject;
+					mIgnoreUp = false;
+				}
+				else{
+					UICamera.selectedObject = gameObject;
+				}
+				window.GetComponent<UISprite>().alpha = 1;
+				gameObject.GetComponent<UIInput>().enabled = true;
+			}
+			else{
+				window.GetComponent<UISprite>().alpha = 0;
+				gameObject.GetComponent<UIInput>().enabled = false;	
+				UICamera.inputHasFocus = false;
+				UICamera.selectedObject = null;
+				gameObject.GetComponent<UIInput>().enabled = false;		
+			}
 		}
 	}
 
@@ -149,9 +176,8 @@ public class PlayerChat : MonoBehaviour
 						return true;
 					}
 				}
-				textList.Add("[FF0000]Error: [-][FFCC00]Could not find player: [-]" + commandTest.Substring(1, commandTest.Length-1));
-				mInput.value = "";
-				return true;
+				break;
+
 		}
 
 		return false;

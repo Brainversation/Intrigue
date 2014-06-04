@@ -125,15 +125,24 @@ public class UIProgressBar : UIWidgetContainer
 
 			if (mValue != val)
 			{
+				float before = this.value;
 				mValue = val;
 
-				if (EventDelegate.IsValid(onChange))
+				if (before != this.value)
 				{
-					current = this;
-					EventDelegate.Execute(onChange);
-					current = null;
+					ForceUpdate();
+
+					if (current == null && NGUITools.GetActive(this) && EventDelegate.IsValid(onChange))
+					{
+						current = this;
+						EventDelegate.Execute(onChange);
+						current = null;
+					}
 				}
-				ForceUpdate();
+#if UNITY_EDITOR
+				if (!Application.isPlaying)
+					NGUITools.SetDirty(this);
+#endif
 			}
 		}
 	}
@@ -156,12 +165,14 @@ public class UIProgressBar : UIWidgetContainer
 			{
 				mFG.alpha = value;
 				if (mFG.collider != null) mFG.collider.enabled = mFG.alpha > 0.001f;
+				else if (mFG.GetComponent<Collider2D>() != null) mFG.GetComponent<Collider2D>().enabled = mFG.alpha > 0.001f;
 			}
 
 			if (mBG != null)
 			{
 				mBG.alpha = value;
 				if (mBG.collider != null) mBG.collider.enabled = mBG.alpha > 0.001f;
+				else if (mBG.GetComponent<Collider2D>() != null) mBG.GetComponent<Collider2D>().enabled = mBG.alpha > 0.001f;
 			}
 
 			if (thumb != null)
@@ -172,6 +183,7 @@ public class UIProgressBar : UIWidgetContainer
 				{
 					w.alpha = value;
 					if (w.collider != null) w.collider.enabled = w.alpha > 0.001f;
+					else if (w.GetComponent<Collider2D>() != null) w.GetComponent<Collider2D>().enabled = w.alpha > 0.001f;
 				}
 			}
 		}
@@ -199,18 +211,11 @@ public class UIProgressBar : UIWidgetContainer
 
 		if (Application.isPlaying)
 		{
-			if (mFG == null)
-			{
-				Debug.LogWarning("Progress bar needs a foreground widget to work with", this);
-				enabled = false;
-				return;
-			}
-
 			if (mBG != null) mBG.autoResizeBoxCollider = true;
 
 			OnStart();
 
-			if (onChange != null)
+			if (current == null && onChange != null)
 			{
 				current = this;
 				EventDelegate.Execute(onChange);
@@ -250,13 +255,25 @@ public class UIProgressBar : UIWidgetContainer
 
 	protected void OnValidate ()
 	{
-		Upgrade();
-		mIsDirty = true;
-		float val = Mathf.Clamp01(mValue);
-		if (mValue != val) mValue = val;
-		if (numberOfSteps < 0) numberOfSteps = 0;
-		else if (numberOfSteps > 20) numberOfSteps = 20;
-		ForceUpdate();
+		// For some bizarre reason Unity calls this function on prefabs, even if prefabs
+		// are not actually used in the scene, nor selected in inspector. Dafuq?
+		if (NGUITools.GetActive(this))
+		{
+			Upgrade();
+			mIsDirty = true;
+			float val = Mathf.Clamp01(mValue);
+			if (mValue != val) mValue = val;
+			if (numberOfSteps < 0) numberOfSteps = 0;
+			else if (numberOfSteps > 20) numberOfSteps = 20;
+			ForceUpdate();
+		}
+		else
+		{
+			float val = Mathf.Clamp01(mValue);
+			if (mValue != val) mValue = val;
+			if (numberOfSteps < 0) numberOfSteps = 0;
+			else if (numberOfSteps > 20) numberOfSteps = 20;
+		}
 	}
 
 	/// <summary>
@@ -292,12 +309,12 @@ public class UIProgressBar : UIWidgetContainer
 			if (isHorizontal)
 			{
 				float diff = (localPos.x - corners[0].x) / size.x;
-				return Mathf.Clamp01(isInverted ? 1f - diff : diff);
+				return isInverted ? 1f - diff : diff;
 			}
 			else
 			{
 				float diff = (localPos.y - corners[0].y) / size.y;
-				return Mathf.Clamp01(isInverted ? 1f - diff : diff);
+				return isInverted ? 1f - diff : diff;
 			}
 		}
 		return value;
@@ -313,13 +330,13 @@ public class UIProgressBar : UIWidgetContainer
 
 		if (mFG != null)
 		{
-			UISprite sprite = mFG as UISprite;
+			UIBasicSprite sprite = mFG as UIBasicSprite;
 
 			if (isHorizontal)
 			{
-				if (sprite != null && sprite.type == UISprite.Type.Filled)
+				if (sprite != null && sprite.type == UIBasicSprite.Type.Filled)
 				{
-					sprite.fillDirection = UISprite.FillDirection.Horizontal;
+					sprite.fillDirection = UIBasicSprite.FillDirection.Horizontal;
 					sprite.invert = isInverted;
 					sprite.fillAmount = value;
 				}
@@ -330,9 +347,9 @@ public class UIProgressBar : UIWidgetContainer
 						new Vector4(0f, 0f, value, 1f);
 				}
 			}
-			else if (sprite != null && sprite.type == UISprite.Type.Filled)
+			else if (sprite != null && sprite.type == UIBasicSprite.Type.Filled)
 			{
-				sprite.fillDirection = UISprite.FillDirection.Vertical;
+				sprite.fillDirection = UIBasicSprite.FillDirection.Vertical;
 				sprite.invert = isInverted;
 				sprite.fillAmount = value;
 			}
