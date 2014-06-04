@@ -81,9 +81,10 @@ public class Scoreboard : MonoBehaviour {
 		UILabel handlelabel = playerHandleInstance.GetComponent<UILabel>();
 		handlelabel.user = play.ID;
 		handlelabel.labelType = "handle";
-		if(!(bool)play.customProperties["isOut"])
+		if((bool)play.customProperties["isOut"])
 			handlelabel.text = "[s]" + (string)play.customProperties["Handle"] + "[/s]";
-
+		else
+			handlelabel.text = (string)play.customProperties["Handle"];
 		GameObject playerScoreInstance = NGUITools.AddChild(guardTable, playerPrefab);
 		Vector3 temp2 = new Vector3(-75f,(g)*30f,0f);
 		playerScoreInstance.transform.localPosition -= temp2;
@@ -109,8 +110,10 @@ public class Scoreboard : MonoBehaviour {
 		UILabel handlelabel = playerHandleInstance.GetComponent<UILabel>();
 		handlelabel.user = play.ID;
 		handlelabel.labelType = "handle";
-		handlelabel.text = (string)play.customProperties["Handle"];
-
+		if((bool)play.customProperties["isOut"])
+			handlelabel.text = "[s]" + (string)play.customProperties["Handle"] + "[/s]";
+		else
+			handlelabel.text = (string)play.customProperties["Handle"];
 		GameObject playerScoreInstance = NGUITools.AddChild(spyTable, playerPrefab);
 		Vector3 temp2 = new Vector3(-75f,(s)*30f,0f);
 		playerScoreInstance.transform.localPosition -= temp2;

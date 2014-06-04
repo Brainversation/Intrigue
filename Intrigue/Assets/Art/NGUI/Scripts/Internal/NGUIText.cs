@@ -372,8 +372,11 @@ static public class NGUIText
 		ref int sub, ref bool bold, ref bool italic, ref bool underline, ref bool strike)
 	{
 		int length = text.Length;
-
 		if (index + 3 > length || text[index] != '[') return false;
+
+		if(text[index+1] == 'T' && text[index+2] == 'o'){
+			return false;
+		}
 
 		if (text[index + 2] == ']')
 		{
