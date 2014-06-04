@@ -18,18 +18,21 @@ using System.Collections;
 public class NetworkCharacter : Photon.MonoBehaviour {
 	
 	public const float CHARSPEED = 10;
+	public const float GRAVITY = 1000;
 
 	public UIPanel sprintPanel;
 	public UISprite sprintSprite;
-	public bool infiniteRun = false;
 	public Camera cam;
 	public Animator anim;
 	
+	[HideInInspector] public bool infiniteRun = false;
+	[HideInInspector] public bool gravityToggle = true;
 	[HideInInspector] public bool isOut = false;
 	[HideInInspector] public bool isStunned = false;
 	
 
 	private float speedMult = 1;
+	private float camSpeedMult = 1;
 	private Vector3 correctPlayerPos;
 	private Quaternion correctPlayerRot;
 	private Player player;
@@ -43,7 +46,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 	void Start() {
 		//Get References to Animator and Collider
-		anim = GetComponent<Animator>();
 		anim.speed = 1.0f;
 		player = Player.Instance;
 		if(player.Team=="Spy"){
@@ -123,7 +125,12 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 
 		moveDirection = transform.TransformDirection(moveDirection);
 		// For gravity
-		moveDirection.y -= 1000 * Time.deltaTime;
+		if(gravityToggle)
+			moveDirection.y -= GRAVITY * Time.deltaTime;
+		else if(Input.GetKey(KeyCode.Q))
+			moveDirection.y = 8f * camSpeedMult;
+		else if(Input.GetKey(KeyCode.E))
+			moveDirection.y = -8f * camSpeedMult;
 		GetComponent<CharacterController>().Move(moveDirection * Time.deltaTime); 
 	}
 
@@ -152,9 +159,11 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			canRegen = false;
 			anim.SetBool("Run", Input.GetKey(Settings.Sprint));
 			speedMult = Mathf.PI;
+			camSpeedMult = Mathf.PI;
 		} 
 		else {
 			speedMult = 1;
+			camSpeedMult = 1;
 			if(!canRegen){
 				Invoke("StartRegen", 3);
 			}

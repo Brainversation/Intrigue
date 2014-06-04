@@ -138,6 +138,57 @@ public class PlayerChat : MonoBehaviour
 				}
 			break;
 
+			case "/free":
+				if(debugMode){
+					if(targetTest == "true" || targetTest == "True"){
+						toggleUI(0);
+						Intrigue.playerGO.GetComponent<NetworkCharacter>().gravityToggle = false;
+						Intrigue.playerGO.GetComponent<NetworkCharacter>().infiniteRun = true;
+						mInput.value = "";
+						return true;
+					}
+					else if(targetTest == "false" || targetTest == "False"){
+						toggleUI(1);
+						Intrigue.playerGO.GetComponent<NetworkCharacter>().gravityToggle = true;
+						Intrigue.playerGO.GetComponent<NetworkCharacter>().infiniteRun = false;
+						mInput.value = "";
+						return true;
+					}
+				}
+			break;
+
+			case "/ui":
+				if(debugMode){
+					if(targetTest == "true" || targetTest == "True"){
+						toggleUI(1);
+						mInput.value = "";
+						return true;
+					}
+					else if(targetTest == "false" || targetTest == "False"){
+						toggleUI(0);
+						mInput.value = "";
+						return true;
+					}
+				}
+			break;
+
+			case "/gravity":
+					if(debugMode){
+						if(targetTest == "true" || targetTest == "True"){
+								Intrigue.playerGO.GetComponent<NetworkCharacter>().gravityToggle = true;
+								mInput.value = "";
+								textList.Add("[FFCC00]Gravity set to true");
+								return true;
+							}
+							else if(targetTest == "false" || targetTest == "False"){
+								Intrigue.playerGO.GetComponent<NetworkCharacter>().gravityToggle = false;
+								textList.Add("[FFCC00]Gravity set to false");
+								mInput.value = "";
+								return true;
+							}
+					}
+			break;
+
 			case "/supersprint":
 					if(debugMode){
 						if(targetTest == "true" || targetTest == "True"){
@@ -153,7 +204,7 @@ public class PlayerChat : MonoBehaviour
 								return true;
 							}
 					}
-				break;
+			break;
 
 			case "/r":
 				if(lastMessagedPlayer!=""){
@@ -165,7 +216,7 @@ public class PlayerChat : MonoBehaviour
 						}
 					}	
 				}else{
-					Debug.Log("No recent player");
+					textList.Add("[D60004]No recent player");
 				}
 				break;	
 
@@ -181,6 +232,13 @@ public class PlayerChat : MonoBehaviour
 		}
 
 		return false;
+	}
+
+	void toggleUI(int alpha){
+		UIRect[] a = UIRoot.list[0].GetComponentsInChildren<UIRect>();
+		foreach(UIRect r in a){
+			r.alpha = alpha;
+		}
 	}
 
 	void sendPrivateMessage(string commandTest, string message, PhotonPlayer p){
