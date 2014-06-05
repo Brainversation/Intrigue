@@ -84,7 +84,7 @@ public class ConversationHotSpot : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if(other.gameObject.layer == BasePlayer.GUEST &&
 		   other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position
-		   && !queue.Contains(other.gameObject){
+		   &&!queue.Contains(other.gameObject)){
 			BaseAI script = other.gameObject.GetComponent<BaseAI>();
 			script.agent.SetDestination(spots[queue.Count]);
 			queue.Add(other.gameObject);
