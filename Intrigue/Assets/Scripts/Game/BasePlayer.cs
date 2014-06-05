@@ -109,6 +109,7 @@ public class BasePlayer : MonoBehaviour {
 			textList.Add("[FFCC00]Press [-]Z[FFCC00] to show/hide chat![-]");
 			textList.Add("[FFCC00]Type [-]/[Player Handle][FFCC00] to private message![-]");
 			cam.farClipPlane = 140.0f;
+			cam.nearClipPlane = 0.1f;
 			if(hairHat!=null)
 				hairHat.GetComponent<Renderer>().enabled = false;
 
