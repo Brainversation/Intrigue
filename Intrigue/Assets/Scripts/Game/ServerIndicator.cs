@@ -32,7 +32,7 @@ public class ServerIndicator : MonoBehaviour {
 	}
 
 	void inView(){
-		if(Vector3.Distance(Camera.main.transform.position, transform.position)<70){
+		if(Vector3.Distance(Camera.main.transform.position, transform.position)<35){
 			gameObject.GetComponent<MeshRenderer>().enabled = false;
 		}
 		else{
