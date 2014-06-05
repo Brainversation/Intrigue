@@ -83,7 +83,8 @@ public class ConversationHotSpot : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
 		if(other.gameObject.layer == BasePlayer.GUEST &&
-		   other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position){
+		   other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position
+		   && !queue.Contains(other.gameObject){
 			BaseAI script = other.gameObject.GetComponent<BaseAI>();
 			script.agent.SetDestination(spots[queue.Count]);
 			queue.Add(other.gameObject);
@@ -113,6 +114,8 @@ public class ConversationHotSpot : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider other){
+		//Debug.Log( other.gameObject.name + "\n" + "Guest Layer:" + other.gameObject.layer + "\n" + "BasePlayer.GUEST: " + BasePlayer.GUEST
+		//	+ "\n" + "inConvo: " + other.GetComponent<BaseAI>().inConvo);
 		if(other.gameObject.layer == BasePlayer.GUEST && other.GetComponent<BaseAI>().inConvo){
 			queue.Remove(other.gameObject);
 			other.GetComponent<BaseAI>().inConvo = false;
