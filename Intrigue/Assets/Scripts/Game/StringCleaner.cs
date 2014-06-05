@@ -20,10 +20,9 @@ public class StringCleaner : MonoBehaviour {
 	private static string PatternTemplate;
 	private static RegexOptions Options;
 	private static Regex rx;
+	private static string [] robotWords = new [] { "BEEP", "BOOP", "BOP", "BIP", "ZEEP", "ZIP", "ZAP", "ZOOP", "SQUEEBOP"};
 
   	static string ReplaceWords(Match m){
-
-		string [] robotWords = new [] { "BEEP", "BOOP", "BOP", "BIP", "ZEEP", "ZIP", "ZAP", "ZOOP", "SQUEEBOP"};
 		return robotWords[Random.Range(0,9)];
     }
 

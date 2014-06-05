@@ -86,7 +86,6 @@ public class BasePlayer : MonoBehaviour {
 	private GameObject[] spiesList;
 	private GameObject[] servers;
 	private List<GameObject> allPlayers = new List<GameObject>();
-	private Rect windowRect = new Rect(Screen.width/4, Screen.height/4, Screen.width/2, Screen.height/2);
 	private Camera cam;
 	private static bool menuFlag = false;
 	private bool areYouSure = false;
