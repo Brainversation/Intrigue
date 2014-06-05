@@ -122,7 +122,7 @@ public class BasePlayer : MonoBehaviour {
 				NGUITools.SetActive(uiP.gameObject, false);
 			}
 		}
-
+		Invoke("toggleChatOff", 5);
 		Invoke("setTeam", 2);
 
 	}

@@ -139,7 +139,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 		string tip;
 
 		switch(rand){
-			case 1: tip = "Tip: Use the '[FFCC00]A[-]' and '[FFCC00]D[-]' keys to rotate smoothly when rotating is on!";
+			case 1: tip = "Tip: Use the '[FFCC00]A[-]' and '[FFCC00]D[-]' keys to rotate smoothly when rotating is on.";
 				break;
 			case 2: tip = "Tip: When you start downloading a server, it alerts the guards!\nUse this to your advantage.";
 				break;
@@ -153,7 +153,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 				break;
 			case 7: tip = "Tip: Use [FFCC00]CTRL[-] to toggle strafing/smooth rotating!";
 				break;
-			case 8: tip = "Tip: Use [FFCC00]" + Settings.Interact.ToUpper() + "[-] to join conversations when near!";
+			case 8: tip = "Tip: The closer a Spy is to the server, the faster it downloads.";
 				break;
 			case 9: tip = "Tip: Use [FFCC00]SPACE[-] to cycle through teammates when spectating!";
 				break;

@@ -23,8 +23,8 @@ public class StringCleaner : MonoBehaviour {
 
   	static string ReplaceWords(Match m){
 
-		string [] robotWords = new [] { "BEEP", "BOOP", "BOP", "ZIP", "ZAP", "ZOOP", "SQUEEBOP"};
-		return robotWords[Random.Range(0,7)];
+		string [] robotWords = new [] { "BEEP", "BOOP", "BOP", "BIP", "ZEEP", "ZIP", "ZAP", "ZOOP", "SQUEEBOP"};
+		return robotWords[Random.Range(0,9)];
     }
 
     public static string CleanString(string checkStr){
@@ -34,7 +34,7 @@ public class StringCleaner : MonoBehaviour {
     }
 
    public static void createStringLists(){
-   		PatternTemplate = @"\b(bullshit|fuck|ass|shit|bitch|damn|cunt|fag|faggot|dick|bastard|cock|nigger|kike|chode|douche|whore|slut)(\w+)?\b";
+   		PatternTemplate = @"\b(dammit|bullshit|fuck|ass|shit|bitch|damn|cunt|fag|faggot|dick|bastard|cock|nigger|kike|chode|douche|whore|slut)(\w+)?\b";
 		Options = RegexOptions.IgnoreCase;
 		rx = new Regex(PatternTemplate, Options);
    }

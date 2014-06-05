@@ -52,6 +52,7 @@ public class Guard : BasePlayer{
 		base.Start();
 		accuseUICancel.text = "[FFCC00]" + Settings.Cancel.ToUpper();
 		accuseUIAccuse.text = "[FFCC00]" + Settings.Interact.ToUpper();
+		accusationGUI.alpha = 0;
 	}
 
 	protected override void Update (){

@@ -92,9 +92,10 @@ public class Pregame : MonoBehaviour {
 			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
 			string text = NGUIText.StripSymbols(mInput.value);
 			bool isCommand = false;
-			isCommand = testCommands(text);
 
 			text = StringCleaner.CleanString(text);
+			isCommand = testCommands(text);
+
 			if (!string.IsNullOrEmpty(text) && text.Length>=2 && !isCommand){
 				if(player.Team == "Spy"){
 					textList.Add("[8169FF]"+player.Handle+": [-]"+text);
