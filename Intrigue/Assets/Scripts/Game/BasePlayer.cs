@@ -50,6 +50,9 @@ public class BasePlayer : MonoBehaviour {
 	public GameObject UIRoot;
 	public GameObject scoreboard;
 	public GameObject pointPop;
+	public GameObject leaveMatchPanel;
+	public GameObject leaveMatchButton;
+	public GameObject leaveMatchWarning;
 	public UITextList textList;
 	public UIPanel conversationGUI;
 	public UILabel inConvoGUI;
@@ -84,7 +87,7 @@ public class BasePlayer : MonoBehaviour {
 	private GameObject[] servers;
 	private List<GameObject> allPlayers = new List<GameObject>();
 	private Rect windowRect = new Rect(Screen.width/4, Screen.height/4, Screen.width/2, Screen.height/2);
-
+	private Camera cam;
 	private static bool menuFlag = false;
 	private bool areYouSure = false;
 
@@ -92,12 +95,13 @@ public class BasePlayer : MonoBehaviour {
 		// Set conversationGUI so spy and guard can use
 		conversationGUI.alpha = 0;
 		inConvoGUI.alpha = 0;
-
+		NGUITools.SetActive(leaveMatchPanel, false);
+		leaveMatchWarning.GetComponent<UILabel>().alpha = 0;
 		servers = GameObject.FindGameObjectsWithTag("ObjectiveMain");
 		photonView = PhotonView.Get(this);
 		player = Player.Instance;
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
-		Camera cam = GetComponentInChildren<Camera>();
+		cam = GetComponentInChildren<Camera>();
 
 		if(photonView.isMine){
 			convoUICancel.text = "[FFCC00]" + Settings.Cancel.ToUpper();
@@ -265,8 +269,15 @@ public class BasePlayer : MonoBehaviour {
 		}
 
 		if(Input.GetKeyUp(KeyCode.Escape)){
+			areYouSure = false;
+			leaveMatchButton.GetComponent<UILabel>().text = "Leave Match";
+			leaveMatchWarning.GetComponent<UILabel>().alpha = 0;
 			Screen.lockCursor = !Screen.lockCursor;
 			BasePlayer.menuFlag = !BasePlayer.menuFlag;
+			NGUITools.SetActive(leaveMatchPanel, BasePlayer.menuFlag);
+			cam.GetComponentInChildren<MouseLook>().enabled = !menuFlag;
+			GetComponentInChildren<Crosshair>().enabled = !menuFlag;
+			GetComponent<MouseLook>().enabled = !menuFlag;
 		}
 		if(Input.GetKeyUp(KeyCode.Mouse0) && !BasePlayer.menuFlag){
 			Screen.lockCursor = true;
@@ -274,25 +285,16 @@ public class BasePlayer : MonoBehaviour {
 		
 	}
 
-	void OnGUI(){
-		if(BasePlayer.menuFlag){
-			windowRect = GUILayout.Window(0, windowRect, doWindow, "");
-		}
-	}
-
-	void doWindow(int windowID){
-		GUILayout.Label("Status: " + PhotonNetwork.connectionStateDetailed.ToString());
+	public void LeaveMatchPressed(){
 		if(!areYouSure){
-			if(GUILayout.Button("Leave Match")){
-			areYouSure = true;		
-			}
+			areYouSure = true;
+			leaveMatchButton.GetComponent<UILabel>().text = "Are You Sure?";
+			leaveMatchWarning.GetComponent<UILabel>().alpha = 1;
+		}else{
+			PhotonNetwork.LeaveRoom();
+			PhotonNetwork.LoadLevel( "MainMenu" );
 		}
-		else{
-			if(GUILayout.Button("Are you sure?\nLeaving will hurt your team you heartless meany face.")){
-					PhotonNetwork.LeaveRoom();
-					PhotonNetwork.LoadLevel( "MainMenu" );
-			}	
-		}
+		
 	}
 
 	void updateTimeLabel(){
