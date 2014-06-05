@@ -68,10 +68,7 @@ public class PostGame : MonoBehaviour {
 
 	}
 
-	void leaveLobby(){
-		PhotonNetwork.LeaveRoom();
-		PhotonNetwork.LoadLevel( "MainMenu" );
-	}
+
 
 	void addTeam1(string handle, int score, int playerID){
 		team1.Add(handle);
@@ -137,6 +134,11 @@ public class PostGame : MonoBehaviour {
 				mInput.value = "";
 			}
 		}
+	}
+	
+	public void leaveLobby(){
+		PhotonNetwork.LeaveRoom();
+		PhotonNetwork.LoadLevel( "MainMenu" );
 	}
 
 	[RPC]
