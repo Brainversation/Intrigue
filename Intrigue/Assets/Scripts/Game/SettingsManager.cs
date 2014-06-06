@@ -277,7 +277,6 @@ public class SettingsManager : MonoBehaviour {
 	}
 
 	public void updateFullScreen(){
-		FullScreenToggle.value = !FullScreenToggle.value;
 		Screen.fullScreen = FullScreenToggle.value;
 	}
 
