@@ -895,7 +895,6 @@ GameObject:
   - 82: {fileID: 8200008}
   - 82: {fileID: 8200010}
   - 114: {fileID: 11400062}
-  - 136: {fileID: 13600000}
   m_Layer: 8
   m_Name: Robot_Guard1
   m_TagString: Guard
@@ -8264,19 +8263,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100218}
   m_Enabled: 1
---- !u!136 &13600000
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100116}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 2.29999995
-  m_Height: 17.1000004
-  m_Direction: 1
-  m_Center: {x: 0, y: 6.80000019, z: .330000013}
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

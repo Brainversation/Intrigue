@@ -127,9 +127,9 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		// For gravity
 		if(gravityToggle)
 			moveDirection.y -= GRAVITY * Time.deltaTime;
-		else if(Input.GetKey(KeyCode.Q))
-			moveDirection.y = 8f * camSpeedMult;
 		else if(Input.GetKey(KeyCode.E))
+			moveDirection.y = 8f * camSpeedMult;
+		else if(Input.GetKey(KeyCode.Q))
 			moveDirection.y = -8f * camSpeedMult;
 		GetComponent<CharacterController>().Move(moveDirection * Time.deltaTime); 
 	}

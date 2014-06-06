@@ -144,6 +144,7 @@ public class PlayerChat : MonoBehaviour
 						toggleUI(0);
 						Intrigue.playerGO.GetComponent<NetworkCharacter>().gravityToggle = false;
 						Intrigue.playerGO.GetComponent<NetworkCharacter>().infiniteRun = true;
+						Intrigue.playerGO.layer = 19;
 						mInput.value = "";
 						return true;
 					}
@@ -151,6 +152,11 @@ public class PlayerChat : MonoBehaviour
 						toggleUI(1);
 						Intrigue.playerGO.GetComponent<NetworkCharacter>().gravityToggle = true;
 						Intrigue.playerGO.GetComponent<NetworkCharacter>().infiniteRun = false;
+						if(player.Handle == "Guard"){
+							Intrigue.playerGO.layer = BasePlayer.GUARD;
+						} else {
+							Intrigue.playerGO.layer = BasePlayer.SPY;
+						}
 						mInput.value = "";
 						return true;
 					}
