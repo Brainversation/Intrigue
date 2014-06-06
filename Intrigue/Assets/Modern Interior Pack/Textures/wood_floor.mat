@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: wood_floor
-  m_Shader: {fileID: 4800000, guid: 06d1aac584e8ea1439aef17569096dcf, type: 3}
+  m_Shader: {fileID: 4800000, guid: 054a31a99d11e49d110086ba44295342, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -44,12 +44,12 @@ Material:
     m_Floats:
       data:
         first:
-          name: _Outline
-        second: .00499999989
-      data:
-        first:
           name: _Shininess
         second: .0661035925
+      data:
+        first:
+          name: _Outline
+        second: .00499999989
     m_Colors:
       data:
         first:
@@ -57,20 +57,20 @@ Material:
         second: {r: .213235319, g: .213235319, b: .213235319, a: 1}
       data:
         first:
-          name: _OutlineColor
-        second: {r: 0, g: 0, b: 0, a: 1}
-      data:
-        first:
           name: _SpecColor
         second: {r: .158620834, g: 0, b: 1, a: 1}
       data:
         first:
-          name: _ReflectColor
-        second: {r: 1, g: 1, b: 1, a: .5}
+          name: _OutlineColor
+        second: {r: 0, g: 0, b: 0, a: 1}
       data:
         first:
           name: _SColor
         second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _ReflectColor
+        second: {r: 1, g: 1, b: 1, a: .5}
 --- !u!1002 &2100001
 EditorExtensionImpl:
   serializedVersion: 6
