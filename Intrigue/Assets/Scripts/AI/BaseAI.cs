@@ -95,7 +95,7 @@ public class BaseAI : Photon.MonoBehaviour {
 
 	// Initializes all fields
 	void Start(){
-		GetComponent<NavMeshAgent>().speed = NetworkCharacter.CHARSPEED;
+		agent.speed = NetworkCharacter.CHARSPEED;
 		agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
 		initAI();
 	}
@@ -244,9 +244,9 @@ public class BaseAI : Photon.MonoBehaviour {
 	void initAI(){
 		if(resetGameObjects){
 			rules = new List<Rule>();
+			rules.Add( new FindRoom() );
 			rules.Add( new WantToGetDrink() );
 			rules.Add( new WantToConverse() );
-			rules.Add( new FindRoom() );
 			rules.Add( new WantToWanderRoom() );
 			rules.Add( new WantToMoveRoom() );
 			rules.Add( new NeedToUseRestroom() );

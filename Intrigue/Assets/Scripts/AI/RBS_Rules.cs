@@ -247,7 +247,7 @@ namespace RBS{
 		public FindRoom(){
 			this.addCondition(new NotInRoom());
 			this.consequence = goToRoom;
-			this.weight = 1000;
+			this.weight = int.MaxValue;
 		}
 
 		private Status goToRoom(GameObject gameObject){
