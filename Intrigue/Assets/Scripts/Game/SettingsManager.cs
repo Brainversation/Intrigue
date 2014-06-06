@@ -71,6 +71,7 @@ public class SettingsManager : MonoBehaviour {
 	//Other
 	private Player player;
 	private string playerPrefsPrefix;
+	private bool ignoreFirst = false;
 
 	// Use this for initialization
 	void Start () {
@@ -281,10 +282,15 @@ public class SettingsManager : MonoBehaviour {
 	}
 
 	public void updateResolution(){
-		string[] resolution = ResolutionList.value.Split('x');
-		int width = int.Parse(resolution[0]);
-		int height = int.Parse(resolution[1]);
-		Screen.SetResolution(width,height,Screen.fullScreen);
+		if(ignoreFirst){
+			string[] resolution = ResolutionList.value.Split('x');
+			int width = int.Parse(resolution[0]);
+			int height = int.Parse(resolution[1]);
+			Screen.SetResolution(width,height,Screen.fullScreen);
+		}
+		else{
+			ignoreFirst = true;
+		}
 	}
 
 	public void updateQualitySettings(){
