@@ -108,9 +108,12 @@ public class BasePlayer : MonoBehaviour {
 			photonView.RPC("setLocalHandle", PhotonTargets.AllBuffered, player.Handle);
 			InvokeRepeating("syncPing", 1, 2F);
 			updateRoundResults();
-			textList.Add("[FFCC00]Press [-]Enter[FFCC00] to chat![-]");
-			textList.Add("[FFCC00]Press [-]Z[FFCC00] to show/hide chat![-]");
-			textList.Add("[FFCC00]Type [-]/[Player Handle][FFCC00] to private message![-]");
+			textList.Add("[FFCC00]Press [-]ENTER[FFCC00] to chat![-]");
+			textList.Add("[FFCC00]Press [-]Z[FFCC00] to show/hide chat.[-]");
+			if((string)PhotonNetwork.player.customProperties["Team"] == "Spy")
+				textList.Add("[FFCC00]Your team this round: [-][00CCFF]Spy[-]");
+			else
+				textList.Add("[FFCC00]Your team this round: [-][FF2B2B]Guard[-]");
 			cam.farClipPlane = 140.0f;
 			cam.nearClipPlane = 0.1f;
 			if(hairHat!=null)
@@ -126,7 +129,7 @@ public class BasePlayer : MonoBehaviour {
 				NGUITools.SetActive(uiP.gameObject, false);
 			}
 		}
-		Invoke("toggleChatOff", 5);
+		Invoke("toggleChatOff", 10);
 		Invoke("setTeam", 2);
 
 	}

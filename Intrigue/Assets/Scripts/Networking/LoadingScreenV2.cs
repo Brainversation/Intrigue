@@ -44,7 +44,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 		intrigue = GameObject.FindWithTag("Scripts").GetComponent<Intrigue>();
 		loadTimer.GetComponent<UILabel>().text = totalCountdownWithLoading+"s";
 
-		loadTip.GetComponent<UILabel>().text = getNewTip();
+		loadTip.GetComponent<UILabel>().text = getNewTip((string)PhotonNetwork.player.customProperties["Team"]);
 		guards = GameObject.FindGameObjectsWithTag("Guard");
 		spies = GameObject.FindGameObjectsWithTag("Spy");
 		
@@ -63,7 +63,12 @@ public class LoadingScreenV2 : MonoBehaviour {
 			loadResult.GetComponent<UILabel>().text = "";
 		}
 		else{
-			loadTitle.GetComponent<UILabel>().text = "ROUND STARTING\n[FF0000]SWITCHING SIDES[-]";
+			if((string)PhotonNetwork.player.customProperties["Team"] == "Spy"){
+				loadTitle.GetComponent<UILabel>().text = "ROUND STARTING\n[-]TEAM: [00CCFF]SPIES[-]";
+			}
+			else{
+				loadTitle.GetComponent<UILabel>().text = "ROUND STARTING\n[-]TEAM: [FF2B2B]GUARDS[-]";
+			}
 			loadResult.GetComponent<UILabel>().text = player.PrevResult;
 		}
 	}
@@ -134,35 +139,56 @@ public class LoadingScreenV2 : MonoBehaviour {
 		audio.Play();
 	}
 
-	string getNewTip(){
-		int rand = Random.Range(1,11);
+	string getNewTip(string team){
+		int rand;
 		string tip;
-
-		switch(rand){
+		if(team == "Guard"){
+			rand = Random.Range(1,9);
+			switch(rand){
+			case 1: tip = "Tip: Use the '[FFCC00]A[-]' and '[FFCC00]D[-]' keys to rotate smoothly when rotating is on.";
+				break;
+			case 2: tip = "Tip: Use [FFCC00]" + Settings.Mark.ToUpper() + "[-] to mark suspicious guests!";
+				break;
+			case 3: tip = "Tip: Use [FFCC00]" + Settings.Interact.ToUpper() + "[-] to do accuse!";
+				break;
+			case 4: tip = "Tip: You will hear a heartbeat when a Spy is near!";
+				break;
+			case 5: tip = "Tip: Use [FFCC00]CTRL[-] to toggle strafing/smooth rotating!";
+				break;
+			case 6: tip = "Tip: The closer a Spy is to the server, the faster it downloads.";
+				break;
+			case 7: tip = "Tip: Use [FFCC00]SPACE[-] to cycle through teammates when spectating!";
+				break;
+			case 8: tip = "Tip: Use [FFCC00]1[-] to play a random idle animation to blend in!";
+				break;
+			default: tip = "Tip: Kayvan rarely showers, avoid getting too near!";
+				break;
+			}
+		}else{
+			rand = Random.Range(1,10);
+			switch(rand){
 			case 1: tip = "Tip: Use the '[FFCC00]A[-]' and '[FFCC00]D[-]' keys to rotate smoothly when rotating is on.";
 				break;
 			case 2: tip = "Tip: When you start downloading a server, it alerts the guards!\nUse this to your advantage.";
 				break;
-			case 3: tip = "Tip: As a Spy, use [FFCC00]" + Settings.Stun.ToUpper() + "[-] to stun Guards!";
+			case 3: tip = "Tip: Use [FFCC00]" + Settings.Stun.ToUpper() + "[-] to stun Guards!";
 				break;
-			case 4: tip = "Tip: As a Guard, use [FFCC00]" + Settings.Mark.ToUpper() + "[-] to mark suspicious guests!";
+			case 4: tip = "Tip: Use [FFCC00]" + Settings.Interact.ToUpper() + "[-] to do objectives!";
 				break;
-			case 5: tip = "Tip: Use [FFCC00]" + Settings.Interact.ToUpper() + "[-] to do objectives/accuse!";
+			case 5: tip = "Tip: Guards hear a heartbeat when a you are near.";
 				break;
-			case 6: tip = "Tip: Guards hear a heartbeat when a Spy is near!";
+			case 6: tip = "Tip: Use [FFCC00]CTRL[-] to toggle strafing/smooth rotating!";
 				break;
-			case 7: tip = "Tip: Use [FFCC00]CTRL[-] to toggle strafing/smooth rotating!";
+			case 7: tip = "Tip: The closer you are to the server, the faster it downloads.";
 				break;
-			case 8: tip = "Tip: The closer a Spy is to the server, the faster it downloads.";
+			case 8: tip = "Tip: Use [FFCC00]SPACE[-] to cycle through teammates when spectating!";
 				break;
-			case 9: tip = "Tip: Use [FFCC00]SPACE[-] to cycle through teammates when spectating!";
-				break;
-			case 10: tip = "Tip: Use [FFCC00]1[-] to play a random idle animation to blend in!";
+			case 9: tip = "Tip: Use [FFCC00]1[-] to play a random idle animation to blend in!";
 				break;
 			default: tip = "Tip: Kayvan rarely showers, avoid getting too near!";
 				break;
+			}
 		}
-
 		return tip;
 	}
 
