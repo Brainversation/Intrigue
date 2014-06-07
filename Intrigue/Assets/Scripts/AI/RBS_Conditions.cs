@@ -111,7 +111,7 @@ namespace RBS{
 		public IsBursting(){}
 
 		public override bool test(GameObject gameObject){
-			if (gameObject.GetComponent<BaseAI>().bladder > 80){
+			if (gameObject.GetComponent<BaseAI>().bladder > 60){
 				return true;
 			}
 			return false;

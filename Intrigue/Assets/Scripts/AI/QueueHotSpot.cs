@@ -24,16 +24,18 @@ public class QueueHotSpot : MonoBehaviour {
 
 	public virtual void Update(){
 		if(queue.Count >= 1 && !queue[0].GetComponent<BaseAI>().isYourTurn){
-			queue[0].GetComponent<BaseAI>().isYourTurn = true;
-			queue[0].GetComponent<BaseAI>().destination = actionDestination.position;
-			queue[0].GetComponent<BaseAI>().distFromDest = 1f;
-			queue[0].GetComponent<NavMeshAgent>().SetDestination(actionDestination.position);
+			BaseAI ba = queue[0].GetComponent<BaseAI>();
+			ba.isYourTurn = true;
+			ba.destination = actionDestination.position;
+			ba.distFromDest = 1f;
+			ba.agent.SetDestination(actionDestination.position);
 		}
 	}
 
 	void OnTriggerEnter(Collider other){
 		if(other.gameObject.layer == BasePlayer.GUEST &&
 			other.gameObject.GetComponent<BaseAI>().destination == gameObject.transform.position){
+			other.gameObject.GetComponent<BaseAI>().inQueue = true;
 			other.gameObject.GetComponent<BaseAI>().status = Status.Waiting;
 			queue.Add(other.gameObject);
 		}
@@ -43,6 +45,7 @@ public class QueueHotSpot : MonoBehaviour {
 		if(other.gameObject.layer == BasePlayer.GUEST && other.gameObject.GetComponent<BaseAI>().isYourTurn){
 			queue.Remove(other.gameObject);
 			other.gameObject.GetComponent<BaseAI>().isYourTurn = false;
+			other.gameObject.GetComponent<BaseAI>().inQueue = false;
 		}
 	}
 }

@@ -26,10 +26,6 @@ namespace BehaviorTree{
 			this.addChild( new CreateDrink() );
 			this.addChild( new HoldDrink() );
 		}
-
-		public override Status run(GameObject gameObject){
-			return base.run(gameObject);
-		}
 	}
 
 	class WaitInLine : Sequence { 
@@ -149,7 +145,7 @@ namespace BehaviorTree{
 		public RepairingTree(GameObject go){
 			addChild(new Inverter( new WaitInLine() ));
 			addChild(new Sequence());
-			children[children.Count-1].addChild(new Wait(5));
+			children[children.Count-1].addChild(new Wait(10));
 			children[children.Count-1].addChild(new WalkAway());
 		}
 	}

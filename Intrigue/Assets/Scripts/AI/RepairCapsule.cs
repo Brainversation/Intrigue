@@ -14,11 +14,9 @@
 
 using UnityEngine;
 using System.Collections;
+using BehaviorTree;
 
 public class RepairCapsule : QueueHotSpot {
-
-	private bool repair = false;
-
 	public override void Update(){
 		base.Update();
 		if(	queue.Count >= 1 &&
@@ -33,19 +31,6 @@ public class RepairCapsule : QueueHotSpot {
 			Vector3 temp2 = gameObject.transform.position;
 			temp2.y = queue[0].transform.position.y;
 			queue[0].transform.position = temp2;
-			if(!IsInvoking() && !repair)
-				Invoke("doRepair", 2.5f);
-		}
-	}
-
-	public void doRepair(){
-		repair = true;
-	}
-
-	protected override void OnTriggerExit(Collider other){
-		base.OnTriggerExit(other);
-		if(other.gameObject.layer == BasePlayer.GUEST && queue.Contains(other.gameObject)){
-			repair = false;
 		}
 	}
 }

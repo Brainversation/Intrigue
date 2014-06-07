@@ -74,17 +74,18 @@ namespace BehaviorTree{
 	}
 
 	class WalkAway : Task {
+		private const float offset = 10;
 		public override Status run(GameObject gameObject){
-			Vector3 newDest;
-			newDest = new Vector3(UnityEngine.Random.Range( gameObject.GetComponent<BaseAI>().room.me.GetComponent<Collider>().bounds.min.x,
-															gameObject.GetComponent<BaseAI>().room.me.GetComponent<Collider>().bounds.max.x),
-															gameObject.transform.position.y,
-															UnityEngine.Random.Range(gameObject.GetComponent<BaseAI>().room.me.GetComponent<Collider>().bounds.min.z,
-															gameObject.GetComponent<BaseAI>().room.me.GetComponent<Collider>().bounds.max.z));
-			gameObject.GetComponent<BaseAI>().destination = newDest;
-			gameObject.GetComponent<BaseAI>().distFromDest = 1f;
-			gameObject.GetComponent<BaseAI>().status = Status.Waiting;
-			gameObject.GetComponent<NavMeshAgent>().SetDestination(newDest);
+			BaseAI ba = gameObject.GetComponent<BaseAI>();
+			Collider col = ba.room.me.GetComponent<Collider>();
+			Vector3 newDest = col.bounds.center;
+			newDest.x += UnityEngine.Random.Range(-col.bounds.extents.x/2, col.bounds.extents.x/2);
+			newDest.y = gameObject.transform.position.y;
+			newDest.z += UnityEngine.Random.Range(-col.bounds.extents.z/2, col.bounds.extents.z/2);
+			ba.destination = newDest;
+			ba.distFromDest = 1f;
+			ba.status = Status.Waiting;
+			ba.agent.SetDestination(newDest);
 			return Status.True;
 		}
 	}

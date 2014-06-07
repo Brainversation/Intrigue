@@ -45,9 +45,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public Vector3 destination;
 	[HideInInspector] public AI_RoomState room;
 	[HideInInspector] public Task tree = null;
-	[HideInInspector] public Status status = Status.False;
-	[HideInInspector] public bool isYourTurn = false;
-	[HideInInspector] public bool stunned = false;
+	public Status status = Status.False;
 	[HideInInspector] public bool recentlyStunned = false;
 	[HideInInspector] public float distFromDest = 5f;
 	[HideInInspector] public float convoTime = 5f;
@@ -71,11 +69,14 @@ public class BaseAI : Photon.MonoBehaviour {
 	[HideInInspector] public bool smoker = false;
 	[HideInInspector] public bool hasDrink = false;
 	[HideInInspector] public bool inConvo = false;
+	[HideInInspector] public bool isYourTurn = false;
+	[HideInInspector] public bool inQueue = false;
+	[HideInInspector] public bool stunned = false;
 
 	// Used for offline testing
 	public static bool aiTesting = false;
 	public static List<GameObject> aiTestingList;
-	private int AIID;
+	public int AIID;
 
 	void Awake(){
 		if(aiTesting){
@@ -106,8 +107,9 @@ public class BaseAI : Photon.MonoBehaviour {
 			transform.position = Vector3.Lerp(transform.position, this.nextPlayerPos, Time.deltaTime * 5);
 			transform.rotation = Quaternion.Lerp(transform.rotation, this.nextPlayerRot, Time.deltaTime * 5);
 		} else {
-			// Status system that updates the AI appropriately 
+			// Animation is based on the velocity of the Model
 			anim.SetFloat("Speed", agent.velocity.magnitude);
+			// Status system that updates the AI appropriately
 			switch(status){
 				case Status.False:
 					//Sort the list in terms of weight
@@ -133,7 +135,7 @@ public class BaseAI : Photon.MonoBehaviour {
 				break;
 
 				case Status.Tree:
-					if( tree.run(gameObject) == Status.True){
+					if(tree.run(gameObject) == Status.True){
 						doAnti();
 						tree = null;
 						status = Status.Waiting;
@@ -149,17 +151,22 @@ public class BaseAI : Photon.MonoBehaviour {
 						tree = null;
 						doAnti();
 						status = Status.False;
-					} else if(agent.hasPath && agent.remainingDistance < distFromDest){
-						agent.ResetPath();
-						if(tree != null){
-							status = Status.Tree;
-						} else if(inConvo){
-							status = Status.Convo;
-							convoTime = 5f;
-						} else {
-							status = Status.False;
-							doAnti();
+					} else if(agent.hasPath){
+						if(agent.remainingDistance < distFromDest){
+							agent.ResetPath();
+							if(tree != null){
+								status = Status.Tree;
+							} else if(inConvo){
+								status = Status.Convo;
+								convoTime = 5f;
+							} else if(!inQueue){
+								status = Status.False;
+								doAnti();
+							}
 						}
+					} else if(!inQueue){
+						status = Status.False;
+						doAnti();
 					}
 				break;
 
@@ -227,7 +234,7 @@ public class BaseAI : Photon.MonoBehaviour {
 	void OnGUI(){
 		if(!BaseAI.aiTesting) return;
 		GUI.color = Color.black;
-		GUILayout.BeginArea(new Rect(75*AIID, 0, 100, 200));
+		GUILayout.BeginArea(new Rect(100*AIID, 0, 100, 300));
 			GUILayout.Label( "thirst " + thirst);
 			GUILayout.Label( "bored " + bored);
 			GUILayout.Label( "hunger " + hunger);
@@ -236,6 +243,8 @@ public class BaseAI : Photon.MonoBehaviour {
 			GUILayout.Label( "anxiety " + anxiety);
 			GUILayout.Label( "bladder " + bladder);
 			GUILayout.Label( status.ToString() );
+			if(currentRule != null)
+				GUILayout.Label( currentRule.ToString() );
 		GUILayout.EndArea();
 	}
 #endif
@@ -262,12 +271,12 @@ public class BaseAI : Photon.MonoBehaviour {
 		// ReadPoetry
 		if(BaseAI.aiTesting){
 			thirst = 0;
-			bored = 51;
+			bored = 0;
 			hunger = 0;
-			lonely = 51;
+			lonely = 0;
 			tired = 0;
 			anxiety = 0;
-			bladder = 0;
+			bladder = 61;
 			anger = 0;
 			happy = 0;
 			sad = 0;

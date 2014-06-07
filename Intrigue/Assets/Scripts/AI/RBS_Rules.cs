@@ -194,7 +194,7 @@ namespace RBS{
 
 		private Status setDestRestroom(GameObject gameObject){
 			BaseAI script = gameObject.GetComponent<BaseAI>();
-			script.bladder -= 75;
+			script.bladder -= 65;
 
 			//Check if room has hotspot
 			if(script.room.restroomLocations.Count > 0){
@@ -390,7 +390,7 @@ namespace RBS{
 		public DoIdle(){
 			this.addCondition(new StayStill());
 			this.consequence = stay;
-			this.weight = 1;
+			this.weight = -1;
 		}
 
 		private Status stay(GameObject gameObject){
