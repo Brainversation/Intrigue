@@ -114,7 +114,7 @@ public class BasePlayer : MonoBehaviour {
 				textList.Add("[FFCC00]Your team this round: [-][00CCFF]Spy[-]");
 			else
 				textList.Add("[FFCC00]Your team this round: [-][FF2B2B]Guard[-]");
-			cam.farClipPlane = 140.0f;
+			cam.farClipPlane = 160.0f;
 			cam.nearClipPlane = 0.1f;
 			if(hairHat!=null)
 				hairHat.GetComponent<Renderer>().enabled = false;
