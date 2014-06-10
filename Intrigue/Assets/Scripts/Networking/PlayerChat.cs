@@ -144,6 +144,10 @@ public class PlayerChat : MonoBehaviour
 						toggleUI(0);
 						Intrigue.playerGO.GetComponent<NetworkCharacter>().gravityToggle = false;
 						Intrigue.playerGO.GetComponent<NetworkCharacter>().infiniteRun = true;
+						Renderer[] rend = Intrigue.playerGO.GetComponentsInChildren<Renderer>();
+						foreach(Renderer r in rend){
+							r.enabled = false;
+						}
 						Intrigue.playerGO.layer = 19;
 						mInput.value = "";
 						return true;
