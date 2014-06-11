@@ -270,7 +270,7 @@ public class BasePlayer : MonoBehaviour {
 			switchSpectate();
 		}
 
-		if(Input.GetKeyUp(KeyCode.Escape)){
+		if(Input.GetKeyDown(KeyCode.Escape)){
 			areYouSure = false;
 			leaveMatchButton.GetComponent<UILabel>().text = "Leave Match";
 			leaveMatchWarning.GetComponent<UILabel>().alpha = 0;
