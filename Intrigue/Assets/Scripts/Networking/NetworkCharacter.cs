@@ -135,10 +135,9 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	}
 
 	void playRandomIdle(){
-		int animIndex = Random.Range(1,12);
-		anim.SetBool("Idle" + animIndex, true);
+		curRandomAnim = Random.Range(1,12);
+		anim.SetBool("Idle" + curRandomAnim, true);
 		photonView.RPC("toggleIdleAnim", PhotonTargets.Others, curRandomAnim, true);
-		curRandomAnim = animIndex;
 		isIdleAnimating = true;
 	}
 
