@@ -96,8 +96,7 @@ public class PlayerChat : MonoBehaviour
 			mIgnoreUp = true;
 
 		if (textList != null)
-		{	
-
+		{
 			// It's a good idea to strip out all symbols as we don't want user input to alter colors, add new lines, etc
 			string text = NGUIText.StripSymbols(mInput.value);
 			bool isCommand = false;
@@ -261,14 +260,14 @@ public class PlayerChat : MonoBehaviour
 	[RPC]
 	public void receiveMessage(string s){
 		foreach(GameObject p in GameObject.FindGameObjectsWithTag((string)PhotonNetwork.player.customProperties["Team"])){
-			p.GetComponentInChildren<PlayerChat>().textList.Add(s);
+			p.GetComponent<BasePlayer>().receiveMessage(s);
 		}
 	}
 
 	[RPC]
 	public void receivePrivateMessage(string s, string sender){
 		foreach(GameObject p in GameObject.FindGameObjectsWithTag((string)PhotonNetwork.player.customProperties["Team"])){
-			p.GetComponentInChildren<PlayerChat>().textList.Add(s);
+			p.GetComponent<BasePlayer>().receiveMessage(s);
 			p.GetComponentInChildren<PlayerChat>().lastMessagedPlayer = sender;
 		}
 	}

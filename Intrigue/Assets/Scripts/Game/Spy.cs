@@ -195,20 +195,6 @@ public class Spy : BasePlayer{
 		}
 	}
 
-	void toggleChatOff(){
-		if(chatArea!=null){
-			chatArea.GetComponentInChildren<UILabel>().alpha = 0;
-			chatArea.GetComponentInChildren<UISprite>().alpha = 0;
-		}
-	}
-
-	void toggleChatOn(){
-		if(chatArea!=null){
-			chatArea.GetComponentInChildren<UILabel>().alpha = 1;
-			chatArea.GetComponentInChildren<UISprite>().alpha = 1;
-		}
-	}
-
 	void objAnimations(){
 		if(doingObjective){
 			if(objectiveType=="Safe"){
@@ -262,14 +248,6 @@ public class Spy : BasePlayer{
 	void createTeleport(){
 		GameObject teleportInstance = Instantiate(teleportPrefab, transform.position, Quaternion.identity) as GameObject;
 		teleportInstance.transform.parent = gameObject.transform;
-	}
-	
-	[RPC]
-	public void receiveMessage(string s){
-		toggleChatOn();
-		textList.Add(s);
-		CancelInvoke("toggleChatOff");
-		Invoke("toggleChatOff", 5);
 	}
 
 	[RPC]

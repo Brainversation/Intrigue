@@ -255,14 +255,12 @@ public class BasePlayer : MonoBehaviour {
 
 		//Adding toggle to chat with Z and making chat visible
 		/*------------------------------------------------------*/
-		if(Input.GetKeyUp(KeyCode.Z) && chatArea!= null && (photonView.isMine || isSpectated)){
+		if(Input.GetKeyUp(KeyCode.Z) && chatArea!= null){
 			if(chatArea.GetComponentInChildren<UILabel>().alpha == 1){
-				chatArea.GetComponentInChildren<UILabel>().alpha = 0;
-				chatArea.GetComponentInChildren<UISprite>().alpha = 0;
+				toggleChatOff();
 			}
 			else{
-				chatArea.GetComponentInChildren<UILabel>().alpha = 1;
-				chatArea.GetComponentInChildren<UISprite>().alpha = 1;
+				toggleChatOn();
 			}
 		}
 
@@ -396,7 +394,6 @@ public class BasePlayer : MonoBehaviour {
 	}
 
 	private void switchSpectate(){
-
 		BasePlayer.spectators = GameObject.FindGameObjectsWithTag(player.Team);
 		BasePlayer.spectatingIndex = BasePlayer.spectatingIndex %
 												BasePlayer.spectators.Length;
@@ -483,6 +480,27 @@ public class BasePlayer : MonoBehaviour {
 
 	public void flipIsSpectated(){
 		this.isSpectated = true;
+	}
+
+	protected void toggleChatOff(){
+		if(chatArea!=null && (photonView.isMine || isSpectated)){
+			chatArea.GetComponentInChildren<UILabel>().alpha = 0;
+			chatArea.GetComponentInChildren<UISprite>().alpha = 0;
+		}
+	}
+
+	protected void toggleChatOn(){
+		if(chatArea!=null && (photonView.isMine || isSpectated)){
+			chatArea.GetComponentInChildren<UILabel>().alpha = 1;
+			chatArea.GetComponentInChildren<UISprite>().alpha = 1;
+		}
+	}
+
+	public void receiveMessage(string s){
+		toggleChatOn();
+		textList.Add(s);
+		CancelInvoke("toggleChatOff");
+		Invoke("toggleChatOff", 5);
 	}
 
 }
