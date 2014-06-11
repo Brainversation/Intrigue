@@ -20,36 +20,31 @@ public class ClothesChanger : MonoBehaviour {
 
 	public modelType mType;
 	public GameObject[] objectsToChange;
-	private List<Color> colors = new List<Color>();
-	private Material[] mats;
 	public enum modelType{
 		Blue, Red, Yellow, Puce,
 	}
 
+	private PhotonView photonView;
+	private List<Color> colors = new List<Color>();
+	private Material[] mats;
+
 	// Use this for initialization
 	void Start () {
-		AddColors();
-		
-		if(mType == modelType.Blue){
-			mats = gameObject.renderer.materials;
-			Color newColor = colors[Random.Range(0,colors.Count)];
-			int i = 0;
-			foreach(Material mat in mats){
-				if(i>=5){
-					if(i == 6)
-						mat.SetColor("_Color",colors[Random.Range(0,colors.Count)]);
-					else
-						mat.SetColor("_Color", newColor);
-				}
-				++i;
-			}
-		}
-		if(mType == modelType.Yellow){
-			Color newColor = colors[Random.Range(0,colors.Count)];
-			foreach(GameObject obj in objectsToChange){
-				foreach(Material mat in obj.renderer.materials){
-					mat.SetColor("_Color", newColor);
-				}
+		photonView = PhotonView.Get(this);
+		if(photonView.isMine){
+			AddColors();
+			switch(mType){
+				case modelType.Blue:
+					Color newColor1 = colors[Random.Range(0,colors.Count)];
+					Color newColor2 = colors[Random.Range(0,colors.Count)];
+
+					photonView.RPC("colorBlue", PhotonTargets.All, colorToVector3(newColor1), colorToVector3(newColor2));
+					break;
+
+				case modelType.Yellow:
+					Color newColor = colors[Random.Range(0,colors.Count)];
+					photonView.RPC("colorYellow", PhotonTargets.All, colorToVector3(newColor));
+					break;
 			}
 		}
 	}
@@ -86,5 +81,40 @@ public class ClothesChanger : MonoBehaviour {
 
 		//Light Red
 		colors.Add(new Color(159f/255f, 87f/255f, 88f/255f));
+	}
+
+	private Vector3 colorToVector3(Color c){
+		return new Vector3(c.r, c.g, c.b);
+	}
+
+	private Color vector3ToColor(Vector3 v){
+		return new Color(v.x, v.y, v.z, 1);
+	}
+
+	[RPC]
+	void colorBlue(Vector3 c1, Vector3 c2){
+		Color newColor1 = vector3ToColor(c1);
+		Color newColor2 = vector3ToColor(c2);
+		mats = gameObject.renderer.materials;
+		int i = 0;
+		foreach(Material mat in mats){
+			if(i>=5){
+				if(i == 6)
+					mat.SetColor("_Color", newColor1);
+				else
+					mat.SetColor("_Color", newColor2);
+			}
+			++i;
+		}
+	}
+
+	[RPC]
+	void colorYellow(Vector3 c){
+		Color newColor = vector3ToColor(c);
+		foreach(GameObject obj in objectsToChange){
+			foreach(Material mat in obj.renderer.materials){
+				mat.SetColor("_Color", newColor);
+			}
+		}
 	}
 }
