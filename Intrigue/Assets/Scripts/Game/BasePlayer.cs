@@ -483,14 +483,14 @@ public class BasePlayer : MonoBehaviour {
 	}
 
 	protected void toggleChatOff(){
-		if(chatArea!=null){
+		if(chatArea!=null && (photonView.isMine || isSpectated)){
 			chatArea.GetComponentInChildren<UILabel>().alpha = 0;
 			chatArea.GetComponentInChildren<UISprite>().alpha = 0;
 		}
 	}
 
 	protected void toggleChatOn(){
-		if(chatArea!=null){
+		if(chatArea!=null && (photonView.isMine || isSpectated)){
 			chatArea.GetComponentInChildren<UILabel>().alpha = 1;
 			chatArea.GetComponentInChildren<UISprite>().alpha = 1;
 		}
