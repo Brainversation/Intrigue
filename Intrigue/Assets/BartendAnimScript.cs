@@ -20,7 +20,7 @@ public class BartendAnimScript : MonoBehaviour {
 	IEnumerator StartPointing(float time){
 		yield return new WaitForSeconds(time);
 		anim.SetBool("Pointing", true);
-		StartCoroutine(EndPointing(anim.GetCurrentAnimatorStateInfo(0).length));
+		StartCoroutine(EndPointing(2f));
 	}
 
 	IEnumerator EndPointing(float time){
