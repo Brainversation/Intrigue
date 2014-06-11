@@ -30,7 +30,7 @@ public class ClothesChanger : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		photonView = PhotonView.Get(this);
+		photonView = GetComponent<PhotonView>();
 		if(photonView.isMine){
 			AddColors();
 			switch(mType){
@@ -95,16 +95,17 @@ public class ClothesChanger : MonoBehaviour {
 	void colorBlue(Vector3 c1, Vector3 c2){
 		Color newColor1 = vector3ToColor(c1);
 		Color newColor2 = vector3ToColor(c2);
-		mats = gameObject.renderer.materials;
 		int i = 0;
-		foreach(Material mat in mats){
-			if(i>=5){
-				if(i == 6)
-					mat.SetColor("_Color", newColor1);
-				else
-					mat.SetColor("_Color", newColor2);
+		foreach(GameObject obj in objectsToChange){
+			foreach(Material mat in obj.renderer.materials){
+				if(i>=5){
+					if(i == 6)
+						mat.SetColor("_Color", newColor1);
+					else
+						mat.SetColor("_Color", newColor2);
+				}
+				++i;
 			}
-			++i;
 		}
 	}
 

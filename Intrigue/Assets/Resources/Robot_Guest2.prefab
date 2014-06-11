@@ -54,7 +54,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 400006}
   - 137: {fileID: 13700000}
-  - 114: {fileID: 11400004}
   m_Layer: 0
   m_Name: polySurface1
   m_TagString: highLight
@@ -905,6 +904,7 @@ GameObject:
   - 82: {fileID: 8200000}
   - 82: {fileID: 8200002}
   - 136: {fileID: 13600000}
+  - 114: {fileID: 11400004}
   m_Layer: 9
   m_Name: Robot_Guest2
   m_TagString: Guest
@@ -1841,8 +1841,6 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   room: {fileID: 0}
   status: 0
-  isYourTurn: 0
-  stunned: 0
   recentlyStunned: 0
   distFromDest: 5
   convoTime: 5
@@ -1862,19 +1860,24 @@ MonoBehaviour:
   smoker: 0
   hasDrink: 0
   inConvo: 0
+  isYourTurn: 0
+  inQueue: 0
+  stunned: 0
+  AIID: 0
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
+  m_GameObject: {fileID: 100120}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22778288e7cbd6a448d1143c9d49d06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mType: 0
-  objectsToChange: []
+  objectsToChange:
+  - {fileID: 100006}
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1
