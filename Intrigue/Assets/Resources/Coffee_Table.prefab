@@ -43,7 +43,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: f40ccd6548ad48a4093258ead3ee528f, type: 2}
+  - {fileID: 2100000, guid: f08be8c2fc17e6447bf30a60de4d54da, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -99,6 +99,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   completionTime: 20
   id: 0
+  inUse: 0
+  isActive: 0
+  textAdded: 0
+  objectiveType: 
+  tumbler: {fileID: 0}
+  door: {fileID: 0}
+  pointPop: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
