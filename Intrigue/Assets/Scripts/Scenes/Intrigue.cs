@@ -73,7 +73,6 @@ public class Intrigue : MonoBehaviour {
 		player = Player.Instance;
 		totalGuests = player.Guests;
 		objArray = GameObject.FindGameObjectsWithTag("Objective");
-		Camera.main.aspect = (16f/9f);
 
 		//Master Client Stuff
 		if(PhotonNetwork.isMasterClient){
@@ -116,7 +115,7 @@ public class Intrigue : MonoBehaviour {
 	}
 
 	void Update () {
-		if(Camera.main.aspect != (16f/9f)){
+		if(Camera.main!=null && Camera.main.aspect != (16f/9f)){
 			Camera.main.aspect = (16f/9f);
 		}
 		if(!gameStart) return;
