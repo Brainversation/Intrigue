@@ -92,6 +92,7 @@ public class BasePlayer : MonoBehaviour {
 
 	protected virtual void Start (){
 		// Set conversationGUI so spy and guard can use
+		Intrigue.gameOverFlag = false;
 		conversationGUI.alpha = 0;
 		inConvoGUI.alpha = 0;
 		NGUITools.SetActive(leaveMatchPanel, false);
