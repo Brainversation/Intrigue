@@ -18,6 +18,7 @@ using System.Collections;
 public class Credits : MonoBehaviour {
 	
 	void Awake(){
+		Camera.main.aspect = (16f/9f);
 		GameObject menuMusic = GameObject.Find("MenuMusic");
 		if(menuMusic){
 			Destroy(menuMusic);

@@ -56,6 +56,7 @@ public class MainMenu : MonoBehaviour {
 		findServerButton = GameObject.Find("FIND SERVER");
 		optionsButtons = GameObject.Find("OptionsButtons");
 		Screen.lockCursor = false;
+		Camera.main.aspect = (16f/9f);
 		player = Player.Instance;
 		if(PhotonNetwork.connectionStateDetailed != PeerState.JoinedLobby)
 			connect();
@@ -232,8 +233,6 @@ public class MainMenu : MonoBehaviour {
 		onFindServerClicked();
 	}
 
-	void onCreateServerClicked(){
-	}
 
 	void onOptionsClicked(){
 		if(PlayerPrefs.GetString(playerPrefsPrefix + "Name") != string.Empty)

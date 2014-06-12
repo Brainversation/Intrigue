@@ -48,7 +48,7 @@ public class Pregame : MonoBehaviour {
 	void Start(){
 		this.photonView = PhotonView.Get(this);
 		player = Player.Instance;
-
+		Camera.main.aspect = (16f/9f);
 		checkHandle();
 
 		//Sets Chat Max Line Count

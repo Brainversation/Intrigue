@@ -40,7 +40,7 @@ public class Settings : MonoBehaviour {
 
 	// Use this for initialization
 	public static void Start () {
-
+		Camera.main.aspect = (16f/9f);
 		//Player Prefs
 		if (Application.isEditor)
 			playerPrefsPrefix = "PlayerEditor";

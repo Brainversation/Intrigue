@@ -38,6 +38,7 @@ public class PostGame : MonoBehaviour {
 	// Use this for initialization 
 	void Start(){
 		Screen.lockCursor = false;
+		Camera.main.aspect = (16f/9f);
 		//Sets Chat Max Line Count
 		mInput.label.maxLineCount = 1;
 		player = Player.Instance;
