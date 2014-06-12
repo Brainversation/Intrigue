@@ -378,6 +378,10 @@ static public class NGUIText
 			return false;
 		}
 
+		if(!(index+3>=length) && text[index+3] == ']' && text[index+1] != '/' && text[index+1] != '-'){
+			return false;
+		}
+
 		if (text[index + 2] == ']')
 		{
 			if (text[index + 1] == '-')
