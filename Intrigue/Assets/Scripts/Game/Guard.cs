@@ -236,7 +236,7 @@ public class Guard : BasePlayer{
 		--Intrigue.numSpiesLeft;
 	}
 
-	void guardFailedPoop(){
+	void guardFailed(){
 		Debug.Log("fail");
 	    --Intrigue.numGuardsLeft;
 	}
@@ -285,7 +285,7 @@ public class Guard : BasePlayer{
 	[RPC]
 	void invokeGuardFailed(){
 		Debug.Log("invoke");
-		Invoke("guardFailedPoop", 5);
+		guardFailed();
 	}
 
 
