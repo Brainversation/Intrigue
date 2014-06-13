@@ -277,12 +277,12 @@ public class Guard : BasePlayer{
 
 	[RPC]
 	void invokeSpyCaught(){
-		Invoke("spyCaught",5);
+		Invoke("spyCaught",4);
 	}
 
 	[RPC]
 	void invokeGuardFailed(){
-		Invoke("guardFailed", 5);
+		Invoke("guardFailed", 4);
 	}
 
 

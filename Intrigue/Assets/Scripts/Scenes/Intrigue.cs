@@ -167,10 +167,6 @@ public class Intrigue : MonoBehaviour {
 		}
 	}
 
-	void OnGUI(){
-		GUILayout.Label(numSpiesLeft + " " + numGuardsLeft);
-	}
-
 	void joinGame(){
 		if( (string)PhotonNetwork.player.customProperties["Team"] == "Guard")
 			spawnGuard();
