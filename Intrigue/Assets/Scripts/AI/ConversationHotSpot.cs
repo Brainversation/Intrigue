@@ -139,7 +139,7 @@ public class ConversationHotSpot : MonoBehaviour {
 		}
 	}
 
-	void failSafe(){
+	public void failSafe(){
 		canDestroy = true;
 	}
 

@@ -299,7 +299,7 @@ public class MainMenu : MonoBehaviour {
 		}
 	}
 
-	void disableBanPanel(){
+	public void disableBanPanel(){
 		banPanel.alpha = 0;
 	}
 
@@ -350,7 +350,7 @@ public class MainMenu : MonoBehaviour {
 		Invoke("deactiveErrorMessages", 5);
 	}
 
-	void deactiveErrorMessages(){
+	public void deactiveErrorMessages(){
 		NGUITools.SetActive(createRoomFailed, false);
 		NGUITools.SetActive(quickMatchFailed, false);
 	}

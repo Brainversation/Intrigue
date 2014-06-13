@@ -160,7 +160,7 @@ public class BasePlayer : MonoBehaviour {
 		return go;
 	}
 
-	void setTeam(){
+	public void setTeam(){
 		PhotonNetwork.player.SetCustomProperties(new Hashtable{{"Team", player.Team}});
 	}
 
@@ -346,7 +346,7 @@ public class BasePlayer : MonoBehaviour {
 		}
 	}
 
-	void syncPing(){
+	public void syncPing(){
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ping", PhotonNetwork.GetPing()}});
 	}
 
@@ -391,11 +391,11 @@ public class BasePlayer : MonoBehaviour {
 		Invoke("startTeleport", 4);
 	}
 
-	void startTeleport(){
+	public void startTeleport(){
 		photonView.RPC("createTeleport", PhotonTargets.All);
 	}
 
-	void spectate(){
+	public void spectate(){
 		if(!Intrigue.gameOverFlag && photonView.isMine){
 			BasePlayer.isSpectating = true;
 			switchSpectate();
@@ -492,14 +492,14 @@ public class BasePlayer : MonoBehaviour {
 		this.isSpectated = true;
 	}
 
-	protected void toggleChatOff(){
+	public void toggleChatOff(){
 		if(chatArea!=null && (photonView.isMine || isSpectated)){
 			chatArea.GetComponentInChildren<UILabel>().alpha = 0;
 			chatArea.GetComponentInChildren<UISprite>().alpha = 0;
 		}
 	}
 
-	protected void toggleChatOn(){
+	public void toggleChatOn(){
 		if(chatArea!=null && (photonView.isMine || isSpectated)){
 			chatArea.GetComponentInChildren<UILabel>().alpha = 1;
 			chatArea.GetComponentInChildren<UISprite>().alpha = 1;

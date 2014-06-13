@@ -129,12 +129,12 @@ public class LoadingScreenV2 : MonoBehaviour {
 		intrigue.GetComponent<PhotonView>().RPC("sendGameStart", PhotonTargets.AllBuffered);
 	}
 
-	void beepLow(){
+	public void beepLow(){
 		audio.pitch = 0.5f;
 		audio.Play();
 	}
 
-	void beepHigh(){
+	public void beepHigh(){
 		audio.pitch = 0.65f;
 		audio.Play();
 	}
@@ -225,7 +225,7 @@ public class LoadingScreenV2 : MonoBehaviour {
 
 	}
 
-	void EndGame(){
+	public void EndGame(){
 		PhotonNetwork.LoadLevel("PostGame");
 	}
 

@@ -196,7 +196,7 @@ public class Pregame : MonoBehaviour {
 		
 	}
 
-	void syncPing(){
+	public void syncPing(){
 		PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"Ping", PhotonNetwork.GetPing()}});
 		reloadScoreboard();
 	}

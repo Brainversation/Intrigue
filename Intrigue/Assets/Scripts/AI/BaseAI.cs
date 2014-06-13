@@ -304,7 +304,7 @@ public class BaseAI : Photon.MonoBehaviour {
 			currentRule.antiConsequence(gameObject);
 	}
 
-	void finishStun(){
+	public void finishStun(){
 		stunInstantiated = false;
 		stunned = false;
 		recentlyStunned = true;
@@ -314,7 +314,7 @@ public class BaseAI : Photon.MonoBehaviour {
 		}
 	}
 
-	void resetRecentlyStunned(){
+	public void resetRecentlyStunned(){
 		recentlyStunned = false;
 	}
 

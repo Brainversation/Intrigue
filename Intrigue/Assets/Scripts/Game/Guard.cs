@@ -140,15 +140,15 @@ public class Guard : BasePlayer{
 		}
 	}
 
-	void resetRecentlyPlayed1(){
+	public void resetRecentlyPlayed1(){
 		recentlyPlayed1 = false;
 	}
 
-	void resetRecentlyPlayed2(){
+	public void resetRecentlyPlayed2(){
 		recentlyPlayed2 = false;
 	}
 
-	void resetRecentlyPlayed3(){
+	public void resetRecentlyPlayed3(){
 		recentlyPlayed3 = false;
 	}
 
@@ -196,7 +196,6 @@ public class Guard : BasePlayer{
 			base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + bp.localHandle + "[-][FFCC00]![-]");
 			accused = null;
 		}else{
-			Debug.Log("test");
 			photonView.RPC("invokeGuardFailed", PhotonTargets.MasterClient );
 			isOut = true;
 			stunCooldown();
@@ -207,11 +206,11 @@ public class Guard : BasePlayer{
 		}
 	}
 
-	void removeSpyCaughtLabel(){
+	public void removeSpyCaughtLabel(){
 		spyCaughtLabel.SetActive(false);
 	}
 
-	void stunCooldown(){
+	public void stunCooldown(){
 		GetComponent<NetworkCharacter>().isStunned = stunned = false;
 		recentlyStunned = true;
 		Invoke("resetRecentlyStunned", 5);
@@ -228,16 +227,15 @@ public class Guard : BasePlayer{
 		GetComponent<MouseLook>().enabled = true;
 	}
 
-	void resetRecentlyStunned(){
+	public void resetRecentlyStunned(){
 		recentlyStunned = false;
 	}
 
-	void spyCaught(){
+	public void spyCaught(){
 		--Intrigue.numSpiesLeft;
 	}
 
 	public void guardFailed(){
-		Debug.Log("fail");
 	    --Intrigue.numGuardsLeft;
 	}
 	
@@ -284,7 +282,6 @@ public class Guard : BasePlayer{
 
 	[RPC]
 	void invokeGuardFailed(){
-		Debug.Log("invoke");
 		Invoke("guardFailed", 5);
 	}
 

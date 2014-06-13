@@ -132,7 +132,7 @@ public class Scoreboard : MonoBehaviour {
 
 	}
 
-	void reloadScoreboard(){
+	public void reloadScoreboard(){
 		for(int x = guardTable.transform.childCount; x >0; --x){
 			NGUITools.Destroy(guardTable.transform.GetChild(x-1).gameObject);
 		}

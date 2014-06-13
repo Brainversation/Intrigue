@@ -225,7 +225,7 @@ public class SettingsManager : MonoBehaviour {
 		updateKeyBindings();
 	}
 
-	void hidePanel(){
+	public void hidePanel(){
 		RebindPanel.GetComponent<UIPanel>().alpha = 0;
 		updateKeyBindings();
 	}
