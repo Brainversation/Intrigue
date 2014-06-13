@@ -69,7 +69,7 @@ public class DoorAnim : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		if(other.gameObject.CompareTag("Spy")||other.gameObject.CompareTag("Guard")||other.gameObject.CompareTag("Guest"))
+		if(other.gameObject.layer == BasePlayer.SPY || other.gameObject.layer == BasePlayer.GUARD || other.gameObject.layer == BasePlayer.GUEST )
 		{
 			if(!peopleInside.Contains(other.gameObject)){
 				++curInside;
@@ -88,7 +88,7 @@ public class DoorAnim : MonoBehaviour
 	
 	void OnTriggerExit(Collider other)
 	{
-		if(other.gameObject.CompareTag("Spy")||other.gameObject.CompareTag("Guard")||other.gameObject.CompareTag("Guest"))
+		if(other.gameObject.layer == BasePlayer.SPY ||other.gameObject.layer == BasePlayer.GUARD ||other.gameObject.layer == BasePlayer.GUEST )
 		{
 			if(peopleInside.Contains(other.gameObject)){
 				peopleInside.Remove(other.gameObject);

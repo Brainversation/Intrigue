@@ -163,16 +163,16 @@ public class Guard : BasePlayer{
 			}
 		} else if(hit.transform != null ){
 			if( Input.GetKeyUp(Settings.Interact) && !isChatting){
-				if(hit.transform.gameObject.layer == BasePlayer.SPY && !(hit.transform.gameObject.GetComponent<BasePlayer>().isOut)||
+				if( (hit.transform.gameObject.layer == BasePlayer.SPY && !hit.transform.gameObject.GetComponent<BasePlayer>().isOut)||
 					(hit.transform.gameObject.layer == BasePlayer.GUEST)){
 					accusing = true;
 					accused = hit.transform.gameObject;
 				}
 
 			} else if( Input.GetKeyUp(Settings.Mark) ){
-				if(hit.transform.gameObject.CompareTag("Guest")){
+				if(hit.transform.gameObject.layer == BasePlayer.GUEST){
 					photonView.RPC("markGuest", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().viewID);
-				} else if (hit.transform.gameObject.CompareTag("Spy")){
+				} else if (hit.transform.gameObject.layer == BasePlayer.SPY){
 					photonView.RPC("markSpy", PhotonTargets.AllBuffered, hit.transform.gameObject.GetComponent<PhotonView>().viewID);
 				}
 			} 
@@ -183,7 +183,7 @@ public class Guard : BasePlayer{
 
 
 	void testAccusation(){
-		if(accused != null && accused.CompareTag("Spy") && !accused.GetComponent<BasePlayer>().isOut){
+		if(accused != null && accused.layer == BasePlayer.SPY && !accused.GetComponent<BasePlayer>().isOut){
 			photonView.RPC("addPlayerScore", PhotonTargets.AllBuffered, player.TeamID, 100);
 			pointPop.GetComponent<TextMesh>().text = "+100";
 			Instantiate(pointPop, accused.transform.position + (Vector3.up * accused.GetComponent<Collider>().bounds.size.y), accused.transform.rotation);
@@ -198,6 +198,7 @@ public class Guard : BasePlayer{
 		}else{
 			photonView.RPC("invokeGuardFailed", PhotonTargets.MasterClient );
 			isOut = true;
+			stunCooldown();
 			PhotonNetwork.player.SetCustomProperties(new Hashtable(){{"isOut", true}});
 			gameObject.GetComponent<NetworkCharacter>().isOut = true;
 			accused = null;
@@ -269,7 +270,7 @@ public class Guard : BasePlayer{
 			currentStunEffect.transform.parent = transform;
 			currentStunEffect.transform.localPosition = new Vector3(0, 13.25f, 0);
 		}
-		else{
+		else if (currentStunEffect != null){
 			Destroy(currentStunEffect);
 		}
 	}

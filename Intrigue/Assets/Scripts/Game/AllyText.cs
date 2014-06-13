@@ -31,7 +31,7 @@ public class AllyText : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(!gameObject.transform.parent.gameObject.CompareTag("Objective")){
+		if(gameObject.transform.parent.gameObject.layer != Objective.OBJECTIVE){
 			thisTransform.position = target.position + offset;
 			if(Camera.main!=null && thisTransform!=null){
 				thisTransform.LookAt(Camera.main.transform, Vector3.up);

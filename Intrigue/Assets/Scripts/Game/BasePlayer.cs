@@ -387,7 +387,7 @@ public class BasePlayer : MonoBehaviour {
 	}
 
 	void spectate(){
-		if(!Intrigue.gameOverFlag){
+		if(!Intrigue.gameOverFlag && photonView.isMine){
 			BasePlayer.isSpectating = true;
 			switchSpectate();
 			PhotonNetwork.Destroy(gameObject);
