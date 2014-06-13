@@ -126,9 +126,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 		moveDirection = transform.TransformDirection(moveDirection);
 		// For gravity
 		if(gravityToggle)
-				public Invoke("StartRegen", 3);
-			}
-			anim.SetBool("Run", false);
 			moveDirection.y -= GRAVITY * Time.deltaTime;
 		else if(Input.GetKey(KeyCode.E))
 			moveDirection.y = 8f * camSpeedMult;
@@ -167,6 +164,9 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			speedMult = 1;
 			camSpeedMult = 1;
 			if(!canRegen){
+				Invoke("StartRegen", 3);
+			}
+			anim.SetBool("Run", false);
 			if(stamina<100 && canRegen)
 				stamina+=staminaRegenSpeed*Time.deltaTime;
 			if(stamina>100)
@@ -183,7 +183,7 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			}
 		}
 	}
-	
+
 	public void StartRegen(){
 		canRegen = true;
 	}
@@ -224,5 +224,4 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 	void toggleOtherAnims(string animName, bool status){
 		anim.SetBool(animName, status);
 	}
-
 }
