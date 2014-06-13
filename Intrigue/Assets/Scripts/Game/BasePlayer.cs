@@ -292,7 +292,6 @@ public class BasePlayer : MonoBehaviour {
 		if(Input.GetKeyUp(KeyCode.Mouse0) && !menuFlag){
 			Screen.lockCursor = true;
 		}
-		
 	}
 
 	public void LeaveMatchPressed(){
@@ -506,6 +505,7 @@ public class BasePlayer : MonoBehaviour {
 		}
 	}
 
+	[RPC]
 	public void receiveMessage(string s){
 		toggleChatOn();
 		textList.Add(s);
