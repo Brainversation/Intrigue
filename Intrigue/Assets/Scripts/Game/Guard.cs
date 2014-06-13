@@ -196,6 +196,7 @@ public class Guard : BasePlayer{
 			base.newEvent("[FF2B2B]"+player.Handle+"[-] [FFCC00]has caught [-][00CCFF]" + bp.localHandle + "[-][FFCC00]![-]");
 			accused = null;
 		}else{
+			Debug.Log("test");
 			photonView.RPC("invokeGuardFailed", PhotonTargets.MasterClient );
 			isOut = true;
 			stunCooldown();
@@ -235,7 +236,8 @@ public class Guard : BasePlayer{
 		--Intrigue.numSpiesLeft;
 	}
 
-	void guardFailed(){
+	void guardFailedPoop(){
+		Debug.Log("fail");
 	    --Intrigue.numGuardsLeft;
 	}
 	
@@ -282,7 +284,8 @@ public class Guard : BasePlayer{
 
 	[RPC]
 	void invokeGuardFailed(){
-		Invoke("guardFailed", 5);
+		Debug.Log("invoke");
+		Invoke("guardFailedPoop", 5);
 	}
 
 
