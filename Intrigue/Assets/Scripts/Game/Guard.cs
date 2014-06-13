@@ -238,8 +238,10 @@ public class Guard : BasePlayer{
 
 	IEnumerator guardFailed(){
 		Debug.Log("fail");
-		yield return new WaitForSeconds(5);
+		yield return new WaitForSeconds(5f);
+		Debug.Log("fail2");
 	    --Intrigue.numGuardsLeft;
+		yield return null;
 	}
 	
 	[RPC]

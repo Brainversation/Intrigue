@@ -353,6 +353,7 @@ public class BasePlayer : MonoBehaviour {
 	public void newEvent(string eventMessage){
 		BasePlayer bp;
 		foreach(GameObject playerInstance in allPlayers){
+			if(playerInstance == null) continue;
 			bp = playerInstance.GetComponent<BasePlayer>();
 			bp.photonView.RPC("receiveMessage", bp.photonView.owner, eventMessage);
 		}
