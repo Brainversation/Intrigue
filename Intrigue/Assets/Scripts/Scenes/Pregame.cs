@@ -135,7 +135,7 @@ public class Pregame : MonoBehaviour {
 					
 				break;
 
-			case "/gameover":
+			case "/go":
 					if(targetTest == "true" || targetTest == "True"){
 						Intrigue.wantGameOver = true;
 						mInput.value = "";

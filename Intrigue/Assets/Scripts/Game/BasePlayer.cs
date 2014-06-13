@@ -87,7 +87,7 @@ public class BasePlayer : MonoBehaviour {
 	private GameObject[] servers;
 	private List<GameObject> allPlayers = new List<GameObject>();
 	private Camera cam;
-	private static bool menuFlag = false;
+	private bool menuFlag = false;
 	private bool areYouSure = false;
 
 	protected virtual void Start (){
@@ -270,17 +270,26 @@ public class BasePlayer : MonoBehaviour {
 		}
 
 		if(Input.GetKeyDown(KeyCode.Escape)){
-			areYouSure = false;
-			leaveMatchButton.GetComponent<UILabel>().text = "Leave Match";
-			leaveMatchWarning.GetComponent<UILabel>().alpha = 0;
-			Screen.lockCursor = !Screen.lockCursor;
-			BasePlayer.menuFlag = !BasePlayer.menuFlag;
-			NGUITools.SetActive(leaveMatchPanel, BasePlayer.menuFlag);
-			cam.GetComponentInChildren<MouseLook>().enabled = !menuFlag;
-			GetComponentInChildren<Crosshair>().enabled = !menuFlag;
-			GetComponent<MouseLook>().enabled = !menuFlag;
+			if(menuFlag){
+				menuFlag = false;
+				Screen.lockCursor = true;
+				cam.GetComponentInChildren<MouseLook>().enabled = true;
+				GetComponentInChildren<Crosshair>().enabled = true;
+				GetComponent<MouseLook>().enabled = true;
+				NGUITools.SetActive(leaveMatchPanel, false);
+			} else {
+				areYouSure = false;
+				menuFlag = true;
+				leaveMatchButton.GetComponent<UILabel>().text = "Leave Match";
+				leaveMatchWarning.GetComponent<UILabel>().alpha = 0;
+				Screen.lockCursor = false;
+				cam.GetComponentInChildren<MouseLook>().enabled = false;
+				GetComponentInChildren<Crosshair>().enabled = false;
+				GetComponent<MouseLook>().enabled = false;
+				NGUITools.SetActive(leaveMatchPanel, true);
+			}
 		}
-		if(Input.GetKeyUp(KeyCode.Mouse0) && !BasePlayer.menuFlag){
+		if(Input.GetKeyUp(KeyCode.Mouse0) && !menuFlag){
 			Screen.lockCursor = true;
 		}
 		

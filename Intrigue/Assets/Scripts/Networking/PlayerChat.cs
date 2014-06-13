@@ -120,7 +120,7 @@ public class PlayerChat : MonoBehaviour
 		string commandTest = message.Substring(0, message.IndexOf(" "));
 		string targetTest = message.Substring(message.IndexOf(" ") + 1);
 		switch(commandTest){
-			case "/gameover":
+			case "/go":
 				if(debugMode){
 					if(targetTest == "true" || targetTest == "True"){
 						Intrigue.wantGameOver = true;
