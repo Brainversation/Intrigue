@@ -236,8 +236,9 @@ public class Guard : BasePlayer{
 		--Intrigue.numSpiesLeft;
 	}
 
-	void guardFailed(){
+	IEnumerator guardFailed(){
 		Debug.Log("fail");
+		yield return new WaitForSeconds(5);
 	    --Intrigue.numGuardsLeft;
 	}
 	
@@ -285,7 +286,7 @@ public class Guard : BasePlayer{
 	[RPC]
 	void invokeGuardFailed(){
 		Debug.Log("invoke");
-		guardFailed();
+		StartCoroutine(guardFailed());
 	}
 
 
