@@ -322,7 +322,9 @@ public class MainMenu : MonoBehaviour {
 		roomOp.maxPlayers = 10;
 		PhotonNetwork.CreateRoom(player.Handle + "'s Quick Match", roomOp, null);
 		player.RoomName = player.Handle + "'s Quick Match";
-		NGUITools.SetActive(quickMatchFailed, true);
+		if(!createRoomFailed.active){
+			NGUITools.SetActive(quickMatchFailed, true);
+		}
 		CancelInvoke();
 		Invoke("deactiveErrorMessages", 5);
 	}
@@ -339,12 +341,14 @@ public class MainMenu : MonoBehaviour {
 	}
 
 	void OnPhotonJoinFailed(){
+		NGUITools.SetActive(quickMatchFailed, false);
 		NGUITools.SetActive(createRoomFailed, true);
 		CancelInvoke();
 		Invoke("deactiveErrorMessages", 5);
 	}
 
 	void OnPhotonCreateRoomFailed(){
+		NGUITools.SetActive(quickMatchFailed, false);
 		NGUITools.SetActive(createRoomFailed, true);
 		CancelInvoke();
 		Invoke("deactiveErrorMessages", 5);
