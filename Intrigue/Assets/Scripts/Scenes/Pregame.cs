@@ -133,7 +133,7 @@ public class Pregame : MonoBehaviour {
 						return true;
 					}
 					
-				break;
+			break;
 
 			case "/go":
 					if(targetTest == "true" || targetTest == "True"){
@@ -148,7 +148,24 @@ public class Pregame : MonoBehaviour {
 						mInput.value = "";
 						return true;
 					}
-				break;
+			break;
+
+			case "/test":
+					if(targetTest == "true" || targetTest == "True"){
+						Pregame.isTesting = true;
+						Intrigue.wantGameOver = false;
+						mInput.value = "";
+						textList.Add("[FFCC00]Testing set to true[-]");
+						return true;
+					}
+					else if(targetTest == "false" || targetTest == "False"){
+						Pregame.isTesting = false;
+						Intrigue.wantGameOver = true;
+						textList.Add("[FFCC00]Testing set to false[-]");
+						mInput.value = "";
+						return true;
+					}
+			break;
 
 			case "/r":
 				if(lastMessagedPlayer!=""){
@@ -162,7 +179,7 @@ public class Pregame : MonoBehaviour {
 						}
 					}	
 				}
-				break;
+			break;
 
 			default:
 				foreach(PhotonPlayer p in PhotonNetwork.playerList){
@@ -174,7 +191,7 @@ public class Pregame : MonoBehaviour {
 						return true;
 					}
 				}
-				break;
+			break;
 
 		}
 

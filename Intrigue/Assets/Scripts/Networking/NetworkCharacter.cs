@@ -56,7 +56,6 @@ public class NetworkCharacter : Photon.MonoBehaviour {
 			staminaDrainSpeed = 15;
 			staminaRegenSpeed = 10;
 		}
-		strafeToggle = true;
 		anim.SetBool("StrafeToggle", strafeToggle);
 	}
 
